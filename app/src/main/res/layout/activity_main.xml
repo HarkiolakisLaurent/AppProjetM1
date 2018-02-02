@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
+    android:theme="@android:style/Theme"
     tools:context="ceri.m1ilsen.applicationprojetm1.ui.MainActivity">
 
 
@@ -27,6 +28,7 @@
                 android:layout_column="1"
                 android:layout_span="1"
                 android:ems="10"
+                android:fontFamily="monospace"
                 android:hint="Votre mail"
                 android:inputType="textEmailAddress"
                 android:textSize="24sp"
@@ -47,6 +49,7 @@
                 android:layout_height="60dp"
                 android:layout_column="1"
                 android:ems="10"
+                android:fontFamily="monospace"
                 android:hint="Votre mot de passe"
                 android:inputType="textPassword"
                 android:textSize="24sp"
@@ -66,6 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:layout_column="1"
+                android:fontFamily="monospace"
                 android:text="Créer un nouveau compte"
                 android:textSize="30sp"
                 tools:layout_editor_absoluteX="484dp"
@@ -86,6 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="39dp"
                 android:layout_column="1"
+                android:fontFamily="monospace"
                 android:text="Mot de passe oublié ?"
                 android:textColor="@android:color/holo_blue_light"
                 android:textSize="24sp"
@@ -106,6 +111,7 @@
                 android:layout_height="77dp"
                 android:layout_column="1"
                 android:background="@android:color/holo_blue_light"
+                android:fontFamily="monospace"
                 android:text="Se connecter"
                 android:textSize="24sp"
                 tools:layout_editor_absoluteX="475dp"
