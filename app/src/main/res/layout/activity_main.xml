@@ -4,16 +4,113 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ceri.m1ilsen.applicationprojetm1.MainActivity">
+    android:background="@android:color/background_light"
+    tools:context="ceri.m1ilsen.applicationprojetm1.ui.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
+
+        <TableRow
+            android:id="@+id/row1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:paddingVertical="12dp">
+
+            <EditText
+                android:id="@+id/mail"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_column="1"
+                android:layout_span="1"
+                android:ems="10"
+                android:hint="Votre mail"
+                android:inputType="textEmailAddress"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="406dp"
+                tools:layout_editor_absoluteY="218dp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:paddingVertical="12dp">
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_column="1"
+                android:ems="10"
+                android:hint="Votre mot de passe"
+                android:inputType="textPassword"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="406dp"
+                tools:layout_editor_absoluteY="218dp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:id="@+id/signup"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_column="1"
+                android:text="Créer un nouveau compte"
+                android:textSize="30sp"
+                tools:layout_editor_absoluteX="484dp"
+                tools:layout_editor_absoluteY="359dp"
+                tools:textColor="@android:color/holo_blue_light"
+                tools:textSize="24sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:id="@+id/forgotPassword"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_column="1"
+                android:text="Mot de passe oublié ?"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="485dp"
+                tools:layout_editor_absoluteY="426dp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:paddingVertical="12dp">
+
+            <Button
+                android:id="@+id/signin"
+                android:layout_width="match_parent"
+                android:layout_height="77dp"
+                android:layout_column="1"
+                android:background="@android:color/holo_blue_light"
+                android:text="Se connecter"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="475dp"
+                tools:layout_editor_absoluteY="516dp" />
+        </TableRow>
+    </TableLayout>
 
 </android.support.constraint.ConstraintLayout>
