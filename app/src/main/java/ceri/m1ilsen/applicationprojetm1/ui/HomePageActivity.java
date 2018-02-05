@@ -5,12 +5,11 @@ import android.os.Bundle;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 
-
-public class SignupActivity extends AppCompatActivity {
+public class HomePageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_home_page);
     }
 }
