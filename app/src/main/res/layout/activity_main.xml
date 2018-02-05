@@ -71,11 +71,10 @@
                 android:layout_column="1"
                 android:fontFamily="monospace"
                 android:text="Créer un nouveau compte"
-                android:textSize="30sp"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="24sp"
                 tools:layout_editor_absoluteX="484dp"
-                tools:layout_editor_absoluteY="359dp"
-                tools:textColor="@android:color/holo_blue_light"
-                tools:textSize="24sp" />
+                tools:layout_editor_absoluteY="359dp" />
         </TableRow>
 
         <TableRow
