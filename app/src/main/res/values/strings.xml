@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Application Projet M1</string>
+    <string-array name="genres">
+        <item>Homme</item>
+        <item>Femme</item>
+    </string-array>
+    <string-array name="langues">
+        <item>Français</item>
+        <item>Italien</item>
+        <item>Japonais</item>
+        <item>Amériquain</item>
+    </string-array>
 </resources>
