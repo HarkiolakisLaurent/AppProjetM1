@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(MainActivity.this, HomePageActivity.class);
+                Intent nextActivity = new Intent(MainActivity.this, PatientSheetActivity.class);
                 startActivity(nextActivity);
             }
         });

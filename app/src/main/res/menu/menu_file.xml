@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<item
+    android:id="@+id/action_home"
+    android:icon="@drawable/home"
+    android:title="@string/menuAcceuil"
+    app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_conf"
+        android:icon="@drawable/conf"
+        android:title="@string/menuConfig"
+        app:showAsAction="ifRoom" />
+
+
+</menu>

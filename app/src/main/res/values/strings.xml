@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Application Projet M1</string>
+    <string name="txtBienvenue">Bonjour NOM PRENOM,c\'est un plaisir de vous revoir!</string>
+    <string name="menuAcceuil">Acceuil</string>
+    <string name="menuConfig">Configuration</string>
     <string-array name="genres">
         <item>Homme</item>
         <item>Femme</item>
