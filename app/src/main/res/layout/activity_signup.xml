@@ -3,208 +3,256 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#707070">
 
-    <GridLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="55dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:layout_editor_absoluteY="16dp">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView6"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/textView6"
+            android:layout_marginTop="16dp"
+            android:fontFamily="casual"
             android:text="Identifiant (*)"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="24dp" />
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="14"
-            android:layout_row="0"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/textView"
+            android:layout_marginEnd="73dp"
+            android:layout_marginRight="73dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:textSize="16sp"
-            tools:layout_editor_absoluteX="280dp"
-            tools:layout_editor_absoluteY="0dp" />
+            android:textColor="@android:color/background_light" />
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="1"
-            android:text="Email (*)"
-            android:textSize="18sp" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/editText"
+            android:layout_marginLeft="42dp"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="casual"
+            android:text="Addresse e-mail (*)"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/editText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="14"
-            android:layout_row="1"
+            android:layout_alignBaseline="@+id/textView6"
+            android:layout_alignBottom="@+id/textView6"
+            android:layout_alignLeft="@+id/editText"
+            android:layout_alignStart="@+id/editText"
             android:ems="10"
-            android:inputType="textEmailAddress"
-            android:textSize="16sp" />
+            android:inputType="textEmailAddress" />
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="2"
-            android:lineSpacingExtra="1sp"
+            android:layout_alignLeft="@+id/textView6"
+            android:layout_alignStart="@+id/textView6"
+            android:layout_below="@+id/editText2"
+            android:layout_marginTop="34dp"
+            android:fontFamily="casual"
             android:text="Date de naissance"
-            android:textSize="18sp" />
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView8"
+            android:layout_alignLeft="@+id/editText2"
+            android:layout_alignStart="@+id/editText2"
+            android:ems="10"
+            android:inputType="date" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView7"
+            android:layout_alignStart="@+id/textView7"
+            android:layout_below="@+id/textView7"
+            android:layout_marginTop="36dp"
+            android:fontFamily="casual"
+            android:text="Langue (*)"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView8"
+            android:layout_alignLeft="@+id/editText3"
+            android:layout_alignStart="@+id/editText3"
+            android:background="@android:drawable/btn_dropdown"
+            android:entries="@array/langues" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView8"
+            android:layout_alignStart="@+id/textView8"
+            android:layout_below="@+id/spinner"
+            android:layout_marginTop="24dp"
+            android:fontFamily="casual"
+            android:text="Sexe (*)"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/spinner"
+            android:layout_alignStart="@+id/spinner"
+            android:layout_alignTop="@+id/textView9"
+            android:background="@android:drawable/btn_dropdown"
+            android:entries="@array/genres" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView9"
+            android:layout_alignStart="@+id/textView9"
+            android:layout_below="@+id/spinner2"
+            android:layout_marginTop="31dp"
+            android:fontFamily="casual"
+            android:text="Mot de Passe (*)"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView10"
+            android:layout_alignLeft="@+id/spinner2"
+            android:layout_alignStart="@+id/spinner2"
+            android:ems="10"
+            android:inputType="textPassword" />
 
         <TextView
             android:id="@+id/textView11"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="4"
-            android:text="Genre (*)"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="6"
-            android:text="Langue (*)"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="7"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="8"
-            android:text="Mot de Passe(*)"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="9"
-            android:text="Confirmation du\nmot de passe(*)"
-            android:textSize="18sp" />
+            android:layout_alignLeft="@+id/textView10"
+            android:layout_alignStart="@+id/textView10"
+            android:layout_below="@+id/textView10"
+            android:layout_marginTop="29dp"
+            android:fontFamily="casual"
+            android:text="Confirmer le mot de passe (*)"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editText5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="14"
-            android:layout_row="9"
+            android:layout_alignLeft="@+id/editText4"
+            android:layout_alignStart="@+id/editText4"
+            android:layout_alignTop="@+id/textView11"
             android:ems="10"
-            android:inputType="textPassword"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/editText6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="14"
-            android:layout_row="2"
-            android:ems="10"
-            android:inputType="date"
-            android:textSize="16sp" />
+            android:inputType="textPassword" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/tv7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="3"
-            android:textSize="8sp" />
+            android:layout_alignLeft="@+id/textView11"
+            android:layout_alignStart="@+id/textView11"
+            android:layout_below="@+id/textView11"
+            android:layout_marginTop="27dp"
+            android:fontFamily="casual"
+            android:text="Ouvrir un compte clinicien"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-        <Spinner
-            android:id="@+id/spinner6"
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
-            android:layout_column="14"
-            android:layout_row="4"
-            android:background="@android:drawable/spinner_dropdown_background"
-            android:entries="@array/genres" />
-
-        <TextView
-            android:id="@+id/textView19"
+        <CheckBox
+            android:id="@+id/checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="5"
-            android:textSize="10sp" />
-
-        <Spinner
-            android:id="@+id/spinner7"
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
-            android:layout_column="14"
-            android:layout_row="6"
-            android:background="@android:drawable/spinner_dropdown_background"
-            android:entries="@array/langues" />
-
-        <EditText
-            android:id="@+id/editText7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="14"
-            android:layout_row="8"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/textView21"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="10"
-            android:textSize="18sp" />
+            android:layout_alignBaseline="@+id/tv7"
+            android:layout_alignBottom="@+id/tv7"
+            android:layout_toLeftOf="@+id/button2"
+            android:layout_toStartOf="@+id/button2"
+            android:textSize="25sp" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/button2"
             android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="11"
-            android:background="@android:color/holo_red_light"
-            android:backgroundTint="@android:color/holo_red_light"
+            android:layout_height="50dp"
+            android:layout_alignBaseline="@+id/button5"
+            android:layout_alignBottom="@+id/button5"
+            android:layout_alignEnd="@+id/editText5"
+            android:layout_alignRight="@+id/editText5"
+            android:background="@android:drawable/button_onoff_indicator_on"
+            android:backgroundTint="@android:color/holo_green_light"
             android:onClick="retour"
-            android:text="Annuler"
-            android:textSize="18sp" />
+            android:text="Valider"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv7"
+            android:layout_alignStart="@+id/tv7"
+            android:layout_below="@+id/tv7"
+            android:layout_marginTop="21dp"
+            android:text="(*) Champs Obligatoires"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/button5"
-            android:layout_width="177dp"
-            android:layout_height="wrap_content"
-            android:layout_column="14"
-            android:layout_row="11"
-            android:background="@android:color/holo_blue_dark"
-            android:text="Créer un Compte"
-            android:textSize="18sp" />
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_alignLeft="@+id/textView14"
+            android:layout_alignStart="@+id/textView14"
+            android:layout_below="@+id/textView14"
+            android:layout_marginTop="26dp"
+            android:background="@android:drawable/button_onoff_indicator_off"
+            android:backgroundTint="@color/colorAccent"
+            android:onClick="retour"
+            android:text="ANNULER"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-    </GridLayout>
-
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
