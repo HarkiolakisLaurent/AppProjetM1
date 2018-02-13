@@ -9,8 +9,6 @@
     </string-array>
     <string-array name="langues">
         <item>Français</item>
-        <item>Italien</item>
-        <item>Japonais</item>
-        <item>Amériquain</item>
+        <item>...</item>
     </string-array>
 </resources>
