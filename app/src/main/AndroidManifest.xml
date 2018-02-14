@@ -20,6 +20,7 @@
         <activity android:name=".ui.EditProfileActivity" />
         <activity android:name=".ui.SettingsActivity" />
         <activity android:name=".ui.PatientSheetActivity" />
+        <activity android:name=".ui.CreateExerciceActivity" />
         <activity android:name=".ui.HomePageActivity"></activity>
     </application>
 
