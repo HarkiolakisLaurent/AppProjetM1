@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import ceri.m1ilsen.applicationprojetm1.R;
 public class PatientSheetActivity extends AppCompatActivity {
     ListView lv;
     public ListViewAdapter adapter;
+    private Button btnExercice = null;
     private ArrayList<String> data = new ArrayList<String>();
 
     @Override
@@ -41,6 +43,17 @@ public class PatientSheetActivity extends AppCompatActivity {
                 String dataModel= data.get(position);
                 Toast.makeText(PatientSheetActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
 
+            }
+        });
+
+        btnExercice = (Button) findViewById(R.id.btnExercice);
+        btnExercice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Le premier paramètre est le nom de l'activité actuelle
+                // Le second est le nom de l'activité de destination
+                Intent nextActivity = new Intent(PatientSheetActivity.this, ConfigureExerciseActivity.class);
+                startActivity(nextActivity);
             }
         });
 
