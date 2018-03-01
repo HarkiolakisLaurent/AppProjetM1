@@ -1,8 +1,6 @@
 package ceri.m1ilsen.applicationprojetm1.ui;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,64 +9,67 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 
-public class PatientSheetActivity extends AppCompatActivity {
-    ListView lv;
-    public ListViewAdapter adapter;
-    private Button btnExercice = null;
-    private Button btnEnregist = null;
+public class RecordingsActivity extends AppCompatActivity {
+
+
+    private ListView lv;
+    private RecordingsListViewAdapter recordingsAdapter;
     private ArrayList<String> data = new ArrayList<String>();
+    private TextView numberOfRecordings;
+    private Button exerciseMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient_sheet);
+        setContentView(R.layout.activity_recordings);
+
         lv=(ListView)findViewById(R.id.listResults);
         data= new ArrayList<>();
 
         data.add(new String("Le DATE à HEURE, vous avez obtenu 75"));
         data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
+        data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
+        data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
+        data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
+        data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
+        data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
+        data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
+        data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
 
-        lv.setAdapter(new ListViewAdapter(this, R.layout.affichageitem, data));
+        numberOfRecordings = (TextView) findViewById(R.id.numberOfRecordings);
+        if (data.size() == 0)
+            numberOfRecordings.setText("Aucun enregistrement disponible");
+        else if (data.size() == 1)
+            numberOfRecordings.setText(data.size()+" enregistrement est disponible");
+        else
+            numberOfRecordings.setText(data.size()+" enregistrements sont disponibles");
+
+        lv.setAdapter(new RecordingsListViewAdapter(this, R.layout.recording_item_view, data));
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String dataModel= data.get(position);
-                Toast.makeText(PatientSheetActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(RecordingsActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
 
             }
         });
 
-        btnExercice = (Button) findViewById(R.id.btnExercice);
-        btnExercice.setOnClickListener(new View.OnClickListener() {
+        exerciseMenu = (Button) findViewById(R.id.exerciseMenu);
+        exerciseMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Le premier paramètre est le nom de l'activité actuelle
-                // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(PatientSheetActivity.this, CreateExerciceActivity.class);
+                Intent nextActivity = new Intent(RecordingsActivity.this, CreateExerciceActivity.class);
                 startActivity(nextActivity);
             }
         });
-
-        btnEnregist = (Button) findViewById(R.id.btnEnregist);
-        btnEnregist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Le premier paramètre est le nom de l'activité actuelle
-                // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(PatientSheetActivity.this, RecordingsActivity.class);
-                startActivity(nextActivity);
-            }
-        });
-
     }
 
     @Override
@@ -77,7 +78,6 @@ public class PatientSheetActivity extends AppCompatActivity {
         return true;
     }
 
-    //gère le click sur une action de l'ActionBar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -93,19 +93,4 @@ public class PatientSheetActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
-    private void configuration(){
-        Toast.makeText(this,R.string.menuConfig,Toast.LENGTH_LONG).show();
-    }
-     /*   public String getCurrentDate() {
-        String strDate="";
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat mdformat = new SimpleDateFormat("dd/MM/yyyy");
-        return  strDate= "Current Date : " + mdformat.format(calendar.getTime());
-
-    }*/
-
 }
-

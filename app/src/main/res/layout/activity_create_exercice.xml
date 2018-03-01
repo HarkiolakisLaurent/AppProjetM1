@@ -20,39 +20,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.177">
 
-        <Button
-            android:id="@+id/button8"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="11dp"
-            android:layout_marginRight="11dp"
-            android:layout_toLeftOf="@+id/button9"
-            android:layout_toStartOf="@+id/button9"
-            android:background="@android:drawable/ic_menu_manage"
-            android:contentDescription="Paramètres" />
-
-        <Button
-            android:id="@+id/button9"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/button8"
-            android:layout_alignBottom="@+id/button8"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="12dp"
-            android:layout_marginRight="12dp"
-            android:background="@android:drawable/ic_menu_revert"
-            android:contentDescription="Accueil" />
-
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView3"
-            android:layout_alignStart="@+id/textView3"
-            android:layout_below="@+id/button8"
-            android:layout_marginTop="28dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
             android:fontFamily="casual"
             android:text="Lancer un nouvel Exercice"
             android:textAlignment="center"
@@ -111,9 +85,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/button10"
-            android:layout_marginTop="45dp"
-            android:layout_toLeftOf="@+id/button8"
-            android:layout_toStartOf="@+id/button8"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="39dp"
             android:fontFamily="casual"
             android:text="Reprendre un exercice"
             android:textAppearance="@style/TextAppearance.AppCompat"

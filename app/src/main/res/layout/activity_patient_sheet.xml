@@ -56,21 +56,20 @@
             />
 
         <Button
+            android:id="@+id/btnEnregist"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:text="Enregistrement"
-            android:id="@+id/btnEnregist"
             android:layout_weight="1"
-            android:textAllCaps="false"
-            />
-       <Button
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:text="Resultat"
-        android:id="@+id/btnResultat"
-        android:layout_weight="1"
-           android:textAllCaps="false"
-           />
+            android:text="Enregistrements"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btnResultat"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Resultats"
+            android:textAllCaps="false" />
 
     </LinearLayout>
     </LinearLayout>
