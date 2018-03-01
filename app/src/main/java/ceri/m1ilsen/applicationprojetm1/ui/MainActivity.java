@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import ceri.m1ilsen.applicationprojetm1.R;
@@ -14,13 +15,18 @@ public class MainActivity extends AppCompatActivity {
     private CommentsDataSource datasource;
     private TextView signUp = null;
     private Button signIn = null;
+    public EditText mail;
+    public EditText mdp;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mail = (EditText) findViewById(R.id.mail);
+        mdp = (EditText) findViewById(R.id.password);
         signUp = (TextView) findViewById(R.id.signup);
+        final CommentsDataSource BD = new CommentsDataSource(this);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,7 +44,12 @@ public class MainActivity extends AppCompatActivity {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
                 Intent nextActivity = new Intent(MainActivity.this, PatientSheetActivity.class);
-                startActivity(nextActivity);
+
+                BD.open();
+                if (BD.verification(mail.getText().toString(), mdp.getText().toString()) || BD.verificationM(mail.getText().toString(), mdp.getText().toString())) {
+                    startActivity(nextActivity);
+                }
+                BD.close();
             }
         });
     }

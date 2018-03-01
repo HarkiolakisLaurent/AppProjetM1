@@ -16,6 +16,7 @@ import ceri.m1ilsen.applicationprojetm1.language.Language;
 public class Patient implements IUser {
     private String mail;
     private String password;
+    private String pseudo;
     private String lastName;
     private String firstName;
     private Date birthday;
@@ -25,9 +26,10 @@ public class Patient implements IUser {
     private Comment comment;
     private List<Session> sessions;
 
-    public Patient(String mail, String password, String lastName, String firstName, Date birthday, boolean gender, Language spokenLanguage, Clinician clinicianInCharge, Comment comment, List<Session> sessions) {
+    public Patient(String mail, String password, String pseudo, String lastName, String firstName, Date birthday, boolean gender, Language spokenLanguage, Clinician clinicianInCharge, Comment comment, List<Session> sessions) {
         this.mail = mail;
         this.password = password;
+        this.pseudo=pseudo;
         this.lastName = lastName;
         this.firstName = firstName;
         this.birthday = birthday;
@@ -145,7 +147,13 @@ public class Patient implements IUser {
     public void setClinicianInCharge(Clinician clinicianInCharge) {
         this.clinicianInCharge = clinicianInCharge;
     }
+    public String getPseudo() {
+        return pseudo;
+    }
 
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
+    }
     public Comment getComment() {
         return comment;
     }

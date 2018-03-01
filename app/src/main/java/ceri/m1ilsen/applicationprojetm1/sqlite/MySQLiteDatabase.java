@@ -12,6 +12,22 @@ import android.util.Log;
 
 public class MySQLiteDatabase extends SQLiteOpenHelper {
 
+    public static final String TABLE_PATIENTS = "patients";
+    public static final String COLUMN_ID2 = "_id";
+    public static final String COLUMN_PSEUDO = "pseudo";
+    public static final String COLUMN_MAIL = "mail";
+    public static final String COLUMN_DATE= "date_de_naissance";
+    public static final String COLUMN_GENRE = "genre";
+    public static final String COLUMN_LANGUE = "langue";
+    public static final String COLUMN_MDP = "mot_de_passe";
+    public static final String COLUMN_CLINICIEN = "clinicien";
+
+    public static final String TABLE_CLINICIENS = "cliniciens";
+    public static final String COLUMN_ID3 = "_id";
+    public static final String COLUMN_PSEUDO2 = "pseudo";
+    public static final String COLUMN_MAIL2 = "mail";
+    public static final String COLUMN_DATE2= "mot_de_passe";
+
     public static final String TABLE_COMMENTS = "comments";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_COMMENT = "comment";
@@ -20,10 +36,16 @@ public class MySQLiteDatabase extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Commande sql pour la création de la base de données
-    private static final String DATABASE_CREATE = "create table "
-            + TABLE_COMMENTS + "(" + COLUMN_ID
-            + " integer primary key autoincrement, " + COLUMN_COMMENT
-            + " text not null);";
+    private static final String DATABASE_CREATE = "create table " + TABLE_PATIENTS + "( " + COLUMN_ID2
+            + " integer primary key autoincrement, "+ COLUMN_PSEUDO
+            + " text not null ,"+ COLUMN_MAIL +" text not null ,"+COLUMN_MDP+" text not null ,"
+            + COLUMN_DATE +" text not null , "+ COLUMN_GENRE +" boolean not null ,"
+            + COLUMN_LANGUE+ " text not null ,"+ COLUMN_CLINICIEN +" integer );\n"
+            ;
+
+    private static final String DATABASE_CREATE2 = "create table " + TABLE_CLINICIENS + "( " + COLUMN_ID3
+            + " integer primary key autoincrement, "+ COLUMN_PSEUDO2
+            + " text not null ,"+ COLUMN_MAIL2 +" text not null ,"+COLUMN_DATE2+" text not null );";
 
     public MySQLiteDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -32,6 +54,8 @@ public class MySQLiteDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(DATABASE_CREATE);
+        database.execSQL(DATABASE_CREATE2);
+        System.out.println("CREATION DE LA BDD");
     }
 
     @Override
@@ -40,6 +64,7 @@ public class MySQLiteDatabase extends SQLiteOpenHelper {
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COMMENTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PATIENTS);
         onCreate(db);
     }
 }

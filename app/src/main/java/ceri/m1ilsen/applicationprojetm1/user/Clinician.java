@@ -14,14 +14,16 @@ import ceri.m1ilsen.applicationprojetm1.language.Language;
 public class Clinician implements IUser {
     private String mail;
     private String password;
+    private String pseudo;
     private String lastName;
     private String firstName;
     private List<Patient> patients;
 
-    public Clinician(String mail, String password, String lastName, String firstName, List<Patient> patients) {
+    public Clinician(String mail, String password,String pseudo, String lastName, String firstName, List<Patient> patients) {
         this.mail = mail;
         this.password = password;
         this.lastName = lastName;
+        this.pseudo = pseudo;
         this.firstName = firstName;
         this.patients = patients;
     }
@@ -101,4 +103,13 @@ public class Clinician implements IUser {
     public void setPatients(List<Patient> patients) {
         this.patients = patients;
     }
+
+    public String getPseudo() {
+        return pseudo;
+    }
+
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
+    }
+
 }

@@ -21,7 +21,10 @@
         <activity android:name=".ui.SettingsActivity" />
         <activity android:name=".ui.PatientSheetActivity" />
         <activity android:name=".ui.CreateExerciceActivity" />
-        <activity android:name=".ui.HomePageActivity"></activity>
+        <activity android:name=".ui.HomePageActivity" />
+        <activity
+            android:name=".ui.CreateExerciceActivity2"
+            android:label="@string/title_activity_create_exercice2"></activity>
     </application>
 
 </manifest>

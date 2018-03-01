@@ -11,4 +11,8 @@
         <item>Français</item>
         <item>...</item>
     </string-array>
+    <string name="title_activity_create_exercice2">Application Projet M1</string>
+    <string name="title_home">Exercices</string>
+    <string name="title_dashboard">Enregistrements</string>
+    <string name="title_notifications">Résultats</string>
 </resources>

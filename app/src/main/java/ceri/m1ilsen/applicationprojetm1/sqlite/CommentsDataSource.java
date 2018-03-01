@@ -14,7 +14,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import ceri.m1ilsen.applicationprojetm1.comment.Comment;
-
+import ceri.m1ilsen.applicationprojetm1.user.*;
 public class CommentsDataSource {
 
     // Champs de la base de données
@@ -32,7 +32,7 @@ public class CommentsDataSource {
     }
 
     public void close() {
-        dbHelper.close();
+        database.close();
     }
 
     public Comment createComment(String comment) {
@@ -71,6 +71,60 @@ public class CommentsDataSource {
         // assurez-vous de la fermeture du curseur
         cursor.close();
         return comments;
+    }
+
+    public boolean verification(String pseudo , String mdp){
+
+        Cursor c = database.query("patients",new String[]{ "pseudo", "mail"},"pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
+        if(c.getCount() == 0 ){
+            c = database.query("cliniciens",new String[]{ "pseudo", "mail"},"pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
+            if(c.getCount() == 0){
+                c.close();
+                return false;
+            }else{
+                c.close();
+                return true;
+            }
+        }else{
+            c.close();
+            return true;
+        }
+
+    }
+
+    public boolean verificationM(String mail , String mdp){
+        Cursor c = database.query("patients",new String[]{"pseudo", "mail"},"mail LIKE \""+mail+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
+        if(c.getCount() == 0 ){
+            c = database.query("cliniciens",new String[]{"pseudo", "mail"},"mail LIKE \""+mail+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
+            if(c.getCount() == 0){
+                return false;
+            }else{
+                return true;
+            }
+        }else{
+            return true;
+        }
+    }
+
+    public long insertPatient(Patient P) {
+
+        ContentValues values = new ContentValues();
+        values.put("pseudo", P.getPseudo());
+        values.put("mail", P.getMail());
+        values.put("mot_de_passe", P.getPassword());
+        values.put("date_de_naissance", P.getBirthday().toString());
+        values.put("genre", P.isGender());
+        values.put("langue", P.getSpokenLanguage().toString());
+        return database.insert("patients", null, values);
+    }
+
+    public long insertClinicien(Clinician P) {
+
+        ContentValues values = new ContentValues();
+        values.put("pseudo", P.getPseudo());
+        values.put("mail", P.getMail());
+        values.put("mot_de_passe", P.getPassword());
+        return database.insert("cliniciens", null, values);
     }
 
     private Comment cursorToComment(Cursor cursor) {
