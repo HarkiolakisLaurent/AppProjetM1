@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="0dp"
+        android:layout_width="1276dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,54 +18,19 @@
         <ListView
             android:id="@+id/listResults"
             android:layout_width="match_parent"
-            android:layout_height="296dp"
+            android:layout_height="400dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:scrollbars="horizontal" />
 
-        <Button
-            android:id="@+id/button6"
-            android:layout_width="225dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="59dp"
-            android:layout_marginEnd="72dp"
-            android:layout_marginRight="72dp"
-            android:layout_toLeftOf="@+id/button18"
-            android:layout_toStartOf="@+id/button18"
-            android:background="@android:color/darker_gray"
-            android:fontFamily="casual"
-            android:text="Page précédente"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/button18"
-            android:layout_width="225dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/button6"
-            android:layout_alignBottom="@+id/button6"
-            android:layout_toEndOf="@+id/textView5"
-            android:layout_toRightOf="@+id/textView5"
-            android:background="@android:color/darker_gray"
-            android:fontFamily="casual"
-            android:text="Page suivante"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/numberOfRecordings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignTop="@+id/button3"
-            android:layout_marginLeft="132dp"
-            android:layout_marginStart="132dp"
+            android:layout_above="@+id/listResults"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp"
             android:fontFamily="casual"
             android:text="0 enregistrement(s) sont disponibles"
             android:textAlignment="center"
@@ -75,31 +40,50 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button3"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/button4"
-            android:layout_alignBottom="@+id/button4"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_toLeftOf="@+id/button4"
-            android:layout_toStartOf="@+id/button4"
-            android:background="@android:drawable/ic_menu_manage"
-            android:contentDescription="Paramètres"
-            tools:layout_editor_absoluteX="953dp"
-            tools:layout_editor_absoluteY="0dp" />
+            android:id="@+id/exerciseMenu"
+            android:layout_width="400dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
+            android:text="Exercice"
+            android:textAllCaps="false"
+            android:textSize="36sp"
+            tools:layout_editor_absoluteX="2dp"
+            tools:layout_editor_absoluteY="563dp" />
 
         <Button
-            android:id="@+id/button4"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/recordingsMenu"
+            android:layout_width="400dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/exerciseMenu"
+            android:layout_toLeftOf="@+id/resultsMenu"
+            android:layout_toRightOf="@+id/exerciseMenu"
+            android:layout_toStartOf="@+id/resultsMenu"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
+            android:text="Enregistrements"
+            android:textAllCaps="false"
+            android:textSize="36sp"
+            tools:layout_editor_absoluteX="2dp"
+            tools:layout_editor_absoluteY="563dp" />
+
+        <Button
+            android:id="@+id/resultsMenu"
+            android:layout_width="400dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="60dp"
-            android:layout_marginRight="60dp"
-            android:layout_marginTop="52dp"
-            android:background="@android:drawable/ic_menu_revert"
-            android:contentDescription="Accueil" />
+            android:layout_weight="1"
+            android:text="Resultats"
+            android:textAllCaps="false"
+            android:textSize="36sp"
+            tools:layout_editor_absoluteX="2dp"
+            tools:layout_editor_absoluteY="563dp" />
+
     </RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>
