@@ -70,11 +70,12 @@ public class PatientSheetActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_home:
-                Intent accueil = new Intent(this, HomePageActivity.class);
-                startActivity(accueil);
+                Intent homepage = new Intent(this, HomePageActivity.class);
+                startActivity(homepage);
                 return true;
             case R.id.action_conf:
-                configuration();
+                Intent settings = new Intent(this, SettingsActivity.class);
+                startActivity(settings);
                 return true;
         }
 
