@@ -4,9 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 
@@ -36,5 +39,32 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
                 edittext.setText(curFileName);
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_file, menu);
+        return true;
+    }
+
+    //gère le click sur une action de l'ActionBar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_home:
+                Intent homepage = new Intent(this, HomePageActivity.class);
+                startActivity(homepage);
+                return true;
+            case R.id.action_conf:
+                Intent settings = new Intent(this, SettingsActivity.class);
+                startActivity(settings);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void configuration(){
+        Toast.makeText(this,R.string.menuConfig,Toast.LENGTH_LONG).show();
     }
 }
