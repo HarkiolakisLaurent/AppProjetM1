@@ -23,7 +23,7 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configure_exercise);
-        edittext = (EditText)findViewById(R.id.editText);
+        edittext = (EditText)findViewById(R.id.editText6);
     }
 
     public void getfile(View view){

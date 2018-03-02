@@ -3,11 +3,10 @@ package ceri.m1ilsen.applicationprojetm1.ui;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import java.sql.Date;
@@ -23,6 +22,7 @@ public class SignUpActivity extends AppCompatActivity {
     public EditText mdp;
     public EditText mail;
     public EditText mdpc;
+    public TextView err;
     public EditText birth;
     public ToggleButton tg;
     public Spinner genre;
@@ -40,15 +40,16 @@ public class SignUpActivity extends AppCompatActivity {
         birth = (EditText) findViewById(R.id.date_n);
         genre = (Spinner) findViewById(R.id.genre);
         langue = (Spinner) findViewById(R.id.langue);
+        err = (TextView) findViewById(R.id.err);
 
     }
 
-    public void retour(View view) {
+    public void creerCompte(View view) {
         Intent intent = new Intent(this,MainActivity.class);
         CommentsDataSource BD = new CommentsDataSource(this);
         BD.open();
-        if((pseudo.getText() != null) && (mdp.getText() != null) && (mdpc.getText() != null) && (mail.getText() != null)) {
-            if (!BD.verification(pseudo.getText().toString(), mdp.getText().toString())) {
+        if(!(pseudo.getText().toString().equals("")) && !(mdp.getText().toString().equals("")) && !(mdpc.getText().toString().equals("")) && !(mail.getText().toString().equals(""))) {
+            if (!BD.verification(pseudo.getText().toString(), mdp.getText().toString()) && !BD.verificationM(mail.getText().toString(),mdp.getText().toString())) {
                 if (mdp.getText().toString().equals(mdpc.getText().toString())) {
                     if (!tg.isActivated()) {
                         Boolean sex = false;
@@ -66,14 +67,25 @@ public class SignUpActivity extends AppCompatActivity {
                         BD.insertClinicien(P);
                     }
                     startActivity(intent);
+                }else{
+                    err.setText("Les deux mots de passe ne correspondent pas.");
                 }
+            }else{
+                err.setText("Un compte avec ces identifiants existe déjà.");
             }
+        }else{
+            err.setText("Tous les champs obligatoires n'ont pas été remplis.");
         }
         BD.close();
     }
 
     public void Exo (View view) {
         Intent intent = new Intent(this,CreateExerciceActivity.class);
+        startActivity(intent);
+    }
+
+    public void Retour (View view) {
+        Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
 }
