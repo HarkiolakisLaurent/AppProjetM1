@@ -53,14 +53,14 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Deleting Recording Button was clicked for list item " + position, Toast.LENGTH_SHORT).show();
+                dataSet.remove(position);
+                notifyDataSetChanged();
             }
         });
         mainViewholder.recordingDescriptionHolder.setText(getItem(position));
 
         return convertView;
     }
-
-
 
     public class ViewHolder {
         TextView recordingDescriptionHolder;

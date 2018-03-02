@@ -2,12 +2,10 @@ package ceri.m1ilsen.applicationprojetm1.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -17,13 +15,13 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
 
     private static final int REQUEST_PATH = 1;
     String curFileName;
-    EditText edittext;
+    EditText fileName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configure_exercise);
-        edittext = (EditText)findViewById(R.id.editText);
+        fileName = (EditText)findViewById(R.id.fileName);
     }
 
     public void getfile(View view){
@@ -36,7 +34,7 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
         if (requestCode == REQUEST_PATH){
             if (resultCode == RESULT_OK) {
                 curFileName = data.getStringExtra("GetFileName");
-                edittext.setText(curFileName);
+                fileName.setText(curFileName);
             }
         }
     }
