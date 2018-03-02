@@ -31,7 +31,6 @@ public class RecordingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recordings);
 
         lv=(ListView)findViewById(R.id.listResults);
-        data= new ArrayList<>();
 
         data.add(new String("Le DATE à HEURE, vous avez obtenu 75"));
         data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
@@ -51,16 +50,8 @@ public class RecordingsActivity extends AppCompatActivity {
         else
             numberOfRecordings.setText(data.size()+" enregistrements sont disponibles");
 
-        lv.setAdapter(new RecordingsListViewAdapter(this, R.layout.recording_item_view, data));
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                String dataModel= data.get(position);
-                Toast.makeText(RecordingsActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
-
-            }
-        });
+        RecordingsListViewAdapter adapter = new RecordingsListViewAdapter(this, R.layout.recording_item_view, data);
+        lv.setAdapter(adapter);
 
         exerciseMenu = (Button) findViewById(R.id.exerciseMenu);
         exerciseMenu.setOnClickListener(new View.OnClickListener() {

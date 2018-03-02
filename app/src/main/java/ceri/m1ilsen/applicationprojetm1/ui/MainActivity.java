@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private Button signIn = null;
     public EditText mail;
     public EditText mdp;
+    public TextView forgotPassword;
 
 
     @Override
@@ -30,9 +31,15 @@ public class MainActivity extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Le premier paramètre est le nom de l'activité actuelle
-                // Le second est le nom de l'activité de destination
                 Intent nextActivity = new Intent(MainActivity.this, SignUpActivity.class);
+                startActivity(nextActivity);
+            }
+        });
+        forgotPassword = (TextView) findViewById(R.id.forgotPassword);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextActivity = new Intent(MainActivity.this, RecordingsActivity.class);
                 startActivity(nextActivity);
             }
         });
@@ -41,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Le premier paramètre est le nom de l'activité actuelle
-                // Le second est le nom de l'activité de destination
                 Intent nextActivity = new Intent(MainActivity.this, PatientSheetActivity.class);
 
                 BD.open();
