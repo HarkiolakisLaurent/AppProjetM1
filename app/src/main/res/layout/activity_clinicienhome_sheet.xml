@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ceri.m1ilsen.applicationprojetm1.ui.ClinicienSheetHomeActivity">
+
+        <TextView
+            android:id="@+id/textClinicien"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="18dp"
+            android:text="@string/txtBienvenue"
+            android:textSize="18dp" />
+
+        <ListView
+            android:id="@+id/listResultsClinicien"
+            android:layout_width="match_parent"
+            android:layout_height="296dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textClinicien"
+            android:layout_marginTop="18dp"
+            android:scrollbars="horizontal" />
+
+        <Button
+            android:id="@+id/btnPatient"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
+            android:text="Patients"
+            android:lineSpacingExtra="0dp"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btnEnregistClinicien"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/btnPatient"
+            android:layout_toRightOf="@+id/btnPatient"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
+            android:text="Enregistrements" />
+
+        <Button
+            android:id="@+id/btnResultatClinicien"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/btnEnregistClinicien"
+            android:layout_toRightOf="@+id/btnEnregistClinicien"
+            android:lineSpacingExtra="0dp"
+            android:text="Résultats" />
+
+        <!-- <Button
+             android:id="@+id/btnPatient"
+             android:layout_width="0dp"
+             android:layout_height="50dp"
+             android:layout_weight="1"
+             android:text="Patients"
+             android:textAllCaps="false" />
+
+         <Button
+             android:layout_width="0dp"
+             android:layout_height="50dp"
+             android:text="Resultat"
+             android:id="@+id/btnResultatClinicien"
+             android:layout_weight="1"
+             android:textAllCaps="false"
+             />-->
+
+</RelativeLayout>
+
+
+
+
