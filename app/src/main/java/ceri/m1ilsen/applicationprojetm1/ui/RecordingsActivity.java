@@ -3,6 +3,7 @@ package ceri.m1ilsen.applicationprojetm1.ui;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +17,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 
@@ -26,9 +29,11 @@ public class RecordingsActivity extends AppCompatActivity {
     private ListView lv;
     private RecordingsListViewAdapter recordingsAdapter;
     private ArrayList<String> data = new ArrayList<String>();
+    private File dataPath;
     private TextView numberOfRecordings;
     private Button exerciseMenu;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,17 +58,23 @@ public class RecordingsActivity extends AppCompatActivity {
             }
         }
 
-        lv=(ListView)findViewById(R.id.listResults);
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
 
-        data.add(new String("Le DATE à HEURE, vous avez obtenu 75"));
-        data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
-        data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
-        data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
-        data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
-        data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
-        data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
-        data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
-        data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+            }
+        }
+
+        lv=(ListView)findViewById(R.id.listResults);
+        dataPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        data = new ArrayList(Arrays.asList(dataPath.list()));
+        //data.add(new String("Le DATE à HEURE, vous avez obtenu 75"));
 
         numberOfRecordings = (TextView) findViewById(R.id.numberOfRecordings);
         if (data.size() == 0)
@@ -73,7 +84,7 @@ public class RecordingsActivity extends AppCompatActivity {
         else
             numberOfRecordings.setText(data.size()+" enregistrements sont disponibles");
 
-        RecordingsListViewAdapter adapter = new RecordingsListViewAdapter(this, R.layout.recording_item_view, data);
+        RecordingsListViewAdapter adapter = new RecordingsListViewAdapter(this, R.layout.recording_item_view, data, dataPath);
         lv.setAdapter(adapter);
 
         exerciseMenu = (Button) findViewById(R.id.exerciseMenu);

@@ -26,12 +26,14 @@ import ceri.m1ilsen.applicationprojetm1.R;
 public class RecordingsListViewAdapter extends ArrayAdapter<String> {
 
     public List<String> dataSet;
+    public File dataSetPath;
     Context mContext;
     public int layout;
 
-    public RecordingsListViewAdapter(Context context, int resource, List<String> objects) {
+    public RecordingsListViewAdapter(Context context, int resource, List<String> objects, File objectsPath) {
         super(context, resource, objects);
         dataSet = objects;
+        dataSetPath = objectsPath;
         layout = resource;
     }
 
@@ -53,7 +55,8 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View v) {
 
-                String stringPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/sonnerie.wav";
+                //String stringPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/sonnerie.wav";
+                String stringPath = dataSetPath+"/"+dataSet.get(position);
                 MediaPlayer mediaPlayer = MediaPlayer.create(getContext(),Uri.parse(stringPath));
                 if (mediaPlayer != null)
                     mediaPlayer.start();
@@ -62,7 +65,18 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
         mainViewholder.deleteRecordingButtonHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Deleting Recording Button was clicked for list item " + position, Toast.LENGTH_SHORT).show();
+                String stringPath = dataSetPath+"/"+dataSet.get(position);
+                File file = new File(stringPath);
+                if(file.exists()){
+                    System.out.println("Fichier trouvé");
+                }else{
+                    System.out.println("Fichier non trouvé");
+                }
+                if(file.delete()){
+                    System.out.println(file.getName() + " is deleted!");
+                }else{
+                    System.out.println("Delete operation is failed.");
+                }
                 dataSet.remove(position);
                 notifyDataSetChanged();
             }
