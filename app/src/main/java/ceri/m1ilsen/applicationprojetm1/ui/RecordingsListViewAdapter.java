@@ -1,6 +1,10 @@
 package ceri.m1ilsen.applicationprojetm1.ui;
 
 import android.content.Context;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +13,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import ceri.m1ilsen.applicationprojetm1.R;
@@ -46,7 +52,11 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
         mainViewholder.listenRecordingButtonHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Listening Recording Button was clicked for list item " + position, Toast.LENGTH_SHORT).show();
+
+                String stringPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/sonnerie.wav";
+                MediaPlayer mediaPlayer = MediaPlayer.create(getContext(),Uri.parse(stringPath));
+                if (mediaPlayer != null)
+                    mediaPlayer.start();
             }
         });
         mainViewholder.deleteRecordingButtonHolder.setOnClickListener(new View.OnClickListener() {
