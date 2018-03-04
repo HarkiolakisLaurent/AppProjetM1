@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextActivity = new Intent(MainActivity.this, RecordingsActivity.class);
+                Intent nextActivity = new Intent(MainActivity.this, ConfigureExerciseActivity.class);
                 startActivity(nextActivity);
             }
         });
