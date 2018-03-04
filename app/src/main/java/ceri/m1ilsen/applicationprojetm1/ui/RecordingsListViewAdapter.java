@@ -52,35 +52,11 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
         mainViewholder.listenRecordingButtonHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Uri myUri = Uri.parse("http://www.logz.org/fichiers/_mobile_34484_Going-Blind-Court.mp3");
-                Uri myUri = Uri.parse("file:///storage/emulated/0/Download/klaxon.wav");
-                String stringPath = "/storage/emulated/0/Download/klaxon.wav";
-                stringPath = android.net.Uri.parse("file://" + stringPath).getPath();
-                MediaPlayer mediaPlayer = new MediaPlayer();
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                try {
-                    //mediaPlayer.setDataSource(getContext(), myUri);
-                    mediaPlayer.setDataSource(stringPath);
-                } catch (IllegalArgumentException e) {
-                    Toast.makeText(getContext(), "IllegalArgumentException You might not set the URI correctly!", Toast.LENGTH_LONG).show();
-                } catch (SecurityException e) {
-                    Toast.makeText(getContext(), "SecurityException You might not set the URI correctly!", Toast.LENGTH_LONG).show();
-                } catch (IllegalStateException e) {
-                    Toast.makeText(getContext(), "IllegalStateException You might not set the URI correctly!", Toast.LENGTH_LONG).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    mediaPlayer.prepare();
-                } catch (IllegalStateException e) {
-                    Toast.makeText(getContext(), "IllegalStateException You might not set the URI correctly!", Toast.LENGTH_LONG).show();
-                } catch (IOException e) {
-                    Toast.makeText(getContext(), "IOException You might not set the URI correctly!", Toast.LENGTH_LONG).show();
-                }
-                //MediaPlayer mediaPlayer = MediaPlayer.create(getContext(),Uri.parse("file:///storage/emulated/0/Download/231.wav"));
-                mediaPlayer.start();
-                //Toast.makeText(getContext(), Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString(), Toast.LENGTH_SHORT).show();
-                //Toast.makeText(getContext(), "Listening Recording Button was clicked for list item " + position, Toast.LENGTH_SHORT).show();
+
+                String stringPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/sonnerie.wav";
+                MediaPlayer mediaPlayer = MediaPlayer.create(getContext(),Uri.parse(stringPath));
+                if (mediaPlayer != null)
+                    mediaPlayer.start();
             }
         });
         mainViewholder.deleteRecordingButtonHolder.setOnClickListener(new View.OnClickListener() {
