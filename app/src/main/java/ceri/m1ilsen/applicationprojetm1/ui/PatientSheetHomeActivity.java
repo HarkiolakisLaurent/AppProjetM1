@@ -1,8 +1,6 @@
 package ceri.m1ilsen.applicationprojetm1.ui;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,13 +11,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
 
-public class PatientSheetActivity extends AppCompatActivity {
+public class PatientSheetHomeActivity extends AppCompatActivity {
     ListView lv;
     public ListViewAdapter adapter;
     private Button btnExercice = null;
@@ -29,7 +26,7 @@ public class PatientSheetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient_sheet);
+        setContentView(R.layout.activity_patienthome_sheet);
         lv=(ListView)findViewById(R.id.listResults);
         data= new ArrayList<>();
 
@@ -42,7 +39,7 @@ public class PatientSheetActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String dataModel= data.get(position);
-                Toast.makeText(PatientSheetActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(PatientSheetHomeActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -53,7 +50,7 @@ public class PatientSheetActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(PatientSheetActivity.this, CreateExerciceActivity.class);
+                Intent nextActivity = new Intent(PatientSheetHomeActivity.this, CreateExerciceActivity.class);
                 startActivity(nextActivity);
             }
         });
@@ -64,10 +61,16 @@ public class PatientSheetActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(PatientSheetActivity.this, RecordingsActivity.class);
+                Intent nextActivity = new Intent(PatientSheetHomeActivity.this, RecordingsActivity.class);
                 startActivity(nextActivity);
             }
         });
+
+        CommentsDataSource BD = new CommentsDataSource(this);
+        BD.open();
+       // String data[] = BD.getName();
+        System.out.println("LE pseaudo est hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"+ BD.getName());
+        BD.close();
 
     }
 

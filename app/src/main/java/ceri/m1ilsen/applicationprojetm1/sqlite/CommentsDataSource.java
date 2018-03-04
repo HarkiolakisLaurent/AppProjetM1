@@ -133,4 +133,21 @@ public class CommentsDataSource {
         comment.setComment(cursor.getString(1));
         return comment;
     }
+
+    //Meryem
+    public String getName() {
+
+        int i=0;
+        String[] columns = new String[]{ MySQLiteDatabase.COLUMN_ID2, MySQLiteDatabase.COLUMN_PSEUDO };
+        Cursor c = database.query(MySQLiteDatabase.TABLE_PATIENTS, columns, null, null, null, null, null);
+        String name = "";
+        c.moveToFirst();
+        while(!c.isAfterLast()) {
+            name = c.getString(c.getColumnIndex(MySQLiteDatabase.COLUMN_PSEUDO));
+            c.moveToNext();
+            i++;
+        }
+        c.close();
+        return name;
+    }
 }

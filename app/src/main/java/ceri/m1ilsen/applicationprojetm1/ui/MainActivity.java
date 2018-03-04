@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextActivity = new Intent(MainActivity.this, RecordingsActivity.class);
+                Intent nextActivity = new Intent(MainActivity.this, CreateExerciceActivity2.class);
                 startActivity(nextActivity);
             }
         });
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextActivity = new Intent(MainActivity.this, PatientSheetActivity.class);
+                Intent nextActivity = new Intent(MainActivity.this, PatientSheetHomeActivity.class);
 
                 BD.open();
                 if (BD.verification(mail.getText().toString(), mdp.getText().toString()) || BD.verificationM(mail.getText().toString(), mdp.getText().toString())) {

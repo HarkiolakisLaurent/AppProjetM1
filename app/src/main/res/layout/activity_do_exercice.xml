@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ceri.m1ilsen.applicationprojetm1.ui.DoExerciceActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/textExercice"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="23dp"
+            android:gravity="center"
+            android:text="  5/52 \n Le chat miaule" />
+
+        <ImageButton
+            android:id="@+id/imageBtnMicro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textExercice"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/imageicro_border"
+            app:srcCompat="@drawable/micro1" />
+
+        <TextView
+            android:id="@+id/txtProgression"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_above="@+id/btnQuitter"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:gravity="center"
+            android:paddingBottom="0dp"
+            android:paddingLeft="18dp"
+            android:paddingTop="10dp"
+            android:text="Appuyez une fois sur le bouton pour parler,puis appuyer de nouveau lorsque vous avez terminés "
+            android:textSize="20dp"
+            android:textStyle="bold|italic" />
+
+        <Button
+            android:id="@+id/btnQuitter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:drawableLeft="@drawable/quitter"
+            android:text="  Quitter l'exercice"
+            android:textAllCaps="false" />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>
