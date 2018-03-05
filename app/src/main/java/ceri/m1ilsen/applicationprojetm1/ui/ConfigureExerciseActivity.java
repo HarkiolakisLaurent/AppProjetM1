@@ -92,21 +92,6 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
             }
         }
         exerciseName = (EditText)findViewById(R.id.exerciseName);
-        exerciseName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                exerciseName.getText().clear();
-            }
-        });
-        exerciseName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if(!hasFocus) {
-                    if (exerciseName.getText().equals(null))
-                        exerciseName.setText("Nom de l'exercise");
-                }
-            }
-        });;
         exerciseDuration = (EditText)findViewById(R.id.exerciseDuration);
         exerciseDuration.setOnClickListener(new View.OnClickListener() {
             @Override

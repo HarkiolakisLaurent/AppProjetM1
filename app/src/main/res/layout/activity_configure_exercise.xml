@@ -81,8 +81,8 @@
             android:layout_toLeftOf="@+id/exerciseDuration"
             android:layout_toStartOf="@+id/exerciseDuration"
             android:ems="10"
+            android:hint="Nom de l'exercice"
             android:inputType="textPersonName"
-            android:text="Nom de l'exercice"
             android:textSize="30sp" />
 
         <EditText
@@ -94,8 +94,8 @@
             android:layout_alignLeft="@+id/browser"
             android:layout_alignStart="@+id/browser"
             android:ems="10"
+            android:hint="Durée d'un enregistrement"
             android:inputType="number"
-            android:text="Durée d'un enregistrement"
             android:textSize="30sp" />
 
         <EditText
