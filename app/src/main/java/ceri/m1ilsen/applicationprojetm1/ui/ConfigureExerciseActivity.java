@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,8 +21,10 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
     private static final int REQUEST_PATH = 1;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
-    String curFileName;
+    EditText exerciseName;
+    EditText exerciseDuration;
     EditText fileName;
+    Button browser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,22 +61,40 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
                         MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
             }
         }
-        fileName = (EditText)findViewById(R.id.fileName);
-    }
-
-    public void getfile(View view){
-        Intent intent1 = new Intent(this, FileChooser.class);
-        startActivityForResult(intent1,REQUEST_PATH);
-    }
-    // Listen for results.
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        // See which child activity is calling us back.
-        if (requestCode == REQUEST_PATH){
-            if (resultCode == RESULT_OK) {
-                curFileName = data.getStringExtra("GetFileName");
-                fileName.setText(curFileName);
+        exerciseName = (EditText)findViewById(R.id.exerciseName);
+        exerciseName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exerciseName.getText().clear();
             }
-        }
+        });
+        exerciseName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(!hasFocus) {
+                    if (exerciseName.getText().equals(null))
+                        exerciseName.setText("Nom de l'exercise");
+                }
+            }
+        });;
+        exerciseDuration = (EditText)findViewById(R.id.exerciseDuration);
+        exerciseDuration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exerciseDuration.getText().clear();
+            }
+        });
+        fileName = (EditText)findViewById(R.id.fileName);
+        browser = (Button)findViewById(R.id.browser);
+        browser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextActivity = new Intent(ConfigureExerciseActivity.this, FileExplorerActivity.class);
+                startActivity(nextActivity);
+            }
+        });
+        Intent intent = getIntent();
+        fileName.setText(intent.getStringExtra("SELECTED_FILE"));
     }
 
     @Override
