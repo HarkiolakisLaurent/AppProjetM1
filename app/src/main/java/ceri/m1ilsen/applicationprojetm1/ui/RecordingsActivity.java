@@ -116,7 +116,7 @@ public class RecordingsActivity extends AppCompatActivity {
                 startActivity(homepage);
                 return true;
             case R.id.action_conf:
-                Intent settings = new Intent(this, SettingsActivity.class);
+                Intent settings = new Intent(this, ConfigureExerciseActivity.class);
                 startActivity(settings);
                 return true;
         }

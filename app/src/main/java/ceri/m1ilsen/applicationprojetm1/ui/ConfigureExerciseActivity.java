@@ -244,7 +244,7 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
 
         switch (id) {
             case DIALOG_LOAD_FILE:
-                builder.setTitle("Choose your file");
+                builder.setTitle("Sélectionnez un fichier");
                 builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
