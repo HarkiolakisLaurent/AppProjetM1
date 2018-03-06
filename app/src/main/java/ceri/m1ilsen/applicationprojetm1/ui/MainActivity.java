@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
     private CommentsDataSource datasource;
     private TextView signUp = null;
     private Button signIn = null;
+    private Button testLaurent;
+    private Button testMeryem;
     public EditText mail;
     public EditText mdp;
     public TextView forgotPassword;
@@ -35,11 +37,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(nextActivity);
             }
         });
-        forgotPassword = (TextView) findViewById(R.id.forgotPassword);
-        forgotPassword.setOnClickListener(new View.OnClickListener() {
+        testLaurent = (Button) findViewById(R.id.testLaurent);
+        testLaurent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent nextActivity = new Intent(MainActivity.this, RecordingsActivity.class);
+                startActivity(nextActivity);
+            }
+        });
+        testMeryem = (Button) findViewById(R.id.testMeryem);
+        testMeryem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextActivity = new Intent(MainActivity.this, CreateExerciceActivity2.class);
                 startActivity(nextActivity);
             }
         });

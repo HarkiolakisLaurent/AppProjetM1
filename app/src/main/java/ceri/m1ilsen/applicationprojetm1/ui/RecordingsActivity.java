@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -73,7 +74,11 @@ public class RecordingsActivity extends AppCompatActivity {
 
         lv=(ListView)findViewById(R.id.listResults);
         dataPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        data = new ArrayList(Arrays.asList(dataPath.list()));
+        data = new ArrayList(Arrays.asList(dataPath.list(new FilenameFilter() {
+            public boolean accept(File directory, String fileName) {
+                return fileName.endsWith(".wav") || fileName.endsWith(".mp3") || fileName.endsWith(".mp4");
+            }
+        })));
         //data.add(new String("Le DATE à HEURE, vous avez obtenu 75"));
 
         numberOfRecordings = (TextView) findViewById(R.id.numberOfRecordings);
