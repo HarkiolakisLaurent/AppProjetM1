@@ -96,7 +96,7 @@ public class RecordingsActivity extends AppCompatActivity {
         exerciseMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextActivity = new Intent(RecordingsActivity.this, CreateExerciceActivity.class);
+                Intent nextActivity = new Intent(RecordingsActivity.this, CreateExerciceActivity2.class);
                 startActivity(nextActivity);
             }
         });
