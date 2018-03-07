@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
@@ -33,6 +34,7 @@ public class CreateExerciceActivity2 extends AppCompatActivity {
 
     private TextView mTextMessage;
     private Button btnLireMots;
+   static int i=0;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -74,7 +76,6 @@ public class CreateExerciceActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-
                 InputStream fis = getResources().openRawResource(R.raw.mots);
                 InputStreamReader isr = new InputStreamReader(fis);
                 BufferedReader bufferedReader = new BufferedReader(isr);
@@ -84,30 +85,45 @@ public class CreateExerciceActivity2 extends AppCompatActivity {
                    // LineNumberReader lnr = new LineNumberReader(bufferedReader);
                     int linenumber = 0;
                     String mot="";
-                    Random random=new Random();
+                   // Random random=new Random();
                     List<String> lines = new ArrayList<String>();
 
+                    Intent intent = new Intent(getBaseContext(), DoExerciceActivity.class);
                     while ((sb= bufferedReader.readLine()) != null){
 
                        lines.add(sb);
-                        linenumber++;
-                        int index=random.nextInt(lines.size());
 
-                        if (sb.equals(lines.get(index))) {
+                    }
+            bufferedReader.close();
+                    for (String m: lines  ) {
+                        //System.out.println("chaine file: "+m);
+                        intent.putExtra("Word", lines.get(i));
+                        intent.putExtra("WordTotal", lines.size());
+                        intent.putExtra("PositionWord", i+1);
+
+                        startActivity(intent);
+
+                    }
+                   //i++;
+
+
+                    //mot=lines.get(i);
+
+
+                    // int index=random.nextInt(lines.size());
+
+                        /*if (sb.equals(lines.get(index))) {
                             mot=sb;
                             position = linenumber;
-                        }
-                    }
+                        }*/
+
+
                    // System.out.println("Total number of lines : " + linenumber+" la position est "+position+" le mot est "+mot);
 
                     // lnr.close();
-                    bufferedReader.close();
+                  //  bufferedReader.close();
                     //Transfere des données vers l'activité DoExerciceActivity
-                    Intent intent = new Intent(getBaseContext(), DoExerciceActivity.class);
-                    intent.putExtra("WordTotal", linenumber);
-                    intent.putExtra("PositionWord", position);
-                    intent.putExtra("Word", mot);
-                    startActivity(intent);
+
 
                 } catch (IOException e) {
                     e.printStackTrace();
