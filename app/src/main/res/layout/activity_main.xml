@@ -117,6 +117,48 @@
                 android:textSize="24sp"
                 tools:layout_editor_absoluteX="475dp"
                 tools:layout_editor_absoluteY="516dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:paddingVertical="12dp">
+
+            <Button
+                android:id="@+id/testLaurent"
+                android:layout_width="match_parent"
+                android:layout_height="77dp"
+                android:layout_column="1"
+                android:background="@android:color/holo_blue_light"
+                android:fontFamily="monospace"
+                android:text="Test Laurent"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="475dp"
+                tools:layout_editor_absoluteY="516dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row7"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:paddingVertical="12dp">
+
+            <Button
+                android:id="@+id/testMeryem"
+                android:layout_width="match_parent"
+                android:layout_height="77dp"
+                android:layout_column="1"
+                android:background="@android:color/holo_blue_light"
+                android:fontFamily="monospace"
+                android:text="Test Meryem"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="475dp"
+                tools:layout_editor_absoluteY="516dp" />
         </TableRow>
     </TableLayout>
 

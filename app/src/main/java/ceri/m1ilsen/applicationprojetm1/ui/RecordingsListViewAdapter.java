@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
     public File dataSetPath;
     Context mContext;
     public int layout;
+    public static MediaPlayer mediaPlayer;
 
     public RecordingsListViewAdapter(Context context, int resource, List<String> objects, File objectsPath) {
         super(context, resource, objects);
@@ -40,26 +42,34 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         RecordingsListViewAdapter.ViewHolder mainViewholder = null;
+        //String stringPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/sonnerie.wav";
+        final String stringPath = dataSetPath+"/"+dataSet.get(position);
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(layout, parent, false);
             RecordingsListViewAdapter.ViewHolder viewHolder = new RecordingsListViewAdapter.ViewHolder();
 
             viewHolder.recordingDescriptionHolder = (TextView) convertView.findViewById(R.id.recordingDescription);
-            viewHolder.listenRecordingButtonHolder = (Button) convertView.findViewById(R.id.listenRecordingButton);
-            viewHolder.deleteRecordingButtonHolder = (Button) convertView.findViewById(R.id.deleteRecordingButton);
+            viewHolder.playRecordingButtonHolder = (ImageButton) convertView.findViewById(R.id.playRecordingButton);
+            viewHolder.stopRecordingButtonHolder = (ImageButton) convertView.findViewById(R.id.stopRecordingButton);
+            viewHolder.deleteRecordingButtonHolder = (ImageButton) convertView.findViewById(R.id.deleteRecordingButton);
             convertView.setTag(viewHolder);
         }
         mainViewholder = (RecordingsListViewAdapter.ViewHolder) convertView.getTag();
-        mainViewholder.listenRecordingButtonHolder.setOnClickListener(new View.OnClickListener() {
+        mainViewholder.playRecordingButtonHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mediaPlayer = MediaPlayer.create(getContext(),Uri.parse(stringPath));
+                mediaPlayer.start();
 
-                //String stringPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/sonnerie.wav";
-                String stringPath = dataSetPath+"/"+dataSet.get(position);
-                MediaPlayer mediaPlayer = MediaPlayer.create(getContext(),Uri.parse(stringPath));
-                if (mediaPlayer != null)
-                    mediaPlayer.start();
+            }
+        });
+        mainViewholder.stopRecordingButtonHolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mediaPlayer != null) {
+                    mediaPlayer.stop();
+                }
             }
         });
         mainViewholder.deleteRecordingButtonHolder.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +98,8 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
 
     public class ViewHolder {
         TextView recordingDescriptionHolder;
-        Button listenRecordingButtonHolder;
-        Button deleteRecordingButtonHolder;
+        ImageButton playRecordingButtonHolder;
+        ImageButton stopRecordingButtonHolder;
+        ImageButton deleteRecordingButtonHolder;
     }
 }

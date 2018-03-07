@@ -68,7 +68,7 @@ public class PatientSheetHomeActivity extends AppCompatActivity {
 
         CommentsDataSource BD = new CommentsDataSource(this);
         BD.open();
-       // String data[] = BD.getName();
+        // String data[] = BD.getName();
         System.out.println("LE pseaudo est hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"+ BD.getName());
         BD.close();
 
@@ -107,8 +107,6 @@ public class PatientSheetHomeActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat mdformat = new SimpleDateFormat("dd/MM/yyyy");
         return  strDate= "Current Date : " + mdformat.format(calendar.getTime());
-
     }*/
 
 }
-

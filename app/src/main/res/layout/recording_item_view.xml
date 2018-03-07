@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -20,29 +21,28 @@
             android:layout_height="fill_parent"
             android:text="Le DATE à HEURE ,vous avez obtenu SCORE"
             android:textSize="24sp" />
+
     </LinearLayout>
 
-    <Button
-        android:id="@+id/listenRecordingButton"
-        android:layout_width="359dp"
+    <ImageButton
+        android:id="@+id/playRecordingButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:gravity="center"
-        android:padding="10px"
-        android:text="Ecouter"
-        android:textAllCaps="false"
-        android:textSize="24sp" />
-
-    <Button
-        android:id="@+id/deleteRecordingButton"
-        android:layout_width="185dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
         android:layout_weight="1"
-        android:gravity="center"
-        android:padding="10px"
-        android:text="Supprimer"
-        android:textAllCaps="false"
-        android:textSize="24sp" />
+        app:srcCompat="@android:drawable/ic_media_play" />
+
+    <ImageButton
+        android:id="@+id/stopRecordingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:srcCompat="@android:drawable/ic_media_pause" />
+
+    <ImageButton
+        android:id="@+id/deleteRecordingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:srcCompat="@android:drawable/ic_delete" />
 
 </LinearLayout>
