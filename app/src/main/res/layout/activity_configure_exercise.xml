@@ -27,7 +27,7 @@
             android:layout_marginEnd="200dp"
             android:layout_marginRight="200dp"
             android:background="@android:color/holo_blue_dark"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:text="Parcourir"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@color/common_google_signin_btn_text_dark_default"
@@ -45,7 +45,7 @@
             android:layout_marginRight="167dp"
             android:layout_marginTop="52dp"
             android:background="@android:color/holo_blue_dark"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:text="Créer l'exercice"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@color/common_google_signin_btn_text_dark_default"
@@ -62,12 +62,12 @@
             android:layout_marginEnd="137dp"
             android:layout_marginRight="137dp"
             android:layout_marginTop="52dp"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:text="Configurer un exercice"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@android:color/black"
-            android:textSize="30sp"
+            android:textSize="36sp"
             android:textStyle="bold" />
 
         <EditText

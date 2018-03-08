@@ -76,7 +76,7 @@ public class RecordingsActivity extends AppCompatActivity {
         dataPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         data = new ArrayList(Arrays.asList(dataPath.list(new FilenameFilter() {
             public boolean accept(File directory, String fileName) {
-                return fileName.endsWith(".wav") || fileName.endsWith(".mp3") || fileName.endsWith(".mp4");
+                return fileName.endsWith(".wav") || fileName.endsWith(".mp3");
             }
         })));
         //data.add(new String("Le DATE à HEURE, vous avez obtenu 75"));

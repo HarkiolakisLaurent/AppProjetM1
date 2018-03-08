@@ -1,6 +1,9 @@
 package ceri.m1ilsen.applicationprojetm1.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -8,6 +11,7 @@ import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -75,7 +79,6 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
         mainViewholder.deleteRecordingButtonHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stringPath = dataSetPath+"/"+dataSet.get(position);
                 File file = new File(stringPath);
                 if(file.exists()){
                     System.out.println("Fichier trouvé");
@@ -89,6 +92,7 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
                 }
                 dataSet.remove(position);
                 notifyDataSetChanged();
+
             }
         });
         mainViewholder.recordingDescriptionHolder.setText(getItem(position));

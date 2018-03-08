@@ -32,12 +32,12 @@
             android:layout_above="@+id/listResults"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="25dp"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:text="0 enregistrement(s) sont disponibles"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@android:color/black"
-            android:textSize="30sp"
+            android:textSize="36sp"
             android:textStyle="bold" />
 
         <Button
@@ -48,6 +48,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_weight="1"
+            android:background="@drawable/listview_border"
             android:text="Exercice"
             android:textAllCaps="false"
             android:textSize="36sp"
@@ -79,6 +80,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_weight="1"
+            android:background="@drawable/listview_border"
             android:text="Resultats"
             android:textAllCaps="false"
             android:textSize="36sp"
