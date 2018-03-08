@@ -38,6 +38,7 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
 
     public RecordingsListViewAdapter(Context context, int resource, List<String> objects, File objectsPath) {
         super(context, resource, objects);
+        mContext = context;
         dataSet = objects;
         dataSetPath = objectsPath;
         layout = resource;
@@ -79,19 +80,35 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
         mainViewholder.deleteRecordingButtonHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File file = new File(stringPath);
+
+                final File file = new File(stringPath);
                 if(file.exists()){
                     System.out.println("Fichier trouvé");
                 }else{
                     System.out.println("Fichier non trouvé");
                 }
-                if(file.delete()){
-                    System.out.println(file.getName() + " is deleted!");
-                }else{
-                    System.out.println("Delete operation is failed.");
-                }
-                dataSet.remove(position);
-                notifyDataSetChanged();
+                AlertDialog alertDialog = new AlertDialog.Builder(mContext).create(); //Use context
+                alertDialog.setTitle("Suppression du fichier");
+                alertDialog.setMessage("Le fichier sera définitivement supprimé");
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Annuler",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Continuer",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(file.delete()){
+                                    System.out.println(file.getName() + " is deleted!");
+                                }else{
+                                    System.out.println("Delete operation is failed.");
+                                }
+                                dataSet.remove(position);
+                                notifyDataSetChanged();
+                            }
+                        });
+                alertDialog.show();
 
             }
         });
