@@ -32,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        pseudo =  (EditText) findViewById(R.id.pseudo);
+        /*pseudo =  (EditText) findViewById(R.id.pseudo);
         mdp =  (EditText) findViewById(R.id.mdp);
         mail =  (EditText) findViewById(R.id.mail);
         mdpc =  (EditText) findViewById(R.id.mdpc);
@@ -40,7 +40,7 @@ public class SignUpActivity extends AppCompatActivity {
         birth = (EditText) findViewById(R.id.date_n);
         genre = (Spinner) findViewById(R.id.genre);
         langue = (Spinner) findViewById(R.id.langue);
-        err = (TextView) findViewById(R.id.err);
+        err = (TextView) findViewById(R.id.err);*/
 
     }
 

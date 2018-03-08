@@ -7,12 +7,11 @@
     android:background="#595959">
 
     <RelativeLayout
-        android:layout_width="587dp"
-        android:layout_height="1230dp"
+        android:layout_width="927dp"
+        android:layout_height="653dp"
 
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -228,16 +227,19 @@
             android:id="@+id/button2"
             android:layout_width="200dp"
             android:layout_height="60dp"
-            android:layout_alignBaseline="@+id/button5"
-            android:layout_alignBottom="@+id/button5"
-            android:layout_alignEnd="@+id/genre"
-            android:layout_alignRight="@+id/genre"
+            android:layout_above="@+id/clini"
+            android:layout_alignLeft="@+id/genre"
+            android:layout_alignStart="@+id/genre"
+            android:layout_marginLeft="150dp"
+            android:layout_marginStart="150dp"
             android:background="@android:color/holo_green_dark"
             android:backgroundTint="@android:drawable/ic_input_add"
             android:onClick="creerCompte"
             android:text="VALIDER"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="967dp"
+            tools:layout_editor_absoluteY="576dp" />
 
         <TextView
             android:id="@+id/textView14"
@@ -256,10 +258,10 @@
             android:id="@+id/button5"
             android:layout_width="200dp"
             android:layout_height="60dp"
-            android:layout_below="@+id/textView14"
-            android:layout_marginTop="24dp"
-            android:layout_toEndOf="@+id/err"
-            android:layout_toRightOf="@+id/err"
+            android:layout_alignBaseline="@+id/textView14"
+            android:layout_alignBottom="@+id/textView14"
+            android:layout_alignLeft="@+id/genre"
+            android:layout_alignStart="@+id/genre"
             android:background="@android:color/holo_red_dark"
             android:backgroundTint="@android:color/holo_red_light"
             android:onClick="Retour"
