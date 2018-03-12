@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.CheckBox;
 import android.widget.ToggleButton;
 
 import java.sql.Date;
@@ -19,12 +19,13 @@ import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
 
 public class SignUpActivity extends AppCompatActivity {
     public EditText pseudo;
+    public EditText nom;
+    public EditText prenom;
     public EditText mdp;
     public EditText mail;
     public EditText mdpc;
-    public TextView err;
     public EditText birth;
-    public ToggleButton tg;
+    public CheckBox tg;
     public Spinner genre;
     public Spinner langue;
 
@@ -32,15 +33,16 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        /*pseudo =  (EditText) findViewById(R.id.pseudo);
-        mdp =  (EditText) findViewById(R.id.mdp);
-        mail =  (EditText) findViewById(R.id.mail);
-        mdpc =  (EditText) findViewById(R.id.mdpc);
-        tg = (ToggleButton) findViewById(R.id.clini);
-        birth = (EditText) findViewById(R.id.date_n);
-        genre = (Spinner) findViewById(R.id.genre);
-        langue = (Spinner) findViewById(R.id.langue);
-        err = (TextView) findViewById(R.id.err);*/
+        pseudo =  (EditText) findViewById(R.id.loginField);
+        mdp =  (EditText) findViewById(R.id.newPasswordField);
+        nom =  (EditText) findViewById(R.id.lastNameField);
+        prenom =  (EditText) findViewById(R.id.firstNameField);
+        mail =  (EditText) findViewById(R.id.mailField);
+        mdpc =  (EditText) findViewById(R.id.confirmNewPasswordField);
+        tg = (CheckBox) findViewById(R.id.clini);
+        birth = (EditText) findViewById(R.id.birthdayField);
+        genre = (Spinner) findViewById(R.id.genreField);
+        langue = (Spinner) findViewById(R.id.languageField);
 
     }
 
@@ -51,7 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
         if(!(pseudo.getText().toString().equals("")) && !(mdp.getText().toString().equals("")) && !(mdpc.getText().toString().equals("")) && !(mail.getText().toString().equals(""))) {
             if (!BD.verification(pseudo.getText().toString(), mdp.getText().toString()) && !BD.verificationM(mail.getText().toString(),mdp.getText().toString())) {
                 if (mdp.getText().toString().equals(mdpc.getText().toString())) {
-                    if (!tg.isActivated()) {
+                    if (!tg.isChecked()) {
                         Boolean sex = false;
                         if (genre.getSelectedItemPosition() == 0) {
                             sex = true;
@@ -59,29 +61,24 @@ public class SignUpActivity extends AppCompatActivity {
                         String[] nums = birth.getText().toString().split(""+birth.getText().toString().charAt(2));
                         String zeDate = nums[2]+"-"+nums[1]+"-"+nums[0];
                         Patient P = new Patient(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
-                                "", "", Date.valueOf(zeDate), sex, Language.Français, null, null, null);
+                                nom.getText().toString(), prenom.getText().toString(), Date.valueOf(zeDate), sex, Language.Français, null, null, null);
                         BD.insertPatient(P);
                     } else {
                         Clinician P = new Clinician(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
-                                "", "", null);
+                                nom.getText().toString(), prenom.getText().toString(), null);
                         BD.insertClinicien(P);
                     }
                     startActivity(intent);
                 }else{
-                    err.setText("Les deux mots de passe ne correspondent pas.");
+                    nom.setText("les deux mots de passes sont différents !");
                 }
             }else{
-                err.setText("Un compte avec ces identifiants existe déjà.");
+                nom.setText("ce compte existe déjà !");
             }
         }else{
-            err.setText("Tous les champs obligatoires n'ont pas été remplis.");
+            nom.setText("tous les champs obligatoires ne sont pas remplis !");
         }
         BD.close();
-    }
-
-    public void Exo (View view) {
-        Intent intent = new Intent(this,CreateExerciceActivity.class);
-        startActivity(intent);
     }
 
     public void Retour (View view) {
