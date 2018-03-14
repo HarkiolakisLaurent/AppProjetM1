@@ -13,7 +13,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="61dp"
+            android:layout_height="45dp"
             android:orientation="horizontal">
 
             <TextView
@@ -23,13 +23,6 @@
                 android:layout_weight="1"
                 android:text=" " />
 
-            <Button
-                android:id="@+id/returnButton"
-                android:layout_width="wrap_content"
-                android:layout_height="63dp"
-                android:layout_weight="1"
-                android:background="@android:drawable/ic_menu_revert"
-                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -40,7 +33,7 @@
             <TableLayout
                 android:id="@+id/TableLayout1"
                 android:layout_width="610dp"
-                android:layout_height="match_parent"
+                android:layout_height="591dp"
                 android:gravity="center">
 
                 <TableRow
@@ -174,7 +167,7 @@
             <TableLayout
                 android:id="@+id/TableLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="571dp"
                 android:gravity="center">
 
                 <TableRow
