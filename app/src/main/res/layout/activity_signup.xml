@@ -111,11 +111,10 @@
 
                     <EditText
                         android:id="@+id/birthdayField"
-                        android:layout_width="wrap_content"
+                        android:layout_width="184dp"
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="date"
-                        android:text="18/09/1994"
                         android:textSize="24sp" />
 
                 </TableRow>
@@ -139,8 +138,8 @@
                         android:id="@+id/languageField"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:entries="@array/langues"
-                        android:background="@android:drawable/btn_dropdown" />
+                        android:background="@android:drawable/btn_dropdown"
+                        android:entries="@array/langues" />
 
                 </TableRow>
 
@@ -163,8 +162,8 @@
                         android:id="@+id/genreField"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:entries="@array/genres"
-                        android:background="@android:drawable/btn_dropdown" />
+                        android:background="@android:drawable/btn_dropdown"
+                        android:entries="@array/genres" />
 
                 </TableRow>
 
@@ -197,7 +196,6 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="text"
-                        android:text="Totodu84"
                         android:textSize="24sp" />
 
                 </TableRow>
@@ -223,7 +221,6 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="textEmailAddress"
-                        android:text="xyz@gmail.com"
                         android:textSize="24sp" />
 
                 </TableRow>
@@ -240,7 +237,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="20dp"
-                        android:text="Nouveau mot de passe"
+                        android:text="Mot de passe"
                         android:textSize="24sp" />
 
                     <EditText
