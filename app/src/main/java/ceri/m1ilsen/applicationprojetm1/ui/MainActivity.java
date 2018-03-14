@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         testLaurent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextActivity = new Intent(MainActivity.this, RecordingsActivity.class);
+                Intent nextActivity = new Intent(MainActivity.this, EditProfileActivity.class);
                 startActivity(nextActivity);
             }
         });

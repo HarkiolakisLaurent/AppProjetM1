@@ -87,9 +87,9 @@
                 </TableRow>
 
                 <TableRow
-                    android:id="@+id/row13"
+                    android:id="@+id/row125"
                     android:layout_width="match_parent"
-                    android:layout_height="166dp"
+                    android:layout_height="match_parent"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -100,6 +100,21 @@
                         android:paddingHorizontal="20dp"
                         android:text="Date de naissance"
                         android:textSize="24sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/row13"
+                    android:layout_width="match_parent"
+                    android:layout_height="166dp"
+                    android:gravity="center_horizontal"
+                    android:paddingVertical="12dp">
+
+                    <ImageButton
+                        android:id="@+id/dateChooser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@android:drawable/ic_menu_my_calendar" />
 
                     <EditText
                         android:id="@+id/birthdayField"

@@ -83,7 +83,7 @@ public class SignUpActivity extends AppCompatActivity {
             day = selectedDay;
             month = selectedMonth;
             year = selectedYear;
-            birth.setText(selectedDay+" / "+(selectedMonth + 1)+" / "+selectedYear);
+            birth.setText(selectedDay+"/"+(selectedMonth + 1)+"/"+selectedYear);
         }
     };
 
