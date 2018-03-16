@@ -21,6 +21,7 @@ public class PatientSheetHomeActivity extends AppCompatActivity {
     public ListViewAdapter adapter;
     private Button btnExercice = null;
     private Button btnEnregist = null;
+    private Button btnResult = null;
     private ArrayList<String> data = new ArrayList<String>();
 
     @Override
@@ -62,6 +63,17 @@ public class PatientSheetHomeActivity extends AppCompatActivity {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
                 Intent nextActivity = new Intent(PatientSheetHomeActivity.this, RecordingsActivity.class);
+                startActivity(nextActivity);
+            }
+        });
+
+        btnResult = (Button) findViewById(R.id.btnResultat);
+        btnResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Le premier paramètre est le nom de l'activité actuelle
+                // Le second est le nom de l'activité de destination
+                Intent nextActivity = new Intent(PatientSheetHomeActivity.this, PatientResultActivity.class);
                 startActivity(nextActivity);
             }
         });

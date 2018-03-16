@@ -14,6 +14,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import ceri.m1ilsen.applicationprojetm1.comment.Comment;
+import ceri.m1ilsen.applicationprojetm1.exercise.Session;
 import ceri.m1ilsen.applicationprojetm1.user.*;
 public class CommentsDataSource {
 
@@ -74,17 +75,10 @@ public class CommentsDataSource {
     }
 
     public boolean verification(String pseudo , String mdp){
-
         Cursor c = database.query("patients",new String[]{ "pseudo", "mail"},"pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
         if(c.getCount() == 0 ){
-            c = database.query("cliniciens",new String[]{ "pseudo", "mail"},"pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
-            if(c.getCount() == 0){
-                c.close();
-                return false;
-            }else{
-                c.close();
-                return true;
-            }
+            c.close();
+            return false;
         }else{
             c.close();
             return true;
@@ -94,16 +88,33 @@ public class CommentsDataSource {
 
     public boolean verificationM(String mail , String mdp){
         Cursor c = database.query("patients",new String[]{"pseudo", "mail"},"mail LIKE \""+mail+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
-        if(c.getCount() == 0 ){
-            c = database.query("cliniciens",new String[]{"pseudo", "mail"},"mail LIKE \""+mail+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
+        if(c.getCount() == 0){
+            c.close();
+            return false;
+        }else{
+            c.close();
+            return true;
+        }
+    }
+
+    public boolean verificationC(String pseudo , String mdp){
+            Cursor c = database.query("cliniciens",new String[]{ "pseudo", "mail"},"pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
+            if(c.getCount() == 0){
+                c.close();
+                return false;
+            }else{
+                c.close();
+                return true;
+            }
+    }
+
+    public boolean verificationCM(String mail , String mdp){
+            Cursor c = database.query("cliniciens",new String[]{"pseudo", "mail"},"mail LIKE \""+mail+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
             if(c.getCount() == 0){
                 return false;
             }else{
                 return true;
             }
-        }else{
-            return true;
-        }
     }
 
     public long insertPatient(Patient P) {
@@ -127,11 +138,54 @@ public class CommentsDataSource {
         return database.insert("cliniciens", null, values);
     }
 
+    public long insertSession(Session S) {
+
+        ContentValues values = new ContentValues();
+        values.put("date_creation", String.valueOf(S.getCreationDate()));
+        values.put("id_patient",S.getPatient());
+        return database.insert("sessions", null, values);
+    }
+
     private Comment cursorToComment(Cursor cursor) {
         Comment comment = new Comment();
         comment.setId(cursor.getLong(0));
         comment.setComment(cursor.getString(1));
         return comment;
+    }
+
+    public int getPatientP (String pseudo , String mdp){
+      Cursor c = database.rawQuery("Select _id from patients where pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
+      c.moveToFirst();
+      return c.getInt(0);
+    }
+
+    public int getPatientM (String mail , String mdp){
+        Cursor c = database.rawQuery("Select _id from patients where pseudo LIKE \""+mail+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
+        c.moveToFirst();
+        return c.getInt(0);
+    }
+
+    public Patient getPatientI (int id){
+        Patient p = (Patient)database.rawQuery("Select * from patients where _id="+id,null);
+        return p;
+    }
+
+    public int getPatient_id(Patient patient){
+        Cursor c=database.rawQuery("Select _id from patients where pseudo LIKE \""+patient.getPseudo()+"\" and mot_de_passe LIKE \""+patient.getPassword()+"\"" , null);
+        int id=c.getInt(0);
+        return id;
+    }
+
+    public String[] getSessions (int id){
+        Cursor c = database.rawQuery("Select _id , date_creation from sessions where id_patient="+id,null);
+        c.moveToFirst();
+        String[] sessions = new String[c.getCount()+1];
+        sessions[0]="sessions";
+        for(int i=1; i<=c.getCount() ; i++) {
+            sessions[i]="Session n° "+c.getInt(0)+" du "+c.getString(1);
+            c.moveToNext();
+        }
+        return sessions;
     }
 
     //Meryem

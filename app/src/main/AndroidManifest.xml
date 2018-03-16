@@ -30,6 +30,7 @@
         <activity android:name=".ui.RecordingsActivity" />
         <activity android:name=".ui.DoExerciceActivity" />
         <activity android:name=".ui.PatientSheetHomeActivity" />
+        <activity android:name=".ui.PatientResultActivity" />
     </application>
 
 </manifest>

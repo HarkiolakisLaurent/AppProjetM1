@@ -55,6 +55,7 @@
             android:layout_toEndOf="@+id/btnEnregistClinicien"
             android:layout_toRightOf="@+id/btnEnregistClinicien"
             android:lineSpacingExtra="0dp"
+            android:onClick="results"
             android:text="Résultats" />
 
         <!-- <Button

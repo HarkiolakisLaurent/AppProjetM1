@@ -8,8 +8,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Date;
+import java.util.List;
+
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
+import ceri.m1ilsen.applicationprojetm1.exercise.Session;
 import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
+import ceri.m1ilsen.applicationprojetm1.sqlite.Contexte;
+import ceri.m1ilsen.applicationprojetm1.user.Patient;
 
 public class MainActivity extends AppCompatActivity {
     private CommentsDataSource datasource;
@@ -61,10 +68,27 @@ public class MainActivity extends AppCompatActivity {
                 Intent nextActivity = new Intent(MainActivity.this, PatientSheetHomeActivity.class);
 
                 BD.open();
-                if (BD.verification(mail.getText().toString(), mdp.getText().toString()) || BD.verificationM(mail.getText().toString(), mdp.getText().toString())) {
+                if (BD.verification(mail.getText().toString(), mdp.getText().toString()) ){
+                    int p = BD.getPatientP(mail.getText().toString(), mdp.getText().toString());
+                    Session session  = new Session(new Date(System.currentTimeMillis()), null , null , p);
+                    BD.insertSession(session);
+                    BD.close();
+                    Contexte.patient=p;
+                    startActivity(nextActivity);
+
+                } else if (BD.verificationM(mail.getText().toString(), mdp.getText().toString())) {
+                    int p = BD.getPatientM(mail.getText().toString(), mdp.getText().toString());
+                    Session session  = new Session(new Date(System.currentTimeMillis()), null , null , p);
+                    BD.insertSession(session);
+                    BD.close();
+                    Contexte.patient=p;
+                    startActivity(nextActivity);
+
+                } else if (BD.verificationC(mail.getText().toString(), mdp.getText().toString()) || BD.verificationCM(mail.getText().toString(), mdp.getText().toString()) ) {
+                    nextActivity.setAction("ClinicienSheetHomeActivity.class");
+                    BD.close();
                     startActivity(nextActivity);
                 }
-                BD.close();
             }
         });
     }

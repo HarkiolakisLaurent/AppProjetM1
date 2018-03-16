@@ -30,6 +30,16 @@ public class MySQLiteDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_MAIL2 = "mail";
     public static final String COLUMN_DATE2= "mot_de_passe";
 
+    public static final String TABLE_SESSIONS = "sessions";
+    public static final String COLUMN_CREATION = "date_creation";
+    public static final String IDP = "id_patient";
+
+    public static final String TABLE_EXERCICES = "exercices";
+    public static final String COLUMN_TITRE = "titre";
+    public static final String COLUMN_DUREE = "dureeMax";
+    public static final String COLUMN_TEMPS = "DureeMax";
+    public static final String COLUMN_SESSION= "id_session";
+
     public static final String TABLE_COMMENTS = "comments";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_COMMENT = "comment";
@@ -42,12 +52,18 @@ public class MySQLiteDatabase extends SQLiteOpenHelper {
             + " integer primary key autoincrement, "+ COLUMN_PSEUDO
             + " text not null ,"+ COLUMN_MAIL +" text not null ,"+COLUMN_MDP+" text not null ,"
             + COLUMN_NOM+" text ,"+ COLUMN_PRENOM + "text ,"+ COLUMN_DATE +" text not null , "+ COLUMN_GENRE +" boolean not null ,"
-            + COLUMN_LANGUE+ " text not null ,"+ COLUMN_CLINICIEN +" integer );\n"
-            ;
+            + COLUMN_LANGUE+ " text not null ,"+ COLUMN_CLINICIEN +" integer );\n";
 
     private static final String DATABASE_CREATE2 = "create table " + TABLE_CLINICIENS + "( " + COLUMN_ID3
             + " integer primary key autoincrement, " + COLUMN_NOM+" text ,"+ COLUMN_PRENOM + "text ,"
             + COLUMN_PSEUDO2 + " text not null ,"+ COLUMN_MAIL2 +" text not null ,"+COLUMN_DATE2+" text not null );";
+
+    private static final String DATABASE_CREATE_S = "create table " + TABLE_SESSIONS + "( " + COLUMN_ID3
+            + " integer primary key autoincrement, " + COLUMN_CREATION+"date not null,"+ IDP +" integer not null );";
+
+    private static final String DATABASE_CREATE_E = "create table " + TABLE_EXERCICES + "( " + COLUMN_ID3
+            + " integer primary key autoincrement, " + COLUMN_TITRE+" text not null ,"+ COLUMN_DUREE + "integer ,"
+            + COLUMN_TEMPS + " integer ,"+ COLUMN_SESSION +" integer not null );";
 
     public MySQLiteDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -57,6 +73,8 @@ public class MySQLiteDatabase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(DATABASE_CREATE);
         database.execSQL(DATABASE_CREATE2);
+        database.execSQL(DATABASE_CREATE_S);
+        database.execSQL(DATABASE_CREATE_E);
         System.out.println("CREATION DE LA BDD");
     }
 
@@ -65,8 +83,10 @@ public class MySQLiteDatabase extends SQLiteOpenHelper {
         Log.w(MySQLiteDatabase.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COMMENTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLINICIENS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PATIENTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SESSIONS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXERCICES);
         onCreate(db);
     }
 }

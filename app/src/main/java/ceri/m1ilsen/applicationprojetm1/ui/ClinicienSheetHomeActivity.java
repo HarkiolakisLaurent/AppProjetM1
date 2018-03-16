@@ -78,5 +78,10 @@ public class ClinicienSheetHomeActivity extends AppCompatActivity {
 
     }*/
 
+     public void results(View view){
+         Intent intent = new Intent(this, CliniResultActivity.class);
+         startActivity(intent);
+
+     }
 }
 
