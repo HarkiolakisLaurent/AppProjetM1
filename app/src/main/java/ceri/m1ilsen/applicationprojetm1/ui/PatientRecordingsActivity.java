@@ -11,11 +11,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -23,8 +21,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.adapter.RecordingsListViewAdapter;
 
-public class RecordingsActivity extends AppCompatActivity {
+public class PatientRecordingsActivity extends AppCompatActivity {
 
 
     private ListView lv;
@@ -96,7 +95,7 @@ public class RecordingsActivity extends AppCompatActivity {
         exerciseMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextActivity = new Intent(RecordingsActivity.this, CreateExerciceActivity2.class);
+                Intent nextActivity = new Intent(PatientRecordingsActivity.this, CreateExerciseActivity.class);
                 startActivity(nextActivity);
             }
         });
@@ -112,7 +111,7 @@ public class RecordingsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_home:
-                Intent homepage = new Intent(this, HomePageActivity.class);
+                Intent homepage = new Intent(this, PatientHomePageActivity.class);
                 startActivity(homepage);
                 return true;
             case R.id.action_conf:

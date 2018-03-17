@@ -1,11 +1,8 @@
 package ceri.m1ilsen.applicationprojetm1.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
@@ -16,21 +13,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.LineNumberReader;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 
-public class CreateExerciceActivity2 extends AppCompatActivity {
+public class CreateExerciseActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
     private Button btnLireMots;
@@ -59,7 +50,7 @@ public class CreateExerciceActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_exercice2);
+        setContentView(R.layout.activity_create_exercise);
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);

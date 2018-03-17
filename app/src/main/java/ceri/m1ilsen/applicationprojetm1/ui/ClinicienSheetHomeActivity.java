@@ -13,6 +13,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.adapter.ListViewAdapter;
+import ceri.m1ilsen.applicationprojetm1.user.Clinician;
 
 public class ClinicienSheetHomeActivity extends AppCompatActivity {
     ListView lv;
@@ -23,7 +25,7 @@ public class ClinicienSheetHomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_clinicienhome_sheet);
+        setContentView(R.layout.activity_clinician_home_page);
         lv=(ListView)findViewById(R.id.listResultsClinicien);
         data= new ArrayList<>();
 
@@ -54,11 +56,10 @@ public class ClinicienSheetHomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_home:
-                Intent accueil = new Intent(this, HomePageActivity.class);
-                startActivity(accueil);
                 return true;
             case R.id.action_conf:
-                configuration();
+                Intent settings = new Intent(this, SettingsActivity.class);
+                startActivity(settings);
                 return true;
         }
 

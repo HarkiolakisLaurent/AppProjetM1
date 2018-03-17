@@ -9,14 +9,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Date;
-import java.util.List;
 
 import ceri.m1ilsen.applicationprojetm1.R;
-import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
 import ceri.m1ilsen.applicationprojetm1.exercise.Session;
 import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
 import ceri.m1ilsen.applicationprojetm1.sqlite.Contexte;
-import ceri.m1ilsen.applicationprojetm1.user.Patient;
 
 public class MainActivity extends AppCompatActivity {
     private CommentsDataSource datasource;
@@ -56,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         testMeryem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextActivity = new Intent(MainActivity.this, CreateExerciceActivity2.class);
+                Intent nextActivity = new Intent(MainActivity.this, CreateExerciseActivity.class);
                 startActivity(nextActivity);
             }
         });
@@ -65,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextActivity = new Intent(MainActivity.this, PatientSheetHomeActivity.class);
+                Intent nextActivity = new Intent(MainActivity.this, PatientHomePageActivity.class);
 
                 BD.open();
                 if (BD.verification(mail.getText().toString(), mdp.getText().toString()) ){

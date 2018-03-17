@@ -20,7 +20,7 @@ public class DoExerciceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_do_exercice);
+        setContentView(R.layout.activity_do_exercise);
         txtView=(TextView)findViewById(R.id.textExercice);
 
         int totalMot = getIntent().getIntExtra("WordTotal",0);
@@ -60,7 +60,7 @@ public class DoExerciceActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(DoExerciceActivity.this, CreateExerciceActivity2.class);
+                Intent nextActivity = new Intent(DoExerciceActivity.this, CreateExerciseActivity.class);
                 startActivity(nextActivity);
             }
         });

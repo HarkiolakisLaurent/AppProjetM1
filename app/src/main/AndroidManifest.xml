@@ -23,13 +23,11 @@
         <activity android:name=".ui.EditProfileActivity" />
         <activity android:name=".ui.SettingsActivity" />
         <activity android:name=".ui.ClinicienSheetHomeActivity" />
-        <activity android:name=".ui.CreateExerciceActivity" />
-        <activity android:name=".ui.CreateExerciceActivity2" />
-        <activity android:name=".ui.HomePageActivity" />
+        <activity android:name=".ui.CreateExerciseActivity" />
         <activity android:name=".ui.ConfigureExerciseActivity" />
-        <activity android:name=".ui.RecordingsActivity" />
+        <activity android:name=".ui.PatientRecordingsActivity" />
         <activity android:name=".ui.DoExerciceActivity" />
-        <activity android:name=".ui.PatientSheetHomeActivity" />
+        <activity android:name=".ui.PatientHomePageActivity" />
         <activity android:name=".ui.PatientResultActivity" />
     </application>
 

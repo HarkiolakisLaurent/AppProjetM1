@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
-    android:theme="@android:style/Theme"
     tools:context="ceri.m1ilsen.applicationprojetm1.ui.MainActivity">
 
 
@@ -73,7 +71,7 @@
                 android:layout_column="1"
                 android:fontFamily="monospace"
                 android:text="Créer un nouveau compte"
-                android:textColor="@android:color/holo_blue_light"
+                android:textColor="@android:color/holo_blue_dark"
                 android:textSize="24sp"
                 tools:layout_editor_absoluteX="484dp"
                 tools:layout_editor_absoluteY="359dp" />
@@ -93,7 +91,7 @@
                 android:layout_column="1"
                 android:fontFamily="monospace"
                 android:text="Mot de passe oublié ?"
-                android:textColor="@android:color/holo_blue_light"
+                android:textColor="@android:color/holo_blue_dark"
                 android:textSize="24sp"
                 tools:layout_editor_absoluteX="485dp"
                 tools:layout_editor_absoluteY="426dp" />

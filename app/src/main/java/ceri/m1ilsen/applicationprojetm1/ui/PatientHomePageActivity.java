@@ -14,9 +14,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.adapter.ListViewAdapter;
 import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
 
-public class PatientSheetHomeActivity extends AppCompatActivity {
+public class PatientHomePageActivity extends AppCompatActivity {
     ListView lv;
     public ListViewAdapter adapter;
     private Button btnExercice = null;
@@ -27,7 +28,7 @@ public class PatientSheetHomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patienthome_sheet);
+        setContentView(R.layout.activity_patient_home_page);
         lv=(ListView)findViewById(R.id.listResults);
         data= new ArrayList<>();
 
@@ -40,7 +41,7 @@ public class PatientSheetHomeActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String dataModel= data.get(position);
-                Toast.makeText(PatientSheetHomeActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(PatientHomePageActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -51,7 +52,7 @@ public class PatientSheetHomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(PatientSheetHomeActivity.this, CreateExerciceActivity.class);
+                Intent nextActivity = new Intent(PatientHomePageActivity.this, CreateExerciceActivity.class);
                 startActivity(nextActivity);
             }
         });
@@ -62,7 +63,7 @@ public class PatientSheetHomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(PatientSheetHomeActivity.this, RecordingsActivity.class);
+                Intent nextActivity = new Intent(PatientHomePageActivity.this, PatientRecordingsActivity.class);
                 startActivity(nextActivity);
             }
         });
@@ -73,7 +74,7 @@ public class PatientSheetHomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(PatientSheetHomeActivity.this, PatientResultActivity.class);
+                Intent nextActivity = new Intent(PatientHomePageActivity.this, PatientResultActivity.class);
                 startActivity(nextActivity);
             }
         });

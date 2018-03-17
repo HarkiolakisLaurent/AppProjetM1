@@ -42,7 +42,7 @@ public class PatientResultActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(PatientResultActivity.this, CreateExerciceActivity.class);
+                Intent nextActivity = new Intent(PatientResultActivity.this, CreateExerciseActivity.class);
                 startActivity(nextActivity);
             }
         });
@@ -53,7 +53,7 @@ public class PatientResultActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(PatientResultActivity.this, RecordingsActivity.class);
+                Intent nextActivity = new Intent(PatientResultActivity.this, PatientRecordingsActivity.class);
                 startActivity(nextActivity);
             }
         });

@@ -1,4 +1,4 @@
-package ceri.m1ilsen.applicationprojetm1.ui;
+package ceri.m1ilsen.applicationprojetm1.adapter;
 
 import android.app.Activity;
 import android.content.Context;
