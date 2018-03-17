@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(nextActivity);
 
                 } else if (BD.verificationC(mail.getText().toString(), mdp.getText().toString()) || BD.verificationCM(mail.getText().toString(), mdp.getText().toString()) ) {
-                    nextActivity.setAction("ClinicienSheetHomeActivity.class");
+                    nextActivity.setAction("ClinicianHomePageActivity.class");
                     BD.close();
                     startActivity(nextActivity);
                 }

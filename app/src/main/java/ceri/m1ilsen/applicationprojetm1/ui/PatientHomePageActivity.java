@@ -52,7 +52,7 @@ public class PatientHomePageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(PatientHomePageActivity.this, CreateExerciceActivity.class);
+                Intent nextActivity = new Intent(PatientHomePageActivity.this, CreateExerciseActivity.class);
                 startActivity(nextActivity);
             }
         });
@@ -97,10 +97,6 @@ public class PatientHomePageActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.action_home:
-                Intent homepage = new Intent(this, HomePageActivity.class);
-                startActivity(homepage);
-                return true;
             case R.id.action_conf:
                 Intent settings = new Intent(this, SettingsActivity.class);
                 startActivity(settings);

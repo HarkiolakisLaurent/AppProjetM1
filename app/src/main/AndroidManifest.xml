@@ -22,7 +22,7 @@
         <activity android:name=".ui.SignUpActivity" />
         <activity android:name=".ui.EditProfileActivity" />
         <activity android:name=".ui.SettingsActivity" />
-        <activity android:name=".ui.ClinicienSheetHomeActivity" />
+        <activity android:name=".ui.ClinicianHomePageActivity" />
         <activity android:name=".ui.CreateExerciseActivity" />
         <activity android:name=".ui.ConfigureExerciseActivity" />
         <activity android:name=".ui.PatientRecordingsActivity" />

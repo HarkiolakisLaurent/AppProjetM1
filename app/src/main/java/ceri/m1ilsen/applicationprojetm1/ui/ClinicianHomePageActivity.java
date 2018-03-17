@@ -14,9 +14,8 @@ import java.util.ArrayList;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.ListViewAdapter;
-import ceri.m1ilsen.applicationprojetm1.user.Clinician;
 
-public class ClinicienSheetHomeActivity extends AppCompatActivity {
+public class ClinicianHomePageActivity extends AppCompatActivity {
     ListView lv;
     public ListViewAdapter adapter;
     public int n;
@@ -38,7 +37,7 @@ public class ClinicienSheetHomeActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String dataModel= data.get(position);
-                Toast.makeText(ClinicienSheetHomeActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ClinicianHomePageActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
 
             }
         });

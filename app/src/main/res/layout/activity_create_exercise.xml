@@ -5,7 +5,6 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#595959"
     tools:context="ceri.m1ilsen.applicationprojetm1.ui.CreateExerciseActivity">
 
     <RelativeLayout
@@ -86,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/button10"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="96dp"
+            android:layout_marginTop="60dp"
             android:fontFamily="casual"
             android:text="Reprendre un exercice"
             android:textAppearance="@style/TextAppearance.AppCompat"
@@ -105,44 +104,12 @@
             android:layout_marginTop="24dp"
             android:background="@color/common_google_signin_btn_text_dark_default" />
 
-        <Button
-            android:id="@+id/button13"
-            android:layout_width="225dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/listView"
-            android:layout_marginTop="28dp"
-            android:background="@android:color/darker_gray"
-            android:fontFamily="casual"
-            android:text="Page précédente"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/button14"
-            android:layout_width="225dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/button13"
-            android:layout_alignBottom="@+id/button13"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:background="@android:color/darker_gray"
-            android:fontFamily="casual"
-            android:text="Page suivante"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
     </RelativeLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
         android:backgroundTint="#3f3c3c"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
