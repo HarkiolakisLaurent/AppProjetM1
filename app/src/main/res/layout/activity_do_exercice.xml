@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textExercice"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/imageicro_border"
+            android:background="@drawable/imagemicro_border"
             app:srcCompat="@drawable/micro1" />
 
         <TextView
