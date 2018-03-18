@@ -126,13 +126,13 @@
             android:paddingVertical="12dp">
 
             <Button
-                android:id="@+id/testLaurent"
+                android:id="@+id/testPatient"
                 android:layout_width="match_parent"
                 android:layout_height="77dp"
                 android:layout_column="1"
                 android:background="@android:color/holo_blue_light"
                 android:fontFamily="monospace"
-                android:text="Test Laurent"
+                android:text="Test Patient"
                 android:textSize="24sp"
                 tools:layout_editor_absoluteX="475dp"
                 tools:layout_editor_absoluteY="516dp" />
@@ -147,13 +147,13 @@
             android:paddingVertical="12dp">
 
             <Button
-                android:id="@+id/testMeryem"
+                android:id="@+id/testClinicien"
                 android:layout_width="match_parent"
                 android:layout_height="77dp"
                 android:layout_column="1"
                 android:background="@android:color/holo_blue_light"
                 android:fontFamily="monospace"
-                android:text="Test Meryem"
+                android:text="Test Clinicien"
                 android:textSize="24sp"
                 tools:layout_editor_absoluteX="475dp"
                 tools:layout_editor_absoluteY="516dp" />

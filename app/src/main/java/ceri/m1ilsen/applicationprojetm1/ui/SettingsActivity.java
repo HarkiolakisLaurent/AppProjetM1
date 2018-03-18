@@ -27,12 +27,10 @@ public class SettingsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_home:
-                Intent homepage = new Intent(this, PatientHomePageActivity.class);
+                Intent homepage = new Intent(this, PatientActivity.class);
                 startActivity(homepage);
                 return true;
             case R.id.action_conf:
-                Intent settings = new Intent(this, SettingsActivity.class);
-                startActivity(settings);
                 return true;
         }
 

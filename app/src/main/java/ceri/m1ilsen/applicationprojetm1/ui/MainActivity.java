@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private CommentsDataSource datasource;
     private TextView signUp = null;
     private Button signIn = null;
-    private Button testLaurent;
-    private Button testMeryem;
+    private Button testPatient;
+    private Button testClinicien;
     public EditText mail;
     public EditText mdp;
     public TextView forgotPassword;
@@ -79,19 +79,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(nextActivity);
             }
         });
-        testLaurent = (Button) findViewById(R.id.testLaurent);
-        testLaurent.setOnClickListener(new View.OnClickListener() {
+        testPatient = (Button) findViewById(R.id.testPatient);
+        testPatient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent nextActivity = new Intent(MainActivity.this, PatientActivity.class);
                 startActivity(nextActivity);
             }
         });
-        testMeryem = (Button) findViewById(R.id.testMeryem);
-        testMeryem.setOnClickListener(new View.OnClickListener() {
+        testClinicien = (Button) findViewById(R.id.testClinicien);
+        testClinicien.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextActivity = new Intent(MainActivity.this, CreateExerciseActivity.class);
+                Intent nextActivity = new Intent(MainActivity.this, ClinicianActivity.class);
                 startActivity(nextActivity);
             }
         });

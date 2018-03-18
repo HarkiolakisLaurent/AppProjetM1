@@ -60,7 +60,7 @@ public class DoExerciceActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(DoExerciceActivity.this, CreateExerciseActivity.class);
+                Intent nextActivity = new Intent(DoExerciceActivity.this, PatientActivity.class);
                 startActivity(nextActivity);
             }
         });

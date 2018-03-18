@@ -7,38 +7,43 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import ceri.m1ilsen.applicationprojetm1.R;
-import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
-import ceri.m1ilsen.applicationprojetm1.sqlite.Contexte;
+import ceri.m1ilsen.applicationprojetm1.adapter.ListViewAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PatientResultsFragment.OnFragmentInteractionListener} interface
+ * {@link ClinicianHomePageFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PatientResultsFragment#newInstance} factory method to
+ * Use the {@link ClinicianHomePageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PatientResultsFragment extends Fragment {
+public class ClinicianHomePageFragment extends Fragment {
+    ListView lv;
+    public ListViewAdapter adapter;
+    public int n;
+    private ArrayList<String> data = new ArrayList<String>();
 
     private OnFragmentInteractionListener mListener;
 
-    public PatientResultsFragment() {
+    public ClinicianHomePageFragment() {
         // Required empty public constructor
     }
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     * @return A new instance of fragment PatientResultsFragment.
+     * @return A new instance of fragment ClinicianHomePageFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PatientResultsFragment newInstance(String param1, String param2) {
-        PatientResultsFragment fragment = new PatientResultsFragment();
+    public static ClinicianHomePageFragment newInstance(String param1, String param2) {
+        ClinicianHomePageFragment fragment = new ClinicianHomePageFragment();
         return fragment;
     }
 
@@ -51,21 +56,23 @@ public class PatientResultsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_patient_results, container, false);
-        String[] sessions ;
-        Button btnExercice = null;
-        Button btnEnregist = null;
-        Button btnResult = null;
-        ListView liste;
-        CommentsDataSource BD = new CommentsDataSource(view.getContext());
-        BD.open();
+        View view = inflater.inflate(R.layout.fragment_clinician_home_page, container, false);
+        lv = (ListView) view.findViewById(R.id.listResultsClinicien);
+        data= new ArrayList<>();
 
-        liste = (ListView) view.findViewById(R.id.listResultsSession);
-        sessions = BD.getSessions(Contexte.patient);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext() ,
-                android.R.layout.simple_list_item_1, sessions);
-        liste.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        data.add(new String("Le DATE à HEURE, NOM Prenom a obtenu 75"));
+        data.add(new String("Le DATE à HEURE, NOM Prenom a obtenu 80"));
+
+        lv.setAdapter(new ListViewAdapter(view.getContext(), R.layout.affichageitem, data));
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String dataModel= data.get(position);
+                Toast.makeText(view.getContext(), "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
+
+            }
+        });
         return view;
     }
 

@@ -10,23 +10,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import ceri.m1ilsen.applicationprojetm1.R;
-import ceri.m1ilsen.applicationprojetm1.fragment.CreateExerciseFragment;
-import ceri.m1ilsen.applicationprojetm1.fragment.PatientHomePageFragment;
-import ceri.m1ilsen.applicationprojetm1.fragment.PatientRecordingsFragment;
-import ceri.m1ilsen.applicationprojetm1.fragment.PatientResultsFragment;
+import ceri.m1ilsen.applicationprojetm1.fragment.ClinicianHomePageFragment;
+import ceri.m1ilsen.applicationprojetm1.fragment.ClinicianRecordingsFragment;
+import ceri.m1ilsen.applicationprojetm1.fragment.ClinicianResultsFragment;
+import ceri.m1ilsen.applicationprojetm1.fragment.MonitorPatientsFragment;
 
-public class PatientActivity extends AppCompatActivity {
+public class ClinicianActivity extends AppCompatActivity {
 
-    private PatientHomePageFragment homePageFragment = new PatientHomePageFragment();
-    private CreateExerciseFragment exerciseFragment = new CreateExerciseFragment();
-    private PatientRecordingsFragment recordingsFragment = new PatientRecordingsFragment();
-    private PatientResultsFragment resultsFragment = new PatientResultsFragment();
+    private ClinicianHomePageFragment homePageFragment = new ClinicianHomePageFragment();
+    private MonitorPatientsFragment patientsFragment = new MonitorPatientsFragment();
+    private ClinicianRecordingsFragment recordingsFragment = new ClinicianRecordingsFragment();
+    private ClinicianResultsFragment resultsFragment = new ClinicianResultsFragment();
     private FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient);
+        setContentView(R.layout.activity_clinician);
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer, homePageFragment);
         fragmentTransaction.commit();
@@ -40,22 +40,22 @@ public class PatientActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.patient_navigation_home:
+                case R.id.clinician_navigation_home:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.fragmentContainer, homePageFragment);
                     fragmentTransaction.commit();
                     return true;
-                case R.id.patient_navigation_exercises:
+                case R.id.clinician_navigation_patients:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.fragmentContainer, exerciseFragment);
+                    fragmentTransaction.replace(R.id.fragmentContainer, patientsFragment);
                     fragmentTransaction.commit();
                     return true;
-                case R.id.patient_navigation_recordings:
+                case R.id.clinician_navigation_recordings:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.fragmentContainer, recordingsFragment);
                     fragmentTransaction.commit();
                     return true;
-                case R.id.patient_navigation_results:
+                case R.id.clinician_navigation_results:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.fragmentContainer, resultsFragment);
                     fragmentTransaction.commit();

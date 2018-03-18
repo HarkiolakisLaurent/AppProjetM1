@@ -7,38 +7,33 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
 
 import ceri.m1ilsen.applicationprojetm1.R;
-import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
-import ceri.m1ilsen.applicationprojetm1.sqlite.Contexte;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PatientResultsFragment.OnFragmentInteractionListener} interface
+ * {@link ClinicianResultsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PatientResultsFragment#newInstance} factory method to
+ * Use the {@link ClinicianResultsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PatientResultsFragment extends Fragment {
+public class ClinicianResultsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public PatientResultsFragment() {
+    public ClinicianResultsFragment() {
         // Required empty public constructor
     }
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     * @return A new instance of fragment PatientResultsFragment.
+     * @return A new instance of fragment ClinicianResultsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PatientResultsFragment newInstance(String param1, String param2) {
-        PatientResultsFragment fragment = new PatientResultsFragment();
+    public static ClinicianResultsFragment newInstance(String param1, String param2) {
+        ClinicianResultsFragment fragment = new ClinicianResultsFragment();
         return fragment;
     }
 
@@ -51,21 +46,8 @@ public class PatientResultsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_patient_results, container, false);
+        View view = inflater.inflate(R.layout.fragment_clinician_results, container, false);
         String[] sessions ;
-        Button btnExercice = null;
-        Button btnEnregist = null;
-        Button btnResult = null;
-        ListView liste;
-        CommentsDataSource BD = new CommentsDataSource(view.getContext());
-        BD.open();
-
-        liste = (ListView) view.findViewById(R.id.listResultsSession);
-        sessions = BD.getSessions(Contexte.patient);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext() ,
-                android.R.layout.simple_list_item_1, sessions);
-        liste.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
         return view;
     }
 

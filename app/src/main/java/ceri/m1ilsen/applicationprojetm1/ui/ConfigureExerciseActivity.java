@@ -124,7 +124,7 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_home:
-                Intent homepage = new Intent(this, PatientHomePageActivity.class);
+                Intent homepage = new Intent(this, ClinicianActivity.class);
                 startActivity(homepage);
                 return true;
             case R.id.action_conf:
