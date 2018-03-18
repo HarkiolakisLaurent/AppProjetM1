@@ -25,7 +25,7 @@ public class CreateExerciseActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
     private Button btnLireMots;
-   static int i=0;
+    static int i=0;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {

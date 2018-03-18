@@ -22,9 +22,6 @@ import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
 public class PatientHomePageActivity extends AppCompatActivity {
     ListView lv;
     public ListViewAdapter adapter;
-    private Button btnExercice = null;
-    private Button btnEnregist = null;
-    private Button btnResult = null;
     private ArrayList<String> data = new ArrayList<String>();
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
