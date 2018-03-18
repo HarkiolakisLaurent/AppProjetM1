@@ -30,7 +30,8 @@
         <activity android:name=".ui.PatientHomePageActivity" />
         <activity android:name=".ui.PatientResultsActivity" />
         <activity android:name=".ui.MonitorPatientsActivity" />
-        <activity android:name=".ui.CreatePatientActivity"></activity>
+        <activity android:name=".ui.CreatePatientActivity" />
+        <activity android:name=".ui.PatientActivity"></activity>
     </application>
 
 </manifest>

@@ -42,6 +42,10 @@ public class PatientRecordingsActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
+                case R.id.patient_navigation_home:
+                    Intent home = new Intent(PatientRecordingsActivity.this, PatientHomePageActivity.class);
+                    startActivity(home);
+                    return true;
                 case R.id.patient_navigation_exercises:
                     Intent exercises = new Intent(PatientRecordingsActivity.this, CreateExerciseActivity.class);
                     startActivity(exercises);
