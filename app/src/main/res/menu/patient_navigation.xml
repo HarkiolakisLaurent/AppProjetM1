@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/patient_navigation_exercises"
+        android:icon="@drawable/ic_exercise"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/patient_navigation_recordings"
+        android:icon="@drawable/ic_listening_recordings"
+        android:state_enabled="true"
+        android:title="@string/title_dashboard" />
+
+    <item
+        android:id="@+id/patient_navigation_results"
+        android:icon="@drawable/ic_results"
+        android:state_checked="true"
+        android:title="@string/title_notifications" />
+
+</menu>

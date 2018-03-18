@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/clinician_navigation_patients"
+        android:icon="@drawable/ic_patients"
+        android:title="Patients" />
+
+    <item
+        android:id="@+id/clinician_navigation_recordings"
+        android:icon="@drawable/ic_listening_recordings"
+        android:title="@string/title_dashboard" />
+
+    <item
+        android:id="@+id/clinician_navigation_results"
+        android:icon="@drawable/ic_results"
+        android:title="@string/title_notifications" />
+
+</menu>

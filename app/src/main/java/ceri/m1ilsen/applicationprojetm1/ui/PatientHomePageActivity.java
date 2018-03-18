@@ -1,6 +1,8 @@
 package ceri.m1ilsen.applicationprojetm1.ui;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -25,6 +27,29 @@ public class PatientHomePageActivity extends AppCompatActivity {
     private Button btnResult = null;
     private ArrayList<String> data = new ArrayList<String>();
 
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.patient_navigation_exercises:
+                    Intent exercises = new Intent(PatientHomePageActivity.this, CreateExerciseActivity.class);
+                    startActivity(exercises);
+                    return true;
+                case R.id.patient_navigation_recordings:
+                    Intent recordings = new Intent(PatientHomePageActivity.this, PatientRecordingsActivity.class);
+                    startActivity(recordings);
+                    return true;
+                case R.id.patient_navigation_results:
+                    Intent results = new Intent(PatientHomePageActivity.this, PatientResultsActivity.class);
+                    startActivity(results);
+                    return true;
+            }
+            return false;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,39 +68,6 @@ public class PatientHomePageActivity extends AppCompatActivity {
                 String dataModel= data.get(position);
                 Toast.makeText(PatientHomePageActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
 
-            }
-        });
-
-        btnExercice = (Button) findViewById(R.id.btnExercice);
-        btnExercice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Le premier paramètre est le nom de l'activité actuelle
-                // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(PatientHomePageActivity.this, CreateExerciseActivity.class);
-                startActivity(nextActivity);
-            }
-        });
-
-        btnEnregist = (Button) findViewById(R.id.btnEnregist);
-        btnEnregist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Le premier paramètre est le nom de l'activité actuelle
-                // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(PatientHomePageActivity.this, PatientRecordingsActivity.class);
-                startActivity(nextActivity);
-            }
-        });
-
-        btnResult = (Button) findViewById(R.id.btnResultat);
-        btnResult.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Le premier paramètre est le nom de l'activité actuelle
-                // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(PatientHomePageActivity.this, PatientResultActivity.class);
-                startActivity(nextActivity);
             }
         });
 

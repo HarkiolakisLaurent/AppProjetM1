@@ -33,14 +33,15 @@ public class CreateExerciseActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                case R.id.patient_navigation_exercises:
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                case R.id.patient_navigation_recordings:
+                    Intent recordings = new Intent(CreateExerciseActivity.this, PatientRecordingsActivity.class);
+                    startActivity(recordings);
                     return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                case R.id.patient_navigation_results:
+                    Intent results = new Intent(CreateExerciseActivity.this, PatientResultsActivity.class);
+                    startActivity(results);
                     return true;
             }
             return false;

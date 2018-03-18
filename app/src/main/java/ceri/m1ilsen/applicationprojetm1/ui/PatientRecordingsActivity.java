@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -31,9 +33,29 @@ public class PatientRecordingsActivity extends AppCompatActivity {
     private ArrayList<String> data = new ArrayList<String>();
     private File dataPath;
     private TextView numberOfRecordings;
-    private Button exerciseMenu;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.patient_navigation_exercises:
+                    Intent exercises = new Intent(PatientRecordingsActivity.this, CreateExerciseActivity.class);
+                    startActivity(exercises);
+                    return true;
+                case R.id.patient_navigation_recordings:
+                    return true;
+                case R.id.patient_navigation_results:
+                    Intent results = new Intent(PatientRecordingsActivity.this, PatientResultsActivity.class);
+                    startActivity(results);
+                    return true;
+            }
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,14 +113,6 @@ public class PatientRecordingsActivity extends AppCompatActivity {
         RecordingsListViewAdapter adapter = new RecordingsListViewAdapter(this, R.layout.recording_item_view, data, dataPath);
         lv.setAdapter(adapter);
 
-        exerciseMenu = (Button) findViewById(R.id.exerciseMenu);
-        exerciseMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent nextActivity = new Intent(PatientRecordingsActivity.this, CreateExerciseActivity.class);
-                startActivity(nextActivity);
-            }
-        });
     }
 
     @Override

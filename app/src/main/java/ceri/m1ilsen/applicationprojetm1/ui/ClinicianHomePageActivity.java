@@ -2,6 +2,8 @@ package ceri.m1ilsen.applicationprojetm1.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +22,29 @@ public class ClinicianHomePageActivity extends AppCompatActivity {
     public ListViewAdapter adapter;
     public int n;
     private ArrayList<String> data = new ArrayList<String>();
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.clinician_navigation_patients:
+                    /*Intent exercises = new Intent(ClinicianHomePageActivity.this, MonitorPatientsActivity.class);
+                    startActivity(exercises);*/
+                    return true;
+                case R.id.clinician_navigation_recordings:
+                    Intent recordings = new Intent(ClinicianHomePageActivity.this, PatientRecordingsActivity.class);
+                    startActivity(recordings);
+                    return true;
+                case R.id.clinician_navigation_results:
+                    Intent results = new Intent(ClinicianHomePageActivity.this, PatientResultsActivity.class);
+                    startActivity(results);
+                    return true;
+            }
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +104,7 @@ public class ClinicianHomePageActivity extends AppCompatActivity {
     }*/
 
      public void results(View view){
-         Intent intent = new Intent(this, CliniResultActivity.class);
+         Intent intent = new Intent(this, ClinicianResultsActivity.class);
          startActivity(intent);
 
      }

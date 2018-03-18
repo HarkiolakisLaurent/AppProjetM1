@@ -28,7 +28,9 @@
         <activity android:name=".ui.PatientRecordingsActivity" />
         <activity android:name=".ui.DoExerciceActivity" />
         <activity android:name=".ui.PatientHomePageActivity" />
-        <activity android:name=".ui.PatientResultActivity" />
+        <activity android:name=".ui.PatientResultsActivity" />
+        <activity android:name=".ui.MonitorPatientsActivity" />
+        <activity android:name=".ui.CreatePatientActivity"></activity>
     </application>
 
 </manifest>

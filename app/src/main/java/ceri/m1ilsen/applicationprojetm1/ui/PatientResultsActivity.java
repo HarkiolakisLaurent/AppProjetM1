@@ -16,7 +16,7 @@ import ceri.m1ilsen.applicationprojetm1.sqlite.Contexte;
  * Created by le fléo on 16/03/2018.
  */
 
-public class PatientResultActivity extends AppCompatActivity {
+public class PatientResultsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_results);
@@ -31,7 +31,7 @@ public class PatientResultActivity extends AppCompatActivity {
 
         liste = (ListView) findViewById(R.id.listResultsSession);
         sessions = BD.getSessions(Contexte.patient);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(PatientResultActivity.this ,
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(PatientResultsActivity.this ,
                 android.R.layout.simple_list_item_1, sessions);
         liste.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -42,7 +42,7 @@ public class PatientResultActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(PatientResultActivity.this, CreateExerciseActivity.class);
+                Intent nextActivity = new Intent(PatientResultsActivity.this, CreateExerciseActivity.class);
                 startActivity(nextActivity);
             }
         });
@@ -53,7 +53,7 @@ public class PatientResultActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(PatientResultActivity.this, PatientRecordingsActivity.class);
+                Intent nextActivity = new Intent(PatientResultsActivity.this, PatientRecordingsActivity.class);
                 startActivity(nextActivity);
             }
         });
