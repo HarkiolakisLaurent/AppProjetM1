@@ -13,6 +13,7 @@ import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.fragment.ClinicianHomePageFragment;
 import ceri.m1ilsen.applicationprojetm1.fragment.ClinicianRecordingsFragment;
 import ceri.m1ilsen.applicationprojetm1.fragment.ClinicianResultsFragment;
+import ceri.m1ilsen.applicationprojetm1.fragment.ClinicianSettingsFragment;
 import ceri.m1ilsen.applicationprojetm1.fragment.MonitorPatientsFragment;
 
 public class ClinicianActivity extends AppCompatActivity {
@@ -21,6 +22,7 @@ public class ClinicianActivity extends AppCompatActivity {
     private MonitorPatientsFragment patientsFragment = new MonitorPatientsFragment();
     private ClinicianRecordingsFragment recordingsFragment = new ClinicianRecordingsFragment();
     private ClinicianResultsFragment resultsFragment = new ClinicianResultsFragment();
+    private ClinicianSettingsFragment settingsFragment = new ClinicianSettingsFragment();
     private FragmentTransaction fragmentTransaction;
 
     @Override
@@ -60,6 +62,11 @@ public class ClinicianActivity extends AppCompatActivity {
                     fragmentTransaction.replace(R.id.fragmentContainer, resultsFragment);
                     fragmentTransaction.commit();
                     return true;
+                case R.id.clinician_navigation_settings:
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainer, settingsFragment);
+                    fragmentTransaction.commit();
+                    return true;
             }
             return false;
         }
@@ -74,11 +81,10 @@ public class ClinicianActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.action_home:
-                return true;
-            case R.id.action_conf:
-                Intent settings = new Intent(this, SettingsActivity.class);
-                startActivity(settings);
+            case R.id.action_logout:
+                // déconnexion ici
+                this.setResult(1);
+                this.finish();
                 return true;
         }
 

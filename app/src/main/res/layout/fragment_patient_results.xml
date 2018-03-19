@@ -25,14 +25,16 @@
             android:id="@+id/listResultsSession"
             android:layout_width="match_parent"
             android:layout_height="296dp"
-            android:background="@android:drawable/editbox_background"
+            android:background="@drawable/custom_list"
             android:scrollbars="vertical" />
 
         <Button
             android:id="@+id/Details1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/custom_list"
             android:text="DETAILS"
+            android:textColor="@android:color/background_light"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -58,7 +60,7 @@
             android:id="@+id/listResultsType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/editbox_background"
+            android:background="@drawable/custom_list"
             android:entries="@array/typesExo"
             android:scrollbars="vertical" />
 

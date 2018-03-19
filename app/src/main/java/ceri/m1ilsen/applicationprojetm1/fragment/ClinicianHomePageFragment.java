@@ -14,7 +14,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import ceri.m1ilsen.applicationprojetm1.R;
-import ceri.m1ilsen.applicationprojetm1.adapter.ListViewAdapter;
+import ceri.m1ilsen.applicationprojetm1.adapter.HomePageListViewAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +26,7 @@ import ceri.m1ilsen.applicationprojetm1.adapter.ListViewAdapter;
  */
 public class ClinicianHomePageFragment extends Fragment {
     ListView lv;
-    public ListViewAdapter adapter;
+    public HomePageListViewAdapter adapter;
     public int n;
     private ArrayList<String> data = new ArrayList<String>();
 
@@ -63,7 +63,7 @@ public class ClinicianHomePageFragment extends Fragment {
         data.add(new String("Le DATE à HEURE, NOM Prenom a obtenu 75"));
         data.add(new String("Le DATE à HEURE, NOM Prenom a obtenu 80"));
 
-        lv.setAdapter(new ListViewAdapter(view.getContext(), R.layout.affichageitem, data));
+        lv.setAdapter(new HomePageListViewAdapter(view.getContext(), R.layout.home_page_item_view, data));
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

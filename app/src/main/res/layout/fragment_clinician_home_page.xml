@@ -16,16 +16,18 @@
             android:id="@+id/textClinicien"
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:fontFamily="monospace"
             android:gravity="center"
             android:paddingLeft="18dp"
             android:text="@string/txtBienvenue"
             android:textSize="30sp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
 
         <ListView
             android:id="@+id/listResultsClinicien"
             android:layout_width="match_parent"
             android:layout_height="500dp"
+            android:background="@drawable/custom_list"
             android:scrollbars="horizontal" />
 
 

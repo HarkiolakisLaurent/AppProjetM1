@@ -22,4 +22,9 @@
         android:icon="@drawable/ic_results"
         android:title="@string/title_notifications" />
 
+    <item
+        android:id="@+id/patient_navigation_settings"
+        android:icon="@drawable/conf"
+        android:title="Paramètres" />
+
 </menu>

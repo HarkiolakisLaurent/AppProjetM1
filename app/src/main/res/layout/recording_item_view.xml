@@ -20,6 +20,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="Le DATE à HEURE ,vous avez obtenu SCORE"
+            android:textColor="@android:color/background_light"
             android:textSize="24sp" />
 
     </LinearLayout>
@@ -29,7 +30,7 @@
         android:layout_width="88dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/listview_border"
+        android:background="@drawable/custom_list"
         app:srcCompat="@android:drawable/ic_media_play" />
 
     <ImageButton
@@ -37,15 +38,15 @@
         android:layout_width="69dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/listview_border"
-        app:srcCompat="@android:drawable/ic_notification_overlay" />
+        android:background="@drawable/custom_list"
+        app:srcCompat="@drawable/ic_stop" />
 
     <ImageButton
         android:id="@+id/deleteRecordingButton"
         android:layout_width="84dp"
         android:layout_height="52dp"
         android:layout_weight="1"
-        android:background="@drawable/listview_border"
+        android:background="@drawable/custom_list"
         app:srcCompat="@android:drawable/ic_delete" />
 
 </LinearLayout>

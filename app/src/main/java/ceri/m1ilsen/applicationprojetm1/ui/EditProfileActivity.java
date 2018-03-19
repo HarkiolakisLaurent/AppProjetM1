@@ -61,27 +61,4 @@ public class EditProfileActivity extends AppCompatActivity {
             birthdayField.setText(selectedDay+"/"+(selectedMonth + 1)+"/"+selectedYear);
         }
     };
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_file, menu);
-        return true;
-    }
-
-    //gère le click sur une action de l'ActionBar
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.action_home:
-                Intent homepage = new Intent(this, PatientActivity.class);
-                startActivity(homepage);
-                return true;
-            case R.id.action_conf:
-                Intent settings = new Intent(this, SettingsActivity.class);
-                startActivity(settings);
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

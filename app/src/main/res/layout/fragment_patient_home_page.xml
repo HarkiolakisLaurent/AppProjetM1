@@ -16,29 +16,32 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:fontFamily="monospace"
             android:gravity="center"
             android:paddingLeft="18dp"
             android:text="@string/txtBienvenue"
             android:textSize="30sp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
 
         <ListView
             android:id="@+id/listResults"
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="400dp"
+            android:background="@drawable/custom_list"
             android:scrollbars="horizontal" />
 
         <TextView
             android:id="@+id/txtProgression"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="monospace"
             android:gravity="center"
             android:paddingBottom="48dp"
             android:paddingLeft="18dp"
             android:paddingTop="30dp"
             android:text="Belle progression, continuez comme ça !"
             android:textSize="30sp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
 
 
         <LinearLayout

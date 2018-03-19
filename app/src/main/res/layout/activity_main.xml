@@ -71,7 +71,7 @@
                 android:layout_column="1"
                 android:fontFamily="monospace"
                 android:text="Créer un nouveau compte"
-                android:textColor="@android:color/holo_blue_dark"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="24sp"
                 tools:layout_editor_absoluteX="484dp"
                 tools:layout_editor_absoluteY="359dp" />
@@ -91,7 +91,7 @@
                 android:layout_column="1"
                 android:fontFamily="monospace"
                 android:text="Mot de passe oublié ?"
-                android:textColor="@android:color/holo_blue_dark"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="24sp"
                 tools:layout_editor_absoluteX="485dp"
                 tools:layout_editor_absoluteY="426dp" />
@@ -109,9 +109,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="77dp"
                 android:layout_column="1"
-                android:background="@android:color/holo_blue_light"
+                android:background="@drawable/custom_list"
                 android:fontFamily="monospace"
                 android:text="Se connecter"
+                android:textColor="@android:color/background_light"
                 android:textSize="24sp"
                 tools:layout_editor_absoluteX="475dp"
                 tools:layout_editor_absoluteY="516dp" />
@@ -130,9 +131,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="77dp"
                 android:layout_column="1"
-                android:background="@android:color/holo_blue_light"
+                android:background="@drawable/custom_list"
                 android:fontFamily="monospace"
                 android:text="Test Patient"
+                android:textColor="@android:color/background_light"
                 android:textSize="24sp"
                 tools:layout_editor_absoluteX="475dp"
                 tools:layout_editor_absoluteY="516dp" />
@@ -151,9 +153,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="77dp"
                 android:layout_column="1"
-                android:background="@android:color/holo_blue_light"
+                android:background="@drawable/custom_list"
                 android:fontFamily="monospace"
                 android:text="Test Clinicien"
+                android:textColor="@android:color/background_light"
                 android:textSize="24sp"
                 tools:layout_editor_absoluteX="475dp"
                 tools:layout_editor_absoluteY="516dp" />

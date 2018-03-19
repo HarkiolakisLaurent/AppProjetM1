@@ -14,6 +14,7 @@ import ceri.m1ilsen.applicationprojetm1.fragment.CreateExerciseFragment;
 import ceri.m1ilsen.applicationprojetm1.fragment.PatientHomePageFragment;
 import ceri.m1ilsen.applicationprojetm1.fragment.PatientRecordingsFragment;
 import ceri.m1ilsen.applicationprojetm1.fragment.PatientResultsFragment;
+import ceri.m1ilsen.applicationprojetm1.fragment.PatientSettingsFragment;
 
 public class PatientActivity extends AppCompatActivity {
 
@@ -21,6 +22,7 @@ public class PatientActivity extends AppCompatActivity {
     private CreateExerciseFragment exerciseFragment = new CreateExerciseFragment();
     private PatientRecordingsFragment recordingsFragment = new PatientRecordingsFragment();
     private PatientResultsFragment resultsFragment = new PatientResultsFragment();
+    private PatientSettingsFragment settingsFragment = new PatientSettingsFragment();
     private FragmentTransaction fragmentTransaction;
 
     @Override
@@ -60,6 +62,11 @@ public class PatientActivity extends AppCompatActivity {
                     fragmentTransaction.replace(R.id.fragmentContainer, resultsFragment);
                     fragmentTransaction.commit();
                     return true;
+                case R.id.patient_navigation_settings:
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainer, settingsFragment);
+                    fragmentTransaction.commit();
+                    return true;
             }
             return false;
         }
@@ -74,11 +81,10 @@ public class PatientActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.action_home:
-                return true;
-            case R.id.action_conf:
-                Intent settings = new Intent(this, SettingsActivity.class);
-                startActivity(settings);
+            case R.id.action_logout:
+                // déconnexion ici
+                this.setResult(1);
+                this.finish();
                 return true;
         }
 

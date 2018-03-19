@@ -25,13 +25,13 @@ import ceri.m1ilsen.applicationprojetm1.R;
  * Created by merye on 11/02/2018.
  */
 
-public class ListViewAdapter extends ArrayAdapter<String> {
+public class HomePageListViewAdapter extends ArrayAdapter<String> {
 
     public List<String> dataSet;
     Context mContext;
     public int layout;
 
-    public ListViewAdapter(Context context, int resource, List<String> objects) {
+    public HomePageListViewAdapter(Context context, int resource, List<String> objects) {
         super(context, resource, objects);
         dataSet = objects;
         layout = resource;

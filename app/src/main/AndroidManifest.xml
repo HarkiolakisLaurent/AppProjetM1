@@ -21,7 +21,6 @@
         </activity>
         <activity android:name=".ui.SignUpActivity" />
         <activity android:name=".ui.EditProfileActivity" />
-        <activity android:name=".ui.SettingsActivity" />
         <activity android:name=".ui.ConfigureExerciseActivity" />
         <activity android:name=".ui.DoExerciceActivity" />
         <activity android:name=".ui.CreatePatientActivity" />
