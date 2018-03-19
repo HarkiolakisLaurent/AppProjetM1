@@ -15,15 +15,17 @@
         <TextView
             android:id="@+id/textClinicien"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
+            android:gravity="center"
             android:paddingLeft="18dp"
             android:text="@string/txtBienvenue"
-            android:textSize="18dp" />
+            android:textSize="30sp"
+            android:textStyle="bold|italic" />
 
         <ListView
             android:id="@+id/listResultsClinicien"
             android:layout_width="match_parent"
-            android:layout_height="410dp"
+            android:layout_height="500dp"
             android:scrollbars="horizontal" />
 
 

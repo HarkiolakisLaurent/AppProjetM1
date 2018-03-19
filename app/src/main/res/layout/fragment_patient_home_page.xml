@@ -8,43 +8,44 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_gravity="bottom">
+        android:layout_height="1129dp"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
+            android:gravity="center"
             android:paddingLeft="18dp"
             android:text="@string/txtBienvenue"
-            android:textSize="18dp" />
+            android:textSize="30sp"
+            android:textStyle="bold|italic" />
 
         <ListView
             android:id="@+id/listResults"
             android:layout_width="match_parent"
-            android:layout_height="410dp"
+            android:layout_height="450dp"
             android:scrollbars="horizontal" />
 
         <TextView
             android:id="@+id/txtProgression"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingBottom="48dp"
             android:paddingLeft="18dp"
             android:paddingTop="30dp"
-            android:text="Belle progression,continuez \n comme ça!"
-            android:textSize="20dp"
-            android:gravity="center"
+            android:text="Belle progression, continuez comme ça !"
+            android:textSize="30sp"
             android:textStyle="bold|italic" />
 
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
-            >
+            android:orientation="horizontal">
 
         </LinearLayout>
     </LinearLayout>
