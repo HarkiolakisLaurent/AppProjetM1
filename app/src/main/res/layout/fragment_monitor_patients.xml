@@ -16,7 +16,7 @@ tools:context="ceri.m1ilsen.applicationprojetm1.fragment.MonitorPatientsFragment
     app:layout_constraintTop_toTopOf="parent">
 
     <ListView
-        android:id="@+id/listResults"
+        android:id="@+id/patientsList"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_alignParentBottom="true"
@@ -45,10 +45,9 @@ tools:context="ceri.m1ilsen.applicationprojetm1.fragment.MonitorPatientsFragment
         android:id="@+id/newPatientButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/listResults"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="27dp"
+        android:layout_below="@+id/numberOfPatients"
         android:layout_marginLeft="24dp"
         android:layout_marginStart="24dp"
         android:background="@drawable/custom_list"

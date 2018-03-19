@@ -3,12 +3,24 @@ package ceri.m1ilsen.applicationprojetm1.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.adapter.PatientsListViewAdapter;
+import ceri.m1ilsen.applicationprojetm1.adapter.RecordingsListViewAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,8 +31,13 @@ import ceri.m1ilsen.applicationprojetm1.R;
  * create an instance of this fragment.
  */
 public class ClinicianRecordingsFragment extends Fragment {
-
-    private OnFragmentInteractionListener mListener;
+    private ListView patientsListView;
+    private ListView recordingsListView;
+    private ArrayList<String> patientsData = new ArrayList<String>();
+    private ArrayList<String> recordingsData = new ArrayList<String>();
+    private File dataPath;
+    private TextView numberOfRecordings;
+    private PatientRecordingsFragment.OnFragmentInteractionListener mListener;
 
     public ClinicianRecordingsFragment() {
         // Required empty public constructor
@@ -46,7 +63,44 @@ public class ClinicianRecordingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_clinician_recordings, container, false);
+        final View view = inflater.inflate(R.layout.fragment_clinician_recordings, container, false);
+
+        patientsListView = (ListView) view.findViewById(R.id.patientsList);
+        recordingsListView = (ListView) view.findViewById(R.id.recordingsList);
+
+
+        patientsData = new ArrayList();
+        patientsData.add("Toto");
+        patientsData.add("Tata");
+
+        PatientsListViewAdapter patientsListViewAdapter = new PatientsListViewAdapter(view.getContext(), R.layout.patient_item_view, patientsData);
+
+        patientsListViewAdapter.setListener(new PatientsListViewAdapter.AdapterListener() {
+            public void onClick(String name) {
+                dataPath = new File("/storage/emulated/0/Recordings/"+name+"/");
+                recordingsData = new ArrayList(Arrays.asList(dataPath.list(new FilenameFilter() {
+                    public boolean accept(File directory, String fileName) {
+                        return fileName.endsWith(".wav") || fileName.endsWith(".mp3");
+                    }
+                })));
+
+                numberOfRecordings = (TextView) view.findViewById(R.id.numberOfRecordings);
+                if (recordingsData.size() == 0)
+                    numberOfRecordings.setText("Aucun enregistrement disponible");
+                else if (recordingsData.size() == 1)
+                    numberOfRecordings.setText(recordingsData.size()+" enregistrement est disponible");
+                else
+                    numberOfRecordings.setText(recordingsData.size()+" enregistrements sont disponibles");
+                RecordingsListViewAdapter recordingsListViewAdapter = new RecordingsListViewAdapter(getContext(), R.layout.recording_item_view, recordingsData, dataPath);
+                recordingsListView.setAdapter(recordingsListViewAdapter);
+                ((BaseAdapter)recordingsListView.getAdapter()).notifyDataSetChanged();
+
+            }
+        });
+        patientsListView.setAdapter(patientsListViewAdapter);
+
+        RecordingsListViewAdapter recordingsListViewAdapter = new RecordingsListViewAdapter(view.getContext(), R.layout.recording_item_view, recordingsData, dataPath);
+        recordingsListView.setAdapter(recordingsListViewAdapter);
         return view;
     }
 

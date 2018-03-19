@@ -19,6 +19,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="Le DATE à HEURE , vous avez obtenu SCORE"
+            android:textColor="@android:color/background_light"
             android:textSize="24sp" />
     </LinearLayout>
 

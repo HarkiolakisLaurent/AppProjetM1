@@ -12,17 +12,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.File;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import ceri.m1ilsen.applicationprojetm1.R;
-import ceri.m1ilsen.applicationprojetm1.adapter.PatientsListViewAdapter;
-import ceri.m1ilsen.applicationprojetm1.adapter.RecordingsListViewAdapter;
+import ceri.m1ilsen.applicationprojetm1.adapter.MonitorPatientsListViewAdapter;
 import ceri.m1ilsen.applicationprojetm1.ui.CreatePatientActivity;
-import ceri.m1ilsen.applicationprojetm1.ui.MainActivity;
-import ceri.m1ilsen.applicationprojetm1.ui.SignUpActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,8 +29,7 @@ import ceri.m1ilsen.applicationprojetm1.ui.SignUpActivity;
 public class MonitorPatientsFragment extends Fragment {
 
     private Button newPatient;
-    private ListView lv;
-    private RecordingsListViewAdapter recordingsAdapter;
+    private ListView monitorPatientsListView;
     private ArrayList<String> data = new ArrayList<String>();
     private TextView numberOfPatients;
     private OnFragmentInteractionListener mListener;
@@ -66,7 +59,7 @@ public class MonitorPatientsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_monitor_patients, container, false);
-        lv = (ListView) view.findViewById(R.id.listResults);
+        monitorPatientsListView = (ListView) view.findViewById(R.id.patientsList);
         data = new ArrayList();
         data.add("Toto Toto");
 
@@ -86,8 +79,8 @@ public class MonitorPatientsFragment extends Fragment {
                 startActivity(nextActivity);
             }
         });
-        PatientsListViewAdapter adapter = new PatientsListViewAdapter(view.getContext(), R.layout.patient_item_view, data);
-        lv.setAdapter(adapter);
+        MonitorPatientsListViewAdapter adapter = new MonitorPatientsListViewAdapter(view.getContext(), R.layout.monitor_patient_item_view, data);
+        monitorPatientsListView.setAdapter(adapter);
         return view;
     }
 

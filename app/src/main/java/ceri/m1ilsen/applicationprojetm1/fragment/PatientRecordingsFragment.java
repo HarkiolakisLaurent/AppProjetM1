@@ -64,7 +64,8 @@ public class PatientRecordingsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_patient_recordings, container, false);
         lv = (ListView) view.findViewById(R.id.listResults);
-        dataPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        //dataPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        dataPath = new File("/storage/emulated/0/Recordings/Me/");
         data = new ArrayList(Arrays.asList(dataPath.list(new FilenameFilter() {
             public boolean accept(File directory, String fileName) {
                 return fileName.endsWith(".wav") || fileName.endsWith(".mp3");
