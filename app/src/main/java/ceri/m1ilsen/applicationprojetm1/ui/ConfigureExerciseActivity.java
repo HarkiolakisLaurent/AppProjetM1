@@ -28,12 +28,11 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
+import ceri.m1ilsen.applicationprojetm1.task.Task;
 
 public class ConfigureExerciseActivity extends AppCompatActivity {
 
-    private static final int REQUEST_PATH = 1;
-    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
-    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     EditText exerciseName;
     EditText exerciseDuration;
     EditText fileName;
@@ -52,6 +51,7 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
     private ConfigureExerciseActivity.Item[] fileList;
     private File path = new File(Environment.getExternalStorageDirectory() + "");
     private String chosenFile;
+    private Button createExerciseButton;
     private static final int DIALOG_LOAD_FILE = 1000;
 
     ListAdapter adapter;
@@ -61,36 +61,7 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configure_exercise);
 
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
 
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                //Cela signifie que la permission à déjà été
-                //demandé et l'utilisateur l'a refusé
-                //Vous pouvez aussi expliquer à l'utilisateur pourquoi
-                //cette permission est nécessaire et la redemander
-            } else {
-                //Sinon demander la permission
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-            }
-        }
-
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-            }
-        }
         exerciseName = (EditText)findViewById(R.id.exerciseName);
         exerciseDuration = (EditText)findViewById(R.id.exerciseDuration);
         exerciseDuration.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +78,17 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
                 loadFileList();
                 showDialog(DIALOG_LOAD_FILE);
                 Log.d(TAG, path.getAbsolutePath());
+            }
+        });
+        createExerciseButton = (Button)findViewById(R.id.createExerciseButton);
+        createExerciseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // création exercice ici
+                Exercise configuredExercise = new Exercise(exerciseName.getText().toString(),Task.Mot,
+                        new File(fileName.getText().toString()),Integer.parseInt(exerciseDuration.getText().toString()),0,null,null,null);
+                setResult(1);
+                finish();
             }
         });
         Intent intent = getIntent();

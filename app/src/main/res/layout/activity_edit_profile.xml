@@ -110,20 +110,21 @@
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
-                    <ImageButton
-                        android:id="@+id/dateChooser"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@android:drawable/ic_menu_my_calendar" />
-
                     <EditText
                         android:id="@+id/birthdayField"
-                        android:layout_width="wrap_content"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="date"
                         android:text="18/09/1994"
                         android:textSize="24sp" />
+
+                    <ImageButton
+                        android:id="@+id/dateChooser"
+                        android:layout_width="192dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/custom_list"
+                        app:srcCompat="@android:drawable/ic_menu_my_calendar" />
 
                 </TableRow>
 
@@ -292,10 +293,12 @@
                     android:gravity="center_horizontal">
 
                     <Button
-                        android:id="@+id/editProfileButton"
+                        android:id="@+id/saveChangesButton"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="100dp"
+                        android:background="@drawable/custom_list"
                         android:text="Mettre à jour les modifications"
+                        android:textColor="@android:color/background_light"
                         android:textSize="18sp" />
                 </TableRow>
 

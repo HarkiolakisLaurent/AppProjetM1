@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
+
+
+    <ImageButton
+        android:id="@+id/deletePatientButton"
+        android:layout_width="84dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/custom_list"
+        app:srcCompat="@android:drawable/ic_delete" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="498dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingLeft="10px">
+
+        <TextView
+            android:id="@+id/patientDescription"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="         NOM PRENOM"
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/loginAsPatientButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/custom_list"
+        android:text="Se connecter"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp" />
+
+</LinearLayout>

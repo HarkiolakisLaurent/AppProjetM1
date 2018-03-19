@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -19,6 +20,7 @@ import ceri.m1ilsen.applicationprojetm1.R;
 public class EditProfileActivity extends AppCompatActivity {
     public ImageButton dateChooser;
     public EditText birthdayField;
+    public Button saveChangesButton;
 
     private int day;
     private int month;
@@ -34,6 +36,16 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showDialog(0);
+            }
+        });
+        saveChangesButton = (Button) findViewById(R.id.saveChangesButton);
+        saveChangesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // mettre à jour les infos ici
+                setResult(1);
+                finish();
+
             }
         });
     }

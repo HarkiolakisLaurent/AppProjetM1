@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextActivity = new Intent(MainActivity.this, PatientActivity.class);
+                Intent patientActivity = new Intent(MainActivity.this, PatientActivity.class);
 
                 BD.open();
                 if (BD.verification(mail.getText().toString(), mdp.getText().toString()) ){
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                     BD.insertSession(session);
                     BD.close();
                     Contexte.patient=p;
-                    startActivity(nextActivity);
+                    startActivity(patientActivity);
 
                 } else if (BD.verificationM(mail.getText().toString(), mdp.getText().toString())) {
                     int p = BD.getPatientM(mail.getText().toString(), mdp.getText().toString());
@@ -117,12 +117,13 @@ public class MainActivity extends AppCompatActivity {
                     BD.insertSession(session);
                     BD.close();
                     Contexte.patient=p;
-                    startActivity(nextActivity);
+                    startActivity(patientActivity);
 
                 } else if (BD.verificationC(mail.getText().toString(), mdp.getText().toString()) || BD.verificationCM(mail.getText().toString(), mdp.getText().toString()) ) {
-                    nextActivity.setAction("ClinicianHomePageActivity.class");
+                    //nextActivity.setAction("ClinicianActivity.class");
+                    Intent clinicianActivity = new Intent(MainActivity.this, ClinicianActivity.class);
                     BD.close();
-                    startActivity(nextActivity);
+                    startActivity(clinicianActivity);
                 }
             }
         });

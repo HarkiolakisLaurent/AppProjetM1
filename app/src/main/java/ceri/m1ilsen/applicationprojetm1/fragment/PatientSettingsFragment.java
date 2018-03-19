@@ -1,14 +1,17 @@
 package ceri.m1ilsen.applicationprojetm1.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.ui.EditProfileActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +23,7 @@ import ceri.m1ilsen.applicationprojetm1.R;
  */
 public class PatientSettingsFragment extends Fragment {
 
+    private Button editProfileButton;
     private OnFragmentInteractionListener mListener;
 
     public PatientSettingsFragment() {
@@ -46,7 +50,17 @@ public class PatientSettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_patient_settings, container, false);
+        final View view = inflater.inflate(R.layout.fragment_patient_settings, container, false);
+        editProfileButton = (Button) view.findViewById(R.id.editProfileButton);
+        editProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent editProfile = new Intent(view.getContext(), EditProfileActivity.class);
+                startActivity(editProfile);
+
+            }
+        });
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

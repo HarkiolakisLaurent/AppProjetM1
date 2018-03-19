@@ -7,8 +7,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.adapter.PatientsListViewAdapter;
+import ceri.m1ilsen.applicationprojetm1.adapter.RecordingsListViewAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +29,10 @@ import ceri.m1ilsen.applicationprojetm1.R;
  */
 public class MonitorPatientsFragment extends Fragment {
 
+    private ListView lv;
+    private RecordingsListViewAdapter recordingsAdapter;
+    private ArrayList<String> data = new ArrayList<String>();
+    private TextView numberOfPatients;
     private OnFragmentInteractionListener mListener;
 
     public MonitorPatientsFragment() {
@@ -47,6 +60,20 @@ public class MonitorPatientsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_monitor_patients, container, false);
+        lv = (ListView) view.findViewById(R.id.listResults);
+        data = new ArrayList();
+        data.add("Toto Toto");
+
+        numberOfPatients = (TextView) view.findViewById(R.id.numberOfPatients);
+        if (data.size() == 0)
+            numberOfPatients.setText("Vous n'avez pas de patients");
+        else if (data.size() == 1)
+            numberOfPatients.setText("Vous avez "+data.size()+" patient");
+        else
+            numberOfPatients.setText("Vous avez "+data.size()+" patients");
+
+        PatientsListViewAdapter adapter = new PatientsListViewAdapter(view.getContext(), R.layout.patient_item_view, data);
+        lv.setAdapter(adapter);
         return view;
     }
 

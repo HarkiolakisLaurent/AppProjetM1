@@ -13,14 +13,14 @@ import ceri.m1ilsen.applicationprojetm1.task.Task;
 public class Exercise {
     private String name;
     private Task task;
-    private List<String> words;
+    private File words;
     private double maxDuration;
     private int readWordsCount;
     private File recordFile;
     private Comment comment;
     private Configuration currentConfiguration;
 
-    public Exercise(String name, Task task, List<String> words, double maxDuration, int readWordsCount, File recordFile, Comment comment, Configuration currentConfiguration) {
+    public Exercise(String name, Task task, File words, double maxDuration, int readWordsCount, File recordFile, Comment comment, Configuration currentConfiguration) {
         this.name = name;
         this.task = task;
         this.words = words;
@@ -59,11 +59,11 @@ public class Exercise {
         this.task = task;
     }
 
-    public List<String> getWords() {
+    public File getWords() {
         return words;
     }
 
-    public void setWords(List<String> words) {
+    public void setWords(File words) {
         this.words = words;
     }
 

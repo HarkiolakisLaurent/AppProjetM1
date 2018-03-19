@@ -26,7 +26,7 @@
             android:layout_alignTop="@+id/fileName"
             android:layout_marginEnd="200dp"
             android:layout_marginRight="200dp"
-            android:background="@android:color/holo_blue_dark"
+            android:background="@drawable/custom_list"
             android:fontFamily="sans-serif"
             android:text="Parcourir"
             android:textAppearance="@style/TextAppearance.AppCompat"
@@ -35,7 +35,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button16"
+            android:id="@+id/createExerciseButton"
             android:layout_width="250dp"
             android:layout_height="80dp"
             android:layout_alignEnd="@+id/browser"
@@ -44,7 +44,7 @@
             android:layout_marginEnd="167dp"
             android:layout_marginRight="167dp"
             android:layout_marginTop="52dp"
-            android:background="@android:color/holo_blue_dark"
+            android:background="@drawable/custom_list"
             android:fontFamily="sans-serif"
             android:text="Créer l'exercice"
             android:textAppearance="@style/TextAppearance.AppCompat"

@@ -110,12 +110,6 @@
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
-                    <ImageButton
-                        android:id="@+id/dateChooser"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@android:drawable/ic_menu_my_calendar" />
-
                     <EditText
                         android:id="@+id/birthdayField"
                         android:layout_width="wrap_content"
@@ -123,6 +117,13 @@
                         android:ems="10"
                         android:inputType="date"
                         android:textSize="24sp" />
+
+                    <ImageButton
+                        android:id="@+id/dateChooser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/custom_list"
+                        app:srcCompat="@android:drawable/ic_menu_my_calendar" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -287,22 +288,32 @@
                 <TableRow
                     android:id="@+id/row25"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="100dp"
                     android:gravity="center_horizontal">
 
                     <CheckBox
                         android:id="@+id/clini"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Compte Clinicien"
-                        android:textSize="24sp" />
+                        android:layout_height="100dp"
+                        android:text="Mode Clinicien"
+                        android:textSize="30sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/row26"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal">
 
                     <Button
                         android:id="@+id/creerCompte"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="100dp"
+                        android:background="@drawable/custom_list"
                         android:onClick="creerCompte"
                         android:text="CREER COMPTE"
+                        android:textColor="@android:color/background_light"
                         android:textSize="18sp" />
                 </TableRow>
 
