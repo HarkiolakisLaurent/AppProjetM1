@@ -1,12 +1,14 @@
 package ceri.m1ilsen.applicationprojetm1.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,6 +20,9 @@ import java.util.Arrays;
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.PatientsListViewAdapter;
 import ceri.m1ilsen.applicationprojetm1.adapter.RecordingsListViewAdapter;
+import ceri.m1ilsen.applicationprojetm1.ui.CreatePatientActivity;
+import ceri.m1ilsen.applicationprojetm1.ui.MainActivity;
+import ceri.m1ilsen.applicationprojetm1.ui.SignUpActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +34,7 @@ import ceri.m1ilsen.applicationprojetm1.adapter.RecordingsListViewAdapter;
  */
 public class MonitorPatientsFragment extends Fragment {
 
+    private Button newPatient;
     private ListView lv;
     private RecordingsListViewAdapter recordingsAdapter;
     private ArrayList<String> data = new ArrayList<String>();
@@ -59,7 +65,7 @@ public class MonitorPatientsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_monitor_patients, container, false);
+        final View view = inflater.inflate(R.layout.fragment_monitor_patients, container, false);
         lv = (ListView) view.findViewById(R.id.listResults);
         data = new ArrayList();
         data.add("Toto Toto");
@@ -72,6 +78,14 @@ public class MonitorPatientsFragment extends Fragment {
         else
             numberOfPatients.setText("Vous avez "+data.size()+" patients");
 
+        newPatient = (Button) view.findViewById(R.id.newPatientButton);
+        newPatient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextActivity = new Intent(view.getContext(), CreatePatientActivity.class);
+                startActivity(nextActivity);
+            }
+        });
         PatientsListViewAdapter adapter = new PatientsListViewAdapter(view.getContext(), R.layout.patient_item_view, data);
         lv.setAdapter(adapter);
         return view;

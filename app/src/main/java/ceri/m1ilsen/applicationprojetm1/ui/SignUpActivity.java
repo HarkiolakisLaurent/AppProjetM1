@@ -88,7 +88,6 @@ public class SignUpActivity extends AppCompatActivity {
     };
 
     public void creerCompte(View view) {
-        Intent intent = new Intent(this,MainActivity.class);
         CommentsDataSource BD = new CommentsDataSource(this);
         BD.open();
         if(!(pseudo.getText().toString().equals("")) && !(mdp.getText().toString().equals("")) && !(mdpc.getText().toString().equals("")) && !(mail.getText().toString().equals(""))) {
@@ -109,7 +108,8 @@ public class SignUpActivity extends AppCompatActivity {
                                 nom.getText().toString(), prenom.getText().toString(), null);
                         BD.insertClinicien(P);
                     }
-                    startActivity(intent);
+                    this.setResult(1);
+                    this.finish();
                 }else{
                     nom.setText("les deux mots de passes sont différents !");
                 }
@@ -120,11 +120,6 @@ public class SignUpActivity extends AppCompatActivity {
             nom.setText("tous les champs obligatoires ne sont pas remplis !");
         }
         BD.close();
-    }
-
-    public void Retour (View view) {
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
     }
 }
 
