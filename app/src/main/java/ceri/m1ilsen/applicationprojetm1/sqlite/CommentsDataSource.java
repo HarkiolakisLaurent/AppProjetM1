@@ -12,10 +12,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import ceri.m1ilsen.applicationprojetm1.comment.Comment;
 import ceri.m1ilsen.applicationprojetm1.exercise.Session;
 import ceri.m1ilsen.applicationprojetm1.user.*;
+
+import static ceri.m1ilsen.applicationprojetm1.sqlite.MySQLiteDatabase.*;
+
 public class CommentsDataSource {
 
     // Champs de la base de données
@@ -174,6 +178,43 @@ public class CommentsDataSource {
         Cursor c=database.rawQuery("Select _id from patients where pseudo LIKE \""+patient.getPseudo()+"\" and mot_de_passe LIKE \""+patient.getPassword()+"\"" , null);
         int id=c.getInt(0);
         return id;
+    }
+
+    public Clinician getClinicianFromMailAndPassword (String pseudo, String mdp){
+        Cursor cursor = database.rawQuery("Select * from cliniciens where pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
+        Clinician clinician = null;
+        if (cursor.moveToFirst()) {
+            // The elements to retrieve
+            Integer colId;
+            String login;
+            String mail;
+            String password;
+            // The associated index within the cursor
+            int indexId = cursor.getColumnIndex(COLUMN_ID3);
+            int indexPseudo = cursor.getColumnIndex(COLUMN_PSEUDO2);
+            int indexMail = cursor.getColumnIndex(COLUMN_MAIL2);
+            int indexPassword = cursor.getColumnIndex(COLUMN_MAIL2);
+            // Browse the results list:
+            int count = 0;
+            do {
+                colId = cursor.getInt(indexId);
+                login = cursor.getString(indexPseudo);
+                mail = cursor.getString(indexMail);
+                password = cursor.getString(indexPassword);
+                System.out.println("id : "+colId+", login : "+login+", mail : "+mail);
+                /*Toast.makeText(this,
+                        "Retrieve element :" + login + "," + password + " ("
+                                + colId + ")", Toast.LENGTH_LONG).show();*/
+                count++;
+            } while (cursor.moveToNext());
+            //clinician = new Clinician(mail,password,login,lastName,firstName,listPatients);
+            /*Toast.makeText(this,
+                    "The number of elements retrieved is " + count,
+                    Toast.LENGTH_LONG).show();*/
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        return clinician;
     }
 
     public String[] getSessions (int id){

@@ -20,12 +20,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.SignUpActivity" />
-        <activity android:name=".ui.EditProfileActivity" />
+        <activity android:name=".ui.EditPatientProfileActivity" />
         <activity android:name=".ui.ConfigureExerciseActivity" />
         <activity android:name=".ui.DoExerciceActivity" />
         <activity android:name=".ui.CreatePatientActivity" />
         <activity android:name=".ui.PatientActivity" />
-        <activity android:name=".ui.ClinicianActivity"></activity>
+        <activity android:name=".ui.ClinicianActivity" />
+        <activity android:name=".ui.EditClinicianProfileActivity"></activity>
     </application>
 
 </manifest>

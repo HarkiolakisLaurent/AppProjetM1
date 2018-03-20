@@ -19,7 +19,7 @@
             android:fontFamily="monospace"
             android:gravity="center"
             android:paddingLeft="18dp"
-            android:text="@string/txtBienvenue"
+            android:text="Bonjour LOGIN, c'est un plaisir de vous revoir !"
             android:textSize="30sp"
             android:textStyle="bold" />
 

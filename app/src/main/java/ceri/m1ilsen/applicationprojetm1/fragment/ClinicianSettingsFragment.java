@@ -12,7 +12,7 @@ import android.widget.Button;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.ui.ConfigureExerciseActivity;
-import ceri.m1ilsen.applicationprojetm1.ui.EditProfileActivity;
+import ceri.m1ilsen.applicationprojetm1.ui.EditClinicianProfileActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,7 +57,7 @@ public class ClinicianSettingsFragment extends Fragment {
         editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent editProfile = new Intent(view.getContext(), EditProfileActivity.class);
+                Intent editProfile = new Intent(view.getContext(), EditClinicianProfileActivity.class);
                 startActivity(editProfile);
 
             }

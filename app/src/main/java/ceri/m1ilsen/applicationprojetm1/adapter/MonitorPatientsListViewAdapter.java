@@ -1,6 +1,7 @@
 package ceri.m1ilsen.applicationprojetm1.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.ui.PatientActivity;
 
 /**
  * Created by Laurent on 19/03/2018.
@@ -55,6 +57,8 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View v) {
                 // connexion en tant que patient
+                Intent loginAsPatient = new Intent(getContext(), PatientActivity.class);
+                getContext().startActivity(loginAsPatient);
             }
         });
         mainViewholder.patientDescriptionHolder.setText(getItem(position));

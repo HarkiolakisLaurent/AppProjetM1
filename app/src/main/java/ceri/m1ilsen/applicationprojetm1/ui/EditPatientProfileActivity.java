@@ -2,11 +2,8 @@ package ceri.m1ilsen.applicationprojetm1.ui;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -17,7 +14,7 @@ import java.util.Calendar;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 
-public class EditProfileActivity extends AppCompatActivity {
+public class EditPatientProfileActivity extends AppCompatActivity {
     public ImageButton dateChooser;
     public EditText birthdayField;
     public Button saveChangesButton;
@@ -29,7 +26,7 @@ public class EditProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
+        setContentView(R.layout.activity_edit_patient_profile);
         birthdayField = (EditText) findViewById(R.id.birthdayField);
         dateChooser = (ImageButton) findViewById(R.id.dateChooser);
         dateChooser.setOnClickListener(new View.OnClickListener() {
