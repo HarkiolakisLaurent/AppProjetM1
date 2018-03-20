@@ -30,8 +30,7 @@ import ceri.m1ilsen.applicationprojetm1.adapter.RecordingsListViewAdapter;
 public class PatientRecordingsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private ListView lv;
-    private RecordingsListViewAdapter recordingsAdapter;
+    private ListView recordingsListView;
     private ArrayList<String> data = new ArrayList<String>();
     private File dataPath;
     private TextView numberOfRecordings;
@@ -63,7 +62,7 @@ public class PatientRecordingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_patient_recordings, container, false);
-        lv = (ListView) view.findViewById(R.id.listResults);
+        recordingsListView = (ListView) view.findViewById(R.id.listResults);
         //dataPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         dataPath = new File("/storage/emulated/0/Recordings/Me/");
         data = new ArrayList(Arrays.asList(dataPath.list(new FilenameFilter() {
@@ -80,8 +79,8 @@ public class PatientRecordingsFragment extends Fragment {
         else
             numberOfRecordings.setText(data.size()+" enregistrements sont disponibles");
 
-        RecordingsListViewAdapter adapter = new RecordingsListViewAdapter(view.getContext(), R.layout.recording_item_view, data, dataPath);
-        lv.setAdapter(adapter);
+        RecordingsListViewAdapter recordingsListViewAdapter = new RecordingsListViewAdapter(view.getContext(), R.layout.recording_item_view, data, dataPath);
+        recordingsListView.setAdapter(recordingsListViewAdapter);
         return view;
     }
 

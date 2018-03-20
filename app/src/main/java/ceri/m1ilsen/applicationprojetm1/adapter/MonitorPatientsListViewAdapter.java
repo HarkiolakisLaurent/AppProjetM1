@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.ui.ConfigureExerciseActivity;
 import ceri.m1ilsen.applicationprojetm1.ui.PatientActivity;
 
 /**
@@ -45,6 +46,7 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
             viewHolder.patientDescriptionHolder = (TextView) convertView.findViewById(R.id.patientDescription);
             viewHolder.deletePatientHolder = (ImageButton) convertView.findViewById(R.id.deletePatientButton);
             viewHolder.loginAsPatientButtonHolder = (Button) convertView.findViewById(R.id.loginAsPatientButton);
+            viewHolder.configureExerciseButtonHolder = (Button) convertView.findViewById(R.id.configureExerciseButton);
             convertView.setTag(viewHolder);
         }
         mainViewholder = (MonitorPatientsListViewAdapter.ViewHolder) convertView.getTag();
@@ -80,6 +82,15 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
                 getContext().startActivity(loginAsPatient);
             }
         });
+        mainViewholder.configureExerciseButtonHolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent configureExercise = new Intent(getContext(), ConfigureExerciseActivity.class);
+                //passer un identifiant dans l'intent pour reconnaitre le patient auquel on va donner l'exercice
+                getContext().startActivity(configureExercise);
+
+            }
+        });
         mainViewholder.patientDescriptionHolder.setText(getItem(position));
 
         return convertView;
@@ -89,5 +100,6 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
         TextView patientDescriptionHolder;
         ImageButton deletePatientHolder;
         Button loginAsPatientButtonHolder;
+        Button configureExerciseButtonHolder;
     }
 }

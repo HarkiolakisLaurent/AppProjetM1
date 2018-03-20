@@ -13,9 +13,9 @@
             android:id="@+id/editProfileButton"
             android:layout_width="1000dp"
             android:layout_height="100dp"
-            android:layout_above="@+id/configureExerciseButton"
+            android:layout_above="@+id/configureAlignmentButton"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="53dp"
+            android:layout_marginBottom="84dp"
             android:background="@drawable/custom_list"
             android:fontFamily="monospace"
             android:text="Consulter profil"
@@ -23,26 +23,13 @@
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/configureExerciseButton"
-            android:layout_width="1000dp"
-            android:layout_height="100dp"
-            android:layout_alignLeft="@+id/editProfileButton"
-            android:layout_alignStart="@+id/editProfileButton"
-            android:layout_centerVertical="true"
-            android:background="@drawable/custom_list"
-            android:fontFamily="monospace"
-            android:text="Configurer exercice"
-            android:textColor="@android:color/background_light"
-            android:textSize="24sp" />
-
-        <Button
             android:id="@+id/configureAlignmentButton"
             android:layout_width="1000dp"
             android:layout_height="100dp"
-            android:layout_alignLeft="@+id/configureExerciseButton"
-            android:layout_alignStart="@+id/configureExerciseButton"
-            android:layout_below="@+id/configureExerciseButton"
-            android:layout_marginTop="56dp"
+            android:layout_alignLeft="@+id/editProfileButton"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/editProfileButton"
+            android:layout_marginBottom="191dp"
             android:background="@drawable/custom_list"
             android:fontFamily="monospace"
             android:text="Configurer alignement"

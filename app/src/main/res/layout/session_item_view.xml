@@ -16,7 +16,7 @@
         android:paddingLeft="10px">
 
         <TextView
-            android:id="@+id/recordingDescription"
+            android:id="@+id/sessionDescription"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="Session du DATE, à HEURE"

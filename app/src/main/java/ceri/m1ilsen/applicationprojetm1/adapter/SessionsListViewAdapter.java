@@ -38,9 +38,9 @@ public class SessionsListViewAdapter extends ArrayAdapter<String> {
             convertView = inflater.inflate(layout, parent, false);
             SessionsListViewAdapter.ViewHolder viewHolder = new SessionsListViewAdapter.ViewHolder();
 
-            viewHolder.patientNameHolder = (TextView) convertView.findViewById(R.id.patientName);
-            viewHolder.sessionDetailsHolder = (Button) convertView.findViewById(R.id.sessionDetailsButton);
-            viewHolder.sessionDetailsHolder.setOnClickListener(new View.OnClickListener() {
+            viewHolder.sessionDescriptionHolder = (TextView) convertView.findViewById(R.id.sessionDescription);
+            viewHolder.sessionDetailsButtonHolder = (Button) convertView.findViewById(R.id.sessionDetailsButton);
+            viewHolder.sessionDetailsButtonHolder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(view.getContext(),"Détails de la session",Toast.LENGTH_LONG);
@@ -49,13 +49,13 @@ public class SessionsListViewAdapter extends ArrayAdapter<String> {
             convertView.setTag(viewHolder);
         }
         mainViewholder = (SessionsListViewAdapter.ViewHolder) convertView.getTag();
-        mainViewholder.patientNameHolder.setText(getItem(position));
+        mainViewholder.sessionDescriptionHolder.setText(getItem(position));
 
         return convertView;
     }
 
     public class ViewHolder {
-        TextView patientNameHolder;
-        Button sessionDetailsHolder;
+        TextView sessionDescriptionHolder;
+        Button sessionDetailsButtonHolder;
     }
 }

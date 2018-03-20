@@ -10,8 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import java.io.File;
+import java.util.ArrayList;
 
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.adapter.SessionsListViewAdapter;
 import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
 import ceri.m1ilsen.applicationprojetm1.sqlite.Contexte;
 
@@ -25,6 +30,9 @@ import ceri.m1ilsen.applicationprojetm1.sqlite.Contexte;
  */
 public class PatientResultsFragment extends Fragment {
 
+    private ListView sessionsListView;
+    private ArrayList<String> data = new ArrayList<String>();
+    private TextView numberOfSessions;
     private OnFragmentInteractionListener mListener;
 
     public PatientResultsFragment() {
@@ -52,7 +60,23 @@ public class PatientResultsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_patient_results, container, false);
-        String[] sessions ;
+        sessionsListView = (ListView) view.findViewById(R.id.sessionsList);
+
+        data.add("Session 1");
+
+        numberOfSessions = (TextView) view.findViewById(R.id.numberOfSessions);
+        if (data.size() == 0)
+            numberOfSessions.setText("Aucune session disponible");
+        else if (data.size() == 1)
+            numberOfSessions.setText(data.size()+" session est disponible");
+        else
+            numberOfSessions.setText(data.size()+" sessions sont disponibles");
+
+        SessionsListViewAdapter sessionsListViewAdapter = new SessionsListViewAdapter(view.getContext(), R.layout.session_item_view, data);
+        sessionsListView.setAdapter(sessionsListViewAdapter);
+
+
+        /*String[] sessions ;
         Button btnExercice = null;
         Button btnEnregist = null;
         Button btnResult = null;
@@ -65,7 +89,7 @@ public class PatientResultsFragment extends Fragment {
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext() ,
                 android.R.layout.simple_list_item_1, sessions);
         liste.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();*/
         return view;
     }
 

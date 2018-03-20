@@ -190,10 +190,10 @@ public class CommentsDataSource {
             String mail;
             String password;
             // The associated index within the cursor
-            int indexId = cursor.getColumnIndex(COLUMN_ID3);
-            int indexPseudo = cursor.getColumnIndex(COLUMN_PSEUDO2);
-            int indexMail = cursor.getColumnIndex(COLUMN_MAIL2);
-            int indexPassword = cursor.getColumnIndex(COLUMN_MAIL2);
+            int indexId = cursor.getColumnIndex(COLUMN_ID);
+            int indexPseudo = cursor.getColumnIndex(COLUMN_PSEUDO);
+            int indexMail = cursor.getColumnIndex(COLUMN_MAIL);
+            int indexPassword = cursor.getColumnIndex(COLUMN_MDP);
             // Browse the results list:
             int count = 0;
             do {
@@ -233,7 +233,7 @@ public class CommentsDataSource {
     public String getName() {
 
         int i=0;
-        String[] columns = new String[]{ MySQLiteDatabase.COLUMN_ID2, MySQLiteDatabase.COLUMN_PSEUDO };
+        String[] columns = new String[]{ MySQLiteDatabase.COLUMN_ID, MySQLiteDatabase.COLUMN_PSEUDO };
         Cursor c = database.query(MySQLiteDatabase.TABLE_PATIENTS, columns, null, null, null, null, null);
         String name = "";
         c.moveToFirst();

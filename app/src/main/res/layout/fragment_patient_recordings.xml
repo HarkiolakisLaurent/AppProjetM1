@@ -32,7 +32,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="25dp"
                 android:fontFamily="sans-serif"
-                android:text="0 enregistrement(s) sont disponibles"
+                android:text="Aucun enregistrement disponible"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textColor="@android:color/black"

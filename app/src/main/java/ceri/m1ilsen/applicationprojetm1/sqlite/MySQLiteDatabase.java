@@ -13,7 +13,16 @@ import android.util.Log;
 public class MySQLiteDatabase extends SQLiteOpenHelper {
 
     public static final String TABLE_PATIENTS = "patients";
-    public static final String COLUMN_ID2 = "_id";
+    public static final String TABLE_CLINICIENS = "cliniciens";
+    public static final String TABLE_SESSIONS = "sessions";
+    public static final String TABLE_EXERCICES = "exercices";
+    public static final String TABLE_COMMENTS = "comments";
+
+    public static final String COLUMN_ID = "_id";
+    public static final String COLUMN_ID_CLINICIEN = "id_clinicien";
+    public static final String COLUMN_ID_SESSION= "id_session";
+    public static final String COLUMN_ID_PATIENT= "id_patient";
+
     public static final String COLUMN_PSEUDO = "pseudo";
     public static final String COLUMN_MAIL = "mail";
     public static final String COLUMN_NOM = "nom";
@@ -22,48 +31,31 @@ public class MySQLiteDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_GENRE = "genre";
     public static final String COLUMN_LANGUE = "langue";
     public static final String COLUMN_MDP = "mot_de_passe";
-    public static final String COLUMN_CLINICIEN = "clinicien";
-
-    public static final String TABLE_CLINICIENS = "cliniciens";
-    public static final String COLUMN_ID3 = "_id";
-    public static final String COLUMN_PSEUDO2 = "pseudo";
-    public static final String COLUMN_MAIL2 = "mail";
-    public static final String COLUMN_DATE2= "mot_de_passe";
-
-    public static final String TABLE_SESSIONS = "sessions";
-    public static final String COLUMN_CREATION = "date_creation";
-    public static final String IDP = "id_patient";
-
-    public static final String TABLE_EXERCICES = "exercices";
+    public static final String COLUMN_DATE_CREATION = "date_creation";
     public static final String COLUMN_TITRE = "titre";
     public static final String COLUMN_DUREE = "dureeMax";
-    public static final String COLUMN_TEMPS = "DureeMax";
-    public static final String COLUMN_SESSION= "id_session";
-
-    public static final String TABLE_COMMENTS = "comments";
-    public static final String COLUMN_ID = "_id";
     public static final String COLUMN_COMMENT = "comment";
 
     private static final String DATABASE_NAME = "commments.db";
     private static final int DATABASE_VERSION = 1;
 
     // Commande sql pour la création de la base de données
-    private static final String DATABASE_CREATE = "create table " + TABLE_PATIENTS + "( " + COLUMN_ID2
+    private static final String DATABASE_CREATE_PATIENT = "create table " + TABLE_PATIENTS + "( " + COLUMN_ID
             + " integer primary key autoincrement, "+ COLUMN_PSEUDO
             + " text not null ,"+ COLUMN_MAIL +" text not null ,"+COLUMN_MDP+" text not null ,"
             + COLUMN_NOM+" text ,"+ COLUMN_PRENOM + "text ,"+ COLUMN_DATE +" text not null , "+ COLUMN_GENRE +" boolean not null ,"
-            + COLUMN_LANGUE+ " text not null ,"+ COLUMN_CLINICIEN +" integer );\n";
+            + COLUMN_LANGUE+ " text not null ,"+ COLUMN_ID_CLINICIEN +" integer );\n";
 
-    private static final String DATABASE_CREATE2 = "create table " + TABLE_CLINICIENS + "( " + COLUMN_ID3
+    private static final String DATABASE_CREATE_CLINICIAN = "create table " + TABLE_CLINICIENS + "( " + COLUMN_ID
             + " integer primary key autoincrement, " + COLUMN_NOM+" text ,"+ COLUMN_PRENOM + "text ,"
-            + COLUMN_PSEUDO2 + " text not null ,"+ COLUMN_MAIL2 +" text not null ,"+COLUMN_DATE2+" text not null );";
+            + COLUMN_PSEUDO + " text not null ,"+ COLUMN_MAIL +" text not null ,"+COLUMN_MDP+" text not null );";
 
-    private static final String DATABASE_CREATE_S = "create table " + TABLE_SESSIONS + "( " + COLUMN_ID3
-            + " integer primary key autoincrement, " + COLUMN_CREATION+"date not null,"+ IDP +" integer not null );";
+    private static final String DATABASE_CREATE_SESSION = "create table " + TABLE_SESSIONS + "( " + COLUMN_ID
+            + " integer primary key autoincrement, " + COLUMN_DATE_CREATION+"date not null,"+ COLUMN_ID_PATIENT +" integer not null );";
 
-    private static final String DATABASE_CREATE_E = "create table " + TABLE_EXERCICES + "( " + COLUMN_ID3
+    private static final String DATABASE_CREATE_EXERCISE = "create table " + TABLE_EXERCICES + "( " + COLUMN_ID
             + " integer primary key autoincrement, " + COLUMN_TITRE+" text not null ,"+ COLUMN_DUREE + "integer ,"
-            + COLUMN_TEMPS + " integer ,"+ COLUMN_SESSION +" integer not null );";
+            + COLUMN_ID_SESSION +" integer not null, "+ COLUMN_ID_PATIENT + " integer not null);";
 
     public MySQLiteDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -71,11 +63,10 @@ public class MySQLiteDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        database.execSQL(DATABASE_CREATE);
-        database.execSQL(DATABASE_CREATE2);
-        database.execSQL(DATABASE_CREATE_S);
-        database.execSQL(DATABASE_CREATE_E);
-        System.out.println("CREATION DE LA BDD");
+        database.execSQL(DATABASE_CREATE_PATIENT);
+        database.execSQL(DATABASE_CREATE_CLINICIAN);
+        database.execSQL(DATABASE_CREATE_SESSION);
+        database.execSQL(DATABASE_CREATE_EXERCISE);
     }
 
     @Override

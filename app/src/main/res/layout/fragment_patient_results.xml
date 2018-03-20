@@ -3,69 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="ceri.m1ilsen.applicationprojetm1.fragment.PatientResultsFragment">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_gravity="bottom">
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="18dp"
-            android:text="RESULTATS PAR SESSION"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="1276dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ListView
-            android:id="@+id/listResultsSession"
+            android:id="@+id/sessionsList"
             android:layout_width="match_parent"
-            android:layout_height="296dp"
+            android:layout_height="400dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:background="@drawable/custom_list"
-            android:scrollbars="vertical" />
-
-        <Button
-            android:id="@+id/Details1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_list"
-            android:text="DETAILS"
-            android:textColor="@android:color/background_light"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:scrollbars="horizontal" />
 
         <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
+            android:id="@+id/numberOfSessions"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="18dp"
-            android:text=""
-            android:textSize="25dp"
+            android:layout_above="@+id/sessionsList"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="34dp"
+            android:fontFamily="sans-serif"
+            android:text="Aucune session disponible"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@android:color/black"
+            android:textSize="36sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="18dp"
-            android:text="RESULTATS PAR TYPE D'EXERCICE"
-            android:textSize="25dp"
-            android:textStyle="bold" />
-
-        <ListView
-            android:id="@+id/listResultsType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_list"
-            android:entries="@array/typesExo"
-            android:scrollbars="vertical" />
-
-    </LinearLayout>
-
-
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
+
+
+

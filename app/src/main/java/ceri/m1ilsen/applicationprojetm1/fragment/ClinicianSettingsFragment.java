@@ -25,7 +25,6 @@ import ceri.m1ilsen.applicationprojetm1.ui.EditClinicianProfileActivity;
 public class ClinicianSettingsFragment extends Fragment {
 
     private Button editProfileButton;
-    private Button configureExerciseButton;
     private OnFragmentInteractionListener mListener;
 
     public ClinicianSettingsFragment() {
@@ -59,15 +58,6 @@ public class ClinicianSettingsFragment extends Fragment {
             public void onClick(View v) {
                 Intent editProfile = new Intent(view.getContext(), EditClinicianProfileActivity.class);
                 startActivity(editProfile);
-
-            }
-        });
-        configureExerciseButton = (Button) view.findViewById(R.id.configureExerciseButton);
-        configureExerciseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent configureExercise = new Intent(view.getContext(), ConfigureExerciseActivity.class);
-                startActivity(configureExercise);
 
             }
         });

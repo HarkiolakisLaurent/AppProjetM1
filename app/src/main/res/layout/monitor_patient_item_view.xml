@@ -42,4 +42,14 @@
         android:textColor="@android:color/background_light"
         android:textSize="24sp" />
 
+    <Button
+        android:id="@+id/configureExerciseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/custom_list"
+        android:text="Exercice personnalisé"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp" />
+
 </LinearLayout>
