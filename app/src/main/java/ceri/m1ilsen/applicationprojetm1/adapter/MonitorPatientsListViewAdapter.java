@@ -1,6 +1,8 @@
 package ceri.m1ilsen.applicationprojetm1.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +51,24 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
         mainViewholder.deletePatientHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // suppression de patient
+                AlertDialog alertDialog = new AlertDialog.Builder(mContext).create(); //Use context
+                alertDialog.setTitle("Suppression du patient");
+                alertDialog.setMessage("Le patient ainsi que ses informations seront définitivement supprimés");
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Annuler",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Continuer",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // suppression de patient
+                                dataSet.remove(position);
+                                notifyDataSetChanged();
+                            }
+                        });
+                alertDialog.show();
 
             }
         });

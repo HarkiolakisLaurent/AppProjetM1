@@ -7,8 +7,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.adapter.PatientsListViewAdapter;
+import ceri.m1ilsen.applicationprojetm1.adapter.RecordingsListViewAdapter;
+import ceri.m1ilsen.applicationprojetm1.adapter.SessionsListViewAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,8 +30,12 @@ import ceri.m1ilsen.applicationprojetm1.R;
  * create an instance of this fragment.
  */
 public class ClinicianResultsFragment extends Fragment {
-
-    private OnFragmentInteractionListener mListener;
+    private ListView patientsListView;
+    private ListView sessionsListView;
+    private ArrayList<String> patientsData = new ArrayList<String>();
+    private ArrayList<String> sessionsData = new ArrayList<String>();
+    private TextView numberOfSessions;
+    private PatientRecordingsFragment.OnFragmentInteractionListener mListener;
 
     public ClinicianResultsFragment() {
         // Required empty public constructor
@@ -46,8 +61,37 @@ public class ClinicianResultsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_clinician_results, container, false);
-        String[] sessions ;
+        final View view = inflater.inflate(R.layout.fragment_clinician_results, container, false);
+
+        patientsListView = (ListView) view.findViewById(R.id.patientsList);
+        sessionsListView = (ListView) view.findViewById(R.id.sessionsList);
+
+        patientsData.add("Toto");
+        patientsData.add("Tata");
+
+        PatientsListViewAdapter patientsListViewAdapter = new PatientsListViewAdapter(view.getContext(), R.layout.patient_item_view, patientsData);
+
+        patientsListViewAdapter.setListener(new PatientsListViewAdapter.AdapterListener() {
+            public void onClick(String name) {
+
+                numberOfSessions = (TextView) view.findViewById(R.id.numberOfSessions);
+                if (sessionsData.size() == 0)
+                    numberOfSessions.setText("Aucune session disponible");
+                else if (sessionsData.size() == 1)
+                    numberOfSessions.setText(sessionsData.size()+" session est disponible");
+                else
+                    numberOfSessions.setText(sessionsData.size()+" session sont disponibles");
+                SessionsListViewAdapter sessionsListViewAdapter = new SessionsListViewAdapter(getContext(), R.layout.session_item_view, sessionsData);
+                sessionsListView.setAdapter(sessionsListViewAdapter);
+                ((BaseAdapter)sessionsListView.getAdapter()).notifyDataSetChanged();
+
+            }
+        });
+        patientsListView.setAdapter(patientsListViewAdapter);
+
+        SessionsListViewAdapter sessionsListViewAdapter = new SessionsListViewAdapter(view.getContext(), R.layout.session_item_view, sessionsData);
+        sessionsListView.setAdapter(sessionsListViewAdapter);
+
         return view;
     }
 

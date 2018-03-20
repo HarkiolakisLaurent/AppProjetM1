@@ -68,8 +68,6 @@ public class ClinicianRecordingsFragment extends Fragment {
         patientsListView = (ListView) view.findViewById(R.id.patientsList);
         recordingsListView = (ListView) view.findViewById(R.id.recordingsList);
 
-
-        patientsData = new ArrayList();
         patientsData.add("Toto");
         patientsData.add("Tata");
 
