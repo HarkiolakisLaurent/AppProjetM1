@@ -121,32 +121,32 @@ public class CommentsDataSource {
             }
     }
 
-    public long insertPatient(Patient P) {
+    public long insertPatient(Patient patient) {
 
         ContentValues values = new ContentValues();
-        values.put("pseudo", P.getPseudo());
-        values.put("mail", P.getMail());
-        values.put("mot_de_passe", P.getPassword());
-        values.put("date_de_naissance", P.getBirthday().toString());
-        values.put("genre", P.isGender());
-        values.put("langue", P.getSpokenLanguage().toString());
+        values.put("pseudo", patient.getPseudo());
+        values.put("mail", patient.getMail());
+        values.put("mot_de_passe", patient.getPassword());
+        values.put("date_de_naissance", patient.getBirthday().toString());
+        values.put("genre", patient.isGender());
+        values.put("langue", patient.getSpokenLanguage().toString());
         return database.insert("patients", null, values);
     }
 
-    public long insertClinicien(Clinician P) {
+    public long insertClinicien(Clinician clinician) {
 
         ContentValues values = new ContentValues();
-        values.put("pseudo", P.getPseudo());
-        values.put("mail", P.getMail());
-        values.put("mot_de_passe", P.getPassword());
+        values.put("pseudo", clinician.getPseudo());
+        values.put("mail", clinician.getMail());
+        values.put("mot_de_passe", clinician.getPassword());
         return database.insert("cliniciens", null, values);
     }
 
-    public long insertSession(Session S) {
+    public long insertSession(Session session) {
 
         ContentValues values = new ContentValues();
-        values.put("date_creation", String.valueOf(S.getCreationDate()));
-        values.put("id_patient",S.getPatient());
+        values.put("date_creation", String.valueOf(session.getCreationDate()));
+        values.put("id_patient",session.getPatient());
         return database.insert("sessions", null, values);
     }
 
@@ -157,26 +157,26 @@ public class CommentsDataSource {
         return comment;
     }
 
-    public int getPatientP (String pseudo , String mdp){
-      Cursor c = database.rawQuery("Select _id from patients where pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
-      c.moveToFirst();
-      return c.getInt(0);
+    public int getPatientByPseudoAndPassword (String pseudo , String mdp){
+      Cursor cursor = database.rawQuery("Select _id from patients where pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
+      cursor.moveToFirst();
+      return cursor.getInt(0);
     }
 
-    public int getPatientM (String mail , String mdp){
-        Cursor c = database.rawQuery("Select _id from patients where pseudo LIKE \""+mail+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
-        c.moveToFirst();
-        return c.getInt(0);
+    public int getPatientByMailAndPassword (String mail , String mdp){
+        Cursor cursor = database.rawQuery("Select _id from patients where pseudo LIKE \""+mail+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
+        cursor.moveToFirst();
+        return cursor.getInt(0);
     }
 
-    public Patient getPatientI (int id){
-        Patient p = (Patient)database.rawQuery("Select * from patients where _id="+id,null);
-        return p;
+    public Patient getPatientById (int id){
+        Patient patient = (Patient)database.rawQuery("Select * from patients where _id="+id,null);
+        return patient;
     }
 
-    public int getPatient_id(Patient patient){
-        Cursor c=database.rawQuery("Select _id from patients where pseudo LIKE \""+patient.getPseudo()+"\" and mot_de_passe LIKE \""+patient.getPassword()+"\"" , null);
-        int id=c.getInt(0);
+    public int getPatientId(Patient patient){
+        Cursor cursor = database.rawQuery("Select _id from patients where pseudo LIKE \""+patient.getPseudo()+"\" and mot_de_passe LIKE \""+patient.getPassword()+"\"" , null);
+        int id = cursor.getInt(0);
         return id;
     }
 

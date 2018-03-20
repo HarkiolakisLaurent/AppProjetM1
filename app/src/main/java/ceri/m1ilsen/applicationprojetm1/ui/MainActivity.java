@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
                 BD.open();
                 if (BD.verification(mail.getText().toString(), mdp.getText().toString()) ){
-                    int p = BD.getPatientP(mail.getText().toString(), mdp.getText().toString());
+                    int p = BD.getPatientByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString());
                     Session session  = new Session(new Date(System.currentTimeMillis()), null , null , p);
                     BD.insertSession(session);
                     BD.close();
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(patientActivity);
 
                 } else if (BD.verificationM(mail.getText().toString(), mdp.getText().toString())) {
-                    int p = BD.getPatientM(mail.getText().toString(), mdp.getText().toString());
+                    int p = BD.getPatientByMailAndPassword(mail.getText().toString(), mdp.getText().toString());
                     Session session  = new Session(new Date(System.currentTimeMillis()), null , null , p);
                     BD.insertSession(session);
                     BD.close();
