@@ -1,5 +1,8 @@
 package ceri.m1ilsen.applicationprojetm1.ui;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -82,9 +85,25 @@ public class ClinicianActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_logout:
-                // déconnexion ici
-                this.setResult(1);
-                this.finish();
+                final Activity activity = ClinicianActivity.this;
+                AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+                alertDialog.setTitle("Déconnexion");
+                alertDialog.setMessage("Souhaitez-vous vous déconnecter ?");
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Non",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Oui",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // déconnexion ici
+                                activity.setResult(1);
+                                activity.finish();
+                            }
+                        });
+                alertDialog.show();
                 return true;
         }
 
