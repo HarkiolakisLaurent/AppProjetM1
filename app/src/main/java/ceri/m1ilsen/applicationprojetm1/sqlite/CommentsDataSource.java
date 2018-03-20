@@ -5,6 +5,7 @@ package ceri.m1ilsen.applicationprojetm1.sqlite;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -133,6 +134,19 @@ public class CommentsDataSource {
         return database.insert("patients", null, values);
     }
 
+    public long insertPatientAsClinician(Patient patient, int clinicianInCharge) {
+
+        ContentValues values = new ContentValues();
+        values.put("pseudo", patient.getPseudo());
+        values.put("mail", patient.getMail());
+        values.put("mot_de_passe", patient.getPassword());
+        values.put("date_de_naissance", patient.getBirthday().toString());
+        values.put("genre", patient.isGender());
+        values.put("langue", patient.getSpokenLanguage().toString());
+        values.put("id_clinicien", clinicianInCharge);
+        return database.insert("patients", null, values);
+    }
+
     public long insertClinicien(Clinician clinician) {
 
         ContentValues values = new ContentValues();
@@ -180,7 +194,7 @@ public class CommentsDataSource {
         return id;
     }
 
-    public Clinician getClinicianFromMailAndPassword (String pseudo, String mdp){
+    public Clinician getClinicianByPseudoAndPassword (String pseudo, String mdp){
         Cursor cursor = database.rawQuery("Select * from cliniciens where pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
         Clinician clinician = null;
         if (cursor.moveToFirst()) {
@@ -207,7 +221,10 @@ public class CommentsDataSource {
                                 + colId + ")", Toast.LENGTH_LONG).show();*/
                 count++;
             } while (cursor.moveToNext());
-            //clinician = new Clinician(mail,password,login,lastName,firstName,listPatients);
+
+            List patients = new ArrayList(Arrays.asList(getPatientByClinicianId(colId)));
+            clinician = new Clinician(mail,password,login,patients);
+
             /*Toast.makeText(this,
                     "The number of elements retrieved is " + count,
                     Toast.LENGTH_LONG).show();*/
@@ -215,6 +232,10 @@ public class CommentsDataSource {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
         }
         return clinician;
+    }
+
+    public Patient[] getPatientByClinicianId(int id) {
+        return null;
     }
 
     public String[] getSessions (int id){

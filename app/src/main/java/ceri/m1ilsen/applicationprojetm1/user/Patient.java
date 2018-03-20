@@ -22,11 +22,11 @@ public class Patient implements IUser {
     private Date birthday;
     private boolean gender;
     private Language spokenLanguage;
-    private Clinician clinicianInCharge;
+    private int clinicianInCharge;
     private Comment comment;
     private List<Session> sessions;
 
-    public Patient(String mail, String password, String pseudo, String lastName, String firstName, Date birthday, boolean gender, Language spokenLanguage, Clinician clinicianInCharge, Comment comment, List<Session> sessions) {
+    public Patient(String mail, String password, String pseudo, String lastName, String firstName, Date birthday, boolean gender, Language spokenLanguage, int clinicianInCharge, Comment comment, List<Session> sessions) {
         this.mail = mail;
         this.password = password;
         this.pseudo=pseudo;
@@ -140,11 +140,11 @@ public class Patient implements IUser {
         this.spokenLanguage = spokenLanguage;
     }
 
-    public Clinician getClinicianInCharge() {
+    public int getClinicianInCharge() {
         return clinicianInCharge;
     }
 
-    public void setClinicianInCharge(Clinician clinicianInCharge) {
+    public void setClinicianInCharge(int clinicianInCharge) {
         this.clinicianInCharge = clinicianInCharge;
     }
     public String getPseudo() {

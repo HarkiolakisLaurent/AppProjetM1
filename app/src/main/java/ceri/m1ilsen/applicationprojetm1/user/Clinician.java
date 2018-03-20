@@ -15,16 +15,12 @@ public class Clinician implements IUser {
     private String mail;
     private String password;
     private String pseudo;
-    private String lastName;
-    private String firstName;
     private List<Patient> patients;
 
-    public Clinician(String mail, String password,String pseudo, String lastName, String firstName, List<Patient> patients) {
+    public Clinician(String mail, String password, String pseudo, List<Patient> patients) {
         this.mail = mail;
         this.password = password;
-        this.lastName = lastName;
         this.pseudo = pseudo;
-        this.firstName = firstName;
         this.patients = patients;
     }
 
@@ -78,22 +74,6 @@ public class Clinician implements IUser {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     public List<Patient> getPatients() {
