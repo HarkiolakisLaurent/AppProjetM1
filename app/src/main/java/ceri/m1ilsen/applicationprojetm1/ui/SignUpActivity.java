@@ -101,11 +101,10 @@ public class SignUpActivity extends AppCompatActivity {
                         String[] nums = birth.getText().toString().split(""+birth.getText().toString().charAt(2));
                         String zeDate = nums[2]+"-"+nums[1]+"-"+nums[0];
                         Patient patient = new Patient(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
-                                nom.getText().toString(), prenom.getText().toString(), Date.valueOf(zeDate), sex, Language.Français, null, null, null);
+                                nom.getText().toString(), prenom.getText().toString(), Date.valueOf(zeDate), sex, Language.Français, 0, null, null);
                         BD.insertPatient(patient);
                     } else {
-                        Clinician clinician = new Clinician(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
-                                nom.getText().toString(), prenom.getText().toString(), null);
+                        Clinician clinician = new Clinician(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(), null);
                         BD.insertClinicien(clinician);
                     }
                     this.setResult(1);

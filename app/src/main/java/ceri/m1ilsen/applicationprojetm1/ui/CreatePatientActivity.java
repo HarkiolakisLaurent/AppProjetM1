@@ -96,7 +96,7 @@ public class CreatePatientActivity extends AppCompatActivity {
                     String[] nums = birth.getText().toString().split(""+birth.getText().toString().charAt(2));
                     String zeDate = nums[2]+"-"+nums[1]+"-"+nums[0];
                     Patient P = new Patient(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
-                            nom.getText().toString(), prenom.getText().toString(), Date.valueOf(zeDate), sex, Language.Français, null, null, null);
+                            nom.getText().toString(), prenom.getText().toString(), Date.valueOf(zeDate), sex, Language.Français, 0, null, null);
                     BD.insertPatient(P);
                     this.setResult(1);
                     this.finish();

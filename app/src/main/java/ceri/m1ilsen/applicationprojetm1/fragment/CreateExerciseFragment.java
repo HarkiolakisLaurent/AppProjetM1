@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.adapter.ExercisesListViewAdapter;
 import ceri.m1ilsen.applicationprojetm1.ui.DoExerciceActivity;
 
 /**
@@ -34,6 +36,9 @@ import ceri.m1ilsen.applicationprojetm1.ui.DoExerciceActivity;
  */
 public class CreateExerciseFragment extends Fragment {
 
+    private ListView exercisesListView;
+    private ArrayList<String> data = new ArrayList<String>();
+    private TextView numberOfExercises;
 
     private TextView mTextMessage;
     private Button btnLireMots;
@@ -66,8 +71,23 @@ public class CreateExerciseFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_create_exercise, container, false);
+
+        exercisesListView = (ListView) view.findViewById(R.id.exercisesList);
+
+        data.add("Exercice 1");
+
+        numberOfExercises = (TextView) view.findViewById(R.id.numberOfExercises);
+        if (data.size() == 0)
+            numberOfExercises.setText("Aucun exercice disponible");
+        else if (data.size() == 1)
+            numberOfExercises.setText(data.size()+" exercice est disponible");
+        else
+            numberOfExercises.setText(data.size()+" exercices sont disponibles");
+
+        ExercisesListViewAdapter exercisesListViewAdapter = new ExercisesListViewAdapter(view.getContext(), R.layout.exercise_item_view, data);
+        exercisesListView.setAdapter(exercisesListViewAdapter);
+
         mTextMessage = (TextView) view.findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) view.findViewById(R.id.navigation);
         //File file=new File("/src/java/mots.txt.txt");
         ReadFileWord();
         return view;
