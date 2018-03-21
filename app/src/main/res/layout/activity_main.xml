@@ -27,7 +27,7 @@
                 android:layout_span="1"
                 android:ems="10"
                 android:fontFamily="monospace"
-                android:hint="Votre mail"
+                android:hint="Votre identifiant"
                 android:inputType="textEmailAddress"
                 android:textColor="@android:color/black"
                 android:textSize="24sp"

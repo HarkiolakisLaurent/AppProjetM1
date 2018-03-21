@@ -109,21 +109,21 @@ public class MainActivity extends AppCompatActivity {
 
                 BD.open();
                 if (BD.verificationPatientByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString()) ){
-                    Patient patient = BD.getPatientByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString());
+                    //Patient patient = BD.getPatientByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString());
                     /*Session session  = new Session(new Date(System.currentTimeMillis()), null , null , p);
                     BD.insertSession(session);
                     Contexte.patient=p;*/
-                    patientActivity.putExtra("connectedUserPseudo",patient.getPseudo());
-                    Toast.makeText(getApplicationContext(),"ici",Toast.LENGTH_LONG).show();
+                    patientActivity.putExtra("connectedUserPseudo",mail.getText().toString());
+                    //Toast.makeText(getApplicationContext(),patient.getPseudo(),Toast.LENGTH_LONG).show();
                     BD.close();
                     startActivity(patientActivity);
 
                 } else if (BD.verificationPatientByMailAndPassword(mail.getText().toString(), mdp.getText().toString())) {
-                    Patient patient = BD.getPatientByMailAndPassword(mail.getText().toString(), mdp.getText().toString());
+                    //Patient patient = BD.getPatientByMailAndPassword(mail.getText().toString(), mdp.getText().toString());
                     /*Session session  = new Session(new Date(System.currentTimeMillis()), null , null , p);
                     BD.insertSession(session);
                     Contexte.patient=p;*/
-                    patientActivity.putExtra("connectedUserPseudo",patient.getPseudo());
+                    patientActivity.putExtra("connectedUserPseudo",mail.getText().toString());
                     BD.close();
                     startActivity(patientActivity);
 

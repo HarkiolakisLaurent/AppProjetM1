@@ -70,21 +70,7 @@ public class PatientHomePageFragment extends Fragment {
         data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
 
         lv.setAdapter(new HomePageListViewAdapter(view.getContext(), R.layout.home_page_item_view, data, currentUser));
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String dataModel= data.get(position);
-                Toast.makeText(view.getContext(), "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        CommentsDataSource BD = new CommentsDataSource(view.getContext());
-        BD.open();
-        // String data[] = BD.getName();
-        System.out.println("LE pseaudo est hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"+ BD.getName());
-        BD.close();
         return view;
     }
 

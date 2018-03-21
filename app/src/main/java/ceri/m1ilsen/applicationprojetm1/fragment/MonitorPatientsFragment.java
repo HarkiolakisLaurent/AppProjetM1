@@ -72,7 +72,7 @@ public class MonitorPatientsFragment extends Fragment {
         //int currentId = BD.getClinicianIdByPseudo(currentUser);
         List<Patient> patients = BD.getPatientByClinicianId(currentId);
         for(int i=0; i<patients.size(); i++)
-            data.add(patients.get(i).toString());
+            data.add(patients.get(i).getPseudo().toString());
 
         numberOfPatients = (TextView) view.findViewById(R.id.numberOfPatients);
         if (data.size() == 0)

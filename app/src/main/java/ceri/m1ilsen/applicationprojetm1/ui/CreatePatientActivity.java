@@ -14,6 +14,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import ceri.m1ilsen.applicationprojetm1.R;
@@ -90,7 +92,6 @@ public class CreatePatientActivity extends AppCompatActivity {
         BD.open();
         final String currentUser = getIntent().getStringExtra("connectedUserPseudo");
         final int currentId = getIntent().getIntExtra("connectedUserId",0);
-        Toast.makeText(this, "Id : "+currentId, Toast.LENGTH_LONG).show();
         if(!(pseudo.getText().toString().equals("")) && !(mdp.getText().toString().equals("")) && !(mdpc.getText().toString().equals("")) && !(mail.getText().toString().equals(""))) {
             if (!BD.verificationPatientByPseudoAndPassword(pseudo.getText().toString(), mdp.getText().toString()) && !BD.verificationPatientByMailAndPassword(mail.getText().toString(),mdp.getText().toString())) {
                 if (mdp.getText().toString().equals(mdpc.getText().toString())) {
@@ -98,15 +99,24 @@ public class CreatePatientActivity extends AppCompatActivity {
                     if (genre.getSelectedItemPosition() == 0) {
                         sex = true;
                     }
-                    String[] nums = birth.getText().toString().split(""+birth.getText().toString().charAt(2));
-                    String zeDate = nums[2]+"-"+nums[1]+"-"+nums[0];
-                    Patient patient = new Patient(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
-                            nom.getText().toString(), prenom.getText().toString(), Date.valueOf(zeDate), sex, Language.Français, currentId, null, null);
-                    BD.insertPatient(patient);
+                    //String[] nums = birth.getText().toString().split(""+birth.getText().toString().charAt(2));
+                    //String zeDate = nums[2]+"-"+nums[1]+"-"+nums[0];
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    java.util.Date utilDate = null;
+                    try {
+                        utilDate = formatter.parse(birth.getText().toString());
 
-                    Toast.makeText(this, patient.toString(), Toast.LENGTH_LONG).show();
-                    this.setResult(1);
-                    this.finish();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+                    Toast.makeText(this, "Date : "+sqlDate, Toast.LENGTH_LONG).show();
+                    Patient patient = new Patient(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
+                            nom.getText().toString(), prenom.getText().toString(), sqlDate, sex, Language.Français, currentId, null, null);
+
+                    //BD.insertPatient(patient);
+                    //this.setResult(1);
+                    //this.finish();
                 }else{
                     nom.setText("les deux mots de passes sont différents !");
                 }
