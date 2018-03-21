@@ -7,7 +7,6 @@ package ceri.m1ilsen.applicationprojetm1.sqlite;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +15,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.Toast;
 
 import ceri.m1ilsen.applicationprojetm1.comment.Comment;
 import ceri.m1ilsen.applicationprojetm1.exercise.Session;
@@ -120,8 +118,10 @@ public class CommentsDataSource {
     public boolean verificationClinicianByMailAndPassword(String mail , String mdp){
             Cursor c = database.query("cliniciens",new String[]{"pseudo", "mail"},"mail LIKE \""+mail+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
             if(c.getCount() == 0){
+                c.close();
                 return false;
             }else{
+                c.close();
                 return true;
             }
     }
@@ -138,6 +138,9 @@ public class CommentsDataSource {
         values.put("genre", patient.isGender());
         values.put("langue", patient.getSpokenLanguage().toString());
         values.put("id_clinicien", patient.getClinicianInCharge());
+        System.out.println(patient.getPseudo()+patient.getMail()+patient.getPassword()+patient.getLastName()
+                +patient.getFirstName()+patient.getBirthday().toString()+patient.isGender()+patient.getSpokenLanguage().toString()
+                +patient.getClinicianInCharge());
         return database.insert("patients", null, values);
     }
 
@@ -163,17 +166,6 @@ public class CommentsDataSource {
         comment.setId(cursor.getLong(0));
         comment.setComment(cursor.getString(1));
         return comment;
-    }
-
-    public Patient getPatientById (int id){
-        Patient patient = (Patient)database.rawQuery("Select * from patients where _id="+id,null);
-        return patient;
-    }
-
-    public int getPatientId(Patient patient){
-        Cursor cursor = database.rawQuery("Select _id from patients where pseudo LIKE \""+patient.getPseudo()+"\" and mot_de_passe LIKE \""+patient.getPassword()+"\"" , null);
-        int id = cursor.getInt(0);
-        return id;
     }
 
     public Patient getPatientByPseudoAndPassword (String pseudo, String mdp) {
@@ -227,6 +219,7 @@ public class CommentsDataSource {
         } else {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
         }
+        cursor.close();
         return patient;
     }
 
@@ -281,6 +274,7 @@ public class CommentsDataSource {
         } else {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
         }
+        cursor.close();
         return patient;
     }
 
@@ -316,6 +310,7 @@ public class CommentsDataSource {
         } else {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
         }
+        cursor.close();
         return clinician;
     }
 
@@ -351,6 +346,7 @@ public class CommentsDataSource {
         } else {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
         }
+        cursor.close();
         return clinician;
     }
 
@@ -402,6 +398,7 @@ public class CommentsDataSource {
         } else {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
         }
+        cursor.close();
         return patients;
     }
 
@@ -424,12 +421,13 @@ public class CommentsDataSource {
         } else {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
         }
+        cursor.close();
         return colId;
 
     }
 
     public Date convertStringToDate(String date) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         return formatter.parse(date);
     }
 

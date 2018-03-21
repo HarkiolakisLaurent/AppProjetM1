@@ -15,6 +15,8 @@ import android.widget.CheckBox;
 import android.widget.ToggleButton;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import ceri.m1ilsen.applicationprojetm1.language.Language;
@@ -98,10 +100,19 @@ public class SignUpActivity extends AppCompatActivity {
                         if (genre.getSelectedItemPosition() == 0) {
                             sex = true;
                         }
-                        String[] nums = birth.getText().toString().split(""+birth.getText().toString().charAt(2));
-                        String zeDate = nums[2]+"-"+nums[1]+"-"+nums[0];
+                        //String[] nums = birth.getText().toString().split(""+birth.getText().toString().charAt(2));
+                        //String zeDate = nums[2]+"-"+nums[1]+"-"+nums[0];
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
+                        java.util.Date utilDate = new java.util.Date();
+                        try {
+                            utilDate = formatter.parse(birth.getText().toString());
+
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
                         Patient patient = new Patient(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
-                                nom.getText().toString(), prenom.getText().toString(), Date.valueOf(zeDate), sex, Language.Français, 0, null, null);
+                                nom.getText().toString(), prenom.getText().toString(), sqlDate, sex, Language.Français, 0, null, null);
                         BD.insertPatient(patient);
                     } else {
                         Clinician clinician = new Clinician(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(), null);
