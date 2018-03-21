@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -57,6 +58,10 @@ public class PatientHomePageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_patient_home_page, container, false);
+
+        TextView welcomePatient = (TextView) view.findViewById(R.id.welcomePatient);
+        welcomePatient.setText("Bonjour "+getActivity().getIntent().getStringExtra("connectedUserPseudo")+", c'est un plaisir de vous revoir !");
+
         lv = (ListView) view.findViewById(R.id.listResults);
 
         String currentUser = getActivity().getIntent().getStringExtra("connectedUserPseudo");

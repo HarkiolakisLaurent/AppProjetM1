@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -41,6 +42,7 @@ public class CreatePatientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_patient);
+        //Toast.makeText(getApplicationContext(),"Id : "+currentId,Toast.LENGTH_LONG).show();
         pseudo =  (EditText) findViewById(R.id.loginField);
         mdp =  (EditText) findViewById(R.id.newPasswordField);
         nom =  (EditText) findViewById(R.id.lastNameField);
@@ -86,6 +88,9 @@ public class CreatePatientActivity extends AppCompatActivity {
     public void creerCompte(View view) {
         CommentsDataSource BD = new CommentsDataSource(this);
         BD.open();
+        final String currentUser = getIntent().getStringExtra("connectedUserPseudo");
+        final int currentId = getIntent().getIntExtra("connectedUserId",0);
+        Toast.makeText(this, "Id : "+currentId, Toast.LENGTH_LONG).show();
         if(!(pseudo.getText().toString().equals("")) && !(mdp.getText().toString().equals("")) && !(mdpc.getText().toString().equals("")) && !(mail.getText().toString().equals(""))) {
             if (!BD.verificationPatientByPseudoAndPassword(pseudo.getText().toString(), mdp.getText().toString()) && !BD.verificationPatientByMailAndPassword(mail.getText().toString(),mdp.getText().toString())) {
                 if (mdp.getText().toString().equals(mdpc.getText().toString())) {
@@ -95,9 +100,11 @@ public class CreatePatientActivity extends AppCompatActivity {
                     }
                     String[] nums = birth.getText().toString().split(""+birth.getText().toString().charAt(2));
                     String zeDate = nums[2]+"-"+nums[1]+"-"+nums[0];
-                    Patient P = new Patient(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
-                            nom.getText().toString(), prenom.getText().toString(), Date.valueOf(zeDate), sex, Language.Français, 0, null, null);
-                    BD.insertPatient(P);
+                    Patient patient = new Patient(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
+                            nom.getText().toString(), prenom.getText().toString(), Date.valueOf(zeDate), sex, Language.Français, currentId, null, null);
+                    BD.insertPatient(patient);
+
+                    Toast.makeText(this, patient.toString(), Toast.LENGTH_LONG).show();
                     this.setResult(1);
                     this.finish();
                 }else{

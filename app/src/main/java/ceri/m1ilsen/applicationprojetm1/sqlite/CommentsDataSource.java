@@ -132,22 +132,12 @@ public class CommentsDataSource {
         values.put("pseudo", patient.getPseudo());
         values.put("mail", patient.getMail());
         values.put("mot_de_passe", patient.getPassword());
+        values.put("nom", patient.getLastName());
+        values.put("prenom", patient.getFirstName());
         values.put("date_de_naissance", patient.getBirthday().toString());
         values.put("genre", patient.isGender());
         values.put("langue", patient.getSpokenLanguage().toString());
-        return database.insert("patients", null, values);
-    }
-
-    public long insertPatientOfAClinician(Patient patient, int clinicianInCharge) {
-
-        ContentValues values = new ContentValues();
-        values.put("pseudo", patient.getPseudo());
-        values.put("mail", patient.getMail());
-        values.put("mot_de_passe", patient.getPassword());
-        values.put("date_de_naissance", patient.getBirthday().toString());
-        values.put("genre", patient.isGender());
-        values.put("langue", patient.getSpokenLanguage().toString());
-        values.put("id_clinicien", clinicianInCharge);
+        values.put("id_clinicien", patient.getClinicianInCharge());
         return database.insert("patients", null, values);
     }
 
@@ -175,18 +165,6 @@ public class CommentsDataSource {
         return comment;
     }
 
-    public int getPatientByPseudoAndPassword (String pseudo , String mdp){
-      Cursor cursor = database.rawQuery("Select _id from patients where pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
-      cursor.moveToFirst();
-      return cursor.getInt(0);
-    }
-
-    public int getPatientByMailAndPassword (String mail , String mdp){
-        Cursor cursor = database.rawQuery("Select _id from patients where pseudo LIKE \""+mail+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
-        cursor.moveToFirst();
-        return cursor.getInt(0);
-    }
-
     public Patient getPatientById (int id){
         Patient patient = (Patient)database.rawQuery("Select * from patients where _id="+id,null);
         return patient;
@@ -196,6 +174,114 @@ public class CommentsDataSource {
         Cursor cursor = database.rawQuery("Select _id from patients where pseudo LIKE \""+patient.getPseudo()+"\" and mot_de_passe LIKE \""+patient.getPassword()+"\"" , null);
         int id = cursor.getInt(0);
         return id;
+    }
+
+    public Patient getPatientByPseudoAndPassword (String pseudo, String mdp) {
+        Patient patient = null;
+        Cursor cursor = database.rawQuery("select * from patients where pseudo = ? AND mot_de_passe = ?", new String[]{pseudo, mdp});
+
+        Integer colId;
+        String mail;
+        String password;
+        String login;
+        String lastName;
+        String firstName;
+        String birthday;
+        boolean gender;
+        Language language = Language.Français;
+        int clinicianInCharge;
+
+        int indexId = cursor.getColumnIndex(COLUMN_ID);
+        int indexMail = cursor.getColumnIndex(COLUMN_MAIL);
+        int indexPassword = cursor.getColumnIndex(COLUMN_MDP);
+        int indexPseudo = cursor.getColumnIndex(COLUMN_PSEUDO);
+        int indexLastName = cursor.getColumnIndex(COLUMN_NOM);
+        int indexFirstName = cursor.getColumnIndex(COLUMN_PRENOM);
+        int indexBirthday = cursor.getColumnIndex(COLUMN_DATE);
+        int indexGender = cursor.getColumnIndex(COLUMN_GENRE);
+        //int indexLanguage = cursor.getColumnIndex(COLUMN_LANGUE);
+        int indexClinicianInCharge = cursor.getColumnIndex(COLUMN_ID_CLINICIEN);
+        if (cursor.moveToFirst()) {
+            int count = 0;
+            do {
+                colId = cursor.getInt(indexId);
+                mail = cursor.getString(indexMail);
+                password = cursor.getString(indexPassword);
+                login = cursor.getString(indexPseudo);
+                lastName = cursor.getString(indexLastName);
+                firstName = cursor.getString(indexFirstName);
+                birthday = cursor.getString(indexBirthday);
+                gender = (cursor.getInt(indexGender) == 1);
+                //language = cursor.getString(indexLanguage);
+                clinicianInCharge = cursor.getInt(indexClinicianInCharge);
+                count++;
+            } while (cursor.moveToNext());
+
+            List sessions = new ArrayList();
+            //sessions = getPatientByClinicianId(colId);
+            try {
+                patient = new Patient(mail, password, login, lastName, firstName, convertStringToDate(birthday), gender, Language.Français, clinicianInCharge, null, sessions);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        return patient;
+    }
+
+    public Patient getPatientByMailAndPassword (String mail, String mdp) {
+        Patient patient = null;
+        Cursor cursor = database.rawQuery("select * from patients where pseudo = ? AND mot_de_passe = ?", new String[]{mail, mdp});
+
+        Integer colId;
+        String email;
+        String password;
+        String login;
+        String lastName;
+        String firstName;
+        String birthday;
+        boolean gender;
+        Language language = Language.Français;
+        int clinicianInCharge;
+
+        int indexId = cursor.getColumnIndex(COLUMN_ID);
+        int indexMail = cursor.getColumnIndex(COLUMN_MAIL);
+        int indexPassword = cursor.getColumnIndex(COLUMN_MDP);
+        int indexPseudo = cursor.getColumnIndex(COLUMN_PSEUDO);
+        int indexLastName = cursor.getColumnIndex(COLUMN_NOM);
+        int indexFirstName = cursor.getColumnIndex(COLUMN_PRENOM);
+        int indexBirthday = cursor.getColumnIndex(COLUMN_DATE);
+        int indexGender = cursor.getColumnIndex(COLUMN_GENRE);
+        //int indexLanguage = cursor.getColumnIndex(COLUMN_LANGUE);
+        int indexClinicianInCharge = cursor.getColumnIndex(COLUMN_ID_CLINICIEN);
+        if (cursor.moveToFirst()) {
+            int count = 0;
+            do {
+                colId = cursor.getInt(indexId);
+                email = cursor.getString(indexMail);
+                password = cursor.getString(indexPassword);
+                login = cursor.getString(indexPseudo);
+                lastName = cursor.getString(indexLastName);
+                firstName = cursor.getString(indexFirstName);
+                birthday = cursor.getString(indexBirthday);
+                gender = (cursor.getInt(indexGender) == 1);
+                //language = cursor.getString(indexLanguage);
+                clinicianInCharge = cursor.getInt(indexClinicianInCharge);
+                count++;
+            } while (cursor.moveToNext());
+
+            List sessions = new ArrayList();
+            //sessions = getPatientByClinicianId(colId);
+            try {
+                patient = new Patient(email, password, login, lastName, firstName, convertStringToDate(birthday), gender, Language.Français, clinicianInCharge, null, sessions);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        return patient;
     }
 
     public Clinician getClinicianByPseudoAndPassword (String pseudo, String mdp){
@@ -225,8 +311,43 @@ public class CommentsDataSource {
             } while (cursor.moveToNext());
 
             List patients = new ArrayList();
+            //patients = getPatientByClinicianId(colId);
+            clinician = new Clinician(mail,password,login,null);
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        return clinician;
+    }
+
+    public Clinician getClinicianByMailAndPassword (String mail, String mdp){
+        Clinician clinician = null;
+        Cursor cursor = database.rawQuery("select * from cliniciens where mail = ? AND mot_de_passe = ?",new String[] {mail, mdp});
+        //Cursor cursor = database.rawQuery("Select * from cliniciens where pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
+
+        if (cursor.moveToFirst()) {
+            // The elements to retrieve
+            Integer colId;
+            String login;
+            String email;
+            String password;
+            // The associated index within the cursor
+            int indexId = cursor.getColumnIndex(COLUMN_ID);
+            int indexPseudo = cursor.getColumnIndex(COLUMN_PSEUDO);
+            int indexMail = cursor.getColumnIndex(COLUMN_MAIL);
+            int indexPassword = cursor.getColumnIndex(COLUMN_MDP);
+            // Browse the results list:
+            int count = 0;
+            do {
+                colId = cursor.getInt(indexId);
+                login = cursor.getString(indexPseudo);
+                email = cursor.getString(indexMail);
+                password = cursor.getString(indexPassword);
+                count++;
+            } while (cursor.moveToNext());
+
+            List patients = new ArrayList();
             patients = getPatientByClinicianId(colId);
-            clinician = new Clinician(mail,password,login,patients);
+            clinician = new Clinician(email,password,login,patients);
         } else {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
         }
@@ -234,7 +355,6 @@ public class CommentsDataSource {
     }
 
     public List<Patient> getPatientByClinicianId(int id) {
-        //Patient[] patients = {new Patient("test","test","test","test","test",new Date(2),true, Language.Français,id,null,null)};
         List patients = new ArrayList();
         Cursor cursor = database.rawQuery("select * from patients where id_clinicien = ?", new String[] {Integer.toString(id)});
 
@@ -269,7 +389,6 @@ public class CommentsDataSource {
                 lastName = cursor.getString(indexLastName);
                 firstName = cursor.getString(indexFirstName);
                 birthday = cursor.getString(indexBirthday);
-                // ici parser string to data
                 gender = (cursor.getInt(indexGender) == 1);
                 //language = cursor.getString(indexLanguage);
                 clinicianInCharge = cursor.getInt(indexClinicianInCharge);

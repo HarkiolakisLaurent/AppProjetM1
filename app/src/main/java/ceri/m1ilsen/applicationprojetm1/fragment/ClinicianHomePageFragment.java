@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.HomePageListViewAdapter;
@@ -64,14 +65,11 @@ public class ClinicianHomePageFragment extends Fragment {
         TextView welcomeClinician = (TextView) view.findViewById(R.id.welcomeClinician);
         welcomeClinician.setText("Bonjour "+getActivity().getIntent().getStringExtra("connectedUserPseudo")+", c'est un plaisir de vous revoir !");
 
-
         lv = (ListView) view.findViewById(R.id.listResultsClinicien);
 
         String currentUser = getActivity().getIntent().getStringExtra("connectedUserPseudo");
+        int currentId = getActivity().getIntent().getIntExtra("connectedUserId",0);
 
-        final CommentsDataSource BD = new CommentsDataSource(getActivity());
-        //BD.open();
-        data= new ArrayList<>();
         data.add(new String("Le DATE à HEURE, NOM Prenom a obtenu 75"));
         data.add(new String("Le DATE à HEURE, NOM Prenom a obtenu 80"));
 

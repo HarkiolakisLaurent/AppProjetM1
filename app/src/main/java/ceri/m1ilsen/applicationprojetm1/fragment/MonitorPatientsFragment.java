@@ -11,12 +11,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.MonitorPatientsListViewAdapter;
+import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
 import ceri.m1ilsen.applicationprojetm1.ui.CreatePatientActivity;
+import ceri.m1ilsen.applicationprojetm1.user.Patient;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,8 +64,15 @@ public class MonitorPatientsFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_monitor_patients, container, false);
         monitorPatientsListView = (ListView) view.findViewById(R.id.patientsList);
-        data = new ArrayList();
-        data.add("Toto Toto");
+
+        final CommentsDataSource BD = new CommentsDataSource(getActivity());
+        BD.open();
+        final String currentUser = getActivity().getIntent().getStringExtra("connectedUserPseudo");
+        final int currentId = getActivity().getIntent().getIntExtra("connectedUserId",0);
+        //int currentId = BD.getClinicianIdByPseudo(currentUser);
+        List<Patient> patients = BD.getPatientByClinicianId(currentId);
+        for(int i=0; i<patients.size(); i++)
+            data.add(patients.get(i).toString());
 
         numberOfPatients = (TextView) view.findViewById(R.id.numberOfPatients);
         if (data.size() == 0)
@@ -76,6 +87,8 @@ public class MonitorPatientsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent nextActivity = new Intent(view.getContext(), CreatePatientActivity.class);
+                nextActivity.putExtra("connectedUserPseudo",currentUser);
+                nextActivity.putExtra("connectedUserId",currentId);
                 startActivity(nextActivity);
             }
         });

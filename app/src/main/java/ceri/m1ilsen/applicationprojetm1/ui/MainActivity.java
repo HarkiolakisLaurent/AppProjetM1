@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Date;
 
@@ -19,6 +20,7 @@ import ceri.m1ilsen.applicationprojetm1.exercise.Session;
 import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
 import ceri.m1ilsen.applicationprojetm1.sqlite.Contexte;
 import ceri.m1ilsen.applicationprojetm1.user.Clinician;
+import ceri.m1ilsen.applicationprojetm1.user.Patient;
 
 public class MainActivity extends AppCompatActivity {
     private CommentsDataSource datasource;
@@ -107,25 +109,30 @@ public class MainActivity extends AppCompatActivity {
 
                 BD.open();
                 if (BD.verificationPatientByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString()) ){
-                    int p = BD.getPatientByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString());
-                    Session session  = new Session(new Date(System.currentTimeMillis()), null , null , p);
+                    Patient patient = BD.getPatientByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString());
+                    /*Session session  = new Session(new Date(System.currentTimeMillis()), null , null , p);
                     BD.insertSession(session);
+                    Contexte.patient=p;*/
+                    patientActivity.putExtra("connectedUserPseudo",patient.getPseudo());
+                    Toast.makeText(getApplicationContext(),"ici",Toast.LENGTH_LONG).show();
                     BD.close();
-                    Contexte.patient=p;
                     startActivity(patientActivity);
 
                 } else if (BD.verificationPatientByMailAndPassword(mail.getText().toString(), mdp.getText().toString())) {
-                    int p = BD.getPatientByMailAndPassword(mail.getText().toString(), mdp.getText().toString());
-                    Session session  = new Session(new Date(System.currentTimeMillis()), null , null , p);
+                    Patient patient = BD.getPatientByMailAndPassword(mail.getText().toString(), mdp.getText().toString());
+                    /*Session session  = new Session(new Date(System.currentTimeMillis()), null , null , p);
                     BD.insertSession(session);
+                    Contexte.patient=p;*/
+                    patientActivity.putExtra("connectedUserPseudo",patient.getPseudo());
                     BD.close();
-                    Contexte.patient=p;
                     startActivity(patientActivity);
 
                 } else if (BD.verificationClinicianByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString())) {
                     Intent clinicianActivity = new Intent(MainActivity.this, ClinicianActivity.class);
                     Clinician clinician = BD.getClinicianByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString());
+                    int clinicianId = BD.getClinicianIdByPseudo(mail.getText().toString());
                     clinicianActivity.putExtra("connectedUserPseudo",clinician.getPseudo());
+                    clinicianActivity.putExtra("connectedUserId",clinicianId);
                     BD.close();
                     startActivity(clinicianActivity);
 
@@ -133,10 +140,15 @@ public class MainActivity extends AppCompatActivity {
 
                 else if (BD.verificationClinicianByMailAndPassword(mail.getText().toString(), mdp.getText().toString())) {
                     Intent clinicianActivity = new Intent(MainActivity.this, ClinicianActivity.class);
-                    Clinician clinician = BD.getClinicianByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString());
+                    Clinician clinician = BD.getClinicianByMailAndPassword(mail.getText().toString(), mdp.getText().toString());
+                    int clinicianId = BD.getClinicianIdByPseudo(mail.getText().toString());
                     clinicianActivity.putExtra("connectedUserPseudo",clinician.getPseudo());
+                    clinicianActivity.putExtra("connectedUserId",clinicianId);
                     BD.close();
                     startActivity(clinicianActivity);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"Identifiant et/ou mot de passe incorrects",Toast.LENGTH_SHORT).show();
                 }
             }
         });

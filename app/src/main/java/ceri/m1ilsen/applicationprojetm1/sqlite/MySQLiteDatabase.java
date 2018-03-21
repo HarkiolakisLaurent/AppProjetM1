@@ -37,7 +37,7 @@ public class MySQLiteDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_COMMENT = "comment";
 
     private static final String DATABASE_NAME = "commments.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Commande sql pour la création de la base de données
     private static final String DATABASE_CREATE_PATIENT = "create table " + TABLE_PATIENTS + "( " + COLUMN_ID
