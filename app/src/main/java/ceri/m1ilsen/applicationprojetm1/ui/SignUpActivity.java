@@ -91,7 +91,7 @@ public class SignUpActivity extends AppCompatActivity {
         CommentsDataSource BD = new CommentsDataSource(this);
         BD.open();
         if(!(pseudo.getText().toString().equals("")) && !(mdp.getText().toString().equals("")) && !(mdpc.getText().toString().equals("")) && !(mail.getText().toString().equals(""))) {
-            if (!BD.verification(pseudo.getText().toString(), mdp.getText().toString()) && !BD.verificationM(mail.getText().toString(),mdp.getText().toString())) {
+            if (!BD.verificationPatientByPseudoAndPassword(pseudo.getText().toString(), mdp.getText().toString()) && !BD.verificationPatientByMailAndPassword(mail.getText().toString(),mdp.getText().toString())) {
                 if (mdp.getText().toString().equals(mdpc.getText().toString())) {
                     if (!tg.isChecked()) {
                         Boolean sex = false;
@@ -105,7 +105,7 @@ public class SignUpActivity extends AppCompatActivity {
                         BD.insertPatient(patient);
                     } else {
                         Clinician clinician = new Clinician(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(), null);
-                        BD.insertClinicien(clinician);
+                        BD.insertClinician(clinician);
                     }
                     this.setResult(1);
                     this.finish();

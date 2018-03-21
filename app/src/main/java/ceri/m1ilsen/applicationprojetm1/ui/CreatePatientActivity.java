@@ -87,7 +87,7 @@ public class CreatePatientActivity extends AppCompatActivity {
         CommentsDataSource BD = new CommentsDataSource(this);
         BD.open();
         if(!(pseudo.getText().toString().equals("")) && !(mdp.getText().toString().equals("")) && !(mdpc.getText().toString().equals("")) && !(mail.getText().toString().equals(""))) {
-            if (!BD.verification(pseudo.getText().toString(), mdp.getText().toString()) && !BD.verificationM(mail.getText().toString(),mdp.getText().toString())) {
+            if (!BD.verificationPatientByPseudoAndPassword(pseudo.getText().toString(), mdp.getText().toString()) && !BD.verificationPatientByMailAndPassword(mail.getText().toString(),mdp.getText().toString())) {
                 if (mdp.getText().toString().equals(mdpc.getText().toString())) {
                     Boolean sex = false;
                     if (genre.getSelectedItemPosition() == 0) {

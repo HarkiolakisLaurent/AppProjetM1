@@ -79,7 +79,7 @@ public class CommentsDataSource {
         return comments;
     }
 
-    public boolean verification(String pseudo , String mdp){
+    public boolean verificationPatientByPseudoAndPassword(String pseudo , String mdp){
         Cursor c = database.query("patients",new String[]{ "pseudo", "mail"},"pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
         if(c.getCount() == 0 ){
             c.close();
@@ -91,7 +91,7 @@ public class CommentsDataSource {
 
     }
 
-    public boolean verificationM(String mail , String mdp){
+    public boolean verificationPatientByMailAndPassword(String mail , String mdp){
         Cursor c = database.query("patients",new String[]{"pseudo", "mail"},"mail LIKE \""+mail+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
         if(c.getCount() == 0){
             c.close();
@@ -102,7 +102,7 @@ public class CommentsDataSource {
         }
     }
 
-    public boolean verificationC(String pseudo , String mdp){
+    public boolean verificationClinicianByPseudoAndPassword(String pseudo , String mdp){
             Cursor c = database.query("cliniciens",new String[]{ "pseudo", "mail"},"pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
             if(c.getCount() == 0){
                 c.close();
@@ -113,7 +113,7 @@ public class CommentsDataSource {
             }
     }
 
-    public boolean verificationCM(String mail , String mdp){
+    public boolean verificationClinicianByMailAndPassword(String mail , String mdp){
             Cursor c = database.query("cliniciens",new String[]{"pseudo", "mail"},"mail LIKE \""+mail+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
             if(c.getCount() == 0){
                 return false;
@@ -134,7 +134,7 @@ public class CommentsDataSource {
         return database.insert("patients", null, values);
     }
 
-    public long insertPatientAsClinician(Patient patient, int clinicianInCharge) {
+    public long insertPatientOfAClinician(Patient patient, int clinicianInCharge) {
 
         ContentValues values = new ContentValues();
         values.put("pseudo", patient.getPseudo());
@@ -147,7 +147,7 @@ public class CommentsDataSource {
         return database.insert("patients", null, values);
     }
 
-    public long insertClinicien(Clinician clinician) {
+    public long insertClinician(Clinician clinician) {
 
         ContentValues values = new ContentValues();
         values.put("pseudo", clinician.getPseudo());
@@ -195,8 +195,9 @@ public class CommentsDataSource {
     }
 
     public Clinician getClinicianByPseudoAndPassword (String pseudo, String mdp){
-        Cursor cursor = database.rawQuery("Select * from cliniciens where pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
         Clinician clinician = null;
+        /*Cursor cursor = database.rawQuery("Select * from cliniciens where pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
+
         if (cursor.moveToFirst()) {
             // The elements to retrieve
             Integer colId;
@@ -216,21 +217,14 @@ public class CommentsDataSource {
                 mail = cursor.getString(indexMail);
                 password = cursor.getString(indexPassword);
                 System.out.println("id : "+colId+", login : "+login+", mail : "+mail);
-                /*Toast.makeText(this,
-                        "Retrieve element :" + login + "," + password + " ("
-                                + colId + ")", Toast.LENGTH_LONG).show();*/
                 count++;
             } while (cursor.moveToNext());
 
             List patients = new ArrayList(Arrays.asList(getPatientByClinicianId(colId)));
             clinician = new Clinician(mail,password,login,patients);
-
-            /*Toast.makeText(this,
-                    "The number of elements retrieved is " + count,
-                    Toast.LENGTH_LONG).show();*/
         } else {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
-        }
+        }*/
         return clinician;
     }
 

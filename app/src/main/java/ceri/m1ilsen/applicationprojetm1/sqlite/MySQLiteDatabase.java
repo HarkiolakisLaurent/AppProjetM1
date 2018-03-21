@@ -47,8 +47,7 @@ public class MySQLiteDatabase extends SQLiteOpenHelper {
             + COLUMN_LANGUE+ " text not null ,"+ COLUMN_ID_CLINICIEN +" integer );\n";
 
     private static final String DATABASE_CREATE_CLINICIAN = "create table " + TABLE_CLINICIENS + "( " + COLUMN_ID
-            + " integer primary key autoincrement, " + COLUMN_NOM+" text ,"+ COLUMN_PRENOM + "text ,"
-            + COLUMN_PSEUDO + " text not null ,"+ COLUMN_MAIL +" text not null ,"+COLUMN_MDP+" text not null );";
+            + " integer primary key autoincrement, " + COLUMN_PSEUDO + " text not null ,"+ COLUMN_MAIL +" text not null ,"+COLUMN_MDP+" text not null );";
 
     private static final String DATABASE_CREATE_SESSION = "create table " + TABLE_SESSIONS + "( " + COLUMN_ID
             + " integer primary key autoincrement, " + COLUMN_DATE_CREATION+"date not null,"+ COLUMN_ID_PATIENT +" integer not null );";

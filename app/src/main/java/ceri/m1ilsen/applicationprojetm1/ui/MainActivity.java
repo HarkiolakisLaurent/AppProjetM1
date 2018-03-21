@@ -18,6 +18,7 @@ import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.exercise.Session;
 import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
 import ceri.m1ilsen.applicationprojetm1.sqlite.Contexte;
+import ceri.m1ilsen.applicationprojetm1.user.Clinician;
 
 public class MainActivity extends AppCompatActivity {
     private CommentsDataSource datasource;
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent patientActivity = new Intent(MainActivity.this, PatientActivity.class);
 
                 BD.open();
-                if (BD.verification(mail.getText().toString(), mdp.getText().toString()) ){
+                if (BD.verificationPatientByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString()) ){
                     int p = BD.getPatientByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString());
                     Session session  = new Session(new Date(System.currentTimeMillis()), null , null , p);
                     BD.insertSession(session);
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                     Contexte.patient=p;
                     startActivity(patientActivity);
 
-                } else if (BD.verificationM(mail.getText().toString(), mdp.getText().toString())) {
+                } else if (BD.verificationPatientByMailAndPassword(mail.getText().toString(), mdp.getText().toString())) {
                     int p = BD.getPatientByMailAndPassword(mail.getText().toString(), mdp.getText().toString());
                     Session session  = new Session(new Date(System.currentTimeMillis()), null , null , p);
                     BD.insertSession(session);
@@ -119,9 +120,19 @@ public class MainActivity extends AppCompatActivity {
                     Contexte.patient=p;
                     startActivity(patientActivity);
 
-                } else if (BD.verificationC(mail.getText().toString(), mdp.getText().toString()) || BD.verificationCM(mail.getText().toString(), mdp.getText().toString()) ) {
-                    //nextActivity.setAction("ClinicianActivity.class");
+                } else if (BD.verificationClinicianByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString())) {
                     Intent clinicianActivity = new Intent(MainActivity.this, ClinicianActivity.class);
+                    Clinician clinician = BD.getClinicianByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString());
+                    clinicianActivity.putExtra("connectedUserPseudo",clinician.getPseudo());
+                    BD.close();
+                    startActivity(clinicianActivity);
+
+                }
+
+                else if (BD.verificationClinicianByMailAndPassword(mail.getText().toString(), mdp.getText().toString())) {
+                    Intent clinicianActivity = new Intent(MainActivity.this, ClinicianActivity.class);
+                    Clinician clinician = BD.getClinicianByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString());
+                    clinicianActivity.putExtra("connectedUserPseudo",clinician.getPseudo());
                     BD.close();
                     startActivity(clinicianActivity);
                 }

@@ -1,6 +1,7 @@
 package ceri.m1ilsen.applicationprojetm1.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -68,8 +69,13 @@ public class ClinicianHomePageFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String dataModel= data.get(position);
-                Toast.makeText(view.getContext(), "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
+                /*String dataModel= data.get(position);
+                Intent intent = getActivity().getIntent();
+                String currentUser = intent.getStringExtra("connectedUserPseudo");
+                if (currentUser != null)
+                    Toast.makeText(view.getContext(), "Utilisateur connecté : " + currentUser, Toast.LENGTH_SHORT).show();
+                else*/
+                    Toast.makeText(view.getContext(), "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
 
             }
         });
