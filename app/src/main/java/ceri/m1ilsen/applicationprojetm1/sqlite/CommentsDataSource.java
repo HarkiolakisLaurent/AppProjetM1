@@ -4,8 +4,11 @@ package ceri.m1ilsen.applicationprojetm1.sqlite;
  * Created by Laurent on 31/01/2018.
  */
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 
 import ceri.m1ilsen.applicationprojetm1.comment.Comment;
 import ceri.m1ilsen.applicationprojetm1.exercise.Session;
+import ceri.m1ilsen.applicationprojetm1.language.Language;
 import ceri.m1ilsen.applicationprojetm1.user.*;
 
 import static ceri.m1ilsen.applicationprojetm1.sqlite.MySQLiteDatabase.*;
@@ -196,7 +200,8 @@ public class CommentsDataSource {
 
     public Clinician getClinicianByPseudoAndPassword (String pseudo, String mdp){
         Clinician clinician = null;
-        /*Cursor cursor = database.rawQuery("Select * from cliniciens where pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
+        Cursor cursor = database.rawQuery("select * from cliniciens where pseudo = ? AND mot_de_passe = ?",new String[] {pseudo, mdp});
+        //Cursor cursor = database.rawQuery("Select * from cliniciens where pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
 
         if (cursor.moveToFirst()) {
             // The elements to retrieve
@@ -216,20 +221,97 @@ public class CommentsDataSource {
                 login = cursor.getString(indexPseudo);
                 mail = cursor.getString(indexMail);
                 password = cursor.getString(indexPassword);
-                System.out.println("id : "+colId+", login : "+login+", mail : "+mail);
                 count++;
             } while (cursor.moveToNext());
 
-            List patients = new ArrayList(Arrays.asList(getPatientByClinicianId(colId)));
+            List patients = new ArrayList();
+            patients = getPatientByClinicianId(colId);
             clinician = new Clinician(mail,password,login,patients);
         } else {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
-        }*/
+        }
         return clinician;
     }
 
-    public Patient[] getPatientByClinicianId(int id) {
-        return null;
+    public List<Patient> getPatientByClinicianId(int id) {
+        //Patient[] patients = {new Patient("test","test","test","test","test",new Date(2),true, Language.Français,id,null,null)};
+        List patients = new ArrayList();
+        Cursor cursor = database.rawQuery("select * from patients where id_clinicien = ?", new String[] {Integer.toString(id)});
+
+        Integer colId;
+        String mail;
+        String password;
+        String login;
+        String lastName;
+        String firstName;
+        String birthday;
+        boolean gender;
+        Language language = Language.Français;
+        int clinicianInCharge;
+
+        int indexId = cursor.getColumnIndex(COLUMN_ID);
+        int indexMail = cursor.getColumnIndex(COLUMN_MAIL);
+        int indexPassword = cursor.getColumnIndex(COLUMN_MDP);
+        int indexPseudo = cursor.getColumnIndex(COLUMN_PSEUDO);
+        int indexLastName = cursor.getColumnIndex(COLUMN_NOM);
+        int indexFirstName = cursor.getColumnIndex(COLUMN_PRENOM);
+        int indexBirthday = cursor.getColumnIndex(COLUMN_DATE);
+        int indexGender = cursor.getColumnIndex(COLUMN_GENRE);
+        //int indexLanguage = cursor.getColumnIndex(COLUMN_LANGUE);
+        int indexClinicianInCharge = cursor.getColumnIndex(COLUMN_ID_CLINICIEN);
+        if (cursor.moveToFirst()) {
+            int count = 0;
+            do {
+                colId = cursor.getInt(indexId);
+                mail = cursor.getString(indexMail);
+                password = cursor.getString(indexPassword);
+                login = cursor.getString(indexPseudo);
+                lastName = cursor.getString(indexLastName);
+                firstName = cursor.getString(indexFirstName);
+                birthday = cursor.getString(indexBirthday);
+                // ici parser string to data
+                gender = (cursor.getInt(indexGender) == 1);
+                //language = cursor.getString(indexLanguage);
+                clinicianInCharge = cursor.getInt(indexClinicianInCharge);
+                try {
+                    patients.add(new Patient(mail,password,login,lastName,firstName,convertStringToDate(birthday),gender,language,clinicianInCharge,null,null));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        return patients;
+    }
+
+    public int getClinicianIdByPseudo(String pseudo) {
+        Clinician clinician = null;
+        Cursor cursor = database.rawQuery("select _id from cliniciens where pseudo = ?",new String[] {pseudo});
+        //Cursor cursor = database.rawQuery("Select * from cliniciens where pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
+        Integer colId = null;
+        if (cursor.moveToFirst()) {
+            // The elements to retrieve
+
+            // The associated index within the cursor
+            int indexId = cursor.getColumnIndex(COLUMN_ID);
+            // Browse the results list:
+            int count = 0;
+            do {
+                colId = cursor.getInt(indexId);
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        return colId;
+
+    }
+
+    public Date convertStringToDate(String date) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+        return formatter.parse(date);
     }
 
     public String[] getSessions (int id){

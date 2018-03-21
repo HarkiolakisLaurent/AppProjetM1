@@ -2,6 +2,7 @@ package ceri.m1ilsen.applicationprojetm1.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,12 +28,14 @@ import ceri.m1ilsen.applicationprojetm1.R;
 
 public class HomePageListViewAdapter extends ArrayAdapter<String> {
 
+    private String currentUser;
     public List<String> dataSet;
     Context mContext;
     public int layout;
 
-    public HomePageListViewAdapter(Context context, int resource, List<String> objects) {
+    public HomePageListViewAdapter(Context context, int resource, List<String> objects, String userPseudo) {
         super(context, resource, objects);
+        currentUser = userPseudo;
         dataSet = objects;
         layout = resource;
     }
@@ -53,7 +56,10 @@ public class HomePageListViewAdapter extends ArrayAdapter<String> {
         mainViewholder.buttonHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Button was clicked for list item " + position, Toast.LENGTH_SHORT).show();
+                if (currentUser != null)
+                    Toast.makeText(getContext(), "Utilisateur connecté : " + currentUser, Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getContext(), "Button was clicked for list item " + position, Toast.LENGTH_SHORT).show();
             }
         });
         mainViewholder.descriptionHolder.setText(getItem(position));

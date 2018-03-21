@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textClinicien"
+            android:id="@+id/welcomeClinician"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:fontFamily="monospace"

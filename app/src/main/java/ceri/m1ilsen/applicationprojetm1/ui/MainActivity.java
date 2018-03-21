@@ -72,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
         mail = (EditText) findViewById(R.id.mail);
         mdp = (EditText) findViewById(R.id.password);
         signUp = (TextView) findViewById(R.id.signup);
+
         final CommentsDataSource BD = new CommentsDataSource(this);
+
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

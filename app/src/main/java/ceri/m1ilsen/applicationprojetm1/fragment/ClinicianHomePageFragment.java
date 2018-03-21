@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.HomePageListViewAdapter;
+import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,24 +60,28 @@ public class ClinicianHomePageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_clinician_home_page, container, false);
-        lv = (ListView) view.findViewById(R.id.listResultsClinicien);
-        data= new ArrayList<>();
 
+        TextView welcomeClinician = (TextView) view.findViewById(R.id.welcomeClinician);
+        welcomeClinician.setText("Bonjour "+getActivity().getIntent().getStringExtra("connectedUserPseudo")+", c'est un plaisir de vous revoir !");
+
+
+        lv = (ListView) view.findViewById(R.id.listResultsClinicien);
+
+        String currentUser = getActivity().getIntent().getStringExtra("connectedUserPseudo");
+
+        final CommentsDataSource BD = new CommentsDataSource(getActivity());
+        //BD.open();
+        data= new ArrayList<>();
         data.add(new String("Le DATE à HEURE, NOM Prenom a obtenu 75"));
         data.add(new String("Le DATE à HEURE, NOM Prenom a obtenu 80"));
 
-        lv.setAdapter(new HomePageListViewAdapter(view.getContext(), R.layout.home_page_item_view, data));
+        lv.setAdapter(new HomePageListViewAdapter(view.getContext(), R.layout.home_page_item_view, data, currentUser));
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                /*String dataModel= data.get(position);
-                Intent intent = getActivity().getIntent();
-                String currentUser = intent.getStringExtra("connectedUserPseudo");
-                if (currentUser != null)
-                    Toast.makeText(view.getContext(), "Utilisateur connecté : " + currentUser, Toast.LENGTH_SHORT).show();
-                else*/
-                    Toast.makeText(view.getContext(), "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
+                String dataModel= data.get(position);
+                Toast.makeText(view.getContext(), "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
 
             }
         });
