@@ -57,5 +57,14 @@
             android:drawableLeft="@drawable/quitter"
             android:text="  Quitter l'exercice"
             android:textAllCaps="false" />
+
+        <TextView
+            android:id="@+id/textViewsp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/imageBtnMicro"
+            android:layout_toLeftOf="@+id/imageBtnMicro"
+            android:layout_toStartOf="@+id/imageBtnMicro"
+            android:text="TextView" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

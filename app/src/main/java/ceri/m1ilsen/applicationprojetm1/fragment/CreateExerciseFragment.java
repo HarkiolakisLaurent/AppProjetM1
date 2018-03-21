@@ -89,73 +89,24 @@ public class CreateExerciseFragment extends Fragment {
 
         mTextMessage = (TextView) view.findViewById(R.id.message);
         //File file=new File("/src/java/mots.txt.txt");
+        btnLireMots=(Button) view.findViewById(R.id.button10);
         ReadFileWord();
         return view;
     }
-
     public void ReadFileWord(){
-
-        btnLireMots=(Button) view.findViewById(R.id.button10);
         btnLireMots.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                try {
-                    InputStream fis = getResources().openRawResource(R.raw.mots);
-                    InputStreamReader isr = new InputStreamReader(fis);
-                    BufferedReader bufferedReader = new BufferedReader(isr);
-                    String sb = "";
-                    int position=0;
-                    String t="";
-                    // LineNumberReader lnr = new LineNumberReader(bufferedReader);
-                    int linenumber = 0;
-                    String mot="";
-                    // Random random=new Random();
-                    List<String> lines = new ArrayList<String>();
 
-                    Intent intent = new Intent(view.getContext(), DoExerciceActivity.class);
-                    while ((sb= bufferedReader.readLine()) != null){
-
-                        lines.add(sb);
-
-                    }
-                    bufferedReader.close();
-                    for (String m: lines  ) {
-                        //System.out.println("chaine file: "+m);
-                        intent.putExtra("Word", lines.get(i));
-                        intent.putExtra("WordTotal", lines.size());
-                        intent.putExtra("PositionWord", i+1);
-
-                        startActivity(intent);
-
-                    }
-                    //i++;
-
-
-                    //mot=lines.get(i);
-
-
-                    // int index=random.nextInt(lines.size());
-
-                        /*if (sb.equals(lines.get(index))) {
-                            mot=sb;
-                            position = linenumber;
-                        }*/
-
-
-                    // System.out.println("Total number of lines : " + linenumber+" la position est "+position+" le mot est "+mot);
-
-                    // lnr.close();
-                    //  bufferedReader.close();
-                    //Transfere des données vers l'activité DoExerciceActivity
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Intent intent = new Intent(getContext(),DoExerciceActivity.class);
+                startActivity(intent);
             }
         });
+
     }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
