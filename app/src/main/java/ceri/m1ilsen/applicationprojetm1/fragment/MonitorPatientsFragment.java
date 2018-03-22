@@ -13,14 +13,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.MonitorPatientsListViewAdapter;
-import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
+import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 import ceri.m1ilsen.applicationprojetm1.ui.CreatePatientActivity;
 import ceri.m1ilsen.applicationprojetm1.user.Patient;
 
@@ -67,7 +64,7 @@ public class MonitorPatientsFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_monitor_patients, container, false);
         monitorPatientsListView = (ListView) view.findViewById(R.id.patientsList);
 
-        final CommentsDataSource BD = new CommentsDataSource(getActivity());
+        final MyApplicationDataSource BD = new MyApplicationDataSource(getActivity());
         BD.open();
         final String currentUser = getActivity().getIntent().getStringExtra("connectedUserPseudo");
         final int currentId = getActivity().getIntent().getIntExtra("connectedUserId",0);

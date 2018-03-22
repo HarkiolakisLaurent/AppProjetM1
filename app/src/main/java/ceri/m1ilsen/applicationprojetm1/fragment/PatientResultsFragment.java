@@ -7,18 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import java.io.File;
 import java.util.ArrayList;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.SessionsListViewAdapter;
-import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
-import ceri.m1ilsen.applicationprojetm1.sqlite.Contexte;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,7 +75,7 @@ public class PatientResultsFragment extends Fragment {
         Button btnEnregist = null;
         Button btnResult = null;
         ListView liste;
-        CommentsDataSource BD = new CommentsDataSource(view.getContext());
+        MyApplicationDataSource BD = new MyApplicationDataSource(view.getContext());
         BD.open();
 
         liste = (ListView) view.findViewById(R.id.listResultsSession);

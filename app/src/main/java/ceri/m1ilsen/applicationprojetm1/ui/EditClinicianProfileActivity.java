@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import ceri.m1ilsen.applicationprojetm1.R;
 
 public class EditClinicianProfileActivity extends AppCompatActivity {

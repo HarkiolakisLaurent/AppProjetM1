@@ -11,12 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.List;
-
 import ceri.m1ilsen.applicationprojetm1.R;
-import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
+import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 import ceri.m1ilsen.applicationprojetm1.ui.ConfigureExerciseActivity;
 import ceri.m1ilsen.applicationprojetm1.ui.PatientActivity;
 
@@ -68,7 +65,7 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // suppression de patient
-                                CommentsDataSource BD = new CommentsDataSource(getContext());
+                                MyApplicationDataSource BD = new MyApplicationDataSource(getContext());
                                 BD.open();
                                 BD.deletePatient(dataSet.get(position));
                                 BD.close();

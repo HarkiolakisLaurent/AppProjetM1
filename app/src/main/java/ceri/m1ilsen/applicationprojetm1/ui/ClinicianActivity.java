@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.fragment.ClinicianHomePageFragment;
 import ceri.m1ilsen.applicationprojetm1.fragment.ClinicianRecordingsFragment;

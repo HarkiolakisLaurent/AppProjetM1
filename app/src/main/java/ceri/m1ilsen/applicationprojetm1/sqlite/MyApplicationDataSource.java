@@ -23,7 +23,7 @@ import ceri.m1ilsen.applicationprojetm1.user.*;
 
 import static ceri.m1ilsen.applicationprojetm1.sqlite.MySQLiteDatabase.*;
 
-public class CommentsDataSource {
+public class MyApplicationDataSource {
 
     // Champs de la base de données
     private SQLiteDatabase database;
@@ -31,7 +31,7 @@ public class CommentsDataSource {
     private String[] allColumns = { MySQLiteDatabase.COLUMN_ID,
             MySQLiteDatabase.COLUMN_COMMENT };
 
-    public CommentsDataSource(Context context) {
+    public MyApplicationDataSource(Context context) {
         dbHelper = new MySQLiteDatabase(context);
     }
 
@@ -82,46 +82,46 @@ public class CommentsDataSource {
     }
 
     public boolean verificationPatientByPseudoAndPassword(String pseudo , String mdp){
-        Cursor c = database.query("patients",new String[]{ "pseudo", "mail"},"pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
-        if(c.getCount() == 0 ){
-            c.close();
+        Cursor cursor = database.query("patients",new String[]{ "pseudo", "mail"},"pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
+        if(cursor.getCount() == 0 ){
+            cursor.close();
             return false;
         }else{
-            c.close();
+            cursor.close();
             return true;
         }
 
     }
 
     public boolean verificationPatientByMailAndPassword(String mail , String mdp){
-        Cursor c = database.query("patients",new String[]{"pseudo", "mail"},"mail LIKE \""+mail+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
-        if(c.getCount() == 0){
-            c.close();
+        Cursor cursor = database.query("patients",new String[]{"pseudo", "mail"},"mail LIKE \""+mail+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
+        if(cursor.getCount() == 0){
+            cursor.close();
             return false;
         }else{
-            c.close();
+            cursor.close();
             return true;
         }
     }
 
     public boolean verificationClinicianByPseudoAndPassword(String pseudo , String mdp){
-            Cursor c = database.query("cliniciens",new String[]{ "pseudo", "mail"},"pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
-            if(c.getCount() == 0){
-                c.close();
+            Cursor cursor = database.query("cliniciens",new String[]{ "pseudo", "mail"},"pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
+            if(cursor.getCount() == 0){
+                cursor.close();
                 return false;
             }else{
-                c.close();
+                cursor.close();
                 return true;
             }
     }
 
     public boolean verificationClinicianByMailAndPassword(String mail , String mdp){
-            Cursor c = database.query("cliniciens",new String[]{"pseudo", "mail"},"mail LIKE \""+mail+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
-            if(c.getCount() == 0){
-                c.close();
+            Cursor cursor = database.query("cliniciens",new String[]{"pseudo", "mail"},"mail LIKE \""+mail+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
+            if(cursor.getCount() == 0){
+                cursor.close();
                 return false;
             }else{
-                c.close();
+                cursor.close();
                 return true;
             }
     }

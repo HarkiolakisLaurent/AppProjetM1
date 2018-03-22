@@ -10,18 +10,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import java.io.File;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.PatientsListViewAdapter;
-import ceri.m1ilsen.applicationprojetm1.adapter.RecordingsListViewAdapter;
 import ceri.m1ilsen.applicationprojetm1.adapter.SessionsListViewAdapter;
-import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
+import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 import ceri.m1ilsen.applicationprojetm1.user.Patient;
 
 /**
@@ -69,7 +63,7 @@ public class ClinicianResultsFragment extends Fragment {
         patientsListView = (ListView) view.findViewById(R.id.patientsList);
         sessionsListView = (ListView) view.findViewById(R.id.sessionsList);
 
-        final CommentsDataSource BD = new CommentsDataSource(getActivity());
+        final MyApplicationDataSource BD = new MyApplicationDataSource(getActivity());
         BD.open();
         final String currentUser = getActivity().getIntent().getStringExtra("connectedUserPseudo");
         final int currentId = getActivity().getIntent().getIntExtra("connectedUserId",0);

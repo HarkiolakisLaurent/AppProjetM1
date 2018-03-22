@@ -9,9 +9,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-
 import java.util.Calendar;
-
 import ceri.m1ilsen.applicationprojetm1.R;
 
 public class EditPatientProfileActivity extends AppCompatActivity {

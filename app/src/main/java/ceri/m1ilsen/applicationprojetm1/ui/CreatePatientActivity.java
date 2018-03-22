@@ -6,22 +6,17 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.language.Language;
-import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
-import ceri.m1ilsen.applicationprojetm1.user.Clinician;
+import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 import ceri.m1ilsen.applicationprojetm1.user.Patient;
 
 public class CreatePatientActivity extends AppCompatActivity {
@@ -88,7 +83,7 @@ public class CreatePatientActivity extends AppCompatActivity {
     };
 
     public void creerCompte(View view) {
-        CommentsDataSource BD = new CommentsDataSource(this);
+        MyApplicationDataSource BD = new MyApplicationDataSource(this);
         BD.open();
         final String currentUser = getIntent().getStringExtra("connectedUserPseudo");
         final int currentId = getIntent().getIntExtra("connectedUserId",0);

@@ -12,22 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Date;
-
 import ceri.m1ilsen.applicationprojetm1.R;
-import ceri.m1ilsen.applicationprojetm1.exercise.Session;
-import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
-import ceri.m1ilsen.applicationprojetm1.sqlite.Contexte;
-import ceri.m1ilsen.applicationprojetm1.user.Clinician;
-import ceri.m1ilsen.applicationprojetm1.user.Patient;
+import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 
 public class MainActivity extends AppCompatActivity {
-    private CommentsDataSource datasource;
     private TextView signUp = null;
     private Button signIn = null;
-    private Button testPatient;
-    private Button testClinicien;
     public EditText mail;
     public EditText mdp;
     public TextView forgotPassword;
@@ -75,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         mdp = (EditText) findViewById(R.id.password);
         signUp = (TextView) findViewById(R.id.signup);
 
-        final CommentsDataSource BD = new CommentsDataSource(this);
+        final MyApplicationDataSource BD = new MyApplicationDataSource(this);
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
