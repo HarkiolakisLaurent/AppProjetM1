@@ -43,7 +43,7 @@ public class EditClinicianProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // mettre à jour les infos ici
-                MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
+                /*MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
                 BD.open();
                 if(!(loginField.getText().toString().equals("")) && !(newPasswordField.getText().toString().equals("")) && !(confirmNewPasswordField.getText().toString().equals("")) && !(mailField.getText().toString().equals(""))) {
                     if (!BD.verificationClinicianByPseudoAndPassword(loginField.getText().toString(), newPasswordField.getText().toString()) && !BD.verificationClinicianByMailAndPassword(mailField.getText().toString(),newPasswordField.getText().toString())) {
@@ -60,7 +60,7 @@ public class EditClinicianProfileActivity extends AppCompatActivity {
                         }
                     }
                 }
-                BD.close();
+                BD.close();*/
                 setResult(1);
                 finish();
 

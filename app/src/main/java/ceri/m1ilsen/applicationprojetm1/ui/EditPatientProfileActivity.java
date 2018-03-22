@@ -78,7 +78,7 @@ public class EditPatientProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // mettre à jour les infos ici
-                MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
+                /*MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
                 BD.open();
                 if(!(loginField.getText().toString().equals("")) && !(newPasswordField.getText().toString().equals("")) && !(confirmNewPasswordField.getText().toString().equals("")) && !(mailField.getText().toString().equals(""))) {
                     if (!BD.verificationPatientByPseudoAndPassword(loginField.getText().toString(), newPasswordField.getText().toString()) && !BD.verificationPatientByMailAndPassword(mailField.getText().toString(),newPasswordField.getText().toString())) {
@@ -114,7 +114,7 @@ public class EditPatientProfileActivity extends AppCompatActivity {
                         }
                     }
                 }
-                BD.close();
+                BD.close();*/
                 setResult(1);
                 finish();
 
