@@ -84,22 +84,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(nextActivity);
             }
         });
-        testPatient = (Button) findViewById(R.id.testPatient);
-        testPatient.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent nextActivity = new Intent(MainActivity.this, PatientActivity.class);
-                startActivity(nextActivity);
-            }
-        });
-        testClinicien = (Button) findViewById(R.id.testClinicien);
-        testClinicien.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent nextActivity = new Intent(MainActivity.this, ClinicianActivity.class);
-                startActivity(nextActivity);
-            }
-        });
 
         signIn = (Button) findViewById(R.id.signin);
         signIn.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
                     BD.insertSession(session);
                     Contexte.patient=p;*/
                     patientActivity.putExtra("connectedUserPseudo",patient);
-                    //Toast.makeText(getApplicationContext(),patient.getPseudo(),Toast.LENGTH_LONG).show();
                     BD.close();
                     startActivity(patientActivity);
 
@@ -129,9 +112,9 @@ public class MainActivity extends AppCompatActivity {
 
                 } else if (BD.verificationClinicianByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString())) {
                     Intent clinicianActivity = new Intent(MainActivity.this, ClinicianActivity.class);
-                    Clinician clinician = BD.getClinicianByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString());
-                    int clinicianId = BD.getClinicianIdByPseudo(mail.getText().toString());
-                    clinicianActivity.putExtra("connectedUserPseudo",clinician.getPseudo());
+                    String clinicianPseudo = BD.getClinicianPseudoByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString());
+                    int clinicianId = BD.getClinicianIdByPseudo(clinicianPseudo);
+                    clinicianActivity.putExtra("connectedUserPseudo",clinicianPseudo);
                     clinicianActivity.putExtra("connectedUserId",clinicianId);
                     BD.close();
                     startActivity(clinicianActivity);
@@ -140,9 +123,9 @@ public class MainActivity extends AppCompatActivity {
 
                 else if (BD.verificationClinicianByMailAndPassword(mail.getText().toString(), mdp.getText().toString())) {
                     Intent clinicianActivity = new Intent(MainActivity.this, ClinicianActivity.class);
-                    Clinician clinician = BD.getClinicianByMailAndPassword(mail.getText().toString(), mdp.getText().toString());
-                    int clinicianId = BD.getClinicianIdByPseudo(mail.getText().toString());
-                    clinicianActivity.putExtra("connectedUserPseudo",clinician.getPseudo());
+                    String clinicianPseudo = BD.getClinicianPseudoByMailAndPassword(mail.getText().toString(), mdp.getText().toString());
+                    int clinicianId = BD.getClinicianIdByPseudo(clinicianPseudo);
+                    clinicianActivity.putExtra("connectedUserPseudo",clinicianPseudo);
                     clinicianActivity.putExtra("connectedUserId",clinicianId);
                     BD.close();
                     startActivity(clinicianActivity);

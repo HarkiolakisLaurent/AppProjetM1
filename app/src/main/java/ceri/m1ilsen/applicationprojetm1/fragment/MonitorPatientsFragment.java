@@ -1,10 +1,12 @@
 package ceri.m1ilsen.applicationprojetm1.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,8 +73,11 @@ public class MonitorPatientsFragment extends Fragment {
         final int currentId = getActivity().getIntent().getIntExtra("connectedUserId",0);
         //int currentId = BD.getClinicianIdByPseudo(currentUser);
         List<Patient> patients = BD.getPatientByClinicianId(currentId);
+        ArrayList<String> patientsPseudo = new ArrayList<>();
         for(int i=0; i<patients.size(); i++)
-            data.add(patients.get(i).getPseudo().toString());
+            patientsPseudo.add(patients.get(i).getPseudo().toString());
+        data = patientsPseudo;
+        BD.close();
 
         numberOfPatients = (TextView) view.findViewById(R.id.numberOfPatients);
         if (data.size() == 0)
@@ -86,10 +91,10 @@ public class MonitorPatientsFragment extends Fragment {
         newPatient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextActivity = new Intent(view.getContext(), CreatePatientActivity.class);
-                nextActivity.putExtra("connectedUserPseudo",currentUser);
-                nextActivity.putExtra("connectedUserId",currentId);
-                startActivity(nextActivity);
+                Intent createpatient = new Intent(view.getContext(), CreatePatientActivity.class);
+                createpatient.putExtra("connectedUserPseudo",currentUser);
+                createpatient.putExtra("connectedUserId",currentId);
+                startActivityForResult(createpatient,1);
             }
         });
         MonitorPatientsListViewAdapter adapter = new MonitorPatientsListViewAdapter(view.getContext(), R.layout.monitor_patient_item_view, data);
@@ -128,5 +133,20 @@ public class MonitorPatientsFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        //Check the result and request code here and update ur activity class
+        if ((requestCode == 1) && (resultCode == Activity.RESULT_OK)) {
+            // recreate your fragment here
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentContainer, this);
+            fragmentTransaction.commit();
+
+        }
+
     }
 }

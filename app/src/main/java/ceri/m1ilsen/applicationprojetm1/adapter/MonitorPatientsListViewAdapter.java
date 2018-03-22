@@ -11,10 +11,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
 import ceri.m1ilsen.applicationprojetm1.ui.ConfigureExerciseActivity;
 import ceri.m1ilsen.applicationprojetm1.ui.PatientActivity;
 
@@ -55,7 +57,7 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
             public void onClick(View v) {
                 AlertDialog alertDialog = new AlertDialog.Builder(mContext).create(); //Use context
                 alertDialog.setTitle("Suppression du patient");
-                alertDialog.setMessage("Le patient ainsi que ses informations seront définitivement supprimés");
+                alertDialog.setMessage("Après cette opération, le profil du patient sera définitivement supprimé.");
                 alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Annuler",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -66,6 +68,10 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // suppression de patient
+                                CommentsDataSource BD = new CommentsDataSource(getContext());
+                                BD.open();
+                                BD.deletePatient(dataSet.get(position));
+                                BD.close();
                                 dataSet.remove(position);
                                 notifyDataSetChanged();
                             }
@@ -79,6 +85,7 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
             public void onClick(View v) {
                 // connexion en tant que patient
                 Intent loginAsPatient = new Intent(getContext(), PatientActivity.class);
+                loginAsPatient.putExtra("connectedUserPseudo",dataSet.get(position));
                 getContext().startActivity(loginAsPatient);
             }
         });

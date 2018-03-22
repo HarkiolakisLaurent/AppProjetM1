@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import java.io.File;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.fragment.CreateExerciseFragment;
@@ -32,6 +35,12 @@ public class PatientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient);
+
+        final File recordingsDirectory = new File("/storage/emulated/0/recordings/"+getIntent().getStringExtra("connectedUserPseudo"));
+        if (!recordingsDirectory.exists()) {
+            recordingsDirectory.mkdirs();
+        }
+
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer, homePageFragment);
         fragmentTransaction.commit();

@@ -138,10 +138,12 @@ public class CommentsDataSource {
         values.put("genre", patient.isGender());
         values.put("langue", patient.getSpokenLanguage().toString());
         values.put("id_clinicien", patient.getClinicianInCharge());
-        System.out.println(patient.getPseudo()+patient.getMail()+patient.getPassword()+patient.getLastName()
-                +patient.getFirstName()+patient.getBirthday().toString()+patient.isGender()+patient.getSpokenLanguage().toString()
-                +patient.getClinicianInCharge());
         return database.insert("patients", null, values);
+    }
+
+    public void deletePatient(String login)
+    {
+        database.delete("patients", "pseudo = ?",new String[]{login});
     }
 
     public long insertClinician(Clinician clinician) {
@@ -151,6 +153,11 @@ public class CommentsDataSource {
         values.put("mail", clinician.getMail());
         values.put("mot_de_passe", clinician.getPassword());
         return database.insert("cliniciens", null, values);
+    }
+
+    public void deleteClinician(String login)
+    {
+        database.delete("cliniciens", "pseudo = ?",new String[]{login});
     }
 
     public long insertSession(Session session) {
@@ -350,6 +357,24 @@ public class CommentsDataSource {
         return clinician;
     }
 
+    public String getClinicianPseudoByPseudoAndPassword (String pseudo, String mdp) {
+        Cursor cursor = database.rawQuery("select pseudo from cliniciens where pseudo = ? AND mot_de_passe = ?", new String[]{pseudo, mdp});
+
+        String login = null;
+        int indexPseudo = cursor.getColumnIndex(COLUMN_PSEUDO);
+        if (cursor.moveToFirst()) {
+            int count = 0;
+            do {
+                login = cursor.getString(indexPseudo);
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        //cursor.close();
+        return login;
+    }
+
     public Clinician getClinicianByMailAndPassword (String mail, String mdp){
         Clinician clinician = null;
         Cursor cursor = database.rawQuery("select * from cliniciens where mail = ? AND mot_de_passe = ?",new String[] {mail, mdp});
@@ -384,6 +409,24 @@ public class CommentsDataSource {
         }
         cursor.close();
         return clinician;
+    }
+
+    public String getClinicianPseudoByMailAndPassword (String mail, String mdp) {
+        Cursor cursor = database.rawQuery("select pseudo from cliniciens where mail = ? AND mot_de_passe = ?", new String[]{mail, mdp});
+
+        String login = null;
+        int indexPseudo = cursor.getColumnIndex(COLUMN_PSEUDO);
+        if (cursor.moveToFirst()) {
+            int count = 0;
+            do {
+                login = cursor.getString(indexPseudo);
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        cursor.close();
+        return login;
     }
 
     public List<Patient> getPatientByClinicianId(int id) {
