@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 BD.open();
                 if (BD.verificationPatientByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString()) ){
                     Patient patient = BD.getPatientByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString());
+                    int patientId = BD.getPatientIdByPseudo(patient.getPseudo());
                     /*Session session  = new Session(new Date(System.currentTimeMillis()), null , null , p);
                     BD.insertSession(session);
                     Contexte.patient=p;*/
@@ -101,11 +102,13 @@ public class MainActivity extends AppCompatActivity {
                     patientActivity.putExtra("connectedUserBirthday",df.format(patient.getBirthday()));
                     patientActivity.putExtra("connectedUserGender",patient.isGender());
                     patientActivity.putExtra("connectedUserLanguage",patient.getSpokenLanguage());
+                    patientActivity.putExtra("connectedUserId",patientId);
                     BD.close();
                     startActivity(patientActivity);
 
                 } else if (BD.verificationPatientByMailAndPassword(mail.getText().toString(), mdp.getText().toString())) {
                     Patient patient = BD.getPatientByMailAndPassword(mail.getText().toString(), mdp.getText().toString());
+                    int patientId = BD.getPatientIdByPseudo(patient.getPseudo());
                     /*Session session  = new Session(new Date(System.currentTimeMillis()), null , null , p);
                     BD.insertSession(session);
                     Contexte.patient=p;*/
@@ -120,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
                     else
                         patientActivity.putExtra("connectedUserGender",patient.isGender());
                     patientActivity.putExtra("connectedUserLanguage",patient.getSpokenLanguage());
+                    patientActivity.putExtra("connectedUserId",patientId);
                     BD.close();
                     startActivity(patientActivity);
 

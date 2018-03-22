@@ -64,6 +64,7 @@ public class PatientSettingsFragment extends Fragment {
                 editProfile.putExtra("connectedUserBirthday",getActivity().getIntent().getStringExtra("connectedUserBirthday"));
                 editProfile.putExtra("connectedUserGender",getActivity().getIntent().getExtras().getBoolean("connectedUserGender"));
                 editProfile.putExtra("connectedUserLanguage",getActivity().getIntent().getStringExtra("connectedUserLanguage"));
+                editProfile.putExtra("connectedUserId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
                 startActivity(editProfile);
 
             }

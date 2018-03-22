@@ -11,11 +11,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 import ceri.m1ilsen.applicationprojetm1.ui.ConfigureExerciseActivity;
 import ceri.m1ilsen.applicationprojetm1.ui.PatientActivity;
+import ceri.m1ilsen.applicationprojetm1.user.Patient;
 
 /**
  * Created by Laurent on 19/03/2018.
@@ -82,7 +86,20 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
             public void onClick(View v) {
                 // connexion en tant que patient
                 Intent loginAsPatient = new Intent(getContext(), PatientActivity.class);
-                loginAsPatient.putExtra("connectedUserPseudo",dataSet.get(position));
+                MyApplicationDataSource BD = new MyApplicationDataSource(getContext());
+                BD.open();
+                Patient patient = BD.getPatientByPseudo(dataSet.get(position));
+                int patientId = BD.getPatientIdByPseudo(patient.getPseudo());
+                loginAsPatient.putExtra("connectedUserMail",patient.getMail());
+                loginAsPatient.putExtra("connectedUserPseudo",patient.getPseudo());
+                loginAsPatient.putExtra("connectedUserLastName",patient.getLastName());
+                loginAsPatient.putExtra("connectedUserFirstName",patient.getFirstName());
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                loginAsPatient.putExtra("connectedUserBirthday",df.format(patient.getBirthday()));
+                loginAsPatient.putExtra("connectedUserGender",patient.isGender());
+                loginAsPatient.putExtra("connectedUserLanguage",patient.getSpokenLanguage());
+                loginAsPatient.putExtra("connectedUserId",patientId);
+                BD.close();
                 getContext().startActivity(loginAsPatient);
             }
         });
