@@ -152,7 +152,7 @@ public class DoExerciceActivity extends AppCompatActivity {
 
                 System.out.println("++++++++++++++++++++++++++++++++++++"+word);
 
-                System.out.println("+++++++++++++ "+ getResources().openRawResource(R.raw.savespeech));
+                //System.out.println("+++++++++++++ "+ getResources().openRawResource(R.raw.savespeech));
 
             }
             catch (IOException e) {

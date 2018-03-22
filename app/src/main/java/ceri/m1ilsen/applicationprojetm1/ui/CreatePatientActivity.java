@@ -114,9 +114,9 @@ public class CreatePatientActivity extends AppCompatActivity {
                     Patient patient = new Patient(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
                             nom.getText().toString(), prenom.getText().toString(), sqlDate, sex, Language.Français, currentId, null, null);
 
-                    //BD.insertPatient(patient);
-                    //this.setResult(1);
-                    //this.finish();
+                    BD.insertPatient(patient);
+                    this.setResult(1);
+                    this.finish();
                 }else{
                     nom.setText("les deux mots de passes sont différents !");
                 }

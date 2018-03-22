@@ -223,6 +223,24 @@ public class CommentsDataSource {
         return patient;
     }
 
+    public String getPatientPseudoByPseudoAndPassword (String pseudo, String mdp) {
+        Cursor cursor = database.rawQuery("select pseudo from patients where pseudo = ? AND mot_de_passe = ?", new String[]{pseudo, mdp});
+
+        String login = null;
+        int indexPseudo = cursor.getColumnIndex(COLUMN_PSEUDO);
+        if (cursor.moveToFirst()) {
+            int count = 0;
+            do {
+                login = cursor.getString(indexPseudo);
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        //cursor.close();
+        return login;
+    }
+
     public Patient getPatientByMailAndPassword (String mail, String mdp) {
         Patient patient = null;
         Cursor cursor = database.rawQuery("select * from patients where pseudo = ? AND mot_de_passe = ?", new String[]{mail, mdp});
@@ -276,6 +294,24 @@ public class CommentsDataSource {
         }
         cursor.close();
         return patient;
+    }
+
+    public String getPatientPseudoByMailAndPassword (String mail, String mdp) {
+        Cursor cursor = database.rawQuery("select pseudo from patients where mail = ? AND mot_de_passe = ?", new String[]{mail, mdp});
+
+        String login = null;
+        int indexPseudo = cursor.getColumnIndex(COLUMN_PSEUDO);
+        if (cursor.moveToFirst()) {
+            int count = 0;
+            do {
+                login = cursor.getString(indexPseudo);
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        cursor.close();
+        return login;
     }
 
     public Clinician getClinicianByPseudoAndPassword (String pseudo, String mdp){
