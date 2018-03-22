@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.ui.EditPatientProfileActivity;
 
@@ -55,6 +57,13 @@ public class PatientSettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent editProfile = new Intent(view.getContext(), EditPatientProfileActivity.class);
+                editProfile.putExtra("connectedUserMail",getActivity().getIntent().getStringExtra("connectedUserMail"));
+                editProfile.putExtra("connectedUserPseudo",getActivity().getIntent().getStringExtra("connectedUserPseudo"));
+                editProfile.putExtra("connectedUserLastName",getActivity().getIntent().getStringExtra("connectedUserLastName"));
+                editProfile.putExtra("connectedUserFirstName",getActivity().getIntent().getStringExtra("connectedUserFirstName"));
+                editProfile.putExtra("connectedUserBirthday",getActivity().getIntent().getStringExtra("connectedUserBirthday"));
+                editProfile.putExtra("connectedUserGender",getActivity().getIntent().getExtras().getBoolean("connectedUserGender"));
+                editProfile.putExtra("connectedUserLanguage",getActivity().getIntent().getStringExtra("connectedUserLanguage"));
                 startActivity(editProfile);
 
             }

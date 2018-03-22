@@ -143,13 +143,12 @@
                         android:text="Langue"
                         android:textSize="24sp" />
 
-                    <EditText
+                    <Spinner
                         android:id="@+id/languageField"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:textSize="24sp" />
+                        android:background="@android:drawable/btn_dropdown"
+                        android:entries="@array/langues" />
 
                 </TableRow>
 
@@ -168,13 +167,12 @@
                         android:text="Genre"
                         android:textSize="24sp" />
 
-                    <EditText
+                    <Spinner
                         android:id="@+id/genreField"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:textSize="24sp" />
+                        android:background="@android:drawable/btn_dropdown"
+                        android:entries="@array/genres" />
 
                 </TableRow>
 

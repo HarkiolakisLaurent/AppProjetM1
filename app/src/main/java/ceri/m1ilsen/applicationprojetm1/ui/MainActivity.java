@@ -12,8 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
+import ceri.m1ilsen.applicationprojetm1.user.Clinician;
+import ceri.m1ilsen.applicationprojetm1.user.Patient;
 
 public class MainActivity extends AppCompatActivity {
     private TextView signUp = null;
@@ -83,28 +89,46 @@ public class MainActivity extends AppCompatActivity {
 
                 BD.open();
                 if (BD.verificationPatientByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString()) ){
-                    String patient = BD.getPatientPseudoByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString());
+                    Patient patient = BD.getPatientByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString());
                     /*Session session  = new Session(new Date(System.currentTimeMillis()), null , null , p);
                     BD.insertSession(session);
                     Contexte.patient=p;*/
-                    patientActivity.putExtra("connectedUserPseudo",patient);
+                    patientActivity.putExtra("connectedUserMail",patient.getMail());
+                    patientActivity.putExtra("connectedUserPseudo",patient.getPseudo());
+                    patientActivity.putExtra("connectedUserLastName",patient.getLastName());
+                    patientActivity.putExtra("connectedUserFirstName",patient.getFirstName());
+                    DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                    patientActivity.putExtra("connectedUserBirthday",df.format(patient.getBirthday()));
+                    patientActivity.putExtra("connectedUserGender",patient.isGender());
+                    patientActivity.putExtra("connectedUserLanguage",patient.getSpokenLanguage());
                     BD.close();
                     startActivity(patientActivity);
 
                 } else if (BD.verificationPatientByMailAndPassword(mail.getText().toString(), mdp.getText().toString())) {
-                    String patient = BD.getPatientPseudoByMailAndPassword(mail.getText().toString(), mdp.getText().toString());
+                    Patient patient = BD.getPatientByMailAndPassword(mail.getText().toString(), mdp.getText().toString());
                     /*Session session  = new Session(new Date(System.currentTimeMillis()), null , null , p);
                     BD.insertSession(session);
                     Contexte.patient=p;*/
-                    patientActivity.putExtra("connectedUserPseudo",patient);
+                    patientActivity.putExtra("connectedUserMail",patient.getMail());
+                    patientActivity.putExtra("connectedUserPseudo",patient.getPseudo());
+                    patientActivity.putExtra("connectedUserLastName",patient.getLastName());
+                    patientActivity.putExtra("connectedUserFirstName",patient.getFirstName());
+                    DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                    patientActivity.putExtra("connectedUserBirthday",df.format(patient.getBirthday()));
+                    if (patient.isGender() == true)
+                        patientActivity.putExtra("connectedUserGender",patient.isGender());
+                    else
+                        patientActivity.putExtra("connectedUserGender",patient.isGender());
+                    patientActivity.putExtra("connectedUserLanguage",patient.getSpokenLanguage());
                     BD.close();
                     startActivity(patientActivity);
 
                 } else if (BD.verificationClinicianByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString())) {
                     Intent clinicianActivity = new Intent(MainActivity.this, ClinicianActivity.class);
-                    String clinicianPseudo = BD.getClinicianPseudoByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString());
-                    int clinicianId = BD.getClinicianIdByPseudo(clinicianPseudo);
-                    clinicianActivity.putExtra("connectedUserPseudo",clinicianPseudo);
+                    Clinician clinician = BD.getClinicianByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString());
+                    int clinicianId = BD.getClinicianIdByPseudo(clinician.getPseudo());
+                    clinicianActivity.putExtra("connectedUserMail",clinician.getMail());
+                    clinicianActivity.putExtra("connectedUserPseudo",clinician.getPseudo());
                     clinicianActivity.putExtra("connectedUserId",clinicianId);
                     BD.close();
                     startActivity(clinicianActivity);
@@ -113,9 +137,10 @@ public class MainActivity extends AppCompatActivity {
 
                 else if (BD.verificationClinicianByMailAndPassword(mail.getText().toString(), mdp.getText().toString())) {
                     Intent clinicianActivity = new Intent(MainActivity.this, ClinicianActivity.class);
-                    String clinicianPseudo = BD.getClinicianPseudoByMailAndPassword(mail.getText().toString(), mdp.getText().toString());
-                    int clinicianId = BD.getClinicianIdByPseudo(clinicianPseudo);
-                    clinicianActivity.putExtra("connectedUserPseudo",clinicianPseudo);
+                    Clinician clinician = BD.getClinicianByMailAndPassword(mail.getText().toString(), mdp.getText().toString());
+                    int clinicianId = BD.getClinicianIdByPseudo(clinician.getPseudo());
+                    clinicianActivity.putExtra("connectedUserMail",clinician.getMail());
+                    clinicianActivity.putExtra("connectedUserPseudo",clinician.getPseudo());
                     clinicianActivity.putExtra("connectedUserId",clinicianId);
                     BD.close();
                     startActivity(clinicianActivity);

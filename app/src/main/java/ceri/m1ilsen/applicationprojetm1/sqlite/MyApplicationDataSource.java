@@ -250,7 +250,7 @@ public class MyApplicationDataSource {
 
     public Patient getPatientByMailAndPassword (String mail, String mdp) {
         Patient patient = null;
-        Cursor cursor = database.rawQuery("select * from patients where pseudo = ? AND mot_de_passe = ?", new String[]{mail, mdp});
+        Cursor cursor = database.rawQuery("select * from patients where mail = ? AND mot_de_passe = ?", new String[]{mail, mdp});
 
         Integer colId;
         String email;

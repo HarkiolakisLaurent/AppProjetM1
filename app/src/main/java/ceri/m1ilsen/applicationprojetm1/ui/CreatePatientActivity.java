@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -105,11 +107,15 @@ public class CreatePatientActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-                    Toast.makeText(this, "Date : "+sqlDate, Toast.LENGTH_LONG).show();
                     Patient patient = new Patient(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
                             nom.getText().toString(), prenom.getText().toString(), sqlDate, sex, Language.Français, currentId, null, null);
 
                     BD.insertPatient(patient);
+
+                    final File recordingsDirectory = new File("/storage/emulated/0/recordings/"+pseudo.getText().toString());
+                    if (!recordingsDirectory.exists()) {
+                        recordingsDirectory.mkdirs();
+                    }
                     this.setResult(1);
                     this.finish();
                 }else{

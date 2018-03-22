@@ -55,6 +55,8 @@ public class ClinicianSettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent editProfile = new Intent(view.getContext(), EditClinicianProfileActivity.class);
+                editProfile.putExtra("connectedUserMail",getActivity().getIntent().getStringExtra("connectedUserMail"));
+                editProfile.putExtra("connectedUserPseudo",getActivity().getIntent().getStringExtra("connectedUserPseudo"));
                 startActivity(editProfile);
 
             }
