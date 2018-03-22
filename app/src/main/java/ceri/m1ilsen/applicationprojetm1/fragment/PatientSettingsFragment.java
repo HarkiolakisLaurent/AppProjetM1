@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
-
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.ui.EditPatientProfileActivity;
 
@@ -103,5 +101,15 @@ public class PatientSettingsFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        //Check the result and request code here and update ur activity class
+        if ((requestCode == 10001)/* && (resultCode == Activity.RESULT_OK)*/) {
+            // mettre à jour les infos courantes
+        }
     }
 }

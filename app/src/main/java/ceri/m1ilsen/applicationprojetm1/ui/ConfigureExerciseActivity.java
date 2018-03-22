@@ -76,8 +76,8 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // création exercice ici
-                Exercise configuredExercise = new Exercise(exerciseName.getText().toString(),Task.Mot,
-                        new File(fileName.getText().toString()),Integer.parseInt(exerciseDuration.getText().toString()),0,null,null,null);
+                //Exercise configuredExercise = new Exercise(exerciseName.getText().toString(),Task.Mot,
+                //        new File(fileName.getText().toString()),Integer.parseInt(exerciseDuration.getText().toString()),0,null,null,null);
                 setResult(1);
                 finish();
             }

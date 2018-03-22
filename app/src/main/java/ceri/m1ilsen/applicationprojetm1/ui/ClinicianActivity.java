@@ -113,14 +113,5 @@ public class ClinicianActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
-        //Check the result and request code here and update ur activity class
-        if ((requestCode == 1) && (resultCode == Activity.RESULT_OK)) {
-            // recreate your fragment here
-            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentContainer, patientsFragment);
-            fragmentTransaction.commit();
-
-        }
-
     }
 }

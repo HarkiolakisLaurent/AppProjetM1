@@ -99,6 +99,9 @@ public class EditPatientProfileActivity extends AppCompatActivity {
                             Patient patient = new Patient(mailField.getText().toString(), newPasswordField.getText().toString(), loginField.getText().toString(),
                                     lastNameField.getText().toString(), firstNameField.getText().toString(), sqlDate, sex, Language.Français, 0, null, null);
                             BD.updatePatient(getIntent().getExtras().getInt("connectedUserId"),patient);
+                            BD.close();
+                            setResult(10001);
+                            finish();
 
                         }else{
                             lastNameField.setText("les deux mots de passes sont différents !");

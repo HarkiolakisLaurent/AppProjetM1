@@ -116,7 +116,7 @@ public class CreatePatientActivity extends AppCompatActivity {
                     if (!recordingsDirectory.exists()) {
                         recordingsDirectory.mkdirs();
                     }
-                    this.setResult(1);
+                    this.setResult(10000);
                     this.finish();
                 }else{
                     nom.setText("les deux mots de passes sont différents !");
