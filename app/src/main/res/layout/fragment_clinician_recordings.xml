@@ -16,23 +16,24 @@
 
         <ListView
             android:id="@+id/patientsList"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_above="@+id/numberOfRecordings"
+            android:layout_width="400dp"
+            android:layout_height="450dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="28dp"
+            android:layout_below="@+id/numberOfRecordings"
+            android:layout_marginLeft="34dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="22dp"
             android:background="@drawable/custom_list"
             android:scrollbars="horizontal" />
 
         <ListView
             android:id="@+id/recordingsList"
-            android:layout_width="match_parent"
-            android:layout_height="310dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="76dp"
+            android:layout_width="800dp"
+            android:layout_height="450dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/patientsList"
             android:background="@drawable/custom_list"
             android:scrollbars="horizontal" />
 
@@ -40,9 +41,9 @@
             android:id="@+id/numberOfRecordings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/recordingsList"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="32dp"
+            android:layout_marginTop="54dp"
             android:fontFamily="sans-serif"
             android:text="Sélectionnez un patient ayant déjà réalisé des exercices"
             android:textAlignment="center"

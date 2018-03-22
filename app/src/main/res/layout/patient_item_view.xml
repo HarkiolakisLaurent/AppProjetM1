@@ -6,24 +6,6 @@
     android:layout_height="wrap_content">
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="498dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingLeft="10px">
-
-        <TextView
-            android:id="@+id/patientName"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="NOM PRENOM"
-            android:textColor="@android:color/background_light"
-            android:textSize="24sp" />
-
-    </LinearLayout>
-
     <Button
         android:id="@+id/selectPatientButton"
         android:layout_width="wrap_content"
