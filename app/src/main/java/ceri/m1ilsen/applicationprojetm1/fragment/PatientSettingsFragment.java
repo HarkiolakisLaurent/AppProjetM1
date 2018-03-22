@@ -9,6 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.ui.EditPatientProfileActivity;
 
@@ -63,7 +68,7 @@ public class PatientSettingsFragment extends Fragment {
                 editProfile.putExtra("connectedUserGender",getActivity().getIntent().getExtras().getBoolean("connectedUserGender"));
                 editProfile.putExtra("connectedUserLanguage",getActivity().getIntent().getStringExtra("connectedUserLanguage"));
                 editProfile.putExtra("connectedUserId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
-                startActivity(editProfile);
+                startActivityForResult(editProfile,10001);
 
             }
         });
@@ -110,6 +115,11 @@ public class PatientSettingsFragment extends Fragment {
         //Check the result and request code here and update ur activity class
         if ((requestCode == 10001)/* && (resultCode == Activity.RESULT_OK)*/) {
             // mettre à jour les infos courantes
+            getActivity().getIntent().putExtra("connectedUserMail",data.getStringExtra("connectedUserMail"));
+            getActivity().getIntent().putExtra("connectedUserPseudo",data.getStringExtra("connectedUserPseudo"));
+            getActivity().getIntent().putExtra("connectedUserBirthday",data.getStringExtra("connectedUserBirthday"));
+            getActivity().getIntent().putExtra("connectedUserGender",data.getStringExtra("connectedUserGender"));
+            getActivity().getIntent().putExtra("connectedUserLanguage",data.getStringExtra("connectedUserLanguage"));
         }
     }
 }

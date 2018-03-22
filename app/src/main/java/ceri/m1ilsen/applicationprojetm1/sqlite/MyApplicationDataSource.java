@@ -165,6 +165,14 @@ public class MyApplicationDataSource {
         return database.insert("cliniciens", null, values);
     }
 
+    public long updateClinician(int id, Clinician clinician) {
+        ContentValues values = new ContentValues();
+        values.put("pseudo", clinician.getPseudo());
+        values.put("mail", clinician.getMail());
+        values.put("mot_de_passe", clinician.getPassword());
+        return database.update("cliniciens", values, "_id = "+id,null);
+    }
+
     public void deleteClinician(String login) {
         database.delete("cliniciens", "pseudo = ?",new String[]{login});
     }

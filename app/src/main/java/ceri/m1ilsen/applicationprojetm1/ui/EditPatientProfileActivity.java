@@ -2,6 +2,7 @@ package ceri.m1ilsen.applicationprojetm1.ui;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -100,17 +102,17 @@ public class EditPatientProfileActivity extends AppCompatActivity {
                                     lastNameField.getText().toString(), firstNameField.getText().toString(), sqlDate, sex, Language.Français, 0, null, null);
                             BD.updatePatient(getIntent().getExtras().getInt("connectedUserId"),patient);
                             BD.close();
-                            setResult(10001);
+                            Intent intent = getIntent();
+                            intent.putExtra("connectedUserMail",mailField.getText().toString());
+                            intent.putExtra("connectedUserPseudo",loginField.getText().toString());
+                            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                            intent.putExtra("connectedUserBirthday",df.format(sqlDate));
+                            intent.putExtra("connectedUserGender",sex);
+                            intent.putExtra("connectedUserLanguage",Language.Français);
+                            setResult(10001,intent);
                             finish();
-
-                        }else{
-                            lastNameField.setText("les deux mots de passes sont différents !");
                         }
-                    }else{
-                        lastNameField.setText("ce compte existe déjà !");
                     }
-                }else{
-                    lastNameField.setText("tous les champs obligatoires ne sont pas remplis !");
                 }
                 BD.close();
                 setResult(1);

@@ -96,4 +96,16 @@ public class ClinicianSettingsFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        //Check the result and request code here and update ur activity class
+        if ((requestCode == 10001)/* && (resultCode == Activity.RESULT_OK)*/) {
+            // mettre à jour les infos courantes
+            getActivity().getIntent().putExtra("connectedUserMail",data.getStringExtra("connectedUserMail"));
+            getActivity().getIntent().putExtra("connectedUserPseudo",data.getStringExtra("connectedUserPseudo"));
+        }
+    }
 }
