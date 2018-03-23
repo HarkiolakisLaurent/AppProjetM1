@@ -3,6 +3,7 @@ package ceri.m1ilsen.applicationprojetm1.ui;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -106,7 +107,7 @@ public class PatientActivity extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // déconnexion ici
-                                activity.setResult(1);
+                                activity.setResult(1000);
                                 activity.finish();
                             }
                         });

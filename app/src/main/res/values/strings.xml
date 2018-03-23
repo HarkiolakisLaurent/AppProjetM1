@@ -9,7 +9,6 @@
     </string-array>
     <string-array name="langues">
         <item>Français</item>
-        <item>...</item>
     </string-array>
     <string-array name="typesExo">
         <item>MOTS</item>

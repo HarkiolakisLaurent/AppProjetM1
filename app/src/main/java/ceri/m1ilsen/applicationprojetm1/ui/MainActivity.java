@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                     patientActivity.putExtra("connectedUserLanguage",patient.getSpokenLanguage());
                     patientActivity.putExtra("connectedUserId",patientId);
                     BD.close();
-                    startActivity(patientActivity);
+                    startActivityForResult(patientActivity,1000);
 
                 } else if (BD.verificationPatientByMailAndPassword(mail.getText().toString(), mdp.getText().toString())) {
                     Patient patient = BD.getPatientByMailAndPassword(mail.getText().toString(), mdp.getText().toString());
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                     patientActivity.putExtra("connectedUserLanguage",patient.getSpokenLanguage());
                     patientActivity.putExtra("connectedUserId",patientId);
                     BD.close();
-                    startActivity(patientActivity);
+                    startActivityForResult(patientActivity,1000);
 
                 } else if (BD.verificationClinicianByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString())) {
                     Intent clinicianActivity = new Intent(MainActivity.this, ClinicianActivity.class);
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                     clinicianActivity.putExtra("connectedUserPseudo",clinician.getPseudo());
                     clinicianActivity.putExtra("connectedUserId",clinicianId);
                     BD.close();
-                    startActivity(clinicianActivity);
+                    startActivityForResult(clinicianActivity,1000);
 
                 }
 
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                     clinicianActivity.putExtra("connectedUserPseudo",clinician.getPseudo());
                     clinicianActivity.putExtra("connectedUserId",clinicianId);
                     BD.close();
-                    startActivity(clinicianActivity);
+                    startActivityForResult(clinicianActivity,1000);
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Identifiant et/ou mot de passe incorrects",Toast.LENGTH_SHORT).show();
@@ -166,5 +166,16 @@ public class MainActivity extends AppCompatActivity {
     public void onPause() {
         //datasource.close();
         super.onPause();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        //Check the result and request code here and update ur activity class
+        if ((requestCode == 1000)/* && (resultCode == Activity.RESULT_OK)*/) {
+            mail.setText("");
+            mdp.setText("");
+        }
     }
 }

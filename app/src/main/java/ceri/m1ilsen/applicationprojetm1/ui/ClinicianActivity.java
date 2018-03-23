@@ -98,7 +98,7 @@ public class ClinicianActivity extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // déconnexion ici
-                                activity.setResult(1);
+                                activity.setResult(1000);
                                 activity.finish();
                             }
                         });
@@ -107,11 +107,5 @@ public class ClinicianActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }
