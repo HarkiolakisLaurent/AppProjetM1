@@ -57,7 +57,8 @@ public class ClinicianSettingsFragment extends Fragment {
                 Intent editProfile = new Intent(view.getContext(), EditClinicianProfileActivity.class);
                 editProfile.putExtra("connectedUserMail",getActivity().getIntent().getStringExtra("connectedUserMail"));
                 editProfile.putExtra("connectedUserPseudo",getActivity().getIntent().getStringExtra("connectedUserPseudo"));
-                startActivity(editProfile);
+                editProfile.putExtra("connectedUserId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
+                startActivityForResult(editProfile,10001);
 
             }
         });
@@ -102,7 +103,7 @@ public class ClinicianSettingsFragment extends Fragment {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
         //Check the result and request code here and update ur activity class
-        if ((requestCode == 10001)/* && (resultCode == Activity.RESULT_OK)*/) {
+        if ((resultCode == 10001)/* && (resultCode == Activity.RESULT_OK)*/) {
             // mettre à jour les infos courantes
             getActivity().getIntent().putExtra("connectedUserMail",data.getStringExtra("connectedUserMail"));
             getActivity().getIntent().putExtra("connectedUserPseudo",data.getStringExtra("connectedUserPseudo"));

@@ -113,7 +113,7 @@ public class SignUpActivity extends AppCompatActivity {
                         Clinician clinician = new Clinician(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(), null);
                         BD.insertClinician(clinician);
                     }
-                    this.setResult(1);
+                    this.setResult(1000);
                     this.finish();
                 }else{
                     nom.setText("les deux mots de passes sont différents !");

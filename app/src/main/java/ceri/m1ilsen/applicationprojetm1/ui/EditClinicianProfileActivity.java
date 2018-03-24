@@ -61,7 +61,29 @@ public class EditClinicianProfileActivity extends AppCompatActivity {
                     }
                 }
                 BD.close();*/
-                setResult(1);
+
+                MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
+                BD.open();
+                if(!(loginField.getText().toString().equals("")) && !(newPasswordField.getText().toString().equals("")) && !(confirmNewPasswordField.getText().toString().equals("")) && !(mailField.getText().toString().equals(""))) {
+                    if (BD.verificationExistingClinicianByPseudo(loginField.getText().toString(),
+                            getIntent().getExtras().getInt("connectedUserId")) ||
+                            BD.verificationExistingClinicianByMail(mailField.getText().toString(),
+                                    getIntent().getExtras().getInt("connectedUserId"))) {
+                        if (newPasswordField.getText().toString().equals(confirmNewPasswordField.getText().toString())) {
+
+                            Clinician clinician = new Clinician(mailField.getText().toString(), newPasswordField.getText().toString(), loginField.getText().toString(), null);
+                            BD.updateClinician(getIntent().getExtras().getInt("connectedUserId"),clinician);
+                            BD.close();
+                            getIntent().putExtra("connectedUserMail",mailField.getText().toString());
+                            getIntent().putExtra("connectedUserPseudo",loginField.getText().toString());
+                            setResult(10001,getIntent());
+                            finish();
+                        }
+                    }
+                }
+
+                BD.close();
+                setResult(11,getIntent());
                 finish();
 
             }

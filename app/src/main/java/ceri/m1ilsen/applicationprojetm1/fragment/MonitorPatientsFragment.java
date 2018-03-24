@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 import ceri.m1ilsen.applicationprojetm1.R;
@@ -35,6 +37,7 @@ public class MonitorPatientsFragment extends Fragment {
     private ArrayList<String> data = new ArrayList<String>();
     private TextView numberOfPatients;
     private OnFragmentInteractionListener mListener;
+    private MonitorPatientsListViewAdapter monitorPatientsListViewAdapter;
 
     public MonitorPatientsFragment() {
         // Required empty public constructor
@@ -93,8 +96,8 @@ public class MonitorPatientsFragment extends Fragment {
                 startActivityForResult(createPatient,10000);
             }
         });
-        MonitorPatientsListViewAdapter adapter = new MonitorPatientsListViewAdapter(view.getContext(), R.layout.monitor_patient_item_view, data);
-        monitorPatientsListView.setAdapter(adapter);
+        monitorPatientsListViewAdapter = new MonitorPatientsListViewAdapter(view.getContext(), R.layout.monitor_patient_item_view, data);
+        monitorPatientsListView.setAdapter(monitorPatientsListViewAdapter);
         return view;
     }
 
@@ -136,7 +139,8 @@ public class MonitorPatientsFragment extends Fragment {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
         //Check the result and request code here and update ur activity class
-        if ((requestCode == 10000)/* && (resultCode == Activity.RESULT_OK)*/) {
+        Toast.makeText(getContext(),"le patient a été mis à jour",Toast.LENGTH_LONG).show();
+        if ((requestCode == 10000) /* && (resultCode == Activity.RESULT_OK)*/) {
             // recreate your fragment here
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.detach(this).attach(this);

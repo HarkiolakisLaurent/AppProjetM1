@@ -35,6 +35,8 @@ public class PatientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient);
 
+        setResult(101);
+
         final File recordingsDirectory = new File("/storage/emulated/0/recordings/"+getIntent().getStringExtra("connectedUserPseudo"));
         if (!recordingsDirectory.exists()) {
             recordingsDirectory.mkdirs();

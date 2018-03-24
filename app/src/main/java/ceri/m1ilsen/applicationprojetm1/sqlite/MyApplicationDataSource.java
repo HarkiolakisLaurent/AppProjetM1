@@ -104,6 +104,30 @@ public class MyApplicationDataSource {
         }
     }
 
+    public boolean verificationExistingPatientByPseudo(String pseudo , int id){
+        Cursor cursor = database.query("patients",new String[]{ "pseudo"},"pseudo LIKE \""+pseudo+"\" and _id = \""+id+"\"",null,null,null,null);
+        if(cursor.getCount() == 0 ){
+            cursor.close();
+            return false;
+        }else{
+            cursor.close();
+            return true;
+        }
+
+    }
+
+    public boolean verificationExistingPatientByMail(String mail , int id){
+        Cursor cursor = database.query("patients",new String[]{ "mail"},"mail LIKE \""+mail+"\" and _id = \""+id+"\"",null,null,null,null);
+        if(cursor.getCount() == 0 ){
+            cursor.close();
+            return false;
+        }else{
+            cursor.close();
+            return true;
+        }
+
+    }
+
     public boolean verificationClinicianByPseudoAndPassword(String pseudo , String mdp){
             Cursor cursor = database.query("cliniciens",new String[]{ "pseudo", "mail"},"pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
             if(cursor.getCount() == 0){
@@ -124,6 +148,30 @@ public class MyApplicationDataSource {
                 cursor.close();
                 return true;
             }
+    }
+
+    public boolean verificationExistingClinicianByPseudo(String pseudo , int id){
+        Cursor cursor = database.query("cliniciens",new String[]{ "pseudo"},"pseudo LIKE \""+pseudo+"\" and _id = \""+id+"\"",null,null,null,null);
+        if(cursor.getCount() == 0 ){
+            cursor.close();
+            return false;
+        }else{
+            cursor.close();
+            return true;
+        }
+
+    }
+
+    public boolean verificationExistingClinicianByMail(String mail , int id){
+        Cursor cursor = database.query("cliniciens",new String[]{ "mail"},"mail LIKE \""+mail+"\" and _id = \""+id+"\"",null,null,null,null);
+        if(cursor.getCount() == 0 ){
+            cursor.close();
+            return false;
+        }else{
+            cursor.close();
+            return true;
+        }
+
     }
 
     public long insertPatient(Patient patient) {

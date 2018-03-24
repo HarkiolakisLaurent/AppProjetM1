@@ -1,5 +1,6 @@
 package ceri.m1ilsen.applicationprojetm1.adapter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -100,7 +101,8 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
                 loginAsPatient.putExtra("connectedUserLanguage",patient.getSpokenLanguage());
                 loginAsPatient.putExtra("connectedUserId",patientId);
                 BD.close();
-                getContext().startActivity(loginAsPatient);
+                //getContext().startActivity(loginAsPatient);
+                ((Activity) mContext).startActivityForResult(loginAsPatient,101);
             }
         });
         mainViewholder.configureExerciseButtonHolder.setOnClickListener(new View.OnClickListener() {

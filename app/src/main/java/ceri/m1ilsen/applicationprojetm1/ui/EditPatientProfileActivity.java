@@ -21,14 +21,12 @@ import java.util.Calendar;
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.language.Language;
 import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
-import ceri.m1ilsen.applicationprojetm1.user.Clinician;
 import ceri.m1ilsen.applicationprojetm1.user.Patient;
 
 public class EditPatientProfileActivity extends AppCompatActivity {
-    public ImageButton dateChooser;
     public TextView lastNameField;
     public TextView firstNameField;
-    public EditText birthdayField;
+    public TextView birthdayField;
     public EditText loginField;
     public EditText mailField;
     public Spinner languageField;
@@ -37,17 +35,13 @@ public class EditPatientProfileActivity extends AppCompatActivity {
     public EditText confirmNewPasswordField;
     public Button saveChangesButton;
 
-    private int day;
-    private int month;
-    private int year;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_patient_profile);
         lastNameField = (TextView) findViewById(R.id.lastNameField);
         firstNameField = (TextView) findViewById(R.id.firstNameField);
-        birthdayField = (EditText) findViewById(R.id.birthdayField);
+        birthdayField = (TextView) findViewById(R.id.birthdayField);
         loginField = (EditText) findViewById(R.id.loginField);
         mailField = (EditText) findViewById(R.id.mailField);
         languageField = (Spinner) findViewById(R.id.languageField);
@@ -66,29 +60,22 @@ public class EditPatientProfileActivity extends AppCompatActivity {
         else
             genreField.setSelection(1);
 
-        dateChooser = (ImageButton) findViewById(R.id.dateChooser);
-        dateChooser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog(0);
-            }
-        });
         saveChangesButton = (Button) findViewById(R.id.saveChangesButton);
         saveChangesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // mettre à jour les infos ici
-                /*MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
+                MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
                 BD.open();
                 if(!(loginField.getText().toString().equals("")) && !(newPasswordField.getText().toString().equals("")) && !(confirmNewPasswordField.getText().toString().equals("")) && !(mailField.getText().toString().equals(""))) {
-                    if (!BD.verificationPatientByPseudoAndPassword(loginField.getText().toString(), newPasswordField.getText().toString()) && !BD.verificationPatientByMailAndPassword(mailField.getText().toString(),newPasswordField.getText().toString())) {
+                    if (BD.verificationExistingPatientByPseudo(loginField.getText().toString(),
+                            getIntent().getExtras().getInt("connectedUserId")) ||
+                            BD.verificationExistingPatientByMail(mailField.getText().toString(),
+                                    getIntent().getExtras().getInt("connectedUserId"))) {
                         if (newPasswordField.getText().toString().equals(confirmNewPasswordField.getText().toString())) {
                             Boolean sex = false;
                             if (genreField.getSelectedItemPosition() == 0) {
                                 sex = true;
                             }
-                            //String[] nums = birth.getText().toString().split(""+birth.getText().toString().charAt(2));
-                            //String zeDate = nums[2]+"-"+nums[1]+"-"+nums[0];
                             SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
                             java.util.Date utilDate = new java.util.Date();
                             try {
@@ -101,48 +88,34 @@ public class EditPatientProfileActivity extends AppCompatActivity {
                             Patient patient = new Patient(mailField.getText().toString(), newPasswordField.getText().toString(), loginField.getText().toString(),
                                     lastNameField.getText().toString(), firstNameField.getText().toString(), sqlDate, sex, Language.Français, 0, null, null);
                             BD.updatePatient(getIntent().getExtras().getInt("connectedUserId"),patient);
+                            /*Toast.makeText(getApplicationContext(),
+                                    "Le patient aura les informations suivantes : "+
+                                    "id : "+getIntent().getExtras().getInt("connectedUserId")+
+                                    "mail : "+mailField.getText().toString()+
+                                    "mdp : "+newPasswordField.getText().toString()+
+                                    "login : "+loginField.getText().toString()+
+                                    "nom : "+lastNameField.getText().toString()+
+                                    "prenom : "+firstNameField.getText().toString()+
+                                    "date : "+sqlDate+
+                                    "genre : "+sex+
+                                    "langue : "+Language.Français
+                                    ,Toast.LENGTH_LONG).show();*/
                             BD.close();
-                            Intent intent = getIntent();
-                            intent.putExtra("connectedUserMail",mailField.getText().toString());
-                            intent.putExtra("connectedUserPseudo",loginField.getText().toString());
-                            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                            intent.putExtra("connectedUserBirthday",df.format(sqlDate));
-                            intent.putExtra("connectedUserGender",sex);
-                            intent.putExtra("connectedUserLanguage",Language.Français);
-                            setResult(10001,intent);
+                            getIntent().putExtra("connectedUserMail",mailField.getText().toString());
+                            getIntent().putExtra("connectedUserPseudo",loginField.getText().toString());
+                            getIntent().putExtra("connectedUserGender",sex);
+                            getIntent().putExtra("connectedUserLanguage",Language.Français);
+                            setResult(10001,getIntent());
                             finish();
                         }
                     }
                 }
-                BD.close();*/
-                setResult(1);
+
+                BD.close();
+                setResult(11,getIntent());
                 finish();
 
             }
         });
     }
-
-    @Override
-    @Deprecated
-    protected Dialog onCreateDialog(int id) {
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        DatePickerDialog dialog = new DatePickerDialog(this, datePickerListener, year, month, day);
-        dialog.getDatePicker().setMaxDate(c.getTimeInMillis());
-        return  dialog;
-    }
-
-    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
-        public void onDateSet(DatePicker view, int selectedYear,
-                              int selectedMonth, int selectedDay) {
-            Calendar now = Calendar.getInstance();
-            now.set(selectedYear,selectedMonth,selectedDay);
-            day = selectedDay;
-            month = selectedMonth;
-            year = selectedYear;
-            birthdayField.setText(selectedDay+"/"+(selectedMonth + 1)+"/"+selectedYear);
-        }
-    };
 }

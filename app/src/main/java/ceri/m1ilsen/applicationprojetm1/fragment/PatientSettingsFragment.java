@@ -113,13 +113,20 @@ public class PatientSettingsFragment extends Fragment {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
         //Check the result and request code here and update ur activity class
-        if ((requestCode == 10001)/* && (resultCode == Activity.RESULT_OK)*/) {
+        if ((resultCode == 10001)/* && (resultCode == Activity.RESULT_OK)*/) {
             // mettre à jour les infos courantes
             getActivity().getIntent().putExtra("connectedUserMail",data.getStringExtra("connectedUserMail"));
             getActivity().getIntent().putExtra("connectedUserPseudo",data.getStringExtra("connectedUserPseudo"));
-            getActivity().getIntent().putExtra("connectedUserBirthday",data.getStringExtra("connectedUserBirthday"));
             getActivity().getIntent().putExtra("connectedUserGender",data.getStringExtra("connectedUserGender"));
             getActivity().getIntent().putExtra("connectedUserLanguage",data.getStringExtra("connectedUserLanguage"));
+            /*Toast.makeText(getActivity(),
+                "Le patient aura les informations suivantes : "+
+                "id : "+getActivity().getIntent().getExtras().getInt("connectedUserMId")+
+                "mail : "+getActivity().getIntent().getStringExtra("connectedUserMail")+
+                "login : "+getActivity().getIntent().getStringExtra("connectedUserPseudo")+
+                "genre : "+getActivity().getIntent().getStringExtra("connectedUserGender")+
+                "langue : "+getActivity().getIntent().getStringExtra("connectedUserLanguage")
+                ,Toast.LENGTH_LONG).show();*/
         }
     }
 }
