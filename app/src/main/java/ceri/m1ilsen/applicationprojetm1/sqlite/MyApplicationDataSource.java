@@ -116,18 +116,6 @@ public class MyApplicationDataSource {
 
     }
 
-    public boolean verificationExistingPatientByMail(String mail , int id){
-        Cursor cursor = database.query("patients",new String[]{ "mail"},"mail LIKE \""+mail+"\" and _id = \""+id+"\"",null,null,null,null);
-        if(cursor.getCount() == 0 ){
-            cursor.close();
-            return false;
-        }else{
-            cursor.close();
-            return true;
-        }
-
-    }
-
     public boolean verificationClinicianByPseudoAndPassword(String pseudo , String mdp){
             Cursor cursor = database.query("cliniciens",new String[]{ "pseudo", "mail"},"pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null,null,null,null);
             if(cursor.getCount() == 0){
@@ -162,18 +150,6 @@ public class MyApplicationDataSource {
 
     }
 
-    public boolean verificationExistingClinicianByMail(String mail , int id){
-        Cursor cursor = database.query("cliniciens",new String[]{ "mail"},"mail LIKE \""+mail+"\" and _id = \""+id+"\"",null,null,null,null);
-        if(cursor.getCount() == 0 ){
-            cursor.close();
-            return false;
-        }else{
-            cursor.close();
-            return true;
-        }
-
-    }
-
     public long insertPatient(Patient patient) {
         ContentValues values = new ContentValues();
         values.put("pseudo", patient.getPseudo());
@@ -190,12 +166,16 @@ public class MyApplicationDataSource {
 
     public long updatePatient(int id, Patient patient) {
         ContentValues values = new ContentValues();
-        values.put("pseudo", patient.getPseudo());
         values.put("mail", patient.getMail());
         values.put("mot_de_passe", patient.getPassword());
-        values.put("nom", patient.getLastName());
-        values.put("prenom", patient.getFirstName());
-        values.put("date_de_naissance", patient.getBirthday().toString());
+        values.put("genre", patient.isGender());
+        values.put("langue", patient.getSpokenLanguage().toString());
+        return database.update("patients", values, "_id = "+id,null);
+    }
+
+    public long partiallyUpdatePatient(int id, Patient patient) {
+        ContentValues values = new ContentValues();
+        values.put("mail", patient.getMail());
         values.put("genre", patient.isGender());
         values.put("langue", patient.getSpokenLanguage().toString());
         return database.update("patients", values, "_id = "+id,null);
@@ -215,9 +195,14 @@ public class MyApplicationDataSource {
 
     public long updateClinician(int id, Clinician clinician) {
         ContentValues values = new ContentValues();
-        values.put("pseudo", clinician.getPseudo());
         values.put("mail", clinician.getMail());
         values.put("mot_de_passe", clinician.getPassword());
+        return database.update("cliniciens", values, "_id = "+id,null);
+    }
+
+    public long partiallyUpdateClinician(int id, Clinician clinician) {
+        ContentValues values = new ContentValues();
+        values.put("mail", clinician.getMail());
         return database.update("cliniciens", values, "_id = "+id,null);
     }
 

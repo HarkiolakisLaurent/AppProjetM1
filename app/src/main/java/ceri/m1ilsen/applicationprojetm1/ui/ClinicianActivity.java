@@ -110,16 +110,4 @@ public class ClinicianActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
-        // test ici pour corriger bug
-        /*if (resultCode != 11 && resultCode != 10001) {
-            FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.detach(patientsFragment).attach(patientsFragment);
-            fragmentTransaction.commit();
-        }*/
-    }
 }

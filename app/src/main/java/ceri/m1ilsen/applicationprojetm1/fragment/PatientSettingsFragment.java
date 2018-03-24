@@ -117,13 +117,12 @@ public class PatientSettingsFragment extends Fragment {
             // mettre à jour les infos courantes
             getActivity().getIntent().putExtra("connectedUserMail",data.getStringExtra("connectedUserMail"));
             getActivity().getIntent().putExtra("connectedUserPseudo",data.getStringExtra("connectedUserPseudo"));
-            getActivity().getIntent().putExtra("connectedUserGender",data.getStringExtra("connectedUserGender"));
+            getActivity().getIntent().putExtra("connectedUserGender",data.getExtras().getBoolean("connectedUserGender"));
             getActivity().getIntent().putExtra("connectedUserLanguage",data.getStringExtra("connectedUserLanguage"));
             /*Toast.makeText(getActivity(),
                 "Le patient aura les informations suivantes : "+
                 "id : "+getActivity().getIntent().getExtras().getInt("connectedUserMId")+
                 "mail : "+getActivity().getIntent().getStringExtra("connectedUserMail")+
-                "login : "+getActivity().getIntent().getStringExtra("connectedUserPseudo")+
                 "genre : "+getActivity().getIntent().getStringExtra("connectedUserGender")+
                 "langue : "+getActivity().getIntent().getStringExtra("connectedUserLanguage")
                 ,Toast.LENGTH_LONG).show();*/

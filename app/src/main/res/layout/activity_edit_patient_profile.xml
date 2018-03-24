@@ -33,7 +33,7 @@
             <TableLayout
                 android:id="@+id/TableLayout1"
                 android:layout_width="610dp"
-                android:layout_height="591dp"
+                android:layout_height="526dp"
                 android:gravity="center">
 
                 <TableRow
@@ -160,7 +160,7 @@
             <TableLayout
                 android:id="@+id/TableLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="571dp"
+                android:layout_height="584dp"
                 android:gravity="center">
 
                 <TableRow
@@ -178,12 +178,10 @@
                         android:text="Login"
                         android:textSize="24sp" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/loginField"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="text"
                         android:textSize="24sp" />
 
                 </TableRow>
