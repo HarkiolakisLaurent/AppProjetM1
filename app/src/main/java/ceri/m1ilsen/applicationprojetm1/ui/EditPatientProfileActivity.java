@@ -57,7 +57,7 @@ public class EditPatientProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
                 BD.open();
-                if(!(mailField.getText().toString().equals(""))) {
+                if(!(mailField.getText().toString().equals("")) && mailField.getText().toString().matches("[A-Za-z_\\-\\.]*[@]\\w*[\\.][A-Za-z]*") ) {
                     if (BD.verificationExistingPatientByPseudo(loginField.getText().toString(),
                             getIntent().getExtras().getInt("connectedUserId"))) {
                         Boolean sex = false;

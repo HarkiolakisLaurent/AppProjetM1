@@ -39,7 +39,7 @@ public class EditClinicianProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
                 BD.open();
-                if(!(mailField.getText().toString().equals(""))) {
+                if(!(mailField.getText().toString().equals("")) && mailField.getText().toString().matches("[A-Za-z_\\-\\.]*[@]\\w*[\\.][A-Za-z]*")) {
                     if (BD.verificationExistingClinicianByPseudo(loginField.getText().toString(),
                             getIntent().getExtras().getInt("connectedUserId"))) {
                         if (!(newPasswordField.getText().toString().equals("")) && !(confirmNewPasswordField.getText().toString().equals(""))) {

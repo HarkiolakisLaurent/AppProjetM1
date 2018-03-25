@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.CheckBox;
+import android.widget.TextView;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,6 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
     public EditText mdp;
     public EditText mail;
     public EditText mdpc;
+    public TextView err;
     public EditText birth;
     public CheckBox tg;
     public Spinner genre;
@@ -44,6 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
         pseudo =  (EditText) findViewById(R.id.loginField);
         mdp =  (EditText) findViewById(R.id.newPasswordField);
         nom =  (EditText) findViewById(R.id.lastNameField);
+        err =  (TextView) findViewById(R.id.errtext);
         prenom =  (EditText) findViewById(R.id.firstNameField);
         mail =  (EditText) findViewById(R.id.mailField);
         mdpc =  (EditText) findViewById(R.id.confirmNewPasswordField);
@@ -90,39 +94,43 @@ public class SignUpActivity extends AppCompatActivity {
         if(!(pseudo.getText().toString().equals("")) && !(mdp.getText().toString().equals("")) && !(mdpc.getText().toString().equals("")) && !(mail.getText().toString().equals(""))) {
             if (!BD.verificationPatientByPseudoAndPassword(pseudo.getText().toString(), mdp.getText().toString()) && !BD.verificationPatientByMailAndPassword(mail.getText().toString(),mdp.getText().toString())) {
                 if (mdp.getText().toString().equals(mdpc.getText().toString())) {
-                    if (!tg.isChecked()) {
-                        Boolean sex = false;
-                        if (genre.getSelectedItemPosition() == 0) {
-                            sex = true;
-                        }
-                        //String[] nums = birth.getText().toString().split(""+birth.getText().toString().charAt(2));
-                        //String zeDate = nums[2]+"-"+nums[1]+"-"+nums[0];
-                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
-                        java.util.Date utilDate = new java.util.Date();
-                        try {
-                            utilDate = formatter.parse(birth.getText().toString());
+                    if(mail.getText().toString().matches("[A-Za-z_\\-\\.]*[@]\\w*[\\.][A-Za-z]*")) {
+                        if (!tg.isChecked()) {
+                            Boolean sex = false;
+                            if (genre.getSelectedItemPosition() == 0) {
+                                sex = true;
+                            }
+                            //String[] nums = birth.getText().toString().split(""+birth.getText().toString().charAt(2));
+                            //String zeDate = nums[2]+"-"+nums[1]+"-"+nums[0];
+                            SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
+                            java.util.Date utilDate = new java.util.Date();
+                            try {
+                                utilDate = formatter.parse(birth.getText().toString());
 
-                        } catch (ParseException e) {
-                            e.printStackTrace();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+                            Patient patient = new Patient(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
+                                    nom.getText().toString(), prenom.getText().toString(), sqlDate, sex, Language.Français, 0, null, null);
+                            BD.insertPatient(patient);
+                        } else {
+                            Clinician clinician = new Clinician(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(), null);
+                            BD.insertClinician(clinician);
                         }
-                        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-                        Patient patient = new Patient(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
-                                nom.getText().toString(), prenom.getText().toString(), sqlDate, sex, Language.Français, 0, null, null);
-                        BD.insertPatient(patient);
-                    } else {
-                        Clinician clinician = new Clinician(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(), null);
-                        BD.insertClinician(clinician);
+                        this.setResult(1000);
+                        this.finish();
+                    }else{
+                        err.setText("l'addresse email n'a pas un format cohérent");
                     }
-                    this.setResult(1000);
-                    this.finish();
                 }else{
-                    nom.setText("les deux mots de passes sont différents !");
+                    err.setText("les deux mots de passes sont différents !");
                 }
             }else{
-                nom.setText("ce compte existe déjà !");
+                err.setText("ce compte existe déjà !");
             }
         }else{
-            nom.setText("tous les champs obligatoires ne sont pas remplis !");
+            err.setText("tous les champs obligatoires ne sont pas remplis !");
         }
         BD.close();
     }
