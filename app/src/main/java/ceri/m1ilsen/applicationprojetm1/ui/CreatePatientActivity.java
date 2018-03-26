@@ -119,17 +119,21 @@ public class CreatePatientActivity extends AppCompatActivity {
                         }
                         this.setResult(10000);
                         this.finish();
-                    } else{
-                        err.setText("l'addresse email n'a pas un format cohérent");
+                    }else{
+                        Toast.makeText(this,"L'addresse email n'a pas un format cohérent",Toast.LENGTH_LONG).show();
+                        //err.setText("l'addresse email n'a pas un format cohérent");
                     }
                 }else{
-                    err.setText("les deux mots de passes sont différents !");
+                    Toast.makeText(this,"Les deux mots de passes sont différents",Toast.LENGTH_LONG).show();
+                    //err.setText("les deux mots de passes sont différents !");
                 }
             }else{
-                err.setText("ce compte existe déjà !");
+                Toast.makeText(this,"Ce compte existe déjà",Toast.LENGTH_LONG).show();
+                //err.setText("ce compte existe déjà !");
             }
         }else{
-            err.setText("tous les champs obligatoires ne sont pas remplis !");
+            Toast.makeText(this,"Tous les champs obligatoires ne sont pas remplis",Toast.LENGTH_LONG).show();
+            //err.setText("tous les champs obligatoires ne sont pas remplis !");
         }
         BD.close();
     }

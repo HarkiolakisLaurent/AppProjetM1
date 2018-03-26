@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import ceri.m1ilsen.applicationprojetm1.R;
@@ -86,7 +88,9 @@ public class EditPatientProfileActivity extends AppCompatActivity {
                                 getIntent().putExtra("connectedUserLanguage", Language.Français);
                                 setResult(10001, getIntent());
                                 finish();
-
+                            }
+                            else {
+                                Toast.makeText(getApplicationContext(),"Les deux mots de passes sont différents",Toast.LENGTH_LONG).show();
                             }
                         }
                         else if ((newPasswordField.getText().toString().equals("")) && (confirmNewPasswordField.getText().toString().equals(""))) {
@@ -102,6 +106,9 @@ public class EditPatientProfileActivity extends AppCompatActivity {
                             finish();
                         }
                     }
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"L'addresse email n'a pas un format cohérent",Toast.LENGTH_LONG).show();
                 }
 
             }

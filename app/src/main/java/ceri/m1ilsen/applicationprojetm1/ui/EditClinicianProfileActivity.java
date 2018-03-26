@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.language.Language;
 import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
@@ -51,6 +53,9 @@ public class EditClinicianProfileActivity extends AppCompatActivity {
                                 setResult(10001,getIntent());
                                 finish();
                             }
+                            else {
+                                Toast.makeText(getApplicationContext(),"Les deux mots de passes sont différents",Toast.LENGTH_LONG).show();
+                            }
                         }
                         else if ((newPasswordField.getText().toString().equals("")) && (confirmNewPasswordField.getText().toString().equals(""))) {
                             Clinician clinician = new Clinician(mailField.getText().toString(), newPasswordField.getText().toString(), loginField.getText().toString(), null);
@@ -61,6 +66,9 @@ public class EditClinicianProfileActivity extends AppCompatActivity {
                             finish();
                         }
                     }
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"L'addresse email n'a pas un format cohérent",Toast.LENGTH_LONG).show();
                 }
 
             }
