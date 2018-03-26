@@ -19,6 +19,8 @@
     <string name="title_home">Exercices</string>
     <string name="title_dashboard">Enregistrements</string>
     <string name="title_notifications">Résultats</string>
+    <string name="drop_file_explanation">Vous pouvez sélectionner un fichier contenant des mots ou phrases à lire au cours d\'un exercice. Une fois ce fichier déposé, son contenu servira à la génération des exercices.
+        Attention, seuls les fichiers au format .txt ou .csv peuvent être déposés et leur nom ne doit comporter ni majuscules ni caractères spéciaux.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

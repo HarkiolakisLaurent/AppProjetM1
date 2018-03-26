@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.ui.DropFilesActivity;
 import ceri.m1ilsen.applicationprojetm1.ui.EditClinicianProfileActivity;
 
 /**
@@ -23,6 +24,7 @@ import ceri.m1ilsen.applicationprojetm1.ui.EditClinicianProfileActivity;
 public class ClinicianSettingsFragment extends Fragment {
 
     private Button editProfileButton;
+    private Button dropFilesButton;
     private OnFragmentInteractionListener mListener;
 
     public ClinicianSettingsFragment() {
@@ -59,7 +61,14 @@ public class ClinicianSettingsFragment extends Fragment {
                 editProfile.putExtra("connectedUserPseudo",getActivity().getIntent().getStringExtra("connectedUserPseudo"));
                 editProfile.putExtra("connectedUserId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
                 startActivityForResult(editProfile,10001);
-
+            }
+        });
+        dropFilesButton = (Button) view.findViewById(R.id.dropFilesButton);
+        dropFilesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dropFiles = new Intent(view.getContext(), DropFilesActivity.class);
+                startActivity(dropFiles);
             }
         });
         return view;
