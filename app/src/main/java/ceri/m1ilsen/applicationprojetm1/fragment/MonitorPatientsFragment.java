@@ -139,7 +139,6 @@ public class MonitorPatientsFragment extends Fragment {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
         //Check the result and request code here and update ur activity class
-        Toast.makeText(getContext(),"le patient a été mis à jour",Toast.LENGTH_LONG).show();
         if ((requestCode == 10000) /* && (resultCode == Activity.RESULT_OK)*/) {
             // recreate your fragment here
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();

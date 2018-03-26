@@ -23,13 +23,13 @@ import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 
 
 public class SignUpActivity extends AppCompatActivity {
+    public TextView err;
     public EditText pseudo;
     public EditText nom;
     public EditText prenom;
     public EditText mdp;
     public EditText mail;
     public EditText mdpc;
-    public TextView err;
     public EditText birth;
     public CheckBox tg;
     public Spinner genre;
@@ -44,10 +44,10 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        err =  (TextView) findViewById(R.id.errtext);
         pseudo =  (EditText) findViewById(R.id.loginField);
         mdp =  (EditText) findViewById(R.id.newPasswordField);
         nom =  (EditText) findViewById(R.id.lastNameField);
-        err =  (TextView) findViewById(R.id.errtext);
         prenom =  (EditText) findViewById(R.id.firstNameField);
         mail =  (EditText) findViewById(R.id.mailField);
         mdpc =  (EditText) findViewById(R.id.confirmNewPasswordField);
@@ -100,8 +100,6 @@ public class SignUpActivity extends AppCompatActivity {
                             if (genre.getSelectedItemPosition() == 0) {
                                 sex = true;
                             }
-                            //String[] nums = birth.getText().toString().split(""+birth.getText().toString().charAt(2));
-                            //String zeDate = nums[2]+"-"+nums[1]+"-"+nums[0];
                             SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
                             java.util.Date utilDate = new java.util.Date();
                             try {
