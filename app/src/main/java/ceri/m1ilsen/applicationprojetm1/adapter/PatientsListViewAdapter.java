@@ -6,9 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -50,8 +47,8 @@ public class PatientsListViewAdapter extends ArrayAdapter<String> {
             convertView = inflater.inflate(layout, parent, false);
             PatientsListViewAdapter.ViewHolder viewHolder = new PatientsListViewAdapter.ViewHolder();
 
-            viewHolder.patientNameHolder = (TextView) convertView.findViewById(R.id.patientName);
             viewHolder.selectPatientHolder = (Button) convertView.findViewById(R.id.selectPatientButton);
+            viewHolder.selectPatientHolder.setText(dataSet.get(position));
             viewHolder.selectPatientHolder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -62,13 +59,11 @@ public class PatientsListViewAdapter extends ArrayAdapter<String> {
             convertView.setTag(viewHolder);
         }
         mainViewholder = (PatientsListViewAdapter.ViewHolder) convertView.getTag();
-        mainViewholder.patientNameHolder.setText(getItem(position));
 
         return convertView;
     }
 
     public class ViewHolder {
-        TextView patientNameHolder;
         Button selectPatientHolder;
     }
 }

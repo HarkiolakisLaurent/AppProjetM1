@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.fragment.ClinicianHomePageFragment;
@@ -99,7 +100,7 @@ public class ClinicianActivity extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // déconnexion ici
-                                activity.setResult(1);
+                                activity.setResult(1000);
                                 activity.finish();
                             }
                         });

@@ -9,9 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import ceri.m1ilsen.applicationprojetm1.R;
-import ceri.m1ilsen.applicationprojetm1.ui.ConfigureExerciseActivity;
+import ceri.m1ilsen.applicationprojetm1.ui.DropFilesActivity;
 import ceri.m1ilsen.applicationprojetm1.ui.EditClinicianProfileActivity;
 
 /**
@@ -25,6 +24,7 @@ import ceri.m1ilsen.applicationprojetm1.ui.EditClinicianProfileActivity;
 public class ClinicianSettingsFragment extends Fragment {
 
     private Button editProfileButton;
+    private Button dropFilesButton;
     private OnFragmentInteractionListener mListener;
 
     public ClinicianSettingsFragment() {
@@ -57,8 +57,18 @@ public class ClinicianSettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent editProfile = new Intent(view.getContext(), EditClinicianProfileActivity.class);
-                startActivity(editProfile);
-
+                editProfile.putExtra("connectedUserMail",getActivity().getIntent().getStringExtra("connectedUserMail"));
+                editProfile.putExtra("connectedUserPseudo",getActivity().getIntent().getStringExtra("connectedUserPseudo"));
+                editProfile.putExtra("connectedUserId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
+                startActivityForResult(editProfile,10001);
+            }
+        });
+        dropFilesButton = (Button) view.findViewById(R.id.dropFilesButton);
+        dropFilesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dropFiles = new Intent(view.getContext(), DropFilesActivity.class);
+                startActivity(dropFiles);
             }
         });
         return view;
@@ -95,5 +105,17 @@ public class ClinicianSettingsFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        //Check the result and request code here and update ur activity class
+        if ((resultCode == 10001)/* && (resultCode == Activity.RESULT_OK)*/) {
+            // mettre à jour les infos courantes
+            getActivity().getIntent().putExtra("connectedUserMail",data.getStringExtra("connectedUserMail"));
+            getActivity().getIntent().putExtra("connectedUserPseudo",data.getStringExtra("connectedUserPseudo"));
+        }
     }
 }

@@ -33,7 +33,7 @@
             <TableLayout
                 android:id="@+id/TableLayout1"
                 android:layout_width="610dp"
-                android:layout_height="591dp"
+                android:layout_height="526dp"
                 android:gravity="center">
 
                 <TableRow
@@ -56,7 +56,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="20dp"
-                        android:text="To"
                         android:textSize="24sp" />
 
                 </TableRow>
@@ -81,24 +80,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="20dp"
-                        android:text="To"
-                        android:textSize="24sp" />
-
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/row125"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:paddingVertical="12dp">
-
-                    <TextView
-                        android:id="@+id/birthday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="20dp"
-                        android:text="Date de naissance"
                         android:textSize="24sp" />
 
                 </TableRow>
@@ -110,21 +91,19 @@
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
-                    <EditText
-                        android:id="@+id/birthdayField"
-                        android:layout_width="200dp"
+                    <TextView
+                        android:id="@+id/birthday"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="date"
-                        android:text="18/09/1994"
+                        android:paddingHorizontal="20dp"
+                        android:text="Date de naissance"
                         android:textSize="24sp" />
 
-                    <ImageButton
-                        android:id="@+id/dateChooser"
-                        android:layout_width="192dp"
+                    <TextView
+                        android:id="@+id/birthdayField"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/custom_list"
-                        app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+                        android:textSize="24sp" />
 
                 </TableRow>
 
@@ -143,13 +122,12 @@
                         android:text="Langue"
                         android:textSize="24sp" />
 
-                    <EditText
+                    <Spinner
                         android:id="@+id/languageField"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:textSize="24sp" />
+                        android:background="@android:drawable/btn_dropdown"
+                        android:entries="@array/langues" />
 
                 </TableRow>
 
@@ -168,13 +146,12 @@
                         android:text="Genre"
                         android:textSize="24sp" />
 
-                    <EditText
+                    <Spinner
                         android:id="@+id/genreField"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:textSize="24sp" />
+                        android:background="@android:drawable/btn_dropdown"
+                        android:entries="@array/genres" />
 
                 </TableRow>
 
@@ -183,7 +160,7 @@
             <TableLayout
                 android:id="@+id/TableLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="571dp"
+                android:layout_height="584dp"
                 android:gravity="center">
 
                 <TableRow
@@ -201,13 +178,10 @@
                         android:text="Login"
                         android:textSize="24sp" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/loginField"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:text="Totodu84"
                         android:textSize="24sp" />
 
                 </TableRow>
@@ -233,7 +207,6 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="textEmailAddress"
-                        android:text="xyz@gmail.com"
                         android:textSize="24sp" />
 
                 </TableRow>

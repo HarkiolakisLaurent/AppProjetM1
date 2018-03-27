@@ -11,10 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import java.io.File;
 import java.util.List;
-
 import ceri.m1ilsen.applicationprojetm1.R;
 
 /**

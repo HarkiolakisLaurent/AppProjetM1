@@ -10,16 +10,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import java.io.File;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
-import java.util.Arrays;
-
+import java.util.List;
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.PatientsListViewAdapter;
-import ceri.m1ilsen.applicationprojetm1.adapter.RecordingsListViewAdapter;
 import ceri.m1ilsen.applicationprojetm1.adapter.SessionsListViewAdapter;
+import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
+import ceri.m1ilsen.applicationprojetm1.user.Patient;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,8 +63,17 @@ public class ClinicianResultsFragment extends Fragment {
         patientsListView = (ListView) view.findViewById(R.id.patientsList);
         sessionsListView = (ListView) view.findViewById(R.id.sessionsList);
 
-        patientsData.add("Toto");
-        patientsData.add("Tata");
+        final MyApplicationDataSource BD = new MyApplicationDataSource(getActivity());
+        BD.open();
+        final String currentUser = getActivity().getIntent().getStringExtra("connectedUserPseudo");
+        final int currentId = getActivity().getIntent().getIntExtra("connectedUserId",0);
+        //int currentId = BD.getClinicianIdByPseudo(currentUser);
+        List<Patient> patients = BD.getPatientByClinicianId(currentId);
+        ArrayList<String> patientsPseudo = new ArrayList<>();
+        for(int i=0; i<patients.size(); i++)
+            patientsPseudo.add(patients.get(i).getPseudo().toString());
+        patientsData = patientsPseudo;
+        BD.close();
 
         PatientsListViewAdapter patientsListViewAdapter = new PatientsListViewAdapter(view.getContext(), R.layout.patient_item_view, patientsData);
 

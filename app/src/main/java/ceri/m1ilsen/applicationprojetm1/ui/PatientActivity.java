@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.io.File;
+
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.fragment.CreateExerciseFragment;
 import ceri.m1ilsen.applicationprojetm1.fragment.PatientHomePageFragment;
@@ -32,6 +34,14 @@ public class PatientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient);
+
+        setResult(101);
+
+        final File recordingsDirectory = new File("/storage/emulated/0/recordings/"+getIntent().getStringExtra("connectedUserPseudo"));
+        if (!recordingsDirectory.exists()) {
+            recordingsDirectory.mkdirs();
+        }
+
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer, homePageFragment);
         fragmentTransaction.commit();
@@ -99,7 +109,7 @@ public class PatientActivity extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // déconnexion ici
-                                activity.setResult(1);
+                                activity.setResult(1000);
                                 activity.finish();
                             }
                         });

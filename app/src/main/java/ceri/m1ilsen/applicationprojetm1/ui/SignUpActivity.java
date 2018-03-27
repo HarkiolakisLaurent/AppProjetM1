@@ -2,19 +2,17 @@ package ceri.m1ilsen.applicationprojetm1.ui;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.CheckBox;
-import android.widget.ToggleButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,10 +20,11 @@ import java.util.Calendar;
 import ceri.m1ilsen.applicationprojetm1.language.Language;
 import ceri.m1ilsen.applicationprojetm1.user.*;
 import ceri.m1ilsen.applicationprojetm1.R;
-import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
+import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 
 
 public class SignUpActivity extends AppCompatActivity {
+    public TextView err;
     public EditText pseudo;
     public EditText nom;
     public EditText prenom;
@@ -46,6 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        err =  (TextView) findViewById(R.id.errtext);
         pseudo =  (EditText) findViewById(R.id.loginField);
         mdp =  (EditText) findViewById(R.id.newPasswordField);
         nom =  (EditText) findViewById(R.id.lastNameField);
@@ -90,44 +90,50 @@ public class SignUpActivity extends AppCompatActivity {
     };
 
     public void creerCompte(View view) {
-        CommentsDataSource BD = new CommentsDataSource(this);
+        MyApplicationDataSource BD = new MyApplicationDataSource(this);
         BD.open();
         if(!(pseudo.getText().toString().equals("")) && !(mdp.getText().toString().equals("")) && !(mdpc.getText().toString().equals("")) && !(mail.getText().toString().equals(""))) {
             if (!BD.verificationPatientByPseudoAndPassword(pseudo.getText().toString(), mdp.getText().toString()) && !BD.verificationPatientByMailAndPassword(mail.getText().toString(),mdp.getText().toString())) {
                 if (mdp.getText().toString().equals(mdpc.getText().toString())) {
-                    if (!tg.isChecked()) {
-                        Boolean sex = false;
-                        if (genre.getSelectedItemPosition() == 0) {
-                            sex = true;
-                        }
-                        //String[] nums = birth.getText().toString().split(""+birth.getText().toString().charAt(2));
-                        //String zeDate = nums[2]+"-"+nums[1]+"-"+nums[0];
-                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
-                        java.util.Date utilDate = new java.util.Date();
-                        try {
-                            utilDate = formatter.parse(birth.getText().toString());
+                    if(mail.getText().toString().matches("[A-Za-z_\\-\\.]*[@]\\w*[\\.][A-Za-z]*")) {
+                        if (!tg.isChecked()) {
+                            Boolean sex = false;
+                            if (genre.getSelectedItemPosition() == 0) {
+                                sex = true;
+                            }
+                            SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
+                            java.util.Date utilDate = new java.util.Date();
+                            try {
+                                utilDate = formatter.parse(birth.getText().toString());
 
-                        } catch (ParseException e) {
-                            e.printStackTrace();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+                            Patient patient = new Patient(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
+                                    nom.getText().toString(), prenom.getText().toString(), sqlDate, sex, Language.Français, 0, null, null);
+                            BD.insertPatient(patient);
+                        } else {
+                            Clinician clinician = new Clinician(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(), null);
+                            BD.insertClinician(clinician);
                         }
-                        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-                        Patient patient = new Patient(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
-                                nom.getText().toString(), prenom.getText().toString(), sqlDate, sex, Language.Français, 0, null, null);
-                        BD.insertPatient(patient);
-                    } else {
-                        Clinician clinician = new Clinician(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(), null);
-                        BD.insertClinician(clinician);
+                        this.setResult(1000);
+                        this.finish();
+                    }else{
+                        Toast.makeText(this,"L'addresse email n'a pas un format cohérent",Toast.LENGTH_LONG).show();
+                        //err.setText("l'addresse email n'a pas un format cohérent");
                     }
-                    this.setResult(1);
-                    this.finish();
                 }else{
-                    nom.setText("les deux mots de passes sont différents !");
+                    Toast.makeText(this,"Les deux mots de passes sont différents",Toast.LENGTH_LONG).show();
+                    //err.setText("les deux mots de passes sont différents !");
                 }
             }else{
-                nom.setText("ce compte existe déjà !");
+                Toast.makeText(this,"Ce compte existe déjà",Toast.LENGTH_LONG).show();
+                //err.setText("ce compte existe déjà !");
             }
         }else{
-            nom.setText("tous les champs obligatoires ne sont pas remplis !");
+            Toast.makeText(this,"Tous les champs obligatoires ne sont pas remplis",Toast.LENGTH_LONG).show();
+            //err.setText("tous les champs obligatoires ne sont pas remplis !");
         }
         BD.close();
     }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.MonitorPatientsListViewAdapter;
-import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
+import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 import ceri.m1ilsen.applicationprojetm1.ui.CreatePatientActivity;
 import ceri.m1ilsen.applicationprojetm1.user.Patient;
 
@@ -37,6 +37,7 @@ public class MonitorPatientsFragment extends Fragment {
     private ArrayList<String> data = new ArrayList<String>();
     private TextView numberOfPatients;
     private OnFragmentInteractionListener mListener;
+    private MonitorPatientsListViewAdapter monitorPatientsListViewAdapter;
 
     public MonitorPatientsFragment() {
         // Required empty public constructor
@@ -65,14 +66,17 @@ public class MonitorPatientsFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_monitor_patients, container, false);
         monitorPatientsListView = (ListView) view.findViewById(R.id.patientsList);
 
-        final CommentsDataSource BD = new CommentsDataSource(getActivity());
+        final MyApplicationDataSource BD = new MyApplicationDataSource(getActivity());
         BD.open();
         final String currentUser = getActivity().getIntent().getStringExtra("connectedUserPseudo");
         final int currentId = getActivity().getIntent().getIntExtra("connectedUserId",0);
         //int currentId = BD.getClinicianIdByPseudo(currentUser);
         List<Patient> patients = BD.getPatientByClinicianId(currentId);
+        ArrayList<String> patientsPseudo = new ArrayList<>();
         for(int i=0; i<patients.size(); i++)
-            data.add(patients.get(i).getPseudo().toString());
+            patientsPseudo.add(patients.get(i).getPseudo().toString());
+        data = patientsPseudo;
+        BD.close();
 
         numberOfPatients = (TextView) view.findViewById(R.id.numberOfPatients);
         if (data.size() == 0)
@@ -86,14 +90,14 @@ public class MonitorPatientsFragment extends Fragment {
         newPatient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextActivity = new Intent(view.getContext(), CreatePatientActivity.class);
-                nextActivity.putExtra("connectedUserPseudo",currentUser);
-                nextActivity.putExtra("connectedUserId",currentId);
-                startActivity(nextActivity);
+                Intent createPatient = new Intent(view.getContext(), CreatePatientActivity.class);
+                createPatient.putExtra("connectedUserPseudo",currentUser);
+                createPatient.putExtra("connectedUserId",currentId);
+                startActivityForResult(createPatient,10000);
             }
         });
-        MonitorPatientsListViewAdapter adapter = new MonitorPatientsListViewAdapter(view.getContext(), R.layout.monitor_patient_item_view, data);
-        monitorPatientsListView.setAdapter(adapter);
+        monitorPatientsListViewAdapter = new MonitorPatientsListViewAdapter(view.getContext(), R.layout.monitor_patient_item_view, data);
+        monitorPatientsListView.setAdapter(monitorPatientsListViewAdapter);
         return view;
     }
 
@@ -128,5 +132,18 @@ public class MonitorPatientsFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        //Check the result and request code here and update ur activity class
+        if ((requestCode == 10000) /* && (resultCode == Activity.RESULT_OK)*/) {
+            // recreate your fragment here
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.detach(this).attach(this);
+            fragmentTransaction.commit();
+        }
     }
 }

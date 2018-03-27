@@ -3,19 +3,16 @@ package ceri.m1ilsen.applicationprojetm1.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.RecordingsListViewAdapter;
 
@@ -64,7 +61,7 @@ public class PatientRecordingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_patient_recordings, container, false);
         recordingsListView = (ListView) view.findViewById(R.id.listResults);
         //dataPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        dataPath = new File("/storage/emulated/0/Recordings/Me/");
+        dataPath = new File("/storage/emulated/0/recordings/"+getActivity().getIntent().getStringExtra("connectedUserPseudo"));
         data = new ArrayList(Arrays.asList(dataPath.list(new FilenameFilter() {
             public boolean accept(File directory, String fileName) {
                 return fileName.endsWith(".wav") || fileName.endsWith(".mp3");

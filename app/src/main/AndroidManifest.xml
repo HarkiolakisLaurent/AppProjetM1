@@ -4,13 +4,11 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -33,7 +31,8 @@
         <activity android:name=".ui.CreatePatientActivity" />
         <activity android:name=".ui.PatientActivity" />
         <activity android:name=".ui.ClinicianActivity" />
-        <activity android:name=".ui.EditClinicianProfileActivity"></activity>
+        <activity android:name=".ui.EditClinicianProfileActivity" />
+        <activity android:name=".ui.DropFilesActivity"></activity>
     </application>
 
 </manifest>

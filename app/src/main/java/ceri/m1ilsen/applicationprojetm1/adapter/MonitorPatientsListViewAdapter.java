@@ -1,5 +1,6 @@
 package ceri.m1ilsen.applicationprojetm1.adapter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,11 +13,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
-
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 import ceri.m1ilsen.applicationprojetm1.ui.ConfigureExerciseActivity;
 import ceri.m1ilsen.applicationprojetm1.ui.PatientActivity;
+import ceri.m1ilsen.applicationprojetm1.user.Patient;
 
 /**
  * Created by Laurent on 19/03/2018.
@@ -55,7 +59,7 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
             public void onClick(View v) {
                 AlertDialog alertDialog = new AlertDialog.Builder(mContext).create(); //Use context
                 alertDialog.setTitle("Suppression du patient");
-                alertDialog.setMessage("Le patient ainsi que ses informations seront définitivement supprimés");
+                alertDialog.setMessage("Après cette opération, le profil du patient sera définitivement supprimé.");
                 alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Annuler",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -66,6 +70,10 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // suppression de patient
+                                MyApplicationDataSource BD = new MyApplicationDataSource(getContext());
+                                BD.open();
+                                BD.deletePatient(dataSet.get(position));
+                                BD.close();
                                 dataSet.remove(position);
                                 notifyDataSetChanged();
                             }
@@ -79,7 +87,22 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
             public void onClick(View v) {
                 // connexion en tant que patient
                 Intent loginAsPatient = new Intent(getContext(), PatientActivity.class);
-                getContext().startActivity(loginAsPatient);
+                MyApplicationDataSource BD = new MyApplicationDataSource(getContext());
+                BD.open();
+                Patient patient = BD.getPatientByPseudo(dataSet.get(position));
+                int patientId = BD.getPatientIdByPseudo(patient.getPseudo());
+                loginAsPatient.putExtra("connectedUserMail",patient.getMail());
+                loginAsPatient.putExtra("connectedUserPseudo",patient.getPseudo());
+                loginAsPatient.putExtra("connectedUserLastName",patient.getLastName());
+                loginAsPatient.putExtra("connectedUserFirstName",patient.getFirstName());
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                loginAsPatient.putExtra("connectedUserBirthday",df.format(patient.getBirthday()));
+                loginAsPatient.putExtra("connectedUserGender",patient.isGender());
+                loginAsPatient.putExtra("connectedUserLanguage",patient.getSpokenLanguage());
+                loginAsPatient.putExtra("connectedUserId",patientId);
+                BD.close();
+                //getContext().startActivity(loginAsPatient);
+                ((Activity) mContext).startActivityForResult(loginAsPatient,101);
             }
         });
         mainViewholder.configureExerciseButtonHolder.setOnClickListener(new View.OnClickListener() {

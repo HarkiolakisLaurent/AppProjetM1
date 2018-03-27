@@ -9,6 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.ui.EditPatientProfileActivity;
@@ -56,7 +60,15 @@ public class PatientSettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent editProfile = new Intent(view.getContext(), EditPatientProfileActivity.class);
-                startActivity(editProfile);
+                editProfile.putExtra("connectedUserMail",getActivity().getIntent().getStringExtra("connectedUserMail"));
+                editProfile.putExtra("connectedUserPseudo",getActivity().getIntent().getStringExtra("connectedUserPseudo"));
+                editProfile.putExtra("connectedUserLastName",getActivity().getIntent().getStringExtra("connectedUserLastName"));
+                editProfile.putExtra("connectedUserFirstName",getActivity().getIntent().getStringExtra("connectedUserFirstName"));
+                editProfile.putExtra("connectedUserBirthday",getActivity().getIntent().getStringExtra("connectedUserBirthday"));
+                editProfile.putExtra("connectedUserGender",getActivity().getIntent().getExtras().getBoolean("connectedUserGender"));
+                editProfile.putExtra("connectedUserLanguage",getActivity().getIntent().getStringExtra("connectedUserLanguage"));
+                editProfile.putExtra("connectedUserId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
+                startActivityForResult(editProfile,10001);
 
             }
         });
@@ -94,5 +106,26 @@ public class PatientSettingsFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        //Check the result and request code here and update ur activity class
+        if ((resultCode == 10001)/* && (resultCode == Activity.RESULT_OK)*/) {
+            // mettre à jour les infos courantes
+            getActivity().getIntent().putExtra("connectedUserMail",data.getStringExtra("connectedUserMail"));
+            getActivity().getIntent().putExtra("connectedUserPseudo",data.getStringExtra("connectedUserPseudo"));
+            getActivity().getIntent().putExtra("connectedUserGender",data.getExtras().getBoolean("connectedUserGender"));
+            getActivity().getIntent().putExtra("connectedUserLanguage",data.getStringExtra("connectedUserLanguage"));
+            /*Toast.makeText(getActivity(),
+                "Le patient aura les informations suivantes : "+
+                "id : "+getActivity().getIntent().getExtras().getInt("connectedUserMId")+
+                "mail : "+getActivity().getIntent().getStringExtra("connectedUserMail")+
+                "genre : "+getActivity().getIntent().getStringExtra("connectedUserGender")+
+                "langue : "+getActivity().getIntent().getStringExtra("connectedUserLanguage")
+                ,Toast.LENGTH_LONG).show();*/
+        }
     }
 }

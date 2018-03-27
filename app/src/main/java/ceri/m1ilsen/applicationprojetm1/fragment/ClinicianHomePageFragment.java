@@ -1,7 +1,6 @@
 package ceri.m1ilsen.applicationprojetm1.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,13 +11,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.List;
-
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.HomePageListViewAdapter;
-import ceri.m1ilsen.applicationprojetm1.sqlite.CommentsDataSource;
 
 /**
  * A simple {@link Fragment} subclass.

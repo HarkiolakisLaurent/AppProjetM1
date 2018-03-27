@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ceri.m1ilsen.applicationprojetm1.ui.DropFilesActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="58dp"
+        tools:layout_editor_absoluteY="64dp">
+
+        <Button
+            android:id="@+id/dropFileButton"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:layout_below="@+id/browser"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="68dp"
+            android:background="@drawable/custom_list"
+            android:fontFamily="sans-serif"
+            android:text="Déposer le fichier"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/explanation"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_above="@+id/fileName"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="54dp"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:text="@string/drop_file_explanation"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/fileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="82dp"
+            android:layout_marginRight="82dp"
+            android:layout_toLeftOf="@+id/browser"
+            android:layout_toStartOf="@+id/browser"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/browser"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:layout_alignBottom="@+id/fileName"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="284dp"
+            android:layout_marginRight="284dp"
+            android:background="@drawable/custom_list"
+            android:fontFamily="sans-serif"
+            android:text="Parcourir"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

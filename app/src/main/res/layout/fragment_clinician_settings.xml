@@ -15,7 +15,7 @@
             android:layout_height="100dp"
             android:layout_above="@+id/configureAlignmentButton"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="84dp"
+            android:layout_marginBottom="78dp"
             android:background="@drawable/custom_list"
             android:fontFamily="monospace"
             android:text="Consulter profil"
@@ -26,13 +26,27 @@
             android:id="@+id/configureAlignmentButton"
             android:layout_width="1000dp"
             android:layout_height="100dp"
+            android:layout_above="@+id/dropFilesButton"
             android:layout_alignLeft="@+id/editProfileButton"
-            android:layout_alignParentBottom="true"
             android:layout_alignStart="@+id/editProfileButton"
-            android:layout_marginBottom="191dp"
+            android:layout_marginBottom="68dp"
             android:background="@drawable/custom_list"
             android:fontFamily="monospace"
             android:text="Configurer alignement"
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/dropFilesButton"
+            android:layout_width="1000dp"
+            android:layout_height="100dp"
+            android:layout_alignLeft="@+id/configureAlignmentButton"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/configureAlignmentButton"
+            android:layout_marginBottom="137dp"
+            android:background="@drawable/custom_list"
+            android:fontFamily="monospace"
+            android:text="Déposer des fichiers"
             android:textColor="@android:color/background_light"
             android:textSize="24sp" />
     </RelativeLayout>

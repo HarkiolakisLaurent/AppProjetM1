@@ -3,10 +3,10 @@ package ceri.m1ilsen.applicationprojetm1.ui;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +15,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import ceri.m1ilsen.applicationprojetm1.R;
-import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
-import ceri.m1ilsen.applicationprojetm1.task.Task;
 
-public class ConfigureExerciseActivity extends AppCompatActivity {
+public class DropFilesActivity extends AppCompatActivity {
 
-    EditText exerciseName;
-    EditText exerciseDuration;
     EditText fileName;
     Button browser;
 
@@ -37,10 +35,10 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
 
     private static final String TAG = "F_PATH";
 
-    private ConfigureExerciseActivity.Item[] fileList;
+    private DropFilesActivity.Item[] fileList;
     private File path = new File(Environment.getExternalStorageDirectory() + "");
     private String chosenFile;
-    private Button createExerciseButton;
+    private Button dropFileButton;
     private static final int DIALOG_LOAD_FILE = 1000;
 
     ListAdapter adapter;
@@ -48,17 +46,7 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_configure_exercise);
-
-
-        exerciseName = (EditText)findViewById(R.id.exerciseName);
-        exerciseDuration = (EditText)findViewById(R.id.exerciseDuration);
-        exerciseDuration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                exerciseDuration.getText().clear();
-            }
-        });
+        setContentView(R.layout.activity_drop_files);
         fileName = (EditText)findViewById(R.id.fileName);
         browser = (Button)findViewById(R.id.browser);
         browser.setOnClickListener(new View.OnClickListener() {
@@ -69,20 +57,19 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
                 Log.d(TAG, path.getAbsolutePath());
             }
         });
-        createExerciseButton = (Button)findViewById(R.id.createExerciseButton);
-        createExerciseButton.setOnClickListener(new View.OnClickListener() {
+        dropFileButton = (Button)findViewById(R.id.dropFileButton);
+        dropFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // création exercice ici
-                //Exercise configuredExercise = new Exercise(exerciseName.getText().toString(),Task.Mot,
-                //        new File(fileName.getText().toString()),Integer.parseInt(exerciseDuration.getText().toString()),0,null,null,null);
-                setResult(1);
-                finish();
+                // dépôt fichier ici
+                Toast.makeText(getApplicationContext(),"Dépôt du fichier",Toast.LENGTH_LONG).show();
             }
         });
         Intent intent = getIntent();
         fileName.setText(intent.getStringExtra("SELECTED_FILE"));
     }
+
+
 
     private void loadFileList() {
         try {
@@ -105,9 +92,9 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
             };
 
             String[] fList = path.list(filter);
-            fileList = new ConfigureExerciseActivity.Item[fList.length];
+            fileList = new DropFilesActivity.Item[fList.length];
             for (int i = 0; i < fList.length; i++) {
-                fileList[i] = new ConfigureExerciseActivity.Item(fList[i], R.drawable.file_icon);
+                fileList[i] = new DropFilesActivity.Item(fList[i], R.drawable.file_icon);
 
                 // Convert into file path
                 File sel = new File(path, fList[i]);
@@ -122,18 +109,18 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
             }
 
             if (!firstLvl) {
-                ConfigureExerciseActivity.Item temp[] = new ConfigureExerciseActivity.Item[fileList.length + 1];
+                DropFilesActivity.Item temp[] = new DropFilesActivity.Item[fileList.length + 1];
                 for (int i = 0; i < fileList.length; i++) {
                     temp[i + 1] = fileList[i];
                 }
-                temp[0] = new ConfigureExerciseActivity.Item("Up", R.drawable.directory_up);
+                temp[0] = new DropFilesActivity.Item("Up", R.drawable.directory_up);
                 fileList = temp;
             }
         } else {
             Log.e(TAG, "path does not exist");
         }
 
-        adapter = new ArrayAdapter<ConfigureExerciseActivity.Item>(this,
+        adapter = new ArrayAdapter<DropFilesActivity.Item>(this,
                 android.R.layout.select_dialog_item, android.R.id.text1,
                 fileList) {
             @Override
@@ -155,8 +142,9 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
                 return view;
             }
         };
-
     }
+
+
 
     public class Item {
         public String file;

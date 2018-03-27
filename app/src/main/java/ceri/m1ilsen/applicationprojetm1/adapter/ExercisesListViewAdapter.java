@@ -8,9 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.List;
-
 import ceri.m1ilsen.applicationprojetm1.R;
 
 /**

@@ -19,6 +19,7 @@
             android:id="@+id/sessionDescription"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:gravity="center"
             android:text="Session du DATE, à HEURE"
             android:textColor="@android:color/background_light"
             android:textSize="24sp" />
