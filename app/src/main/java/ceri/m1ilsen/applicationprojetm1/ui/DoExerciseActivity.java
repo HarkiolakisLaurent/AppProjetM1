@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 
-public class DoExerciceActivity extends AppCompatActivity {
+public class DoExerciseActivity extends AppCompatActivity {
 
     private Button btnQuitter = null;
     private ImageButton imageMicroButton=null;
@@ -170,8 +170,8 @@ public class DoExerciceActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Le premier paramètre est le nom de l'activité actuelle
                 // Le second est le nom de l'activité de destination
-                Intent nextActivity = new Intent(DoExerciceActivity.this, PatientActivity.class);
-                startActivity(nextActivity);
+                setResult(1);
+                finish();
             }
         });
     }

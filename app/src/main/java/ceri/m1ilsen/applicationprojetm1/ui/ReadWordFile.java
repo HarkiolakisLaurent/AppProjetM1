@@ -2,12 +2,9 @@ package ceri.m1ilsen.applicationprojetm1.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +22,7 @@ public class ReadWordFile {
         try {
 
             String sb = "";
-            Intent intent = new Intent(WContext, DoExerciceActivity.class);
+            Intent intent = new Intent(WContext, DoExerciseActivity.class);
             while ((sb= bufferedReader.readLine()) != null){
 
                 mLines.add(sb);

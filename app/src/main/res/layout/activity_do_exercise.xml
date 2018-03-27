@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ceri.m1ilsen.applicationprojetm1.ui.DoExerciceActivity">
+    tools:context="ceri.m1ilsen.applicationprojetm1.ui.DoExerciseActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -56,10 +56,11 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:drawableLeft="@drawable/quitter"
-            android:text="  Quitter l'exercice"
-            android:textSize="20sp"
-            android:textAllCaps="false" />
+            android:background="@drawable/custom_list"
+            android:text="Quitter l'exercice"
+            android:textAllCaps="false"
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp" />
 
 
     </RelativeLayout>

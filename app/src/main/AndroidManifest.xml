@@ -27,7 +27,7 @@
         <activity android:name=".ui.SignUpActivity" />
         <activity android:name=".ui.EditPatientProfileActivity" />
         <activity android:name=".ui.ConfigureExerciseActivity" />
-        <activity android:name=".ui.DoExerciceActivity" />
+        <activity android:name=".ui.DoExerciseActivity" />
         <activity android:name=".ui.CreatePatientActivity" />
         <activity android:name=".ui.PatientActivity" />
         <activity android:name=".ui.ClinicianActivity" />

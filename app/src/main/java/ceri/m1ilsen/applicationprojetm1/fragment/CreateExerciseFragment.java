@@ -16,7 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.ExercisesListViewAdapter;
-import ceri.m1ilsen.applicationprojetm1.ui.DoExerciceActivity;
+import ceri.m1ilsen.applicationprojetm1.ui.DoExerciseActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -91,7 +91,7 @@ public class CreateExerciseFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getContext(),DoExerciceActivity.class);
+                Intent intent = new Intent(getContext(),DoExerciseActivity.class);
                 startActivity(intent);
             }
         });
