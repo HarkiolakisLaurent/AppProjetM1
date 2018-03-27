@@ -19,9 +19,11 @@
             android:layout_height="100dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="23dp"
+            android:layout_marginTop="30sp"
             android:gravity="center"
-            android:text="  5/52 \n Le chat miaule" />
+            android:text="  5/52 \n Le chat miaule"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
 
         <ImageButton
             android:id="@+id/imageBtnMicro"
@@ -44,8 +46,8 @@
             android:paddingLeft="18dp"
             android:paddingTop="10dp"
             android:text="Appuyez une fois sur le bouton pour parler,puis appuyer de nouveau lorsque vous avez terminés "
-            android:textSize="20dp"
-            android:textStyle="bold|italic" />
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnQuitter"
@@ -56,15 +58,9 @@
             android:layout_alignParentStart="true"
             android:drawableLeft="@drawable/quitter"
             android:text="  Quitter l'exercice"
+            android:textSize="20sp"
             android:textAllCaps="false" />
 
-        <TextView
-            android:id="@+id/textViewsp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/imageBtnMicro"
-            android:layout_toLeftOf="@+id/imageBtnMicro"
-            android:layout_toStartOf="@+id/imageBtnMicro"
-            android:text="TextView" />
+
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

@@ -43,7 +43,7 @@ public class DoExerciceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_do_exercise);
         txtView=(TextView)findViewById(R.id.textExercice);
-        txtViewSpeech=(TextView)findViewById(R.id.textViewsp);
+
 
         InputStream fis = getResources().openRawResource(R.raw.mots);
         InputStreamReader isr = new InputStreamReader(fis);
