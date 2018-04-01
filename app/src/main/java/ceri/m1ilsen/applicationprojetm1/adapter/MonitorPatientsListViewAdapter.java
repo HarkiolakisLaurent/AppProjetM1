@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
+import ceri.m1ilsen.applicationprojetm1.ui.CommentPatientActivity;
 import ceri.m1ilsen.applicationprojetm1.ui.ConfigureExerciseActivity;
 import ceri.m1ilsen.applicationprojetm1.ui.PatientActivity;
 import ceri.m1ilsen.applicationprojetm1.user.Patient;
@@ -51,6 +52,7 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
             viewHolder.deletePatientHolder = (ImageButton) convertView.findViewById(R.id.deletePatientButton);
             viewHolder.loginAsPatientButtonHolder = (Button) convertView.findViewById(R.id.loginAsPatientButton);
             viewHolder.configureExerciseButtonHolder = (Button) convertView.findViewById(R.id.configureExerciseButton);
+            viewHolder.commentButtonHolder = (Button) convertView.findViewById(R.id.commentButton);
             convertView.setTag(viewHolder);
         }
         mainViewholder = (MonitorPatientsListViewAdapter.ViewHolder) convertView.getTag();
@@ -109,8 +111,26 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View v) {
                 Intent configureExercise = new Intent(getContext(), ConfigureExerciseActivity.class);
-                //passer un identifiant dans l'intent pour reconnaitre le patient auquel on va donner l'exercice
+                MyApplicationDataSource BD = new MyApplicationDataSource(getContext());
+                BD.open();
+                Patient patient = BD.getPatientByPseudo(dataSet.get(position));
+                int patientId = BD.getPatientIdByPseudo(patient.getPseudo());
+                configureExercise.putExtra("connectedUserId",patientId);
                 getContext().startActivity(configureExercise);
+
+            }
+        });
+        mainViewholder.commentButtonHolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent comment = new Intent(getContext(), CommentPatientActivity.class);
+                MyApplicationDataSource BD = new MyApplicationDataSource(getContext());
+                BD.open();
+                Patient patient = BD.getPatientByPseudo(dataSet.get(position));
+                comment.putExtra("patientLastName",patient.getLastName());
+                comment.putExtra("patientFirstName",patient.getFirstName());
+                BD.close();
+                getContext().startActivity(comment);
 
             }
         });
@@ -124,5 +144,6 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
         ImageButton deletePatientHolder;
         Button loginAsPatientButtonHolder;
         Button configureExerciseButtonHolder;
+        Button commentButtonHolder;
     }
 }
