@@ -1,17 +1,12 @@
 package ceri.m1ilsen.applicationprojetm1.user;
 
-import java.io.File;
 import java.util.List;
-
-import ceri.m1ilsen.applicationprojetm1.exercise.Configuration;
-import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
-import ceri.m1ilsen.applicationprojetm1.language.Language;
 
 /**
  * Created by Laurent on 28/01/2018.
  */
 
-public class Clinician implements IUser {
+public class Clinician {
     private String mail;
     private String password;
     private String pseudo;
@@ -22,42 +17,6 @@ public class Clinician implements IUser {
         this.password = password;
         this.pseudo = pseudo;
         this.patients = patients;
-    }
-
-    @Override
-    public void consultRecordFile(File recordFile) {
-
-    }
-
-    @Override
-    public void deleteRecordFile(File recordFile) {
-
-    }
-
-    @Override
-    public void consultProfile() {
-
-    }
-
-    @Override
-    public void changePassword() {
-
-    }
-
-    public void consultSettings() {
-
-    }
-
-    public Exercise createExercise(Patient selectedPatient, Exercise configuredExercise) {
-        return null;
-    }
-
-    public Patient createPatient(String mail, String password, String lastName, String firstName, int patientAge, boolean genre, Language patientLanguage) {
-        return null;
-    }
-
-    public Configuration createConfiguration(File acousticModel, File phonetisedDictionary) {
-        return null;
     }
 
     public String getMail() {

@@ -1,11 +1,7 @@
 package ceri.m1ilsen.applicationprojetm1.user;
 
-import java.io.File;
 import java.util.Date;
 import java.util.List;
-
-import ceri.m1ilsen.applicationprojetm1.comment.Comment;
-import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
 import ceri.m1ilsen.applicationprojetm1.exercise.Session;
 import ceri.m1ilsen.applicationprojetm1.language.Language;
 
@@ -13,7 +9,7 @@ import ceri.m1ilsen.applicationprojetm1.language.Language;
  * Created by Laurent on 28/01/2018.
  */
 
-public class Patient implements IUser {
+public class Patient {
     private String mail;
     private String password;
     private String pseudo;
@@ -23,10 +19,10 @@ public class Patient implements IUser {
     private boolean gender;
     private Language spokenLanguage;
     private int clinicianInCharge;
-    private Comment comment;
+    private String comment;
     private List<Session> sessions;
 
-    public Patient(String mail, String password, String pseudo, String lastName, String firstName, Date birthday, boolean gender, Language spokenLanguage, int clinicianInCharge, Comment comment, List<Session> sessions) {
+    public Patient(String mail, String password, String pseudo, String lastName, String firstName, Date birthday, boolean gender, Language spokenLanguage, int clinicianInCharge, String comment, List<Session> sessions) {
         this.mail = mail;
         this.password = password;
         this.pseudo=pseudo;
@@ -38,50 +34,6 @@ public class Patient implements IUser {
         this.clinicianInCharge = clinicianInCharge;
         this.comment = comment;
         this.sessions = sessions;
-    }
-
-    @Override
-    public void consultRecordFile(File recordFile) {
-
-    }
-
-    @Override
-    public void deleteRecordFile(File recordFile) {
-
-    }
-
-    @Override
-    public void consultProfile() {
-
-    }
-
-    @Override
-    public void changePassword() {
-
-    }
-
-    public void consultExercise() {
-
-    }
-
-    public void updateResults(Exercise completedExercise) {
-
-    }
-
-    public void displayLastResults() {
-
-    }
-
-    public void displayResultsAsDashBoard() {
-
-    }
-
-    public Session startSession() {
-        return null;
-    }
-
-    public void closeSession() {
-
     }
 
     public String getMail() {
@@ -154,11 +106,11 @@ public class Patient implements IUser {
     public void setPseudo(String pseudo) {
         this.pseudo = pseudo;
     }
-    public Comment getComment() {
+    public String getComment() {
         return comment;
     }
 
-    public void setComment(Comment comment) {
+    public void setComment(String comment) {
         this.comment = comment;
     }
 

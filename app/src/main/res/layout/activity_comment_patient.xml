@@ -30,8 +30,11 @@
             android:layout_height="300dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:background="@drawable/custom_comment"
             android:gravity="top"
-            android:inputType="text|textMultiLine" />
+            android:inputType="text|textMultiLine"
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/modifyCommentButton"

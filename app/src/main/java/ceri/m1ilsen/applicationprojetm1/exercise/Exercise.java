@@ -1,9 +1,7 @@
 package ceri.m1ilsen.applicationprojetm1.exercise;
 
 import java.io.File;
-import java.util.List;
 
-import ceri.m1ilsen.applicationprojetm1.comment.Comment;
 import ceri.m1ilsen.applicationprojetm1.task.Task;
 
 /**
@@ -17,10 +15,10 @@ public class Exercise {
     private double maxDuration;
     private int readWordsCount;
     private File recordFile;
-    private Comment comment;
+    private String comment;
     private Configuration currentConfiguration;
 
-    public Exercise(String name, Task task, File words, double maxDuration, int readWordsCount, File recordFile, Comment comment, Configuration currentConfiguration) {
+    public Exercise(String name, Task task, File words, double maxDuration, int readWordsCount, File recordFile, String comment, Configuration currentConfiguration) {
         this.name = name;
         this.task = task;
         this.words = words;
@@ -91,11 +89,11 @@ public class Exercise {
         this.recordFile = recordFile;
     }
 
-    public Comment getComment() {
+    public String getComment() {
         return comment;
     }
 
-    public void setComment(Comment comment) {
+    public void setComment(String comment) {
         this.comment = comment;
     }
 

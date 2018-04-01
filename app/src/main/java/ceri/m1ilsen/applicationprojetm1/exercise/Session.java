@@ -3,9 +3,7 @@ package ceri.m1ilsen.applicationprojetm1.exercise;
 import java.util.Date;
 import java.util.List;
 
-import ceri.m1ilsen.applicationprojetm1.comment.Comment;
 import ceri.m1ilsen.applicationprojetm1.task.Task;
-import ceri.m1ilsen.applicationprojetm1.user.Patient;
 
 /**
  * Created by Laurent on 28/01/2018.
@@ -14,10 +12,10 @@ import ceri.m1ilsen.applicationprojetm1.user.Patient;
 public class Session {
     private Date creationDate;
     private List<Exercise> results;
-    private Comment comment;
+    private String comment;
     private int patient_id;
 
-    public Session(Date creationDate, List<Exercise> results, Comment comment, int patient_id) {
+    public Session(Date creationDate, List<Exercise> results, String comment, int patient_id) {
         this.creationDate = creationDate;
         this.results = results;
         this.comment = comment;
@@ -48,11 +46,11 @@ public class Session {
         this.results = results;
     }
 
-    public Comment getComment() {
+    public String getComment() {
         return comment;
     }
 
-    public void setComment(Comment comment) {
+    public void setComment(String comment) {
         this.comment = comment;
     }
 

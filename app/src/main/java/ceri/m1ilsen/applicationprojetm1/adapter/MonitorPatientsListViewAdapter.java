@@ -127,8 +127,10 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
                 MyApplicationDataSource BD = new MyApplicationDataSource(getContext());
                 BD.open();
                 Patient patient = BD.getPatientByPseudo(dataSet.get(position));
+                int patientId = BD.getPatientIdByPseudo(patient.getPseudo());
                 comment.putExtra("patientLastName",patient.getLastName());
                 comment.putExtra("patientFirstName",patient.getFirstName());
+                comment.putExtra("patientId",patientId);
                 BD.close();
                 getContext().startActivity(comment);
 

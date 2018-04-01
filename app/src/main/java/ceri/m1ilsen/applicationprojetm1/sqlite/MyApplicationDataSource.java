@@ -16,7 +16,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import ceri.m1ilsen.applicationprojetm1.comment.Comment;
 import ceri.m1ilsen.applicationprojetm1.exercise.Session;
 import ceri.m1ilsen.applicationprojetm1.language.Language;
 import ceri.m1ilsen.applicationprojetm1.user.*;
@@ -28,8 +27,6 @@ public class MyApplicationDataSource {
     // Champs de la base de données
     private SQLiteDatabase database;
     private MySQLiteDatabase dbHelper;
-    private String[] allColumns = { MySQLiteDatabase.COLUMN_ID,
-            MySQLiteDatabase.COLUMN_COMMENT };
 
     public MyApplicationDataSource(Context context) {
         dbHelper = new MySQLiteDatabase(context);
@@ -41,44 +38,6 @@ public class MyApplicationDataSource {
 
     public void close() {
         database.close();
-    }
-
-    public Comment createComment(String comment) {
-        ContentValues values = new ContentValues();
-        values.put(MySQLiteDatabase.COLUMN_COMMENT, comment);
-        long insertId = database.insert(MySQLiteDatabase.TABLE_COMMENTS, null,
-                values);
-        Cursor cursor = database.query(MySQLiteDatabase.TABLE_COMMENTS,
-                allColumns, MySQLiteDatabase.COLUMN_ID + " = " + insertId, null,
-                null, null, null);
-        cursor.moveToFirst();
-        Comment newComment = cursorToComment(cursor);
-        cursor.close();
-        return newComment;
-    }
-
-    public void deleteComment(Comment comment) {
-        long id = comment.getId();
-        System.out.println("Comment deleted with id: " + id);
-        database.delete(MySQLiteDatabase.TABLE_COMMENTS, MySQLiteDatabase.COLUMN_ID
-                + " = " + id, null);
-    }
-
-    public List<Comment> getAllComments() {
-        List<Comment> comments = new ArrayList<Comment>();
-
-        Cursor cursor = database.query(MySQLiteDatabase.TABLE_COMMENTS,
-                allColumns, null, null, null, null, null);
-
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Comment comment = cursorToComment(cursor);
-            comments.add(comment);
-            cursor.moveToNext();
-        }
-        // assurez-vous de la fermeture du curseur
-        cursor.close();
-        return comments;
     }
 
     public boolean verificationPatientByPseudoAndPassword(String pseudo , String mdp){
@@ -113,7 +72,6 @@ public class MyApplicationDataSource {
             cursor.close();
             return true;
         }
-
     }
 
     public boolean verificationClinicianByPseudoAndPassword(String pseudo , String mdp){
@@ -160,6 +118,7 @@ public class MyApplicationDataSource {
         values.put("date_de_naissance", patient.getBirthday().toString());
         values.put("genre", patient.isGender());
         values.put("langue", patient.getSpokenLanguage().toString());
+        values.put("comment", patient.getComment());
         values.put("id_clinicien", patient.getClinicianInCharge());
         return database.insert("patients", null, values);
     }
@@ -178,6 +137,12 @@ public class MyApplicationDataSource {
         values.put("mail", patient.getMail());
         values.put("genre", patient.isGender());
         values.put("langue", patient.getSpokenLanguage().toString());
+        return database.update("patients", values, "_id = "+id,null);
+    }
+
+    public long updatePatientComment(int id, String comment) {
+        ContentValues values = new ContentValues();
+        values.put("comment", comment);
         return database.update("patients", values, "_id = "+id,null);
     }
 
@@ -217,10 +182,21 @@ public class MyApplicationDataSource {
         return database.insert("sessions", null, values);
     }
 
-    private Comment cursorToComment(Cursor cursor) {
-        Comment comment = new Comment();
-        comment.setId(cursor.getLong(0));
-        comment.setComment(cursor.getString(1));
+    public String getPatientCommentById(int id) {
+        Cursor cursor = database.rawQuery("select comment from patients where _id = ?", new String[]{String.valueOf(id)});
+
+        String comment = null;
+        int indexComment = cursor.getColumnIndex(COLUMN_COMMENT);
+        if (cursor.moveToFirst()) {
+            int count = 0;
+            do {
+                comment = cursor.getString(indexComment);
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        //cursor.close();
         return comment;
     }
 
@@ -237,6 +213,7 @@ public class MyApplicationDataSource {
         String birthday;
         boolean gender;
         Language language = Language.Français;
+        String comment;
         int clinicianInCharge;
 
         int indexId = cursor.getColumnIndex(COLUMN_ID);
@@ -248,6 +225,7 @@ public class MyApplicationDataSource {
         int indexBirthday = cursor.getColumnIndex(COLUMN_DATE);
         int indexGender = cursor.getColumnIndex(COLUMN_GENRE);
         //int indexLanguage = cursor.getColumnIndex(COLUMN_LANGUE);
+        int indexComment = cursor.getColumnIndex(COLUMN_COMMENT);
         int indexClinicianInCharge = cursor.getColumnIndex(COLUMN_ID_CLINICIEN);
         if (cursor.moveToFirst()) {
             int count = 0;
@@ -261,6 +239,7 @@ public class MyApplicationDataSource {
                 birthday = cursor.getString(indexBirthday);
                 gender = (cursor.getInt(indexGender) == 1);
                 //language = cursor.getString(indexLanguage);
+                comment = cursor.getString(indexComment);
                 clinicianInCharge = cursor.getInt(indexClinicianInCharge);
                 count++;
             } while (cursor.moveToNext());
@@ -268,7 +247,7 @@ public class MyApplicationDataSource {
             List sessions = new ArrayList();
             //sessions = getPatientByClinicianId(colId);
             try {
-                patient = new Patient(mail, password, login, lastName, firstName, convertStringToDate(birthday), gender, Language.Français, clinicianInCharge, null, sessions);
+                patient = new Patient(mail, password, login, lastName, firstName, convertStringToDate(birthday), gender, Language.Français, clinicianInCharge, comment, sessions);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -292,6 +271,7 @@ public class MyApplicationDataSource {
         String birthday;
         boolean gender;
         Language language = Language.Français;
+        String comment;
         int clinicianInCharge;
 
         int indexId = cursor.getColumnIndex(COLUMN_ID);
@@ -303,6 +283,7 @@ public class MyApplicationDataSource {
         int indexBirthday = cursor.getColumnIndex(COLUMN_DATE);
         int indexGender = cursor.getColumnIndex(COLUMN_GENRE);
         //int indexLanguage = cursor.getColumnIndex(COLUMN_LANGUE);
+        int indexComment = cursor.getColumnIndex(COLUMN_COMMENT);
         int indexClinicianInCharge = cursor.getColumnIndex(COLUMN_ID_CLINICIEN);
         if (cursor.moveToFirst()) {
             int count = 0;
@@ -316,6 +297,7 @@ public class MyApplicationDataSource {
                 birthday = cursor.getString(indexBirthday);
                 gender = (cursor.getInt(indexGender) == 1);
                 //language = cursor.getString(indexLanguage);
+                comment = cursor.getString(indexComment);
                 clinicianInCharge = cursor.getInt(indexClinicianInCharge);
                 count++;
             } while (cursor.moveToNext());
@@ -323,7 +305,7 @@ public class MyApplicationDataSource {
             List sessions = new ArrayList();
             //sessions = getPatientByClinicianId(colId);
             try {
-                patient = new Patient(mail, password, login, lastName, firstName, convertStringToDate(birthday), gender, Language.Français, clinicianInCharge, null, sessions);
+                patient = new Patient(mail, password, login, lastName, firstName, convertStringToDate(birthday), gender, Language.Français, clinicianInCharge, comment, sessions);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -365,6 +347,7 @@ public class MyApplicationDataSource {
         String birthday;
         boolean gender;
         Language language = Language.Français;
+        String comment;
         int clinicianInCharge;
 
         int indexId = cursor.getColumnIndex(COLUMN_ID);
@@ -376,6 +359,7 @@ public class MyApplicationDataSource {
         int indexBirthday = cursor.getColumnIndex(COLUMN_DATE);
         int indexGender = cursor.getColumnIndex(COLUMN_GENRE);
         //int indexLanguage = cursor.getColumnIndex(COLUMN_LANGUE);
+        int indexComment = cursor.getColumnIndex(COLUMN_COMMENT);
         int indexClinicianInCharge = cursor.getColumnIndex(COLUMN_ID_CLINICIEN);
         if (cursor.moveToFirst()) {
             int count = 0;
@@ -389,6 +373,7 @@ public class MyApplicationDataSource {
                 birthday = cursor.getString(indexBirthday);
                 gender = (cursor.getInt(indexGender) == 1);
                 //language = cursor.getString(indexLanguage);
+                comment = cursor.getString(indexComment);
                 clinicianInCharge = cursor.getInt(indexClinicianInCharge);
                 count++;
             } while (cursor.moveToNext());
@@ -396,7 +381,7 @@ public class MyApplicationDataSource {
             List sessions = new ArrayList();
             //sessions = getPatientByClinicianId(colId);
             try {
-                patient = new Patient(email, password, login, lastName, firstName, convertStringToDate(birthday), gender, Language.Français, clinicianInCharge, null, sessions);
+                patient = new Patient(email, password, login, lastName, firstName, convertStringToDate(birthday), gender, Language.Français, clinicianInCharge, comment, sessions);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -568,6 +553,7 @@ public class MyApplicationDataSource {
         String birthday;
         boolean gender;
         Language language = Language.Français;
+        String comment;
         int clinicianInCharge;
 
         int indexId = cursor.getColumnIndex(COLUMN_ID);
@@ -579,6 +565,7 @@ public class MyApplicationDataSource {
         int indexBirthday = cursor.getColumnIndex(COLUMN_DATE);
         int indexGender = cursor.getColumnIndex(COLUMN_GENRE);
         //int indexLanguage = cursor.getColumnIndex(COLUMN_LANGUE);
+        int indexComment = cursor.getColumnIndex(COLUMN_COMMENT);
         int indexClinicianInCharge = cursor.getColumnIndex(COLUMN_ID_CLINICIEN);
         if (cursor.moveToFirst()) {
             int count = 0;
@@ -592,9 +579,10 @@ public class MyApplicationDataSource {
                 birthday = cursor.getString(indexBirthday);
                 gender = (cursor.getInt(indexGender) == 1);
                 //language = cursor.getString(indexLanguage);
+                comment = cursor.getString(indexComment);
                 clinicianInCharge = cursor.getInt(indexClinicianInCharge);
                 try {
-                    patients.add(new Patient(mail,password,login,lastName,firstName,convertStringToDate(birthday),gender,language,clinicianInCharge,null,null));
+                    patients.add(new Patient(mail,password,login,lastName,firstName,convertStringToDate(birthday),gender,language,clinicianInCharge,comment,null));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
