@@ -61,6 +61,9 @@ public class PasswordRecoveryActivity extends AppCompatActivity {
                             setResult(1);
                             finish();
                         }
+                        else {
+                            Toast.makeText(getApplicationContext(), "Aucun compte n'a été trouvé", Toast.LENGTH_LONG).show();
+                        }
                     }
                     else {
                         Toast.makeText(getApplicationContext(), "L'addresse email n'a pas un format cohérent", Toast.LENGTH_LONG).show();
