@@ -80,7 +80,7 @@ public class EditPatientProfileActivity extends AppCompatActivity {
                             if (newPasswordField.getText().toString().equals(confirmNewPasswordField.getText().toString())) {
 
                                 Patient patient = new Patient(mailField.getText().toString(), newPasswordField.getText().toString(), loginField.getText().toString(),
-                                        lastNameField.getText().toString(), firstNameField.getText().toString(), sqlDate, sex, Language.Français, 0, null, null);
+                                        lastNameField.getText().toString(), firstNameField.getText().toString(), sqlDate, sex, Language.Français, 0, null, null, null);
                                 BD.updatePatient(getIntent().getExtras().getInt("connectedUserId"),patient);
                                 BD.close();
                                 getIntent().putExtra("connectedUserMail", mailField.getText().toString());
@@ -96,7 +96,7 @@ public class EditPatientProfileActivity extends AppCompatActivity {
                         else if ((newPasswordField.getText().toString().equals("")) && (confirmNewPasswordField.getText().toString().equals(""))) {
 
                             Patient patient = new Patient(mailField.getText().toString(), newPasswordField.getText().toString(), loginField.getText().toString(),
-                                    lastNameField.getText().toString(), firstNameField.getText().toString(), sqlDate, sex, Language.Français, 0, null, null);
+                                    lastNameField.getText().toString(), firstNameField.getText().toString(), sqlDate, sex, Language.Français, 0, null, null, null);
                             BD.partiallyUpdatePatient(getIntent().getExtras().getInt("connectedUserId"),patient);
                             BD.close();
                             getIntent().putExtra("connectedUserMail", mailField.getText().toString());

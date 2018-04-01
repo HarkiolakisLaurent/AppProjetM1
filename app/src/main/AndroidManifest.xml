@@ -33,7 +33,8 @@
         <activity android:name=".ui.ClinicianActivity" />
         <activity android:name=".ui.EditClinicianProfileActivity" />
         <activity android:name=".ui.DropFilesActivity" />
-        <activity android:name=".ui.CommentPatientActivity"></activity>
+        <activity android:name=".ui.CommentPatientActivity" />
+        <activity android:name=".ui.PasswordRecoveryActivity"></activity>
     </application>
 
 </manifest>

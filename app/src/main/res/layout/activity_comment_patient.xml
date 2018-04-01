@@ -37,14 +37,32 @@
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/modifyCommentButton"
+            android:id="@+id/saveCommentButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/commentExplanation"
+            android:layout_alignStart="@+id/commentExplanation"
             android:layout_below="@+id/commentField"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="46dp"
+            android:layout_marginLeft="91dp"
+            android:layout_marginStart="91dp"
+            android:layout_marginTop="52dp"
             android:background="@drawable/custom_list"
-            android:text="Modifier"
+            android:text="Sauvegarder"
+            android:textColor="@android:color/background_light"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/sendCommentButton"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/saveCommentButton"
+            android:layout_alignBottom="@+id/saveCommentButton"
+            android:layout_marginLeft="21dp"
+            android:layout_marginStart="21dp"
+            android:layout_toEndOf="@+id/saveCommentButton"
+            android:layout_toRightOf="@+id/saveCommentButton"
+            android:background="@drawable/custom_list"
+            android:text="Envoyer par mail"
             android:textColor="@android:color/background_light"
             android:textSize="30sp" />
     </RelativeLayout>

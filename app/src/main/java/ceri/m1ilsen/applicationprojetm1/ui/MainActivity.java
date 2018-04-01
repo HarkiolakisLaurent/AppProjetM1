@@ -22,11 +22,11 @@ import ceri.m1ilsen.applicationprojetm1.user.Clinician;
 import ceri.m1ilsen.applicationprojetm1.user.Patient;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView signUp = null;
-    private Button signIn = null;
-    public EditText mail;
-    public EditText mdp;
-    public TextView forgotPassword;
+    private TextView signUp;
+    private Button signIn;
+    private EditText mail;
+    private EditText mdp;
+    private TextView forgotPassword;
 
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
@@ -70,6 +70,14 @@ public class MainActivity extends AppCompatActivity {
         mail = (EditText) findViewById(R.id.mail);
         mdp = (EditText) findViewById(R.id.password);
         signUp = (TextView) findViewById(R.id.signup);
+        forgotPassword = (TextView) findViewById(R.id.forgotPassword);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent passwordRecovery = new Intent(MainActivity.this,PasswordRecoveryActivity.class);
+                startActivity(passwordRecovery);
+            }
+        });
 
         final MyApplicationDataSource BD = new MyApplicationDataSource(this);
 

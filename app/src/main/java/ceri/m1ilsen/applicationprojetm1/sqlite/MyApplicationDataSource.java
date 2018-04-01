@@ -105,7 +105,6 @@ public class MyApplicationDataSource {
             cursor.close();
             return true;
         }
-
     }
 
     public long insertPatient(Patient patient) {
@@ -119,6 +118,7 @@ public class MyApplicationDataSource {
         values.put("genre", patient.isGender());
         values.put("langue", patient.getSpokenLanguage().toString());
         values.put("comment", patient.getComment());
+        values.put("mot_prefere", patient.getFavouriteWord());
         values.put("id_clinicien", patient.getClinicianInCharge());
         return database.insert("patients", null, values);
     }
@@ -155,6 +155,7 @@ public class MyApplicationDataSource {
         values.put("pseudo", clinician.getPseudo());
         values.put("mail", clinician.getMail());
         values.put("mot_de_passe", clinician.getPassword());
+        values.put("mot_prefere", clinician.getFavouriteWord());
         return database.insert("cliniciens", null, values);
     }
 
@@ -180,6 +181,42 @@ public class MyApplicationDataSource {
         values.put("date_creation", String.valueOf(session.getCreationDate()));
         values.put("id_patient",session.getPatient());
         return database.insert("sessions", null, values);
+    }
+
+    public String getPatientPasswordByMailAndFavouriteWord(String mail, String favouriteWord) {
+        Cursor cursor = database.rawQuery("select mot_de_passe from patients where mail = ? and mot_prefere = ?", new String[]{mail,favouriteWord});
+
+        String password = null;
+        int indexPassword = cursor.getColumnIndex(COLUMN_MDP);
+        if (cursor.moveToFirst()) {
+            int count = 0;
+            do {
+                password = cursor.getString(indexPassword);
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        //cursor.close();
+        return password;
+    }
+
+    public String getClinicianPasswordByMailAndFavouriteWord(String mail, String favouriteWord) {
+        Cursor cursor = database.rawQuery("select mot_de_passe from cliniciens where mail = ? and mot_prefere = ?", new String[]{mail,favouriteWord});
+
+        String password = null;
+        int indexPassword = cursor.getColumnIndex(COLUMN_MDP);
+        if (cursor.moveToFirst()) {
+            int count = 0;
+            do {
+                password = cursor.getString(indexPassword);
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        //cursor.close();
+        return password;
     }
 
     public String getPatientCommentById(int id) {
@@ -214,6 +251,7 @@ public class MyApplicationDataSource {
         boolean gender;
         Language language = Language.Français;
         String comment;
+        String favouriteWord;
         int clinicianInCharge;
 
         int indexId = cursor.getColumnIndex(COLUMN_ID);
@@ -226,6 +264,7 @@ public class MyApplicationDataSource {
         int indexGender = cursor.getColumnIndex(COLUMN_GENRE);
         //int indexLanguage = cursor.getColumnIndex(COLUMN_LANGUE);
         int indexComment = cursor.getColumnIndex(COLUMN_COMMENT);
+        int indexFavouriteWord = cursor.getColumnIndex(COLUMN_WORD);
         int indexClinicianInCharge = cursor.getColumnIndex(COLUMN_ID_CLINICIEN);
         if (cursor.moveToFirst()) {
             int count = 0;
@@ -240,6 +279,7 @@ public class MyApplicationDataSource {
                 gender = (cursor.getInt(indexGender) == 1);
                 //language = cursor.getString(indexLanguage);
                 comment = cursor.getString(indexComment);
+                favouriteWord = cursor.getString(indexFavouriteWord);
                 clinicianInCharge = cursor.getInt(indexClinicianInCharge);
                 count++;
             } while (cursor.moveToNext());
@@ -247,7 +287,7 @@ public class MyApplicationDataSource {
             List sessions = new ArrayList();
             //sessions = getPatientByClinicianId(colId);
             try {
-                patient = new Patient(mail, password, login, lastName, firstName, convertStringToDate(birthday), gender, Language.Français, clinicianInCharge, comment, sessions);
+                patient = new Patient(mail, password, login, lastName, firstName, convertStringToDate(birthday), gender, Language.Français, clinicianInCharge, comment, favouriteWord, sessions);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -272,6 +312,7 @@ public class MyApplicationDataSource {
         boolean gender;
         Language language = Language.Français;
         String comment;
+        String favouriteWord;
         int clinicianInCharge;
 
         int indexId = cursor.getColumnIndex(COLUMN_ID);
@@ -284,6 +325,7 @@ public class MyApplicationDataSource {
         int indexGender = cursor.getColumnIndex(COLUMN_GENRE);
         //int indexLanguage = cursor.getColumnIndex(COLUMN_LANGUE);
         int indexComment = cursor.getColumnIndex(COLUMN_COMMENT);
+        int indexFavouriteWord = cursor.getColumnIndex(COLUMN_WORD);
         int indexClinicianInCharge = cursor.getColumnIndex(COLUMN_ID_CLINICIEN);
         if (cursor.moveToFirst()) {
             int count = 0;
@@ -298,6 +340,7 @@ public class MyApplicationDataSource {
                 gender = (cursor.getInt(indexGender) == 1);
                 //language = cursor.getString(indexLanguage);
                 comment = cursor.getString(indexComment);
+                favouriteWord = cursor.getString(indexFavouriteWord);
                 clinicianInCharge = cursor.getInt(indexClinicianInCharge);
                 count++;
             } while (cursor.moveToNext());
@@ -305,7 +348,7 @@ public class MyApplicationDataSource {
             List sessions = new ArrayList();
             //sessions = getPatientByClinicianId(colId);
             try {
-                patient = new Patient(mail, password, login, lastName, firstName, convertStringToDate(birthday), gender, Language.Français, clinicianInCharge, comment, sessions);
+                patient = new Patient(mail, password, login, lastName, firstName, convertStringToDate(birthday), gender, Language.Français, clinicianInCharge, comment, favouriteWord, sessions);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -348,6 +391,7 @@ public class MyApplicationDataSource {
         boolean gender;
         Language language = Language.Français;
         String comment;
+        String favouriteWord;
         int clinicianInCharge;
 
         int indexId = cursor.getColumnIndex(COLUMN_ID);
@@ -360,6 +404,7 @@ public class MyApplicationDataSource {
         int indexGender = cursor.getColumnIndex(COLUMN_GENRE);
         //int indexLanguage = cursor.getColumnIndex(COLUMN_LANGUE);
         int indexComment = cursor.getColumnIndex(COLUMN_COMMENT);
+        int indexFavouriteWord = cursor.getColumnIndex(COLUMN_WORD);
         int indexClinicianInCharge = cursor.getColumnIndex(COLUMN_ID_CLINICIEN);
         if (cursor.moveToFirst()) {
             int count = 0;
@@ -374,6 +419,7 @@ public class MyApplicationDataSource {
                 gender = (cursor.getInt(indexGender) == 1);
                 //language = cursor.getString(indexLanguage);
                 comment = cursor.getString(indexComment);
+                favouriteWord = cursor.getString(indexFavouriteWord);
                 clinicianInCharge = cursor.getInt(indexClinicianInCharge);
                 count++;
             } while (cursor.moveToNext());
@@ -381,7 +427,7 @@ public class MyApplicationDataSource {
             List sessions = new ArrayList();
             //sessions = getPatientByClinicianId(colId);
             try {
-                patient = new Patient(email, password, login, lastName, firstName, convertStringToDate(birthday), gender, Language.Français, clinicianInCharge, comment, sessions);
+                patient = new Patient(email, password, login, lastName, firstName, convertStringToDate(birthday), gender, Language.Français, clinicianInCharge, comment, favouriteWord, sessions);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -443,11 +489,13 @@ public class MyApplicationDataSource {
             String login;
             String mail;
             String password;
+            String favouriteWord;
             // The associated index within the cursor
             int indexId = cursor.getColumnIndex(COLUMN_ID);
             int indexPseudo = cursor.getColumnIndex(COLUMN_PSEUDO);
             int indexMail = cursor.getColumnIndex(COLUMN_MAIL);
             int indexPassword = cursor.getColumnIndex(COLUMN_MDP);
+            int indexFavouriteWord = cursor.getColumnIndex(COLUMN_WORD);
             // Browse the results list:
             int count = 0;
             do {
@@ -455,12 +503,13 @@ public class MyApplicationDataSource {
                 login = cursor.getString(indexPseudo);
                 mail = cursor.getString(indexMail);
                 password = cursor.getString(indexPassword);
+                favouriteWord = cursor.getString(indexFavouriteWord);
                 count++;
             } while (cursor.moveToNext());
 
             List patients = new ArrayList();
             //patients = getPatientByClinicianId(colId);
-            clinician = new Clinician(mail,password,login,null);
+            clinician = new Clinician(mail, password, login, favouriteWord, null);
         } else {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
         }
@@ -497,11 +546,13 @@ public class MyApplicationDataSource {
             String login;
             String email;
             String password;
+            String favouriteWord;
             // The associated index within the cursor
             int indexId = cursor.getColumnIndex(COLUMN_ID);
             int indexPseudo = cursor.getColumnIndex(COLUMN_PSEUDO);
             int indexMail = cursor.getColumnIndex(COLUMN_MAIL);
             int indexPassword = cursor.getColumnIndex(COLUMN_MDP);
+            int indexFavouriteWord = cursor.getColumnIndex(COLUMN_WORD);
             // Browse the results list:
             int count = 0;
             do {
@@ -509,12 +560,13 @@ public class MyApplicationDataSource {
                 login = cursor.getString(indexPseudo);
                 email = cursor.getString(indexMail);
                 password = cursor.getString(indexPassword);
+                favouriteWord = cursor.getString(indexFavouriteWord);
                 count++;
             } while (cursor.moveToNext());
 
             List patients = new ArrayList();
             patients = getPatientByClinicianId(colId);
-            clinician = new Clinician(email,password,login,patients);
+            clinician = new Clinician(email, password, login, favouriteWord, patients);
         } else {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
         }
@@ -554,6 +606,7 @@ public class MyApplicationDataSource {
         boolean gender;
         Language language = Language.Français;
         String comment;
+        String favouriteWord;
         int clinicianInCharge;
 
         int indexId = cursor.getColumnIndex(COLUMN_ID);
@@ -566,6 +619,7 @@ public class MyApplicationDataSource {
         int indexGender = cursor.getColumnIndex(COLUMN_GENRE);
         //int indexLanguage = cursor.getColumnIndex(COLUMN_LANGUE);
         int indexComment = cursor.getColumnIndex(COLUMN_COMMENT);
+        int indexFavouriteWord = cursor.getColumnIndex(COLUMN_WORD);
         int indexClinicianInCharge = cursor.getColumnIndex(COLUMN_ID_CLINICIEN);
         if (cursor.moveToFirst()) {
             int count = 0;
@@ -580,9 +634,10 @@ public class MyApplicationDataSource {
                 gender = (cursor.getInt(indexGender) == 1);
                 //language = cursor.getString(indexLanguage);
                 comment = cursor.getString(indexComment);
+                favouriteWord = cursor.getString(indexFavouriteWord);
                 clinicianInCharge = cursor.getInt(indexClinicianInCharge);
                 try {
-                    patients.add(new Patient(mail,password,login,lastName,firstName,convertStringToDate(birthday),gender,language,clinicianInCharge,comment,null));
+                    patients.add(new Patient(mail, password, login, lastName, firstName, convertStringToDate(birthday), gender, language, clinicianInCharge, comment, favouriteWord, null));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

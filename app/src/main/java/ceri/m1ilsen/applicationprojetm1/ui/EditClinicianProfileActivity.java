@@ -46,7 +46,7 @@ public class EditClinicianProfileActivity extends AppCompatActivity {
                             getIntent().getExtras().getInt("connectedUserId"))) {
                         if (!(newPasswordField.getText().toString().equals("")) && !(confirmNewPasswordField.getText().toString().equals(""))) {
                             if (newPasswordField.getText().toString().equals(confirmNewPasswordField.getText().toString())) {
-                                Clinician clinician = new Clinician(mailField.getText().toString(), newPasswordField.getText().toString(), loginField.getText().toString(), null);
+                                Clinician clinician = new Clinician(mailField.getText().toString(), newPasswordField.getText().toString(), loginField.getText().toString(), null, null);
                                 BD.updateClinician(getIntent().getExtras().getInt("connectedUserId"),clinician);
                                 BD.close();
                                 getIntent().putExtra("connectedUserMail",mailField.getText().toString());
@@ -58,7 +58,7 @@ public class EditClinicianProfileActivity extends AppCompatActivity {
                             }
                         }
                         else if ((newPasswordField.getText().toString().equals("")) && (confirmNewPasswordField.getText().toString().equals(""))) {
-                            Clinician clinician = new Clinician(mailField.getText().toString(), newPasswordField.getText().toString(), loginField.getText().toString(), null);
+                            Clinician clinician = new Clinician(mailField.getText().toString(), newPasswordField.getText().toString(), loginField.getText().toString(), null,  null);
                             BD.partiallyUpdateClinician(getIntent().getExtras().getInt("connectedUserId"),clinician);
                             BD.close();
                             getIntent().putExtra("connectedUserMail", mailField.getText().toString());

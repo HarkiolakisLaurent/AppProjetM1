@@ -32,12 +32,14 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
     public List<String> dataSet;
     Context mContext;
     public int layout;
+    private String email;
 
-    public MonitorPatientsListViewAdapter(Context context, int resource, List<String> objects) {
+    public MonitorPatientsListViewAdapter(Context context, int resource, List<String> objects, String mail) {
         super(context, resource, objects);
         mContext = context;
         dataSet = objects;
         layout = resource;
+        email = mail;
     }
 
     @Override
@@ -128,6 +130,7 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
                 BD.open();
                 Patient patient = BD.getPatientByPseudo(dataSet.get(position));
                 int patientId = BD.getPatientIdByPseudo(patient.getPseudo());
+                comment.putExtra("connectedUserMail",email);
                 comment.putExtra("patientLastName",patient.getLastName());
                 comment.putExtra("patientFirstName",patient.getFirstName());
                 comment.putExtra("patientId",patientId);

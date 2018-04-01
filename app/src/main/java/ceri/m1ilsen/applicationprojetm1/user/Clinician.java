@@ -10,12 +10,15 @@ public class Clinician {
     private String mail;
     private String password;
     private String pseudo;
+
+    private String favouriteWord;
     private List<Patient> patients;
 
-    public Clinician(String mail, String password, String pseudo, List<Patient> patients) {
+    public Clinician(String mail, String password, String pseudo, String favouriteWord, List<Patient> patients) {
         this.mail = mail;
         this.password = password;
         this.pseudo = pseudo;
+        this.favouriteWord = favouriteWord;
         this.patients = patients;
     }
 
@@ -35,20 +38,24 @@ public class Clinician {
         this.password = password;
     }
 
-    public List<Patient> getPatients() {
-        return patients;
-    }
-
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
-    }
-
     public String getPseudo() {
         return pseudo;
     }
 
     public void setPseudo(String pseudo) {
         this.pseudo = pseudo;
+    }
+
+    public String getFavouriteWord() { return favouriteWord; }
+
+    public void setFavouriteWord(String favouriteWord) { this.favouriteWord = favouriteWord; }
+
+    public List<Patient> getPatients() {
+        return patients;
+    }
+
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
     }
 
 }

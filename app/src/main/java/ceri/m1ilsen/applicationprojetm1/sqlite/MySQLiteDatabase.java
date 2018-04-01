@@ -34,20 +34,21 @@ public class MySQLiteDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_TITRE = "titre";
     public static final String COLUMN_DUREE = "dureeMax";
     public static final String COLUMN_COMMENT = "comment";
+    public static final String COLUMN_WORD = "mot_prefere";
 
     private static final String DATABASE_NAME = "app.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 7;
 
     // Commande sql pour la création de la base de données
     private static final String DATABASE_CREATE_PATIENT = "create table " + TABLE_PATIENTS + "( " + COLUMN_ID
-            + " integer primary key autoincrement, "+ COLUMN_PSEUDO + " text not null ,"
-            + COLUMN_MAIL +" text not null ,"+ COLUMN_MDP +" text not null ," + COLUMN_NOM +" text not null ,"
-            + COLUMN_PRENOM + " prenom text not null ,"+ COLUMN_DATE +" text not null , "+ COLUMN_GENRE +" boolean not null ,"
-            + COLUMN_LANGUE + " text not null ,"+ COLUMN_COMMENT + " text ,"+ COLUMN_ID_CLINICIEN +" integer );\n";
+            + " integer primary key autoincrement, "+ COLUMN_PSEUDO + " text not null ," + COLUMN_MAIL +" text not null ,"
+            + COLUMN_MDP +" text not null ," + COLUMN_NOM +" text not null ," + COLUMN_PRENOM + " prenom text not null ,"
+            + COLUMN_DATE +" text not null , "+ COLUMN_GENRE +" boolean not null ," + COLUMN_LANGUE + " text not null ,"
+            + COLUMN_COMMENT + " text ,"+ COLUMN_WORD + " text not null ,"+ COLUMN_ID_CLINICIEN +" integer );\n";
 
     private static final String DATABASE_CREATE_CLINICIAN = "create table " + TABLE_CLINICIENS + "( "
             + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_PSEUDO + " text not null ,"
-            + COLUMN_MAIL +" text not null ,"+ COLUMN_MDP +" text not null );";
+            + COLUMN_MAIL +" text not null ,"+ COLUMN_MDP +" text not null ,"+ COLUMN_WORD + " text not null );";
 
     private static final String DATABASE_CREATE_SESSION = "create table " + TABLE_SESSIONS + "( "
             + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_DATE_CREATION +"date not null,"

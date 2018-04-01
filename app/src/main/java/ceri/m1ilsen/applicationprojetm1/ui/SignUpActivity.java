@@ -24,18 +24,19 @@ import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 
 
 public class SignUpActivity extends AppCompatActivity {
-    public TextView err;
-    public EditText pseudo;
-    public EditText nom;
-    public EditText prenom;
-    public EditText mdp;
-    public EditText mail;
-    public EditText mdpc;
-    public EditText birth;
-    public CheckBox tg;
-    public Spinner genre;
-    public Spinner langue;
-    public ImageButton dateChooser;
+    private TextView err;
+    private EditText pseudo;
+    private EditText nom;
+    private EditText prenom;
+    private EditText mdp;
+    private EditText mail;
+    private EditText mdpc;
+    private EditText birth;
+    private EditText favouriteWord;
+    private CheckBox tg;
+    private Spinner genre;
+    private Spinner langue;
+    private ImageButton dateChooser;
 
     private int day;
     private int month;
@@ -56,6 +57,7 @@ public class SignUpActivity extends AppCompatActivity {
         birth = (EditText) findViewById(R.id.birthdayField);
         genre = (Spinner) findViewById(R.id.genreField);
         langue = (Spinner) findViewById(R.id.languageField);
+        favouriteWord = (EditText) findViewById(R.id.favouriteWordField);
         dateChooser = (ImageButton) findViewById(R.id.dateChooser);
         dateChooser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +94,7 @@ public class SignUpActivity extends AppCompatActivity {
     public void creerCompte(View view) {
         MyApplicationDataSource BD = new MyApplicationDataSource(this);
         BD.open();
-        if(!(pseudo.getText().toString().equals("")) && !(mdp.getText().toString().equals("")) && !(mdpc.getText().toString().equals("")) && !(mail.getText().toString().equals(""))) {
+        if(!(pseudo.getText().toString().equals("")) && !(mdp.getText().toString().equals("")) && !(mdpc.getText().toString().equals("")) && !(mail.getText().toString().equals("")) && !(favouriteWord.getText().toString().equals(""))) {
             if (!BD.verificationPatientByPseudoAndPassword(pseudo.getText().toString(), mdp.getText().toString()) && !BD.verificationPatientByMailAndPassword(mail.getText().toString(),mdp.getText().toString())) {
                 if (mdp.getText().toString().equals(mdpc.getText().toString())) {
                     if(mail.getText().toString().matches("[A-Za-z_\\-\\.]*[@]\\w*[\\.][A-Za-z]*")) {
@@ -111,10 +113,10 @@ public class SignUpActivity extends AppCompatActivity {
                             }
                             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
                             Patient patient = new Patient(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
-                                    nom.getText().toString(), prenom.getText().toString(), sqlDate, sex, Language.Français, 0, null, null);
+                                    nom.getText().toString(), prenom.getText().toString(), sqlDate, sex, Language.Français, 0, null, favouriteWord.getText().toString(), null);
                             BD.insertPatient(patient);
                         } else {
-                            Clinician clinician = new Clinician(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(), null);
+                            Clinician clinician = new Clinician(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(), favouriteWord.getText().toString(), null);
                             BD.insertClinician(clinician);
                         }
                         this.setResult(1000);

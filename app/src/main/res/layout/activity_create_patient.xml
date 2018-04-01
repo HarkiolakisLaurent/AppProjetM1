@@ -185,8 +185,33 @@
             <TableLayout
                 android:id="@+id/TableLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="591dp"
+                android:layout_height="623dp"
                 android:gravity="center">
+
+                <TableRow
+                    android:id="@+id/row25"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:paddingVertical="12dp">
+
+                    <TextView
+                        android:id="@+id/favouriteWord"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="20dp"
+                        android:text="Mot préféré"
+                        android:textSize="24sp" />
+
+                    <EditText
+                        android:id="@+id/favouriteWordField"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:textSize="24sp" />
+
+                </TableRow>
 
                 <TableRow
                     android:id="@+id/row21"

@@ -20,9 +20,10 @@ public class Patient {
     private Language spokenLanguage;
     private int clinicianInCharge;
     private String comment;
+    private String favouriteWord;
     private List<Session> sessions;
 
-    public Patient(String mail, String password, String pseudo, String lastName, String firstName, Date birthday, boolean gender, Language spokenLanguage, int clinicianInCharge, String comment, List<Session> sessions) {
+    public Patient(String mail, String password, String pseudo, String lastName, String firstName, Date birthday, boolean gender, Language spokenLanguage, int clinicianInCharge, String comment, String favouriteWord, List<Session> sessions) {
         this.mail = mail;
         this.password = password;
         this.pseudo=pseudo;
@@ -33,6 +34,7 @@ public class Patient {
         this.spokenLanguage = spokenLanguage;
         this.clinicianInCharge = clinicianInCharge;
         this.comment = comment;
+        this.favouriteWord = favouriteWord;
         this.sessions = sessions;
     }
 
@@ -96,9 +98,8 @@ public class Patient {
         return clinicianInCharge;
     }
 
-    public void setClinicianInCharge(int clinicianInCharge) {
-        this.clinicianInCharge = clinicianInCharge;
-    }
+    public void setClinicianInCharge(int clinicianInCharge) { this.clinicianInCharge = clinicianInCharge; }
+
     public String getPseudo() {
         return pseudo;
     }
@@ -106,9 +107,14 @@ public class Patient {
     public void setPseudo(String pseudo) {
         this.pseudo = pseudo;
     }
+
     public String getComment() {
         return comment;
     }
+
+    public String getFavouriteWord() { return favouriteWord; }
+
+    public void setFavouriteWord(String favouriteWord) { this.favouriteWord = favouriteWord; }
 
     public void setComment(String comment) {
         this.comment = comment;

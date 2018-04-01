@@ -70,6 +70,7 @@ public class MonitorPatientsFragment extends Fragment {
         BD.open();
         final String currentUser = getActivity().getIntent().getStringExtra("connectedUserPseudo");
         final int currentId = getActivity().getIntent().getIntExtra("connectedUserId",0);
+        String mail = getActivity().getIntent().getStringExtra("connectedUserMail");
         //int currentId = BD.getClinicianIdByPseudo(currentUser);
         List<Patient> patients = BD.getPatientByClinicianId(currentId);
         ArrayList<String> patientsPseudo = new ArrayList<>();
@@ -96,7 +97,7 @@ public class MonitorPatientsFragment extends Fragment {
                 startActivityForResult(createPatient,10000);
             }
         });
-        monitorPatientsListViewAdapter = new MonitorPatientsListViewAdapter(view.getContext(), R.layout.monitor_patient_item_view, data);
+        monitorPatientsListViewAdapter = new MonitorPatientsListViewAdapter(view.getContext(), R.layout.monitor_patient_item_view, data, mail);
         monitorPatientsListView.setAdapter(monitorPatientsListViewAdapter);
         return view;
     }
