@@ -1,5 +1,6 @@
 package ceri.m1ilsen.applicationprojetm1.ui;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -8,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -155,7 +158,25 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
                 return view;
             }
         };
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_retour, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_return:
+                Activity activity = ConfigureExerciseActivity.this;
+                activity.setResult(1);
+                activity.finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public class Item {

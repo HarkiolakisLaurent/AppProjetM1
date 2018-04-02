@@ -1,7 +1,10 @@
 package ceri.m1ilsen.applicationprojetm1.ui;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,5 +76,24 @@ public class EditClinicianProfileActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_retour, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_return:
+                Activity activity = EditClinicianProfileActivity.this;
+                activity.setResult(1);
+                activity.finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

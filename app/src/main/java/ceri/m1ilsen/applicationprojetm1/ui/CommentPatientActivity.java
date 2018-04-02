@@ -1,8 +1,11 @@
 package ceri.m1ilsen.applicationprojetm1.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,8 +46,7 @@ public class CommentPatientActivity extends AppCompatActivity {
                 int patientId = getIntent().getExtras().getInt("patientId");
                 BD.updatePatientComment(patientId,commentField.getText().toString());
                 BD.close();
-                setResult(1);
-                finish();
+                Toast.makeText(getApplicationContext(), "Commentaire sauvegardé", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -52,7 +54,7 @@ public class CommentPatientActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (commentField.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(), "Le champ commentaire ne doit pas être vide !", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Le champ commentaire ne doit pas être vide", Toast.LENGTH_LONG).show();
                 }
                 else {
                     Intent email = new Intent(Intent.ACTION_SEND);
@@ -65,5 +67,24 @@ public class CommentPatientActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_retour, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_return:
+                Activity activity = CommentPatientActivity.this;
+                activity.setResult(1);
+                activity.finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
