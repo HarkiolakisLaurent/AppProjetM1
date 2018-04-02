@@ -26,6 +26,7 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
     Context mContext;
     public int layout;
     public static MediaPlayer mediaPlayer;
+    private boolean isPlaying = false;
 
     public RecordingsListViewAdapter(Context context, int resource, List<String> objects, File objectsPath) {
         super(context, resource, objects);
@@ -37,7 +38,6 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        RecordingsListViewAdapter.ViewHolder mainViewholder = null;
         //String stringPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/sonnerie.wav";
         final String stringPath = dataSetPath+"/"+dataSet.get(position);
         if (convertView == null) {
@@ -51,13 +51,17 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
             viewHolder.deleteRecordingButtonHolder = (ImageButton) convertView.findViewById(R.id.deleteRecordingButton);
             convertView.setTag(viewHolder);
         }
-        mainViewholder = (RecordingsListViewAdapter.ViewHolder) convertView.getTag();
+        final RecordingsListViewAdapter.ViewHolder mainViewholder = (RecordingsListViewAdapter.ViewHolder) convertView.getTag();
         mainViewholder.playRecordingButtonHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mediaPlayer = MediaPlayer.create(getContext(),Uri.parse(stringPath));
+                if (isPlaying) {
+                    mediaPlayer.stop();
+                    isPlaying = false;
+                }
+                mediaPlayer = MediaPlayer.create(getContext(), Uri.parse(stringPath));
                 mediaPlayer.start();
-
+                isPlaying = true;
             }
         });
         mainViewholder.stopRecordingButtonHolder.setOnClickListener(new View.OnClickListener() {
