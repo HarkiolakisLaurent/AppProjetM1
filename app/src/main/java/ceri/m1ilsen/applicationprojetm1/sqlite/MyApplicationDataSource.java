@@ -197,7 +197,7 @@ public class MyApplicationDataSource {
         } else {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
         }
-        //cursor.close();
+        cursor.close();
         return password;
     }
 
@@ -215,7 +215,7 @@ public class MyApplicationDataSource {
         } else {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
         }
-        //cursor.close();
+        cursor.close();
         return password;
     }
 
@@ -233,7 +233,7 @@ public class MyApplicationDataSource {
         } else {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
         }
-        //cursor.close();
+        cursor.close();
         return comment;
     }
 
@@ -381,7 +381,6 @@ public class MyApplicationDataSource {
         Patient patient = null;
         Cursor cursor = database.rawQuery("select * from patients where mail = ? AND mot_de_passe = ?", new String[]{mail, mdp});
 
-        Integer colId;
         String email;
         String password;
         String login;
@@ -394,7 +393,6 @@ public class MyApplicationDataSource {
         String favouriteWord;
         int clinicianInCharge;
 
-        int indexId = cursor.getColumnIndex(COLUMN_ID);
         int indexMail = cursor.getColumnIndex(COLUMN_MAIL);
         int indexPassword = cursor.getColumnIndex(COLUMN_MDP);
         int indexPseudo = cursor.getColumnIndex(COLUMN_PSEUDO);
@@ -409,7 +407,6 @@ public class MyApplicationDataSource {
         if (cursor.moveToFirst()) {
             int count = 0;
             do {
-                colId = cursor.getInt(indexId);
                 email = cursor.getString(indexMail);
                 password = cursor.getString(indexPassword);
                 login = cursor.getString(indexPseudo);
@@ -507,8 +504,6 @@ public class MyApplicationDataSource {
                 count++;
             } while (cursor.moveToNext());
 
-            List patients = new ArrayList();
-            //patients = getPatientByClinicianId(colId);
             clinician = new Clinician(mail, password, login, favouriteWord, null);
         } else {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
@@ -596,7 +591,6 @@ public class MyApplicationDataSource {
         List patients = new ArrayList();
         Cursor cursor = database.rawQuery("select * from patients where id_clinicien = ?", new String[] {Integer.toString(id)});
 
-        Integer colId;
         String mail;
         String password;
         String login;
@@ -609,7 +603,6 @@ public class MyApplicationDataSource {
         String favouriteWord;
         int clinicianInCharge;
 
-        int indexId = cursor.getColumnIndex(COLUMN_ID);
         int indexMail = cursor.getColumnIndex(COLUMN_MAIL);
         int indexPassword = cursor.getColumnIndex(COLUMN_MDP);
         int indexPseudo = cursor.getColumnIndex(COLUMN_PSEUDO);
@@ -624,7 +617,6 @@ public class MyApplicationDataSource {
         if (cursor.moveToFirst()) {
             int count = 0;
             do {
-                colId = cursor.getInt(indexId);
                 mail = cursor.getString(indexMail);
                 password = cursor.getString(indexPassword);
                 login = cursor.getString(indexPseudo);
