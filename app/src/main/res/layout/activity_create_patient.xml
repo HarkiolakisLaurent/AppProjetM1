@@ -33,7 +33,7 @@
 
             <TableLayout
                 android:id="@+id/TableLayout1"
-                android:layout_width="610dp"
+                android:layout_width="643dp"
                 android:layout_height="591dp"
                 android:gravity="center">
 
@@ -56,7 +56,7 @@
                         android:id="@+id/lastNameField"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="10"
+                        android:ems="8"
                         android:inputType="textPersonName"
                         android:textSize="24sp" />
 
@@ -81,7 +81,7 @@
                         android:id="@+id/firstNameField"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="10"
+                        android:ems="8"
                         android:inputType="textPersonName"
                         android:textSize="24sp" />
 
@@ -102,6 +102,13 @@
                         android:text="Date de naissance"
                         android:textSize="24sp" />
 
+                    <TextView
+                        android:id="@+id/format"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(format : dd/yy/mmmm)"
+                        android:textSize="18sp" />
+
                 </TableRow>
 
                 <TableRow
@@ -115,13 +122,12 @@
                         android:id="@+id/birthdayField"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="10"
                         android:inputType="date"
                         android:textSize="24sp" />
 
                     <ImageButton
                         android:id="@+id/dateChooser"
-                        android:layout_width="wrap_content"
+                        android:layout_width="10dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/custom_list"
                         app:srcCompat="@android:drawable/ic_menu_my_calendar" />
@@ -207,7 +213,7 @@
                         android:id="@+id/favouriteWordField"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="10"
+                        android:ems="8"
                         android:inputType="text"
                         android:textSize="24sp" />
 
@@ -232,7 +238,7 @@
                         android:id="@+id/loginField"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="10"
+                        android:ems="8"
                         android:inputType="text"
                         android:textSize="24sp" />
 
@@ -257,7 +263,7 @@
                         android:id="@+id/mailField"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="10"
+                        android:ems="8"
                         android:inputType="textEmailAddress"
                         android:textSize="24sp" />
 
@@ -282,7 +288,7 @@
                         android:id="@+id/newPasswordField"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="10"
+                        android:ems="8"
                         android:inputType="textPassword" />
 
                 </TableRow>
@@ -306,7 +312,7 @@
                         android:id="@+id/confirmNewPasswordField"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="10"
+                        android:ems="8"
                         android:inputType="textPassword" />
 
                 </TableRow>

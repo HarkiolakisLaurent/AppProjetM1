@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import ceri.m1ilsen.applicationprojetm1.language.Language;
 import ceri.m1ilsen.applicationprojetm1.user.*;
@@ -27,7 +28,6 @@ import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 
 
 public class SignUpActivity extends AppCompatActivity {
-    private TextView err;
     private EditText pseudo;
     private EditText nom;
     private EditText prenom;
@@ -41,15 +41,10 @@ public class SignUpActivity extends AppCompatActivity {
     private Spinner langue;
     private ImageButton dateChooser;
 
-    private int day;
-    private int month;
-    private int year;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        err =  (TextView) findViewById(R.id.errtext);
         pseudo =  (EditText) findViewById(R.id.loginField);
         mdp =  (EditText) findViewById(R.id.newPasswordField);
         nom =  (EditText) findViewById(R.id.lastNameField);
@@ -87,58 +82,77 @@ public class SignUpActivity extends AppCompatActivity {
                               int selectedMonth, int selectedDay) {
             Calendar now = Calendar.getInstance();
             now.set(selectedYear,selectedMonth,selectedDay);
-            day = selectedDay;
-            month = selectedMonth;
-            year = selectedYear;
-            birth.setText(selectedDay+"/"+(selectedMonth + 1)+"/"+selectedYear);
+            if (selectedDay > 9 && selectedMonth > 9) {
+                birth.setText(selectedDay+"/"+(selectedMonth + 1)+"/"+selectedYear);
+            }
+            else {
+                if (selectedDay < 10)
+                    birth.setText("0"+selectedDay+"/"+(selectedMonth + 1)+"/"+selectedYear);
+                if (selectedMonth < 10)
+                    birth.setText(selectedDay+"/0"+(selectedMonth + 1)+"/"+selectedYear);
+                if (selectedDay < 10 && selectedMonth < 10)
+                    birth.setText("0"+selectedDay+"/0"+(selectedMonth + 1)+"/"+selectedYear);
+            }
+
         }
     };
 
     public void creerCompte(View view) {
         MyApplicationDataSource BD = new MyApplicationDataSource(this);
         BD.open();
-        if(!(pseudo.getText().toString().equals("")) && !(mdp.getText().toString().equals("")) && !(mdpc.getText().toString().equals("")) && !(mail.getText().toString().equals("")) && !(favouriteWord.getText().toString().equals(""))) {
+        if(!(pseudo.getText().toString().equals("")) && !(mdp.getText().toString().equals("")) && !(mdpc.getText().toString().equals("")) && !(mail.getText().toString().equals("")) && !(favouriteWord.getText().toString().equals("")) && !(prenom.getText().toString().equals("")) && !(nom.getText().toString().equals(""))) {
             if (!BD.verificationPatientByPseudoAndPassword(pseudo.getText().toString(), mdp.getText().toString()) && !BD.verificationPatientByMailAndPassword(mail.getText().toString(),mdp.getText().toString())) {
                 if (mdp.getText().toString().equals(mdpc.getText().toString())) {
-                    if(mail.getText().toString().matches("[A-Za-z_\\-\\.]*[@]\\w*[\\.][A-Za-z]*")) {
-                        if (!tg.isChecked()) {
-                            Boolean sex = false;
-                            if (genre.getSelectedItemPosition() == 0) {
-                                sex = true;
-                            }
-                            SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
-                            java.util.Date utilDate = new java.util.Date();
-                            try {
-                                utilDate = formatter.parse(birth.getText().toString());
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    sdf.setLenient(true);
+                    try {
+                        Date d = sdf.parse(birth.getText().toString() );
+                        String t = sdf.format(d);
+                        if (t.compareTo(birth.getText().toString()) == 0) {
+                            if (mail.getText().toString().matches("[A-Za-z_\\-\\.]*[@]\\w*[\\.][A-Za-z]*")) {
+                                if (!tg.isChecked()) {
+                                    Boolean sex = false;
+                                    if (genre.getSelectedItemPosition() == 0) {
+                                        sex = true;
+                                    }
+                                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
+                                    java.util.Date utilDate = new java.util.Date();
+                                    try {
+                                        utilDate = formatter.parse(birth.getText().toString());
 
-                            } catch (ParseException e) {
-                                e.printStackTrace();
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                                    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+                                    Patient patient = new Patient(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
+                                            nom.getText().toString(), prenom.getText().toString(), sqlDate, sex, Language.Français, 0, null, favouriteWord.getText().toString(), null);
+                                    BD.insertPatient(patient);
+                                } else {
+                                    Clinician clinician = new Clinician(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(), favouriteWord.getText().toString(), null);
+                                    BD.insertClinician(clinician);
+                                }
+                                this.setResult(1000);
+                                this.finish();
+                            } else {
+                                Toast.makeText(this, "Le format de l'adresse email saisie est invalide", Toast.LENGTH_LONG).show();
                             }
-                            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-                            Patient patient = new Patient(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
-                                    nom.getText().toString(), prenom.getText().toString(), sqlDate, sex, Language.Français, 0, null, favouriteWord.getText().toString(), null);
-                            BD.insertPatient(patient);
-                        } else {
-                            Clinician clinician = new Clinician(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(), favouriteWord.getText().toString(), null);
-                            BD.insertClinician(clinician);
                         }
-                        this.setResult(1000);
-                        this.finish();
-                    }else{
-                        Toast.makeText(this,"L'addresse email n'a pas un format cohérent",Toast.LENGTH_LONG).show();
-                        //err.setText("l'addresse email n'a pas un format cohérent");
+                        else{
+                            Toast.makeText(this,"Le format de la date de naissance saisie est invalide",Toast.LENGTH_LONG).show();
+                        }
+
+                    } catch (Exception e) {
+                        Toast.makeText(this,"Le format de la date de naissance saisie est invalide",Toast.LENGTH_LONG).show();
                     }
+
                 }else{
-                    Toast.makeText(this,"Les deux mots de passes sont différents",Toast.LENGTH_LONG).show();
-                    //err.setText("les deux mots de passes sont différents !");
+                    Toast.makeText(this,"Les deux mots de passes saisis sont différents",Toast.LENGTH_LONG).show();
                 }
             }else{
                 Toast.makeText(this,"Ce compte existe déjà",Toast.LENGTH_LONG).show();
-                //err.setText("ce compte existe déjà !");
             }
         }else{
-            Toast.makeText(this,"Tous les champs obligatoires ne sont pas remplis",Toast.LENGTH_LONG).show();
-            //err.setText("tous les champs obligatoires ne sont pas remplis !");
+            Toast.makeText(this,"Vous devez remplir tous les champs",Toast.LENGTH_LONG).show();
         }
         BD.close();
     }
