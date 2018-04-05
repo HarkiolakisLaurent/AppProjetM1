@@ -116,8 +116,8 @@
                         android:id="@+id/dateChooser"
                         android:layout_width="10dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="60dp"
-                        android:layout_marginRight="60dp"
+                        android:layout_marginLeft="80dp"
+                        android:layout_marginRight="80dp"
                         android:background="@android:color/transparent"
                         app:srcCompat="@drawable/ic_calendar" />
 
