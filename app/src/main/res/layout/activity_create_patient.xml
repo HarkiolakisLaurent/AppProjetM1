@@ -114,7 +114,7 @@
                 <TableRow
                     android:id="@+id/row13"
                     android:layout_width="match_parent"
-                    android:layout_height="166dp"
+                    android:layout_height="match_parent"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -122,6 +122,8 @@
                         android:id="@+id/birthdayField"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:inputType="date"
                         android:textSize="24sp" />
 
@@ -129,12 +131,10 @@
                         android:id="@+id/dateChooser"
                         android:layout_width="10dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/custom_list"
-                        app:srcCompat="@android:drawable/ic_menu_my_calendar" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_marginLeft="60dp"
+                        android:layout_marginRight="60dp"
+                        android:background="@android:color/transparent"
+                        app:srcCompat="@drawable/ic_calendar" />
 
                 </TableRow>
 

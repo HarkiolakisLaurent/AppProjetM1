@@ -107,6 +107,8 @@
                         android:id="@+id/birthdayField"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:inputType="date"
                         android:textSize="24sp" />
 
@@ -114,8 +116,10 @@
                         android:id="@+id/dateChooser"
                         android:layout_width="10dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/custom_list"
-                        app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+                        android:layout_marginLeft="60dp"
+                        android:layout_marginRight="60dp"
+                        android:background="@android:color/transparent"
+                        app:srcCompat="@drawable/ic_calendar" />
 
                 </TableRow>
 
