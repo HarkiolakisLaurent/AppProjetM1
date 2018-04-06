@@ -22,6 +22,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import ceri.m1ilsen.applicationprojetm1.R;
@@ -44,14 +45,42 @@ public class DoExerciseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_do_exercise);
         txtView=(TextView)findViewById(R.id.textExercice);
 
+        //initialisation des fichiers
+        InputStream fis1 = getResources().openRawResource(R.raw.mots);
+        InputStream fis2 = getResources().openRawResource(R.raw.mot2);
+        InputStream fis3 = getResources().openRawResource(R.raw.mot3);
 
-        InputStream fis = getResources().openRawResource(R.raw.mots);
-        InputStreamReader isr = new InputStreamReader(fis);
-        BufferedReader bufferedReader = new BufferedReader(isr);
+        //generate random number
+        Random randomGenerator = new Random();
+        int randomInt = randomGenerator.nextInt(3) + 1;
 
         lines=new ArrayList<String>();
         readWordFile=new ReadWordFile(this);
-        lines=readWordFile.readFile(bufferedReader);
+
+
+        switch (randomInt){
+            case 1:
+                    InputStreamReader isr = new InputStreamReader(fis1);
+                    BufferedReader bufferedReader = new BufferedReader(isr);
+                    lines=readWordFile.readFile(bufferedReader);
+                break;
+            case 2:
+                     isr = new InputStreamReader(fis2);
+                     bufferedReader = new BufferedReader(isr);
+                    lines=readWordFile.readFile(bufferedReader);
+                break;
+            case 3:
+                     isr = new InputStreamReader(fis3);
+                     bufferedReader = new BufferedReader(isr);
+                    lines=readWordFile.readFile(bufferedReader);
+                break;
+        }
+
+        System.out.print("TAILLE LISTE: "+lines.size());
+
+        //lines=new ArrayList<String>();
+       // readWordFile=new ReadWordFile(this);
+       // lines=readWordFile.readFile(bufferedReader);
 
         readlist(lines);
 
@@ -83,6 +112,9 @@ public class DoExerciseActivity extends AppCompatActivity {
                 }
             }
         }.start();
+    }
+    public void getRandanFile(){
+
     }
 
 
@@ -125,7 +157,7 @@ public class DoExerciseActivity extends AppCompatActivity {
                     ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                    // result.get(0).toString();
                      speechword=result.get(0).toString();
-                    System.out.println("ttttttttttttttttttttttttttttttttttt "+speechword);
+                   txtViewSpeech.setText(speechword);
                      WriteFile(speechword,getApplicationContext());
 
                     try {
@@ -161,6 +193,13 @@ public class DoExerciseActivity extends AppCompatActivity {
 
 
     }
+
+
+
+
+
+
+
     public void BoutonQuitter(){
 
         btnQuitter=(Button) findViewById(R.id.btnQuitter);

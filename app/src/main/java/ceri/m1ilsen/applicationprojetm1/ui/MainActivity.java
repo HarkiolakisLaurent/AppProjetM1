@@ -74,11 +74,10 @@ public class MainActivity extends AppCompatActivity {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent passwordRecovery = new Intent(MainActivity.this,PasswordRecoveryActivity.class);
+                Intent passwordRecovery = new Intent(MainActivity.this,PasswordRecoveryActivity.class   );
                 startActivity(passwordRecovery);
             }
         });
-
         final MyApplicationDataSource BD = new MyApplicationDataSource(this);
 
         signUp.setOnClickListener(new View.OnClickListener() {
