@@ -83,7 +83,7 @@ public class ClinicianRecordingsFragment extends Fragment {
 
         patientsListViewAdapter.setListener(new PatientsListViewAdapter.AdapterListener() {
             public void onClick(String name) {
-                dataPath = new File("/storage/emulated/0/Recordings/"+name+"/");
+                dataPath = new File("/storage/emulated/0/App/Recordings/"+name+"/");
                 recordingsData = new ArrayList(Arrays.asList(dataPath.list(new FilenameFilter() {
                     public boolean accept(File directory, String fileName) {
                         return fileName.endsWith(".wav") || fileName.endsWith(".mp3");

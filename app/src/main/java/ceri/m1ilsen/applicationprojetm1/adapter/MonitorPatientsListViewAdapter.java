@@ -12,7 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -61,6 +63,12 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
         mainViewholder.deletePatientHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final File file = new File("/storage/emulated/0/App/Recordings/"+dataSet.get(position));
+                if(file.exists()){
+                    System.out.println("Fichier trouvé");
+                }else{
+                    System.out.println("Fichier non trouvé");
+                }
                 AlertDialog alertDialog = new AlertDialog.Builder(mContext).create(); //Use context
                 alertDialog.setTitle("Suppression du patient");
                 alertDialog.setMessage("Après cette opération, le profil du patient sera définitivement supprimé.");
@@ -78,6 +86,11 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
                                 BD.open();
                                 BD.deletePatient(dataSet.get(position));
                                 BD.close();
+                                if(file.delete()){
+                                    System.out.println(file.getName() + " is deleted!");
+                                }else{
+                                    System.out.println("Delete operation is failed.");
+                                }
                                 dataSet.remove(position);
                                 notifyDataSetChanged();
                             }

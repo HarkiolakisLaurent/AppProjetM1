@@ -127,7 +127,7 @@ public class CreatePatientActivity extends AppCompatActivity {
 
                                 BD.insertPatient(patient);
 
-                                final File recordingsDirectory = new File("/storage/emulated/0/recordings/" + pseudo.getText().toString());
+                                final File recordingsDirectory = new File("/storage/emulated/0/App/Recordings/" + pseudo.getText().toString());
                                 if (!recordingsDirectory.exists()) {
                                     recordingsDirectory.mkdirs();
                                 }

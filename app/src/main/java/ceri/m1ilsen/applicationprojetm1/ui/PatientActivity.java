@@ -37,9 +37,13 @@ public class PatientActivity extends AppCompatActivity {
 
         setResult(101);
 
-        final File recordingsDirectory = new File("/storage/emulated/0/recordings/"+getIntent().getStringExtra("connectedUserPseudo"));
+        final File recordingsDirectory = new File("/storage/emulated/0/App/Recordings/"+getIntent().getStringExtra("connectedUserPseudo"));
         if (!recordingsDirectory.exists()) {
             recordingsDirectory.mkdirs();
+        }
+        final File exercisesDirectory = new File("/storage/emulated/0/App/Exercises/");
+        if (!exercisesDirectory.exists()) {
+            exercisesDirectory.mkdirs();
         }
 
         fragmentTransaction = getSupportFragmentManager().beginTransaction();

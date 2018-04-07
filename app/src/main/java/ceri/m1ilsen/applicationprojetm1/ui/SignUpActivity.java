@@ -16,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -127,9 +128,29 @@ public class SignUpActivity extends AppCompatActivity {
                                     Patient patient = new Patient(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(),
                                             nom.getText().toString(), prenom.getText().toString(), sqlDate, sex, Language.Français, 0, null, favouriteWord.getText().toString(), null);
                                     BD.insertPatient(patient);
+
+                                    final File recordingsDirectory = new File("/storage/emulated/0/App/Recordings/" + pseudo.getText().toString());
+                                    if (!recordingsDirectory.exists()) {
+                                        recordingsDirectory.mkdirs();
+                                    }
+                                    final File exercisesDirectory = new File("/storage/emulated/0/App/Exercises/");
+                                    if (!exercisesDirectory.exists()) {
+                                        exercisesDirectory.mkdirs();
+                                    }
+
                                 } else {
                                     Clinician clinician = new Clinician(mail.getText().toString(), mdp.getText().toString(), pseudo.getText().toString(), favouriteWord.getText().toString(), null);
                                     BD.insertClinician(clinician);
+
+                                    final File recordingsDirectory = new File("/storage/emulated/0/App/Recordings/");
+                                    if (!recordingsDirectory.exists()) {
+                                        recordingsDirectory.mkdirs();
+                                    }
+                                    final File exercisesDirectory = new File("/storage/emulated/0/App/Exercises/");
+                                    if (!exercisesDirectory.exists()) {
+                                        exercisesDirectory.mkdirs();
+                                    }
+
                                 }
                                 this.setResult(1000);
                                 this.finish();

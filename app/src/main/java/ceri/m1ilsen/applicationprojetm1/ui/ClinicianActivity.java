@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.io.File;
+
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.fragment.ClinicianHomePageFragment;
 import ceri.m1ilsen.applicationprojetm1.fragment.ClinicianRecordingsFragment;
@@ -33,6 +35,16 @@ public class ClinicianActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clinician);
+
+        final File recordingsDirectory = new File("/storage/emulated/0/App/Recordings/");
+        if (!recordingsDirectory.exists()) {
+            recordingsDirectory.mkdirs();
+        }
+        final File exercisesDirectory = new File("/storage/emulated/0/App/Exercises/");
+        if (!exercisesDirectory.exists()) {
+            exercisesDirectory.mkdirs();
+        }
+
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer, homePageFragment);
         fragmentTransaction.commit();
