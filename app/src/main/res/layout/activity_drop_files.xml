@@ -17,9 +17,12 @@
             android:id="@+id/dropFileButton"
             android:layout_width="250dp"
             android:layout_height="80dp"
-            android:layout_below="@+id/browser"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="68dp"
+            android:layout_below="@+id/fileName"
+            android:layout_marginLeft="55dp"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="70dp"
+            android:layout_toEndOf="@+id/folderName"
+            android:layout_toRightOf="@+id/folderName"
             android:background="@drawable/custom_list"
             android:fontFamily="sans-serif"
             android:text="Déposer le fichier"
@@ -46,8 +49,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="82dp"
-            android:layout_marginRight="82dp"
+            android:layout_marginEnd="55dp"
+            android:layout_marginRight="55dp"
             android:layout_toLeftOf="@+id/browser"
             android:layout_toStartOf="@+id/browser"
             android:ems="10"
@@ -61,8 +64,8 @@
             android:layout_alignBottom="@+id/fileName"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginEnd="284dp"
-            android:layout_marginRight="284dp"
+            android:layout_marginEnd="127dp"
+            android:layout_marginRight="127dp"
             android:background="@drawable/custom_list"
             android:fontFamily="sans-serif"
             android:text="Parcourir"
@@ -70,6 +73,20 @@
             android:textColor="@color/common_google_signin_btn_text_dark_default"
             android:textSize="30sp"
             android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/folderName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/explanation"
+            android:layout_marginEnd="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_toLeftOf="@+id/fileName"
+            android:layout_toStartOf="@+id/fileName"
+            android:ems="10"
+            android:hint="son (facultatif) ; ex : p, mi"
+            android:inputType="textPersonName"
+            android:textSize="30sp" />
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
