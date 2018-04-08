@@ -9,11 +9,17 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.fragment.ClinicianHomePageFragment;
@@ -36,6 +42,12 @@ public class ClinicianActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clinician);
 
+
+        final File resourcesDirectory = new File("/storage/emulated/0/App/Resources/");
+        if (!resourcesDirectory.exists()) {
+            resourcesDirectory.mkdirs();
+        }
+        initExercisesFiles();
         final File recordingsDirectory = new File("/storage/emulated/0/App/Recordings/");
         if (!recordingsDirectory.exists()) {
             recordingsDirectory.mkdirs();
@@ -121,5 +133,44 @@ public class ClinicianActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void initExercisesFiles() {
+        InputStream inputStream = getResources().openRawResource(R.raw.mots);
+        try {
+            if (inputStream != null) {
+                // open a reader on the inputStream
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                // String used to store the lines
+                String str;
+                StringBuilder buf = new StringBuilder();
+
+                // Read the file
+                while ((str = reader.readLine()) != null) {
+                    buf.append(str + "\r\n");
+                }
+                // Close streams
+                reader.close();
+                inputStream.close();
+                File file = new File("storage/emulated/0/App/Resources/wordsResource.txt");
+                try {
+                    if (!file.exists()) {
+                        new File(file.getParent()).mkdirs();
+                        file.createNewFile();
+                        FileWriter fw = new FileWriter(file);
+                        fw.write (buf.toString());
+                        fw.close();
+                    }
+                } catch (IOException e) {
+                    Log.e("", "Could not create file.", e);
+                    return;
+                }
+            }
+        } catch (java.io.FileNotFoundException e) {
+            Toast.makeText(getApplicationContext(), "FileNotFoundException", Toast.LENGTH_LONG);
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(), "FileNotFoundException", Toast.LENGTH_LONG);
+        }
     }
 }

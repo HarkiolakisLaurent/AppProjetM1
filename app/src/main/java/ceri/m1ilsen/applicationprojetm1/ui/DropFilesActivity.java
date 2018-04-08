@@ -17,11 +17,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import ceri.m1ilsen.applicationprojetm1.R;
 
@@ -40,6 +47,7 @@ public class DropFilesActivity extends AppCompatActivity {
 
     private DropFilesActivity.Item[] fileList;
     private File path = new File(Environment.getExternalStorageDirectory() + "");
+    private Spinner exerciseType;
     private String chosenFile;
     private Button dropFileButton;
     private static final int DIALOG_LOAD_FILE = 1000;
@@ -50,6 +58,7 @@ public class DropFilesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drop_files);
+        exerciseType = (Spinner) findViewById(R.id.exerciseType);
         fileName = (EditText)findViewById(R.id.fileName);
         browser = (Button)findViewById(R.id.browser);
         browser.setOnClickListener(new View.OnClickListener() {
@@ -65,11 +74,64 @@ public class DropFilesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // dépôt fichier ici
-                Toast.makeText(getApplicationContext(),"Dépôt du fichier",Toast.LENGTH_LONG).show();
+                File file = new File(fileName.getText().toString());
+                switch(exerciseType.getSelectedItemPosition()) {
+
+                    case(0):
+                        dropFile(file, "words");
+                        Toast.makeText(getApplicationContext(), "Dépôt du fichier", Toast.LENGTH_LONG).show();
+                        break;
+
+                    case(1):
+                        break;
+
+                    case(2):
+                        break;
+
+                    default:
+                        break;
+                }
             }
         });
-        Intent intent = getIntent();
-        fileName.setText(intent.getStringExtra("SELECTED_FILE"));
+    }
+
+    public void dropFile(File droppedFile, String resourceType) {
+        try {
+            InputStream inputStream = new FileInputStream(droppedFile);
+            if (inputStream != null) {
+                // open a reader on the inputStream
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                // String used to store the lines
+                String str;
+                StringBuilder buf = new StringBuilder();
+
+                // Read the file
+                while ((str = reader.readLine()) != null) {
+                    buf.append(str + "\r\n");
+                }
+                // Close streams
+                reader.close();
+                inputStream.close();
+                File file = new File("storage/emulated/0/App/Resources/"+resourceType+"Resource.txt");
+                try {
+                    if (!file.exists()) {
+                        new File(file.getParent()).mkdirs();
+                        file.createNewFile();
+                    }
+                } catch (IOException e) {
+                    Log.e("", "Could not create file.", e);
+                    return;
+                }
+                FileWriter fw = new FileWriter(file,true);
+                fw.write (buf.toString());
+                fw.close();
+            }
+        } catch (java.io.FileNotFoundException e) {
+            Toast.makeText(getApplicationContext(), "FileNotFoundException", Toast.LENGTH_LONG);
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(), "FileNotFoundException", Toast.LENGTH_LONG);
+        }
     }
 
 
@@ -244,7 +306,7 @@ public class DropFilesActivity extends AppCompatActivity {
                         // File picked
                         else {
                             // Perform action with file picked
-                            fileName.setText(chosenFile);
+                            fileName.setText(sel.toString());
                         }
 
                     }
