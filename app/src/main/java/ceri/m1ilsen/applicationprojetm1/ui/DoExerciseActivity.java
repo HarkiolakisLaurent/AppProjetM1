@@ -47,8 +47,8 @@ public class DoExerciseActivity extends AppCompatActivity {
 
         //initialisation des fichiers
         InputStream fis1 = getResources().openRawResource(R.raw.mots);
-        InputStream fis2 = getResources().openRawResource(R.raw.mot2);
-        InputStream fis3 = getResources().openRawResource(R.raw.mot3);
+        InputStream fis2 = getResources().openRawResource(R.raw.phrases);
+        InputStream fis3 = getResources().openRawResource(R.raw.textes);
 
         //generate random number
         Random randomGenerator = new Random();

@@ -16,6 +16,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
 import ceri.m1ilsen.applicationprojetm1.exercise.Session;
 import ceri.m1ilsen.applicationprojetm1.language.Language;
 import ceri.m1ilsen.applicationprojetm1.user.*;
@@ -176,11 +177,31 @@ public class MyApplicationDataSource {
         database.delete("cliniciens", "pseudo = ?",new String[]{login});
     }
 
-    public long insertSession(Session session) {
+    public long insertSession(Session session, int patientId) {
         ContentValues values = new ContentValues();
         values.put("date_creation", String.valueOf(session.getCreationDate()));
         values.put("id_patient",session.getPatient());
         return database.insert("sessions", null, values);
+    }
+
+    public long updateSessionComment(int id, String comment) {
+        ContentValues values = new ContentValues();
+        values.put("comment", comment);
+        return database.update("sessions", values, "_id = "+id,null);
+    }
+
+    public long insertExercise(Exercise exercise, int patientId) {
+        ContentValues values = new ContentValues();
+        values.put("titre", exercise.getName());
+        values.put("mots_lus", exercise.getReadWordsCount());
+        values.put("id_patient", patientId);
+        return database.insert("exercices", null, values);
+    }
+
+    public long updateExerciseComment(int id, String comment) {
+        ContentValues values = new ContentValues();
+        values.put("comment", comment);
+        return database.update("exercices", values, "_id = "+id,null);
     }
 
     public String getPatientPasswordByMailAndFavouriteWord(String mail, String favouriteWord) {

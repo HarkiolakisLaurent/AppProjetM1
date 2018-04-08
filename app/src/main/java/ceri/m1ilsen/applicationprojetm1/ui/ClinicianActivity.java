@@ -153,7 +153,80 @@ public class ClinicianActivity extends AppCompatActivity {
                 // Close streams
                 reader.close();
                 inputStream.close();
-                File file = new File("storage/emulated/0/App/Resources/wordsResource.txt");
+                File file = new File("storage/emulated/0/App/Resources/WORDS_RESOURCE.txt");
+                try {
+                    if (!file.exists()) {
+                        new File(file.getParent()).mkdirs();
+                        file.createNewFile();
+                        FileWriter fw = new FileWriter(file);
+                        fw.write (buf.toString());
+                        fw.close();
+                    }
+                } catch (IOException e) {
+                    Log.e("", "Could not create file.", e);
+                    return;
+                }
+            }
+        } catch (java.io.FileNotFoundException e) {
+            Toast.makeText(getApplicationContext(), "FileNotFoundException", Toast.LENGTH_LONG);
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(), "FileNotFoundException", Toast.LENGTH_LONG);
+        }
+
+        inputStream = getResources().openRawResource(R.raw.phrases);
+        try {
+            if (inputStream != null) {
+                // open a reader on the inputStream
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                // String used to store the lines
+                String str;
+                StringBuilder buf = new StringBuilder();
+
+                // Read the file
+                while ((str = reader.readLine()) != null) {
+                    buf.append(str + "\r\n");
+                }
+                // Close streams
+                reader.close();
+                inputStream.close();
+                File file = new File("storage/emulated/0/App/Resources/SENTENCES_RESOURCE.txt");
+                try {
+                    if (!file.exists()) {
+                        new File(file.getParent()).mkdirs();
+                        file.createNewFile();
+                        FileWriter fw = new FileWriter(file);
+                        fw.write (buf.toString());
+                        fw.close();
+                    }
+                } catch (IOException e) {
+                    Log.e("", "Could not create file.", e);
+                    return;
+                }
+            }
+        } catch (java.io.FileNotFoundException e) {
+            Toast.makeText(getApplicationContext(), "FileNotFoundException", Toast.LENGTH_LONG);
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(), "FileNotFoundException", Toast.LENGTH_LONG);
+        }
+        inputStream = getResources().openRawResource(R.raw.textes);
+        try {
+            if (inputStream != null) {
+                // open a reader on the inputStream
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                // String used to store the lines
+                String str;
+                StringBuilder buf = new StringBuilder();
+
+                // Read the file
+                while ((str = reader.readLine()) != null) {
+                    buf.append(str + "\r\n");
+                }
+                // Close streams
+                reader.close();
+                inputStream.close();
+                File file = new File("storage/emulated/0/App/Resources/TEXT_RESOURCE.txt");
                 try {
                     if (!file.exists()) {
                         new File(file.getParent()).mkdirs();

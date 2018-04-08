@@ -78,19 +78,24 @@ public class DropFilesActivity extends AppCompatActivity {
                 switch(exerciseType.getSelectedItemPosition()) {
 
                     case(0):
-                        dropFile(file, "words");
+                        dropFile(file, "WORDS");
                         Toast.makeText(getApplicationContext(), "Dépôt du fichier", Toast.LENGTH_LONG).show();
                         break;
 
                     case(1):
+                        dropFile(file, "SENTENCES");
+                        Toast.makeText(getApplicationContext(), "Dépôt du fichier", Toast.LENGTH_LONG).show();
                         break;
 
                     case(2):
+                        dropFile(file, "TEXT");
+                        Toast.makeText(getApplicationContext(), "Dépôt du fichier", Toast.LENGTH_LONG).show();
                         break;
 
                     default:
                         break;
                 }
+                fileName.setText("");
             }
         });
     }
@@ -113,7 +118,7 @@ public class DropFilesActivity extends AppCompatActivity {
                 // Close streams
                 reader.close();
                 inputStream.close();
-                File file = new File("storage/emulated/0/App/Resources/"+resourceType+"Resource.txt");
+                File file = new File("storage/emulated/0/App/Resources/"+resourceType+"_RESOURCE.txt");
                 try {
                     if (!file.exists()) {
                         new File(file.getParent()).mkdirs();
