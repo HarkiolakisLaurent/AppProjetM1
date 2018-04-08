@@ -75,27 +75,29 @@ public class DropFilesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // dépôt fichier ici
                 File file = new File(fileName.getText().toString());
-                switch(exerciseType.getSelectedItemPosition()) {
+                if (!fileName.getText().toString().equals("") && file.exists()) {
+                    switch(exerciseType.getSelectedItemPosition()) {
 
-                    case(0):
-                        dropFile(file, "WORDS");
-                        Toast.makeText(getApplicationContext(), "Dépôt du fichier", Toast.LENGTH_LONG).show();
-                        break;
+                        case(0):
+                            dropFile(file, "WORDS");
+                            Toast.makeText(getApplicationContext(), "Dépôt du fichier", Toast.LENGTH_LONG).show();
+                            break;
 
-                    case(1):
-                        dropFile(file, "SENTENCES");
-                        Toast.makeText(getApplicationContext(), "Dépôt du fichier", Toast.LENGTH_LONG).show();
-                        break;
+                        case(1):
+                            dropFile(file, "SENTENCES");
+                            Toast.makeText(getApplicationContext(), "Dépôt du fichier", Toast.LENGTH_LONG).show();
+                            break;
 
-                    case(2):
-                        dropFile(file, "TEXT");
-                        Toast.makeText(getApplicationContext(), "Dépôt du fichier", Toast.LENGTH_LONG).show();
-                        break;
+                        case(2):
+                            dropFile(file, "TEXT");
+                            Toast.makeText(getApplicationContext(), "Dépôt du fichier", Toast.LENGTH_LONG).show();
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
+                    fileName.setText("");
                 }
-                fileName.setText("");
             }
         });
     }

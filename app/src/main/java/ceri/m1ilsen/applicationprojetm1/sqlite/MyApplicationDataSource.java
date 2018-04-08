@@ -190,6 +190,12 @@ public class MyApplicationDataSource {
         return database.update("sessions", values, "_id = "+id,null);
     }
 
+    public long updateSessionScore(int id, double score) {
+        ContentValues values = new ContentValues();
+        values.put("score", score);
+        return database.update("sessions", values, "_id = "+id,null);
+    }
+
     public long insertExercise(Exercise exercise, int patientId) {
         ContentValues values = new ContentValues();
         values.put("titre", exercise.getName());
@@ -201,6 +207,17 @@ public class MyApplicationDataSource {
     public long updateExerciseComment(int id, String comment) {
         ContentValues values = new ContentValues();
         values.put("comment", comment);
+        return database.update("exercices", values, "_id = "+id,null);
+    }
+
+    public long updateExerciseScore(int id, double score) {
+        ContentValues values = new ContentValues();
+        values.put("score", score);
+        return database.update("exercices", values, "_id = "+id,null);
+    }
+    public long updateExerciseReadWordsCount(int id, int readWordsCount) {
+        ContentValues values = new ContentValues();
+        values.put("mots_lus", readWordsCount);
         return database.update("exercices", values, "_id = "+id,null);
     }
 
