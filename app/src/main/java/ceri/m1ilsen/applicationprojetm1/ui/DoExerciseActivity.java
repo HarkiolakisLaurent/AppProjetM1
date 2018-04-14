@@ -14,7 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -37,6 +39,7 @@ public class DoExerciseActivity extends AppCompatActivity {
     ReadWordFile readWordFile=null;
     int position,i=0;
     String speechword="";
+    boolean pause=true;
 
 
     @Override
@@ -101,7 +104,7 @@ public class DoExerciseActivity extends AppCompatActivity {
 
                             @Override
                             public void run() {
-                                txtView.setText(++position+"/"+list.size()+"\n"+ list.get(i));
+                                txtView.setText(++position + "/" + list.size() + "\n" + list.get(i));
                                 i++;
                             }
                         });
@@ -113,10 +116,6 @@ public class DoExerciseActivity extends AppCompatActivity {
             }
         }.start();
     }
-    public void getRandanFile(){
-
-    }
-
 
     public void addListenerOnButton() {
 
@@ -157,8 +156,24 @@ public class DoExerciseActivity extends AppCompatActivity {
                     ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                    // result.get(0).toString();
                      speechword=result.get(0).toString();
-                   txtViewSpeech.setText(speechword);
-                     WriteFile(speechword,getApplicationContext());
+//                     txtViewSpeech.setText(speechword);
+
+                    File file = new File("storage/emulated/0/App/Speech/WORDS_Speech.wav");
+                    try {
+                        if (!file.exists()) {
+                            new File(file.getParent()).mkdirs();
+                            file.createNewFile();
+                            FileWriter fw = new FileWriter(file);
+                            fw.write (speechword);
+                            fw.close();
+                        }
+                    } catch (IOException e) {
+                        Log.e("", "Could not create file.", e);
+                        return;
+                    }
+
+
+                    // WriteFile(speechword,getApplicationContext());
 
                     try {
                         TimeUnit.SECONDS.sleep(10);
