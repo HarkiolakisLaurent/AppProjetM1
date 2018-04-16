@@ -33,7 +33,9 @@ public class CreateExerciseFragment extends Fragment {
     private TextView numberOfExercises;
 
     private TextView mTextMessage;
-    private Button btnLireMots;
+    private Button readWordsButton;
+    private Button readSentencesButton;
+    private Button readTextButton;
     static int i=0;
     private View view;
     private OnFragmentInteractionListener mListener;
@@ -81,21 +83,37 @@ public class CreateExerciseFragment extends Fragment {
 
         mTextMessage = (TextView) view.findViewById(R.id.message);
         //File file=new File("/src/java/mots.txt.txt");
-        btnLireMots=(Button) view.findViewById(R.id.button10);
-        ReadFileWord();
-        return view;
-    }
-    public void ReadFileWord(){
-        btnLireMots.setOnClickListener(new View.OnClickListener() {
+        readWordsButton=(Button) view.findViewById(R.id.readWords);
+        readWordsButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(getContext(),DoExerciseActivity.class);
+                intent.putExtra("task","mots");
                 startActivity(intent);
             }
         });
-
+        readSentencesButton=(Button) view.findViewById(R.id.readSentences);
+        readSentencesButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(),DoExerciseActivity.class);
+                intent.putExtra("task","phrases");
+                startActivity(intent);
+            }
+        });
+        readTextButton=(Button) view.findViewById(R.id.readText);
+        readTextButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(),DoExerciseActivity.class);
+                intent.putExtra("task","textes");
+                startActivity(intent);
+            }
+        });
+        return view;
     }
 
 

@@ -16,21 +16,21 @@
         <TextView
             android:id="@+id/textExercice"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30sp"
             android:gravity="center"
             android:text="  5/52 \n Le chat miaule"
             android:textSize="30sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/imageBtnMicro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textExercice"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:background="@drawable/imagemicro_border"
             app:srcCompat="@drawable/micro1" />
 

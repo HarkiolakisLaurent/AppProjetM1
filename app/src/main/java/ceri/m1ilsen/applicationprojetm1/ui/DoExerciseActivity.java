@@ -15,16 +15,20 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
 import ceri.m1ilsen.applicationprojetm1.R;
@@ -34,61 +38,100 @@ public class DoExerciseActivity extends AppCompatActivity {
     private Button btnQuitter = null;
     private ImageButton imageMicroButton=null;
     private TextView txtView=null;
-    private TextView txtViewSpeech=null;
     List<String> lines = null;
-    ReadWordFile readWordFile=null;
     int position,i=0;
     String speechword="";
     boolean pause=true;
 
+    public static String getRandomElement (Vector v) {
+        Random generator = new Random();
+        int rnd = generator.nextInt(v.size() - 1);
+        return (String)v.get(rnd);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_do_exercise);
         txtView=(TextView)findViewById(R.id.textExercice);
-
-        //initialisation des fichiers
-        InputStream fis1 = getResources().openRawResource(R.raw.mots);
-        InputStream fis2 = getResources().openRawResource(R.raw.phrases);
-        InputStream fis3 = getResources().openRawResource(R.raw.textes);
-
-        //generate random number
-        Random randomGenerator = new Random();
-        int randomInt = randomGenerator.nextInt(3) + 1;
-
+        String myLine;
+        InputStreamReader flog	= null;
+        LineNumberReader llog;
+        Vector<String> valeur=new Vector<String>();
         lines=new ArrayList<String>();
-        readWordFile=new ReadWordFile(this);
+        File exercisesDirectory = null;
+        try {
+            switch(getIntent().getStringExtra("task")) {
+                case("mots"):
+                    flog = new InputStreamReader(new FileInputStream("/storage/emulated/0/App/Resources/WORDS_RESOURCE.txt" +"") );
+                    exercisesDirectory = new File("storage/emulated/0/App/Exercises/Words");
+                    break;
 
+                case("phrases"):
+                    flog = new InputStreamReader(new FileInputStream("/storage/emulated/0/App/Resources/SENTENCES_RESOURCE.txt" +"") );
+                    exercisesDirectory = new File("storage/emulated/0/App/Exercises/Sentences");
+                    break;
 
-        switch (randomInt){
-            case 1:
-                    InputStreamReader isr = new InputStreamReader(fis1);
-                    BufferedReader bufferedReader = new BufferedReader(isr);
-                    lines=readWordFile.readFile(bufferedReader);
-                break;
-            case 2:
-                     isr = new InputStreamReader(fis2);
-                     bufferedReader = new BufferedReader(isr);
-                    lines=readWordFile.readFile(bufferedReader);
-                break;
-            case 3:
-                     isr = new InputStreamReader(fis3);
-                     bufferedReader = new BufferedReader(isr);
-                    lines=readWordFile.readFile(bufferedReader);
-                break;
+                case("textes"):
+                    flog = new InputStreamReader(new FileInputStream("/storage/emulated/0/App/Resources/TEXT_RESOURCE.txt" +"") );
+                    exercisesDirectory = new File("storage/emulated/0/App/Exercises/Texts");
+                    break;
+
+                default:
+                    break;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        llog = new LineNumberReader(flog);
+        try {
+            while ((myLine = llog.readLine()) != null) {
+                valeur.add(myLine);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for(int i=0;i<52;i++) {
+            lines.add(getRandomElement(valeur));
         }
 
-        System.out.print("TAILLE LISTE: "+lines.size());
-
-        //lines=new ArrayList<String>();
-       // readWordFile=new ReadWordFile(this);
-       // lines=readWordFile.readFile(bufferedReader);
+        File file = new File(exercisesDirectory+"/idqqchEx.txt");
+        try {
+            if (!file.exists()) {
+                new File(file.getParent()).mkdirs();
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            Log.e("", "Could not create file.", e);
+            return;
+        }
+        try {
+            FileWriter fw = new FileWriter(file,false);
+            for(String str:lines)
+                fw.write(str+System.getProperty( "line.separator" ));
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         readlist(lines);
-
-        addListenerOnButton();
-        BoutonQuitter();
+        imageMicroButton = (ImageButton) findViewById(R.id.imageBtnMicro);
+        imageMicroButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                promptSpeechInput();
+            }
+        });
+        btnQuitter=(Button) findViewById(R.id.btnQuitter);
+        btnQuitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Le premier paramètre est le nom de l'activité actuelle
+                // Le second est le nom de l'activité de destination
+                setResult(1);
+                finish();
+            }
+        });
 
     }
 
@@ -117,23 +160,6 @@ public class DoExerciseActivity extends AppCompatActivity {
         }.start();
     }
 
-    public void addListenerOnButton() {
-
-        imageMicroButton = (ImageButton) findViewById(R.id.imageBtnMicro);
-
-        imageMicroButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                promptSpeechInput();
-
-            }
-
-        });
-
-    }
-
     public void promptSpeechInput() {
         Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -154,9 +180,7 @@ public class DoExerciseActivity extends AppCompatActivity {
             case 100:
                 if (result_code == RESULT_OK && i != null) {
                     ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                   // result.get(0).toString();
                      speechword=result.get(0).toString();
-//                     txtViewSpeech.setText(speechword);
 
                     File file = new File("storage/emulated/0/App/Speech/WORDS_Speech.wav");
                     try {
@@ -172,9 +196,6 @@ public class DoExerciseActivity extends AppCompatActivity {
                         return;
                     }
 
-
-                    // WriteFile(speechword,getApplicationContext());
-
                     try {
                         TimeUnit.SECONDS.sleep(10);
                     } catch (InterruptedException e) {
@@ -183,50 +204,5 @@ public class DoExerciseActivity extends AppCompatActivity {
 
                 }
         }
-    }
-
-    public void WriteFile(String word,Context context){
-
-            try {
-                FileOutputStream fileout=openFileOutput("savespeech.txt", context.MODE_PRIVATE);
-                OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
-                outputWriter.write(word);
-                outputWriter.close();
-
-                //display file saved message
-                Toast.makeText(getBaseContext(), "File saved successfully!",
-                        Toast.LENGTH_SHORT).show();
-
-                System.out.println("++++++++++++++++++++++++++++++++++++"+word);
-
-                //System.out.println("+++++++++++++ "+ getResources().openRawResource(R.raw.savespeech));
-
-            }
-            catch (IOException e) {
-                Log.e("Exception", "File write failed: " + e.toString());
-            }
-
-
-    }
-
-
-
-
-
-
-
-    public void BoutonQuitter(){
-
-        btnQuitter=(Button) findViewById(R.id.btnQuitter);
-
-        btnQuitter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Le premier paramètre est le nom de l'activité actuelle
-                // Le second est le nom de l'activité de destination
-                setResult(1);
-                finish();
-            }
-        });
     }
 }

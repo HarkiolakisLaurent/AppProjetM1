@@ -35,7 +35,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button10"
+            android:id="@+id/readWords"
             android:layout_width="150dp"
             android:layout_height="80dp"
             android:layout_alignParentLeft="true"
@@ -51,10 +51,10 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button11"
+            android:id="@+id/readSentences"
             android:layout_width="150dp"
             android:layout_height="80dp"
-            android:layout_alignTop="@+id/button10"
+            android:layout_alignTop="@+id/readWords"
             android:layout_centerHorizontal="true"
             android:background="@drawable/custom_list"
             android:fontFamily="monospace"
@@ -65,12 +65,12 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button12"
+            android:id="@+id/readText"
             android:layout_width="150dp"
             android:layout_height="80dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/button11"
+            android:layout_alignTop="@+id/readSentences"
             android:background="@drawable/custom_list"
             android:fontFamily="monospace"
             android:text="Lire un texte"
@@ -83,7 +83,7 @@
             android:id="@+id/numberOfExercises"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/button10"
+            android:layout_below="@+id/readWords"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="60dp"
             android:fontFamily="monospace"
