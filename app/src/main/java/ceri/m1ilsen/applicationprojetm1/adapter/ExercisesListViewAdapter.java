@@ -3,6 +3,7 @@ package ceri.m1ilsen.applicationprojetm1.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,9 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.List;
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
 import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
+import ceri.m1ilsen.applicationprojetm1.ui.CommentExerciseActivity;
 
 /**
  * Created by Laurent on 21/03/2018.
@@ -51,6 +54,7 @@ public class ExercisesListViewAdapter extends ArrayAdapter<String> {
                     Toast.makeText(view.getContext(),"Détails de l'exercice",Toast.LENGTH_LONG);
                 }
             });
+            viewHolder.commentButtonHolder = (Button) convertView.findViewById(R.id.commentButton);
             convertView.setTag(viewHolder);
         }
         mainViewholder = (ExercisesListViewAdapter.ViewHolder) convertView.getTag();
@@ -88,6 +92,21 @@ public class ExercisesListViewAdapter extends ArrayAdapter<String> {
 
             }
         });
+        mainViewholder.commentButtonHolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent comment = new Intent(getContext(), CommentExerciseActivity.class);
+                MyApplicationDataSource BD = new MyApplicationDataSource(getContext());
+                BD.open();
+                Exercise exercise = BD.getExerciseByTitle(dataSet.get(position));
+                int commentId = BD.getExerciseIdByTitle(exercise.getName());
+                comment.putExtra("exerciseName",exercise.getName());
+                comment.putExtra("commentId",commentId);
+                BD.close();
+                getContext().startActivity(comment);
+
+            }
+        });
         mainViewholder = (ExercisesListViewAdapter.ViewHolder) convertView.getTag();
         mainViewholder.exerciseDescriptionHolder.setText(getItem(position));
 
@@ -98,5 +117,6 @@ public class ExercisesListViewAdapter extends ArrayAdapter<String> {
         ImageButton deleteExerciseButtonHolder;
         TextView exerciseDescriptionHolder;
         Button launchExerciseButtonHolder;
+        Button commentButtonHolder;
     }
 }

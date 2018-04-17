@@ -732,6 +732,24 @@ public class MyApplicationDataSource {
         return exercises;
     }
 
+    public String getExerciseCommentById(int id) {
+        Cursor cursor = database.rawQuery("select comment from exercices where _id = ?", new String[]{String.valueOf(id)});
+
+        String comment = null;
+        int indexComment = cursor.getColumnIndex(COLUMN_COMMENT);
+        if (cursor.moveToFirst()) {
+            int count = 0;
+            do {
+                comment = cursor.getString(indexComment);
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        cursor.close();
+        return comment;
+    }
+
     public int getClinicianIdByPseudo(String pseudo) {
         Cursor cursor = database.rawQuery("select _id from cliniciens where pseudo = ?",new String[] {pseudo});
         //Cursor cursor = database.rawQuery("Select * from cliniciens where pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
@@ -752,6 +770,33 @@ public class MyApplicationDataSource {
         }
         cursor.close();
         return colId;
+    }
+
+    public Exercise getExerciseByTitle (String name) {
+        Exercise exercise = null;
+        Cursor cursor = database.rawQuery("select * from exercices where titre = ?", new String[]{name});
+
+        String title;
+        int readWordsCount;
+
+        int indexTitle = cursor.getColumnIndex(COLUMN_TITRE);
+        int indexReadWordsCount = cursor.getColumnIndex(COLUMN_MOTS_LUS);
+        if (cursor.moveToFirst()) {
+            int count = 0;
+            do {
+                title = cursor.getString(indexTitle);
+                readWordsCount = cursor.getInt(indexReadWordsCount);
+                count++;
+            } while (cursor.moveToNext());
+
+            List sessions = new ArrayList();
+            //sessions = getPatientByClinicianId(colId);
+            exercise = new Exercise(title, readWordsCount);
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        cursor.close();
+        return exercise;
     }
 
     public Date convertStringToDate(String date) throws ParseException {

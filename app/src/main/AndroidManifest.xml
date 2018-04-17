@@ -32,7 +32,8 @@
         <activity android:name=".ui.EditClinicianProfileActivity" />
         <activity android:name=".ui.DropFilesActivity" />
         <activity android:name=".ui.CommentPatientActivity" />
-        <activity android:name=".ui.PasswordRecoveryActivity"></activity>
+        <activity android:name=".ui.PasswordRecoveryActivity" />
+        <activity android:name=".ui.CommentExerciseActivity"></activity>
     </application>
 
 </manifest>
