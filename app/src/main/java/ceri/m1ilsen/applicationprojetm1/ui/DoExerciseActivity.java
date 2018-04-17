@@ -21,7 +21,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -29,6 +31,9 @@ import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
+import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
+import ceri.m1ilsen.applicationprojetm1.task.Task;
 
 public class DoExerciseActivity extends AppCompatActivity {
 
@@ -39,6 +44,7 @@ public class DoExerciseActivity extends AppCompatActivity {
     int position,i=0;
     String speechword="";
     boolean pause=true;
+    private File exercisesDirectory = null;
 
 
     private static final int RECORDER_BPP = 16;
@@ -75,9 +81,51 @@ public class DoExerciseActivity extends AppCompatActivity {
         btnQuitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Le premier paramètre est le nom de l'activité actuelle
-                // Le second est le nom de l'activité de destination
-                setResult(1);
+                Exercise exercise = null;
+                final MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
+                BD.open();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy_HH:mm");
+                Date resultdate = new Date(System.currentTimeMillis());
+                switch(getIntent().getStringExtra("task")) {
+                    case("mots"):
+                        exercise = new Exercise(getIntent().getStringExtra("patientPseudo")+"_LireMots_"+sdf.format(resultdate),0);
+                        BD.insertExercise(exercise,getIntent().getExtras().getInt("patientId"));
+                        break;
+
+                    case("phrases"):
+                        exercise = new Exercise(getIntent().getStringExtra("patientPseudo")+"_LirePhrases_"+sdf.format(resultdate),0);
+                        BD.insertExercise(exercise,getIntent().getExtras().getInt("patientId"));
+                        break;
+
+                    case("textes"):
+                        exercise = new Exercise(getIntent().getStringExtra("patientPseudo")+"_LireTextes_"+sdf.format(resultdate),0);
+                        BD.insertExercise(exercise,getIntent().getExtras().getInt("patientId"));
+                        break;
+
+                    default:
+                        break;
+                }
+
+                File file = new File(exercisesDirectory+"/"+exercise.getName()+".txt");
+                try {
+                    if (!file.exists()) {
+                        new File(file.getParent()).mkdirs();
+                        file.createNewFile();
+                    }
+                } catch (IOException e) {
+                    Log.e("", "Could not create file.", e);
+                    return;
+                }
+                try {
+                    FileWriter fw = new FileWriter(file,false);
+                    for(String str:lines)
+                        fw.write(str+System.getProperty( "line.separator" ));
+                    fw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                BD.close();
+                setResult(10000);
                 finish();
             }
         });
@@ -95,7 +143,7 @@ public class DoExerciseActivity extends AppCompatActivity {
         LineNumberReader llog;
         Vector<String> valeur=new Vector<String>();
         lines=new ArrayList<String>();
-        File exercisesDirectory = null;
+
         try {
             switch(getIntent().getStringExtra("task")) {
                 case("mots"):
@@ -131,24 +179,6 @@ public class DoExerciseActivity extends AppCompatActivity {
             String line = getRandomElement(valeur);
             if (!lines.contains(line))
                 lines.add(line);
-        }
-        File file = new File(exercisesDirectory+"/idqqchEx.txt");
-        try {
-            if (!file.exists()) {
-                new File(file.getParent()).mkdirs();
-                file.createNewFile();
-            }
-        } catch (IOException e) {
-            Log.e("", "Could not create file.", e);
-            return;
-        }
-        try {
-            FileWriter fw = new FileWriter(file,false);
-            for(String str:lines)
-                fw.write(str+System.getProperty( "line.separator" ));
-            fw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
         readlist(lines);

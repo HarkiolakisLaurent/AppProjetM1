@@ -19,6 +19,7 @@ import android.database.sqlite.SQLiteDatabase;
 import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
 import ceri.m1ilsen.applicationprojetm1.exercise.Session;
 import ceri.m1ilsen.applicationprojetm1.language.Language;
+import ceri.m1ilsen.applicationprojetm1.task.Task;
 import ceri.m1ilsen.applicationprojetm1.user.*;
 
 import static ceri.m1ilsen.applicationprojetm1.sqlite.MySQLiteDatabase.*;
@@ -201,6 +202,7 @@ public class MyApplicationDataSource {
         values.put("titre", exercise.getName());
         values.put("mots_lus", exercise.getReadWordsCount());
         values.put("id_patient", patientId);
+        System.out.println("insertion");
         return database.insert("exercices", null, values);
     }
 
@@ -219,6 +221,32 @@ public class MyApplicationDataSource {
         ContentValues values = new ContentValues();
         values.put("mots_lus", readWordsCount);
         return database.update("exercices", values, "_id = "+id,null);
+    }
+
+    public void deleteExercise(String name) {
+        database.delete("exercices", "titre = ?",new String[]{name});
+    }
+
+    public int getExerciseIdByTitle(String title) {
+        Cursor cursor = database.rawQuery("select _id from exercices where titre = ?",new String[] {title});
+        Integer colId = null;
+        if (cursor.moveToFirst()) {
+            // The elements to retrieve
+
+            // The associated index within the cursor
+            int indexId = cursor.getColumnIndex(COLUMN_ID);
+            // Browse the results list:
+            int count = 0;
+            do {
+                colId = cursor.getInt(indexId);
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        cursor.close();
+        return colId;
+
     }
 
     public String getPatientPasswordByMailAndFavouriteWord(String mail, String favouriteWord) {
@@ -678,6 +706,30 @@ public class MyApplicationDataSource {
         }
         cursor.close();
         return patients;
+    }
+
+    public List<Exercise> getExerciseByPatientId(int id) {
+        List exercises = new ArrayList();
+        Cursor cursor = database.rawQuery("select * from exercices where id_patient = ?", new String[] {Integer.toString(id)});
+
+        String name;
+        int readWordsCount;
+
+        int indexName = cursor.getColumnIndex(COLUMN_TITRE);
+        int indexReadWordsCount = cursor.getColumnIndex(COLUMN_MOTS_LUS);
+        if (cursor.moveToFirst()) {
+            int count = 0;
+            do {
+                name = cursor.getString(indexName);
+                readWordsCount = cursor.getInt(indexReadWordsCount);
+                exercises.add(new Exercise(name, readWordsCount));
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        cursor.close();
+        return exercises;
     }
 
     public int getClinicianIdByPseudo(String pseudo) {

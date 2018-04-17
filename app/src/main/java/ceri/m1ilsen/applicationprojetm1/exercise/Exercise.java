@@ -11,22 +11,25 @@ import ceri.m1ilsen.applicationprojetm1.task.Task;
 public class Exercise {
     private String name;
     private Task task;
-    private File words;
     private double maxDuration;
     private int readWordsCount;
     private File recordFile;
     private String comment;
     private Configuration currentConfiguration;
 
-    public Exercise(String name, Task task, File words, double maxDuration, int readWordsCount, File recordFile, String comment, Configuration currentConfiguration) {
+    public Exercise(String name, Task task, double maxDuration, int readWordsCount, File recordFile, String comment, Configuration currentConfiguration) {
         this.name = name;
         this.task = task;
-        this.words = words;
         this.maxDuration = maxDuration;
         this.readWordsCount = readWordsCount;
         this.recordFile = recordFile;
         this.comment = comment;
         this.currentConfiguration = currentConfiguration;
+    }
+
+    public Exercise(String name, int readWordsCount) {
+        this.name = name;
+        this.readWordsCount = readWordsCount;
     }
 
     public void doExercise() {
@@ -55,14 +58,6 @@ public class Exercise {
 
     public void setTask(Task task) {
         this.task = task;
-    }
-
-    public File getWords() {
-        return words;
-    }
-
-    public void setWords(File words) {
-        this.words = words;
     }
 
     public double getMaxDuration() {

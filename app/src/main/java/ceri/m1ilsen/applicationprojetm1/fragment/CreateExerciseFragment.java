@@ -7,15 +7,22 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
+import java.util.List;
+
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.ExercisesListViewAdapter;
+import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
+import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 import ceri.m1ilsen.applicationprojetm1.ui.DoExerciseActivity;
 
 /**
@@ -68,7 +75,15 @@ public class CreateExerciseFragment extends Fragment {
 
         exercisesListView = (ListView) view.findViewById(R.id.exercisesList);
 
-        data.add("Exercice 1");
+        final MyApplicationDataSource BD = new MyApplicationDataSource(getActivity());
+        BD.open();
+        final int currentId = getActivity().getIntent().getIntExtra("connectedUserId",0);
+        List<Exercise> exercises = BD.getExerciseByPatientId(currentId);
+        ArrayList<String> exercisesName = new ArrayList<>();
+        for(int i=0; i<exercises.size(); i++)
+            exercisesName.add(exercises.get(i).getName().toString());
+        data = exercisesName;
+        BD.close();
 
         numberOfExercises = (TextView) view.findViewById(R.id.numberOfExercises);
         if (data.size() == 0)
@@ -82,15 +97,16 @@ public class CreateExerciseFragment extends Fragment {
         exercisesListView.setAdapter(exercisesListViewAdapter);
 
         mTextMessage = (TextView) view.findViewById(R.id.message);
-        //File file=new File("/src/java/mots.txt.txt");
         readWordsButton=(Button) view.findViewById(R.id.readWords);
         readWordsButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(),DoExerciseActivity.class);
-                intent.putExtra("task","mots");
-                startActivity(intent);
+                Intent createExercise = new Intent(getContext(),DoExerciseActivity.class);
+                createExercise.putExtra("patientPseudo",getActivity().getIntent().getExtras().getString("connectedUserPseudo"));
+                createExercise.putExtra("patientId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
+                createExercise.putExtra("task","mots");
+                startActivityForResult(createExercise,10000);
             }
         });
         readSentencesButton=(Button) view.findViewById(R.id.readSentences);
@@ -98,9 +114,11 @@ public class CreateExerciseFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(),DoExerciseActivity.class);
-                intent.putExtra("task","phrases");
-                startActivity(intent);
+                Intent createExercise = new Intent(getContext(),DoExerciseActivity.class);
+                createExercise.putExtra("patientPseudo",getActivity().getIntent().getExtras().getString("connectedUserPseudo"));
+                createExercise.putExtra("patientId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
+                createExercise.putExtra("task","phrases");
+                startActivityForResult(createExercise,10000);
             }
         });
         readTextButton=(Button) view.findViewById(R.id.readText);
@@ -108,9 +126,11 @@ public class CreateExerciseFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(),DoExerciseActivity.class);
-                intent.putExtra("task","textes");
-                startActivity(intent);
+                Intent createExercise = new Intent(getContext(),DoExerciseActivity.class);
+                createExercise.putExtra("patientPseudo",getActivity().getIntent().getExtras().getString("connectedUserPseudo"));
+                createExercise.putExtra("patientId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
+                createExercise.putExtra("task","textes");
+                startActivityForResult(createExercise,10000);
             }
         });
         return view;
@@ -149,5 +169,18 @@ public class CreateExerciseFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        //Check the result and request code here and update ur activity class
+        if ((requestCode == 10000) /* && (resultCode == Activity.RESULT_OK)*/) {
+            // recreate your fragment here
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.detach(this).attach(this);
+            fragmentTransaction.commit();
+        }
     }
 }
