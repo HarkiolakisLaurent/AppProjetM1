@@ -128,7 +128,9 @@ public class DoExerciseActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         for(int i=0;i<52;i++) {
-            lines.add(getRandomElement(valeur));
+            String line = getRandomElement(valeur);
+            if (!lines.contains(line))
+                lines.add(line);
         }
         File file = new File(exercisesDirectory+"/idqqchEx.txt");
         try {
