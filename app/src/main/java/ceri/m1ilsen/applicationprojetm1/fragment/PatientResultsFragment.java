@@ -56,7 +56,7 @@ public class PatientResultsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_patient_results, container, false);
         sessionsListView = (ListView) view.findViewById(R.id.sessionsList);
 
-        data.add("Session 1");
+        //data.add("Session 1");
 
         numberOfSessions = (TextView) view.findViewById(R.id.numberOfSessions);
         if (data.size() == 0)

@@ -8,7 +8,7 @@
     tools:context="ceri.m1ilsen.applicationprojetm1.fragment.CreateExerciseFragment">
 
     <RelativeLayout
-        android:layout_width="1038dp"
+        android:layout_width="1191dp"
         android:layout_height="684dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"

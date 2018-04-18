@@ -10,39 +10,29 @@ import ceri.m1ilsen.applicationprojetm1.task.Task;
  */
 
 public class Session {
-    private Date creationDate;
-    private List<Exercise> results;
+    private String title;
+    private double results;
     private String comment;
-    private int patient_id;
 
-    public Session(Date creationDate, List<Exercise> results, String comment, int patient_id) {
-        this.creationDate = creationDate;
+    public Session(String title, double results, String comment) {
+        this.title = title;
         this.results = results;
         this.comment = comment;
-        this.patient_id = patient_id;
     }
 
-    public Exercise startExercise(Task selectedTask) {
-        return null;
+    public String getTitle() {
+        return title;
     }
 
-    public Exercise resumeExercise(Exercise selectedExercise) {
-        return null;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public List<Exercise> getResults() {
+    public double getResults() {
         return results;
     }
 
-    public void setResults(List<Exercise> results) {
+    public void setResults(double results) {
         this.results = results;
     }
 
@@ -53,8 +43,4 @@ public class Session {
     public void setComment(String comment) {
         this.comment = comment;
     }
-
-    public int getPatient() {  return patient_id; }
-
-    public void setPatient(int patient) { this.patient_id = patient; }
 }

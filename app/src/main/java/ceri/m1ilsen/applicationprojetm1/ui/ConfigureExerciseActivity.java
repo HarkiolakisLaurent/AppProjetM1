@@ -94,6 +94,7 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
                     Intent createExercise = new Intent(getApplicationContext(),DoExerciseActivity.class);
                     createExercise.putExtra("customExercisePath",fileName.getText().toString());
                     createExercise.putExtra("customExerciseName",exerciseName.getText().toString());
+                    createExercise.putExtra("customExerciseMaxDuration",exerciseDuration.getText().toString());
                     createExercise.putExtra("task","custom");
                     createExercise.putExtra("isNewExercise",true);
                     startActivityForResult(createExercise,10000);

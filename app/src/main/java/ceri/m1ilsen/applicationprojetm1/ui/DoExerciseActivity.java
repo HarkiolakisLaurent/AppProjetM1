@@ -260,7 +260,13 @@ public class DoExerciseActivity extends AppCompatActivity {
                                 i++;
                             }
                         });
-                        Thread.sleep(10000);
+
+                        if (getIntent().getStringExtra("task").equals("custom")) {
+                            Thread.sleep(Long.parseLong(getIntent().getStringExtra("customExerciseMaxDuration"))*1000);
+                        }
+                        else {
+                            Thread.sleep(10000);
+                        }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

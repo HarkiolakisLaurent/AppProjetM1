@@ -180,8 +180,8 @@ public class MyApplicationDataSource {
 
     public long insertSession(Session session, int patientId) {
         ContentValues values = new ContentValues();
-        values.put("date_creation", String.valueOf(session.getCreationDate()));
-        values.put("id_patient",session.getPatient());
+        values.put("titre", session.getTitle());
+        values.put("id_patient",patientId);
         return database.insert("sessions", null, values);
     }
 
@@ -195,6 +195,10 @@ public class MyApplicationDataSource {
         ContentValues values = new ContentValues();
         values.put("score", score);
         return database.update("sessions", values, "_id = "+id,null);
+    }
+
+    public void deleteSession(String title) {
+        database.delete("sessions", "titre = ?",new String[]{title});
     }
 
     public long insertExercise(Exercise exercise, int patientId) {

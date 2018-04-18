@@ -27,6 +27,7 @@
             android:id="@+id/exerciseDescription"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:gravity="center"
             android:text="Le DATE à HEURE, NOM 0/52"
             android:textColor="@android:color/background_light"
             android:textSize="24sp" />
@@ -39,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@drawable/custom_list"
-        android:text="Lancer"
+        android:text="Recommencer"
         android:textColor="@android:color/background_light"
         android:textSize="24sp" />
 

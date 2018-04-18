@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.List;
+
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.HomePageListViewAdapter;
 
@@ -25,7 +27,7 @@ public class PatientHomePageFragment extends Fragment {
 
     ListView lv;
     public HomePageListViewAdapter adapter;
-    private ArrayList<String> data = new ArrayList<String>();
+    private List<String> data = new ArrayList<String>();
     private OnFragmentInteractionListener mListener;
 
     public PatientHomePageFragment() {
@@ -60,9 +62,8 @@ public class PatientHomePageFragment extends Fragment {
         lv = (ListView) view.findViewById(R.id.listResults);
 
         String currentUser = getActivity().getIntent().getStringExtra("connectedUserPseudo");
-        data= new ArrayList<>();
-        data.add(new String("Le DATE à HEURE, vous avez obtenu 75"));
-        data.add(new String("Le DATE à HEURE, vous avez obtenu 80"));
+
+        //data.add(new String("Le DATE à HEURE, vous avez obtenu 75"));
 
         lv.setAdapter(new HomePageListViewAdapter(view.getContext(), R.layout.home_page_item_view, data, currentUser));
 
