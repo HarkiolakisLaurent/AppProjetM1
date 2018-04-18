@@ -799,6 +799,28 @@ public class MyApplicationDataSource {
         return exercise;
     }
 
+    public int getExerciseReadWordsCountByTitre(String name) {
+        Cursor cursor = database.rawQuery("select mots_lus from exercices where titre = ?",new String[] {name});
+        //Cursor cursor = database.rawQuery("Select * from cliniciens where pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
+        Integer readWordsCount = null;
+        if (cursor.moveToFirst()) {
+            // The elements to retrieve
+
+            // The associated index within the cursor
+            int indexReadWordsCount = cursor.getColumnIndex(COLUMN_MOTS_LUS);
+            // Browse the results list:
+            int count = 0;
+            do {
+                readWordsCount = cursor.getInt(indexReadWordsCount);
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        cursor.close();
+        return readWordsCount;
+    }
+
     public Date convertStringToDate(String date) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         return formatter.parse(date);

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Environment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -23,6 +24,7 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
+import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 import ceri.m1ilsen.applicationprojetm1.task.Task;
 
 public class ConfigureExerciseActivity extends AppCompatActivity {
@@ -76,11 +78,26 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
         createExerciseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // création exercice ici
-                //Exercise configuredExercise = new Exercise(exerciseName.getText().toString(),Task.Mot,
-                //        new File(fileName.getText().toString()),Integer.parseInt(exerciseDuration.getText().toString()),0,null,null,null);
-                setResult(1);
-                finish();
+                MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
+                BD.open();
+                if (!exerciseName.getText().toString().equals("") && !fileName.getText().toString().equals("")) {
+                    Exercise configuredExercise;
+                    if (exerciseDuration.getText().toString().equals("")) {
+                        configuredExercise = new Exercise(exerciseName.getText().toString(),
+                                30, null, 0);
+                    } else {
+                        configuredExercise = new Exercise(exerciseName.getText().toString(),
+                                Double.parseDouble(exerciseDuration.getText().toString()), null, 0);
+                    }
+                    BD.insertExercise(configuredExercise,getIntent().getExtras().getInt("patientId"));
+                    BD.close();
+                    Intent createExercise = new Intent(getApplicationContext(),DoExerciseActivity.class);
+                    createExercise.putExtra("customExercisePath",fileName.getText().toString());
+                    createExercise.putExtra("customExerciseName",exerciseName.getText().toString());
+                    createExercise.putExtra("task","custom");
+                    createExercise.putExtra("isNewExercise",true);
+                    startActivityForResult(createExercise,10000);
+                }
             }
         });
         Intent intent = getIntent();
@@ -255,7 +272,8 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
                         // File picked
                         else {
                             // Perform action with file picked
-                            fileName.setText(chosenFile);
+                            getIntent().putExtra("fileName",chosenFile);
+                            fileName.setText(sel.toString());
                         }
 
                     }
@@ -264,5 +282,17 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
         }
         dialog = builder.show();
         return dialog;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        //Check the result and request code here and update ur activity class
+        if ((requestCode == 10000) /* && (resultCode == Activity.RESULT_OK)*/) {
+            // recreate your fragment here
+            setResult(10000);
+            finish();
+        }
     }
 }

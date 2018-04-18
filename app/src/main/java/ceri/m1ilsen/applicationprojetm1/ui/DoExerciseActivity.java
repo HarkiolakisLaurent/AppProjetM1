@@ -33,7 +33,6 @@ import java.util.concurrent.TimeUnit;
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
 import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
-import ceri.m1ilsen.applicationprojetm1.task.Task;
 
 public class DoExerciseActivity extends AppCompatActivity {
 
@@ -63,7 +62,8 @@ public class DoExerciseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_do_exercise);
         txtView=(TextView)findViewById(R.id.textExercice);
 
-        initExercise();
+        moveExerciseToExercisesDirectory();
+        storeExercise();
 
         bufferSize = AudioRecord.getMinBufferSize
                 (RECORDER_SAMPLERATE,RECORDER_CHANNELS,RECORDER_AUDIO_ENCODING)*3;
@@ -81,54 +81,68 @@ public class DoExerciseActivity extends AppCompatActivity {
         btnQuitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Exercise exercise = null;
-                final MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
-                BD.open();
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy_HH:mm");
-                Date resultdate = new Date(System.currentTimeMillis());
-                switch(getIntent().getStringExtra("task")) {
-                    case("mots"):
-                        exercise = new Exercise(getIntent().getStringExtra("patientPseudo")+"_LireMots_"+sdf.format(resultdate),0);
-                        BD.insertExercise(exercise,getIntent().getExtras().getInt("patientId"));
-                        break;
-
-                    case("phrases"):
-                        exercise = new Exercise(getIntent().getStringExtra("patientPseudo")+"_LirePhrases_"+sdf.format(resultdate),0);
-                        BD.insertExercise(exercise,getIntent().getExtras().getInt("patientId"));
-                        break;
-
-                    case("textes"):
-                        exercise = new Exercise(getIntent().getStringExtra("patientPseudo")+"_LireTextes_"+sdf.format(resultdate),0);
-                        BD.insertExercise(exercise,getIntent().getExtras().getInt("patientId"));
-                        break;
-
-                    default:
-                        break;
-                }
-
-                File file = new File(exercisesDirectory+"/"+exercise.getName()+".txt");
-                try {
-                    if (!file.exists()) {
-                        new File(file.getParent()).mkdirs();
-                        file.createNewFile();
-                    }
-                } catch (IOException e) {
-                    Log.e("", "Could not create file.", e);
-                    return;
-                }
-                try {
-                    FileWriter fw = new FileWriter(file,false);
-                    for(String str:lines)
-                        fw.write(str+System.getProperty( "line.separator" ));
-                    fw.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                BD.close();
                 setResult(10000);
                 finish();
             }
         });
+    }
+
+    private void storeExercise() {
+        Exercise exercise = null;
+        final MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
+        BD.open();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy_HH:mm");
+        Date resultdate = new Date(System.currentTimeMillis());
+        switch(getIntent().getStringExtra("task")) {
+            case("mots"):
+                exercise = new Exercise(getIntent().getStringExtra("patientPseudo")+"_LireMots_"+sdf.format(resultdate),0);
+                if (getIntent().getExtras().getBoolean("isNewExercise") == true)
+                    BD.insertExercise(exercise,getIntent().getExtras().getInt("patientId"));
+                getIntent().putExtra("exerciseId",BD.getExerciseIdByTitle(exercise.getName()));
+                break;
+
+            case("phrases"):
+                exercise = new Exercise(getIntent().getStringExtra("patientPseudo")+"_LirePhrases_"+sdf.format(resultdate),0);
+                if (getIntent().getExtras().getBoolean("isNewExercise") == true)
+                    BD.insertExercise(exercise,getIntent().getExtras().getInt("patientId"));
+                getIntent().putExtra("exerciseId",BD.getExerciseIdByTitle(exercise.getName()));
+                break;
+
+            case("textes"):
+                exercise = new Exercise(getIntent().getStringExtra("patientPseudo")+"_LireTextes_"+sdf.format(resultdate),0);
+                if (getIntent().getExtras().getBoolean("isNewExercise") == true)
+                    BD.insertExercise(exercise,getIntent().getExtras().getInt("patientId"));
+                getIntent().putExtra("exerciseId",BD.getExerciseIdByTitle(exercise.getName()));
+                break;
+
+            case("custom"):
+                exercise = new Exercise(getIntent().getStringExtra("customExerciseName"),0);
+                getIntent().putExtra("exerciseId",BD.getExerciseIdByTitle(exercise.getName()));
+                break;
+
+            default:
+                break;
+        }
+        BD.close();
+
+        File file = new File(exercisesDirectory+"/"+exercise.getName()+".txt");
+        try {
+            if (!file.exists()) {
+                new File(file.getParent()).mkdirs();
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            Log.e("", "Could not create file.", e);
+            return;
+        }
+        try {
+            FileWriter fw = new FileWriter(file,false);
+            for(String str:lines)
+                fw.write(str+System.getProperty( "line.separator" ));
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static String getRandomElement (Vector v) {
@@ -137,7 +151,7 @@ public class DoExerciseActivity extends AppCompatActivity {
         return (String)v.get(rnd);
     }
 
-    public void initExercise() {
+    private void moveExerciseToExercisesDirectory() {
         String myLine;
         InputStreamReader flog	= null;
         LineNumberReader llog;
@@ -161,6 +175,11 @@ public class DoExerciseActivity extends AppCompatActivity {
                     exercisesDirectory = new File("storage/emulated/0/App/Exercises/Texts");
                     break;
 
+                case("custom"):
+                    flog = new InputStreamReader(new FileInputStream(getIntent().getStringExtra("customExercisePath")) );
+                    exercisesDirectory = new File("storage/emulated/0/App/Exercises/Custom");
+                    break;
+
                 default:
                     break;
             }
@@ -179,6 +198,9 @@ public class DoExerciseActivity extends AppCompatActivity {
             String line = getRandomElement(valeur);
             if (!lines.contains(line))
                 lines.add(line);
+            else {
+                i--;
+            }
         }
 
         readlist(lines);
@@ -196,6 +218,10 @@ public class DoExerciseActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 txtView.setText(++position + "/" + list.size() + "\n" + list.get(i));
+                                MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
+                                BD.open();
+                                BD.updateExerciseReadWordsCount(getIntent().getExtras().getInt("exerciseId"),position);
+                                BD.close();
                                 i++;
                             }
                         });

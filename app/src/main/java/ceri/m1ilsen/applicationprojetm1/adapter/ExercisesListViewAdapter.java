@@ -27,13 +27,15 @@ import ceri.m1ilsen.applicationprojetm1.ui.CommentExerciseActivity;
 public class ExercisesListViewAdapter extends ArrayAdapter<String> {
 
     public List<String> dataSet;
+    public List<Integer> readWordsDataSet;
     Context mContext;
     public int layout;
 
-    public ExercisesListViewAdapter(Context context, int resource, List<String> objects) {
+    public ExercisesListViewAdapter(Context context, int resource, List<String> objects, List<Integer> readWords) {
         super(context, resource, objects);
         mContext = context;
         dataSet = objects;
+        readWordsDataSet = readWords;
         layout = resource;
     }
 
@@ -48,6 +50,7 @@ public class ExercisesListViewAdapter extends ArrayAdapter<String> {
             viewHolder.deleteExerciseButtonHolder = (ImageButton) convertView.findViewById(R.id.deleteExerciseButton);
             viewHolder.exerciseDescriptionHolder = (TextView) convertView.findViewById(R.id.exerciseDescription);
             viewHolder.launchExerciseButtonHolder = (Button) convertView.findViewById(R.id.launchExerciseButton);
+
             viewHolder.launchExerciseButtonHolder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -58,6 +61,9 @@ public class ExercisesListViewAdapter extends ArrayAdapter<String> {
             convertView.setTag(viewHolder);
         }
         mainViewholder = (ExercisesListViewAdapter.ViewHolder) convertView.getTag();
+        if (readWordsDataSet.get(position) == 1) {
+            mainViewholder.launchExerciseButtonHolder.setText("Reprendre");
+        }
         mainViewholder.deleteExerciseButtonHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +87,8 @@ public class ExercisesListViewAdapter extends ArrayAdapter<String> {
                                 file = new File("/storage/emulated/0/App/Exercises/Sentences/"+dataSet.get(position)+".txt");
                                 file.delete();
                                 file = new File("/storage/emulated/0/App/Exercises/Texts/"+dataSet.get(position)+".txt");
+                                file.delete();
+                                file = new File("/storage/emulated/0/App/Exercises/Custom/"+dataSet.get(position)+".txt");
                                 file.delete();
                                 BD.deleteExercise(dataSet.get(position));
                                 BD.close();

@@ -27,6 +27,13 @@ public class Exercise {
         this.currentConfiguration = currentConfiguration;
     }
 
+    public Exercise(String name, double maxDuration, Configuration currentConfiguration, int readWordsCount) {
+        this.name = name;
+        this.maxDuration = maxDuration;
+        this.currentConfiguration = currentConfiguration;
+        this.readWordsCount = readWordsCount;
+    }
+
     public Exercise(String name, int readWordsCount) {
         this.name = name;
         this.readWordsCount = readWordsCount;
