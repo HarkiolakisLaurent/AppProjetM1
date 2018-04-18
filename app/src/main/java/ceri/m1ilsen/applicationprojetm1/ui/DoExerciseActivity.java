@@ -13,10 +13,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -62,8 +65,14 @@ public class DoExerciseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_do_exercise);
         txtView=(TextView)findViewById(R.id.textExercice);
 
-        moveExerciseToExercisesDirectory();
-        storeExercise();
+        if (getIntent().getExtras().getBoolean("isNewExercise") == true) {
+            moveExerciseToExercisesDirectory();
+            storeExercise();
+        }
+        else {
+            continueExercise();
+            storeExercise();
+        }
 
         bufferSize = AudioRecord.getMinBufferSize
                 (RECORDER_SAMPLERATE,RECORDER_CHANNELS,RECORDER_AUDIO_ENCODING)*3;
@@ -95,28 +104,52 @@ public class DoExerciseActivity extends AppCompatActivity {
         Date resultdate = new Date(System.currentTimeMillis());
         switch(getIntent().getStringExtra("task")) {
             case("mots"):
-                exercise = new Exercise(getIntent().getStringExtra("patientPseudo")+"_LireMots_"+sdf.format(resultdate),0);
-                if (getIntent().getExtras().getBoolean("isNewExercise") == true)
+                if (getIntent().getExtras().getBoolean("isNewExercise") == true) {
+                    exercise = new Exercise(getIntent().getStringExtra("patientPseudo")+"_LireMots_"+sdf.format(resultdate),
+                            "mots", 0);
                     BD.insertExercise(exercise,getIntent().getExtras().getInt("patientId"));
+                }
+                else {
+                    exercise = new Exercise(getIntent().getStringExtra("exerciseName"), "mots",
+                            getIntent().getExtras().getInt("exerciseReadWordsCount"));
+                }
                 getIntent().putExtra("exerciseId",BD.getExerciseIdByTitle(exercise.getName()));
                 break;
 
             case("phrases"):
-                exercise = new Exercise(getIntent().getStringExtra("patientPseudo")+"_LirePhrases_"+sdf.format(resultdate),0);
-                if (getIntent().getExtras().getBoolean("isNewExercise") == true)
+                if (getIntent().getExtras().getBoolean("isNewExercise") == true) {
+                    exercise = new Exercise(getIntent().getStringExtra("patientPseudo")+"_LirePhrases_"+sdf.format(resultdate),
+                            "phrases",0);
                     BD.insertExercise(exercise,getIntent().getExtras().getInt("patientId"));
+                }
+                else {
+                    exercise = new Exercise(getIntent().getStringExtra("exerciseName"),"phrases",
+                            getIntent().getExtras().getInt("exerciseReadWordsCount"));
+                }
                 getIntent().putExtra("exerciseId",BD.getExerciseIdByTitle(exercise.getName()));
                 break;
 
             case("textes"):
-                exercise = new Exercise(getIntent().getStringExtra("patientPseudo")+"_LireTextes_"+sdf.format(resultdate),0);
-                if (getIntent().getExtras().getBoolean("isNewExercise") == true)
+                if (getIntent().getExtras().getBoolean("isNewExercise") == true) {
+                    exercise = new Exercise(getIntent().getStringExtra("patientPseudo")+"_LireTextes_"+sdf.format(resultdate),
+                            "textes",0);
                     BD.insertExercise(exercise,getIntent().getExtras().getInt("patientId"));
+                }
+                else {
+                    exercise = new Exercise(getIntent().getStringExtra("exerciseName"),"textes",
+                            getIntent().getExtras().getInt("exerciseReadWordsCount"));
+                }
                 getIntent().putExtra("exerciseId",BD.getExerciseIdByTitle(exercise.getName()));
                 break;
 
             case("custom"):
-                exercise = new Exercise(getIntent().getStringExtra("customExerciseName"),0);
+                if (getIntent().getExtras().getBoolean("isNewExercise") == true) {
+                    exercise = new Exercise(getIntent().getStringExtra("customExerciseName"),"custom",0);
+                }
+                else {
+                    exercise = new Exercise(getIntent().getStringExtra("exerciseName"),"custom",
+                            getIntent().getExtras().getInt("exerciseReadWordsCount"));
+                }
                 getIntent().putExtra("exerciseId",BD.getExerciseIdByTitle(exercise.getName()));
                 break;
 
@@ -125,23 +158,25 @@ public class DoExerciseActivity extends AppCompatActivity {
         }
         BD.close();
 
-        File file = new File(exercisesDirectory+"/"+exercise.getName()+".txt");
-        try {
-            if (!file.exists()) {
-                new File(file.getParent()).mkdirs();
-                file.createNewFile();
+        if (getIntent().getExtras().getBoolean("isNewExercise") == true) {
+            File file = new File(exercisesDirectory+"/"+exercise.getName()+".txt");
+            try {
+                if (!file.exists()) {
+                    new File(file.getParent()).mkdirs();
+                    file.createNewFile();
+                }
+            } catch (IOException e) {
+                Log.e("", "Could not create file.", e);
+                return;
             }
-        } catch (IOException e) {
-            Log.e("", "Could not create file.", e);
-            return;
-        }
-        try {
-            FileWriter fw = new FileWriter(file,false);
-            for(String str:lines)
-                fw.write(str+System.getProperty( "line.separator" ));
-            fw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                FileWriter fw = new FileWriter(file,false);
+                for(String str:lines)
+                    fw.write(str+System.getProperty( "line.separator" ));
+                fw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -232,6 +267,32 @@ public class DoExerciseActivity extends AppCompatActivity {
                 }
             }
         }.start();
+    }
+
+    private void continueExercise() {
+        String myLine;
+        InputStreamReader flog	= null;
+        LineNumberReader llog;
+        Vector<String> valeur=new Vector<String>();
+        lines=new ArrayList<String>();
+        try {
+            flog = new InputStreamReader(new FileInputStream("/"+getIntent().getStringExtra("exercisePath")+"/"
+                    +getIntent().getStringExtra("exerciseName")+".txt"));
+            llog = new LineNumberReader(flog);
+            try {
+                while ((myLine = llog.readLine()) != null) {
+                    lines.add(myLine);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            readlist(lines);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void promptSpeechInput() {

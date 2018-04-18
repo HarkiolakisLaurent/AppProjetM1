@@ -83,10 +83,10 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
                 if (!exerciseName.getText().toString().equals("") && !fileName.getText().toString().equals("")) {
                     Exercise configuredExercise;
                     if (exerciseDuration.getText().toString().equals("")) {
-                        configuredExercise = new Exercise(exerciseName.getText().toString(),
+                        configuredExercise = new Exercise(exerciseName.getText().toString(),"custom",
                                 30, null, 0);
                     } else {
-                        configuredExercise = new Exercise(exerciseName.getText().toString(),
+                        configuredExercise = new Exercise(exerciseName.getText().toString(),"custom",
                                 Double.parseDouble(exerciseDuration.getText().toString()), null, 0);
                     }
                     BD.insertExercise(configuredExercise,getIntent().getExtras().getInt("patientId"));

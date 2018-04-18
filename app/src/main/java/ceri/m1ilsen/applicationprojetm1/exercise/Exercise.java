@@ -10,32 +10,22 @@ import ceri.m1ilsen.applicationprojetm1.task.Task;
 
 public class Exercise {
     private String name;
-    private Task task;
+    private String task;
     private double maxDuration;
     private int readWordsCount;
-    private File recordFile;
-    private String comment;
     private Configuration currentConfiguration;
 
-    public Exercise(String name, Task task, double maxDuration, int readWordsCount, File recordFile, String comment, Configuration currentConfiguration) {
+    public Exercise(String name, String task, double maxDuration, Configuration currentConfiguration, int readWordsCount) {
         this.name = name;
         this.task = task;
         this.maxDuration = maxDuration;
-        this.readWordsCount = readWordsCount;
-        this.recordFile = recordFile;
-        this.comment = comment;
-        this.currentConfiguration = currentConfiguration;
-    }
-
-    public Exercise(String name, double maxDuration, Configuration currentConfiguration, int readWordsCount) {
-        this.name = name;
-        this.maxDuration = maxDuration;
         this.currentConfiguration = currentConfiguration;
         this.readWordsCount = readWordsCount;
     }
 
-    public Exercise(String name, int readWordsCount) {
+    public Exercise(String name, String task, int readWordsCount) {
         this.name = name;
+        this.task = task;
         this.readWordsCount = readWordsCount;
     }
 
@@ -59,11 +49,11 @@ public class Exercise {
         this.name = name;
     }
 
-    public Task getTask() {
+    public String getTask() {
         return task;
     }
 
-    public void setTask(Task task) {
+    public void setTask(String task) {
         this.task = task;
     }
 
@@ -81,22 +71,6 @@ public class Exercise {
 
     public void setReadWordsCount(int readWordsCount) {
         this.readWordsCount = readWordsCount;
-    }
-
-    public File getRecordFile() {
-        return recordFile;
-    }
-
-    public void setRecordFile(File recordFile) {
-        this.recordFile = recordFile;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
     }
 
     public Configuration getCurrentConfiguration() {

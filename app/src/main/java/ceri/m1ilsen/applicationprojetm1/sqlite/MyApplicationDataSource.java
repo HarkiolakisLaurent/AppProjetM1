@@ -201,6 +201,7 @@ public class MyApplicationDataSource {
         ContentValues values = new ContentValues();
         values.put("titre", exercise.getName());
         values.put("mots_lus", exercise.getReadWordsCount());
+        values.put("tache", exercise.getTask());
         values.put("id_patient", patientId);
         System.out.println("insertion");
         return database.insert("exercices", null, values);
@@ -713,16 +714,19 @@ public class MyApplicationDataSource {
         Cursor cursor = database.rawQuery("select * from exercices where id_patient = ?", new String[] {Integer.toString(id)});
 
         String name;
+        String task;
         int readWordsCount;
 
         int indexName = cursor.getColumnIndex(COLUMN_TITRE);
+        int indexTask = cursor.getColumnIndex(COLUMN_TASK);
         int indexReadWordsCount = cursor.getColumnIndex(COLUMN_MOTS_LUS);
         if (cursor.moveToFirst()) {
             int count = 0;
             do {
                 name = cursor.getString(indexName);
+                task = cursor.getString(indexTask);
                 readWordsCount = cursor.getInt(indexReadWordsCount);
-                exercises.add(new Exercise(name, readWordsCount));
+                exercises.add(new Exercise(name, task, readWordsCount));
                 count++;
             } while (cursor.moveToNext());
         } else {
@@ -748,6 +752,24 @@ public class MyApplicationDataSource {
         }
         cursor.close();
         return comment;
+    }
+
+    public String getExerciseTaskByTitle(String name) {
+        Cursor cursor = database.rawQuery("select tache from exercices where titre = ?", new String[]{name});
+
+        String task = null;
+        int indexTask = cursor.getColumnIndex(COLUMN_TASK);
+        if (cursor.moveToFirst()) {
+            int count = 0;
+            do {
+                task = cursor.getString(indexTask);
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        cursor.close();
+        return task;
     }
 
     public int getClinicianIdByPseudo(String pseudo) {
@@ -777,21 +799,24 @@ public class MyApplicationDataSource {
         Cursor cursor = database.rawQuery("select * from exercices where titre = ?", new String[]{name});
 
         String title;
+        String task;
         int readWordsCount;
 
         int indexTitle = cursor.getColumnIndex(COLUMN_TITRE);
+        int indexTask = cursor.getColumnIndex(COLUMN_TASK);
         int indexReadWordsCount = cursor.getColumnIndex(COLUMN_MOTS_LUS);
         if (cursor.moveToFirst()) {
             int count = 0;
             do {
                 title = cursor.getString(indexTitle);
+                task = cursor.getString(indexTask);
                 readWordsCount = cursor.getInt(indexReadWordsCount);
                 count++;
             } while (cursor.moveToNext());
 
             List sessions = new ArrayList();
             //sessions = getPatientByClinicianId(colId);
-            exercise = new Exercise(title, readWordsCount);
+            exercise = new Exercise(title, task, readWordsCount);
         } else {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
         }
@@ -799,7 +824,7 @@ public class MyApplicationDataSource {
         return exercise;
     }
 
-    public int getExerciseReadWordsCountByTitre(String name) {
+    public int getExerciseReadWordsCountByTitle(String name) {
         Cursor cursor = database.rawQuery("select mots_lus from exercices where titre = ?",new String[] {name});
         //Cursor cursor = database.rawQuery("Select * from cliniciens where pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
         Integer readWordsCount = null;

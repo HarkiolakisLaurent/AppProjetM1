@@ -37,7 +37,6 @@ public class CreateExerciseFragment extends Fragment {
 
     private ListView exercisesListView;
     private List<String> data = new ArrayList<String>();
-    private List<Integer> readWordsCountData = new ArrayList<Integer>();
     private TextView numberOfExercises;
 
     private TextView mTextMessage;
@@ -81,14 +80,11 @@ public class CreateExerciseFragment extends Fragment {
         final int currentId = getActivity().getIntent().getIntExtra("connectedUserId",0);
         List<Exercise> exercises = BD.getExerciseByPatientId(currentId);
         List<String> exercisesName = new ArrayList<>();
-        List<Integer> readWordsCount = new ArrayList<>();
 
         for(int i=0; i<exercises.size(); i++) {
             exercisesName.add(exercises.get(i).getName().toString());
-            readWordsCount.add(BD.getExerciseReadWordsCountByTitre(exercises.get(i).getName().toString()));
         }
         data = exercisesName;
-        readWordsCountData = readWordsCount;
         BD.close();
 
         numberOfExercises = (TextView) view.findViewById(R.id.numberOfExercises);
@@ -99,7 +95,7 @@ public class CreateExerciseFragment extends Fragment {
         else
             numberOfExercises.setText(data.size()+" exercices sont disponibles");
 
-        ExercisesListViewAdapter exercisesListViewAdapter = new ExercisesListViewAdapter(view.getContext(), R.layout.exercise_item_view, data, readWordsCountData);
+        ExercisesListViewAdapter exercisesListViewAdapter = new ExercisesListViewAdapter(view.getContext(), R.layout.exercise_item_view, data);
         exercisesListView.setAdapter(exercisesListViewAdapter);
 
         mTextMessage = (TextView) view.findViewById(R.id.message);
@@ -112,7 +108,7 @@ public class CreateExerciseFragment extends Fragment {
                 createExercise.putExtra("patientPseudo",getActivity().getIntent().getExtras().getString("connectedUserPseudo"));
                 createExercise.putExtra("patientId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
                 createExercise.putExtra("task","mots");
-                createExercise.putExtra("nouvelExercice",true);
+                createExercise.putExtra("isNewExercise",true);
                 startActivityForResult(createExercise,10000);
             }
         });
@@ -125,7 +121,7 @@ public class CreateExerciseFragment extends Fragment {
                 createExercise.putExtra("patientPseudo",getActivity().getIntent().getExtras().getString("connectedUserPseudo"));
                 createExercise.putExtra("patientId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
                 createExercise.putExtra("task","phrases");
-                createExercise.putExtra("nouvelExercice",true);
+                createExercise.putExtra("isNewExercise",true);
                 startActivityForResult(createExercise,10000);
             }
         });
@@ -138,7 +134,7 @@ public class CreateExerciseFragment extends Fragment {
                 createExercise.putExtra("patientPseudo",getActivity().getIntent().getExtras().getString("connectedUserPseudo"));
                 createExercise.putExtra("patientId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
                 createExercise.putExtra("task","textes");
-                createExercise.putExtra("nouvelExercice",true);
+                createExercise.putExtra("isNewExercise",true);
                 startActivityForResult(createExercise,10000);
             }
         });

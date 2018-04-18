@@ -19,6 +19,7 @@ import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
 import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 import ceri.m1ilsen.applicationprojetm1.ui.CommentExerciseActivity;
+import ceri.m1ilsen.applicationprojetm1.ui.DoExerciseActivity;
 
 /**
  * Created by Laurent on 21/03/2018.
@@ -27,15 +28,13 @@ import ceri.m1ilsen.applicationprojetm1.ui.CommentExerciseActivity;
 public class ExercisesListViewAdapter extends ArrayAdapter<String> {
 
     public List<String> dataSet;
-    public List<Integer> readWordsDataSet;
     Context mContext;
     public int layout;
 
-    public ExercisesListViewAdapter(Context context, int resource, List<String> objects, List<Integer> readWords) {
+    public ExercisesListViewAdapter(Context context, int resource, List<String> objects) {
         super(context, resource, objects);
         mContext = context;
         dataSet = objects;
-        readWordsDataSet = readWords;
         layout = resource;
     }
 
@@ -50,20 +49,10 @@ public class ExercisesListViewAdapter extends ArrayAdapter<String> {
             viewHolder.deleteExerciseButtonHolder = (ImageButton) convertView.findViewById(R.id.deleteExerciseButton);
             viewHolder.exerciseDescriptionHolder = (TextView) convertView.findViewById(R.id.exerciseDescription);
             viewHolder.launchExerciseButtonHolder = (Button) convertView.findViewById(R.id.launchExerciseButton);
-
-            viewHolder.launchExerciseButtonHolder.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(view.getContext(),"Détails de l'exercice",Toast.LENGTH_LONG);
-                }
-            });
             viewHolder.commentButtonHolder = (Button) convertView.findViewById(R.id.commentButton);
             convertView.setTag(viewHolder);
         }
         mainViewholder = (ExercisesListViewAdapter.ViewHolder) convertView.getTag();
-        if (readWordsDataSet.get(position) == 1) {
-            mainViewholder.launchExerciseButtonHolder.setText("Reprendre");
-        }
         mainViewholder.deleteExerciseButtonHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,6 +86,53 @@ public class ExercisesListViewAdapter extends ArrayAdapter<String> {
                             }
                         });
                 alertDialog.show();
+
+            }
+        });
+        mainViewholder.launchExerciseButtonHolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(v.getContext(),"Clic",Toast.LENGTH_LONG);
+                MyApplicationDataSource BD = new MyApplicationDataSource(getContext());
+                BD.open();
+                if (BD.getExerciseReadWordsCountByTitle(dataSet.get(position)) == 52) {
+                    Toast.makeText(v.getContext(),"Exercice terminé",Toast.LENGTH_LONG).show();
+                    /*Intent launchExercise = new Intent(getContext(), DoExerciseActivity.class);
+                    launchExercise.putExtra("isNewExercise",false);
+                    mContext.startActivity(launchExercise);*/
+                }
+                else {
+                    Intent continueExercise = new Intent(getContext(), DoExerciseActivity.class);
+                    continueExercise.putExtra("isNewExercise",false);
+                    continueExercise.putExtra("exerciseName",dataSet.get(position));
+                    switch(BD.getExerciseTaskByTitle(dataSet.get(position))) {
+                        case("mots"):
+                            continueExercise.putExtra("exercisePath","storage/emulated/0/App/Exercises/Words");
+                            continueExercise.putExtra("task",BD.getExerciseTaskByTitle(dataSet.get(position)));
+                            break;
+
+                        case("phrases"):
+                            continueExercise.putExtra("exercisePath","storage/emulated/0/App/Exercises/Sentences");
+                            continueExercise.putExtra("task",BD.getExerciseTaskByTitle(dataSet.get(position)));
+                            break;
+
+                        case("textes"):
+                            continueExercise.putExtra("exercisePath","storage/emulated/0/App/Exercises/Texts");
+                            continueExercise.putExtra("task",BD.getExerciseTaskByTitle(dataSet.get(position)));
+                            break;
+
+                        case("custom"):
+                            continueExercise.putExtra("exercisePath","storage/emulated/0/App/Exercises/Custom");
+                            continueExercise.putExtra("task",BD.getExerciseTaskByTitle(dataSet.get(position)));
+                            break;
+
+                        default:
+                            break;
+                    }
+                    continueExercise.putExtra("exerciseReadWordsCount",BD.getExerciseReadWordsCountByTitle(dataSet.get(position)));
+                    mContext.startActivity(continueExercise);
+                }
+                BD.close();
 
             }
         });
