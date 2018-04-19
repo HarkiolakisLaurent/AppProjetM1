@@ -205,6 +205,7 @@ public class MyApplicationDataSource {
         ContentValues values = new ContentValues();
         values.put("titre", exercise.getName());
         values.put("mots_lus", exercise.getReadWordsCount());
+        values.put("duree_max", exercise.getMaxDuration());
         values.put("tache", exercise.getTask());
         values.put("id_patient", patientId);
         System.out.println("insertion");
@@ -774,6 +775,24 @@ public class MyApplicationDataSource {
         }
         cursor.close();
         return task;
+    }
+
+    public String getExerciseMaxDurationByTitle(String name) {
+        Cursor cursor = database.rawQuery("select duree_max from exercices where titre = ?", new String[]{name});
+
+        String maxDuration = null;
+        int indexMaxDuration = cursor.getColumnIndex(COLUMN_DUREE);
+        if (cursor.moveToFirst()) {
+            int count = 0;
+            do {
+                maxDuration = cursor.getString(indexMaxDuration);
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        cursor.close();
+        return maxDuration;
     }
 
     public int getClinicianIdByPseudo(String pseudo) {

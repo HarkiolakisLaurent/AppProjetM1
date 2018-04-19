@@ -105,7 +105,7 @@ public class DoExerciseActivity extends AppCompatActivity {
         Exercise exercise = null;
         final MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
         BD.open();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy_HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
         Date resultdate = new Date(System.currentTimeMillis());
         switch(getIntent().getStringExtra("task")) {
             case("mots"):
@@ -364,7 +364,7 @@ public class DoExerciseActivity extends AppCompatActivity {
         FileOutputStream os = null;
 
         try {
-            os = new FileOutputStream(filename);
+            os = new FileOutputStream(filename,true);
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

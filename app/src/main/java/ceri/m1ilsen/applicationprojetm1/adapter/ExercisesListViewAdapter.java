@@ -108,6 +108,7 @@ public class ExercisesListViewAdapter extends ArrayAdapter<String> {
                 continueExercise.putExtra("isNewExercise",false);
                 continueExercise.putExtra("exerciseName",dataSet.get(position));
                 int patientId = BD.getExercisePatientIdByTitle(dataSet.get(position));
+                String exerciseDuration = BD.getExerciseMaxDurationByTitle(dataSet.get(position));
                 String patientPseudo = BD.getPatientPseudoById(patientId);
                 continueExercise.putExtra("patientPseudo",patientPseudo);
                 switch(BD.getExerciseTaskByTitle(dataSet.get(position))) {
@@ -129,6 +130,8 @@ public class ExercisesListViewAdapter extends ArrayAdapter<String> {
                     case("custom"):
                         continueExercise.putExtra("exercisePath","storage/emulated/0/App/Exercises/Custom");
                         continueExercise.putExtra("task",BD.getExerciseTaskByTitle(dataSet.get(position)));
+                        continueExercise.putExtra("customExerciseMaxDuration",exerciseDuration);
+
                         break;
 
                     default:

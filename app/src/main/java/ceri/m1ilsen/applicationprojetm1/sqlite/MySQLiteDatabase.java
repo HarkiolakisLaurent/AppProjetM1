@@ -35,11 +35,12 @@ public class MySQLiteDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_MOTS_LUS = "mots_lus";
     public static final String COLUMN_COMMENT = "comment";
     public static final String COLUMN_WORD = "mot_prefere";
+    public static final String COLUMN_DUREE = "duree_max";
     public static final String COLUMN_SCORE = "score";
     public static final String COLUMN_TASK = "tache";
 
     private static final String DATABASE_NAME = "app.db";
-    private static final int DATABASE_VERSION = 14;
+    private static final int DATABASE_VERSION = 15;
 
     // Commande sql pour la création de la base de données
     private static final String DATABASE_CREATE_PATIENT = " create table " + TABLE_PATIENTS + "( " + COLUMN_ID
@@ -58,7 +59,7 @@ public class MySQLiteDatabase extends SQLiteOpenHelper {
 
     private static final String DATABASE_CREATE_EXERCISE = " create table " + TABLE_EXERCICES + "( "
             + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_TITRE +" text not null, "+ COLUMN_MOTS_LUS + " integer,"
-            + COLUMN_COMMENT + " text ,"+ COLUMN_SCORE + " double , "+ COLUMN_TASK + " text, "
+            + COLUMN_COMMENT + " text ,"+ COLUMN_SCORE + " double , "+ COLUMN_TASK + " text, " + COLUMN_DUREE + " integer , "
             + COLUMN_ID_SESSION +" integer, "+ COLUMN_ID_PATIENT + " integer not null);";
 
     public MySQLiteDatabase(Context context) {
