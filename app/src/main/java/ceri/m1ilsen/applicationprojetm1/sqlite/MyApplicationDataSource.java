@@ -850,6 +850,50 @@ public class MyApplicationDataSource {
         return readWordsCount;
     }
 
+    public int getExercisePatientIdByTitle(String name) {
+        Cursor cursor = database.rawQuery("select id_patient from exercices where titre = ?",new String[] {name});
+        //Cursor cursor = database.rawQuery("Select * from cliniciens where pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
+        Integer patientId = null;
+        if (cursor.moveToFirst()) {
+            // The elements to retrieve
+
+            // The associated index within the cursor
+            int indexPatientId = cursor.getColumnIndex(COLUMN_ID_PATIENT);
+            // Browse the results list:
+            int count = 0;
+            do {
+                patientId = cursor.getInt(indexPatientId);
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        cursor.close();
+        return patientId;
+    }
+
+    public String getPatientPseudoById(int patientId) {
+        Cursor cursor = database.rawQuery("select pseudo from patients where _id = ?",new String[] {Integer.toString(patientId)});
+        //Cursor cursor = database.rawQuery("Select * from cliniciens where pseudo LIKE \""+pseudo+"\" and mot_de_passe LIKE \""+mdp+"\"",null);
+        String pseudo = null;
+        if (cursor.moveToFirst()) {
+            // The elements to retrieve
+
+            // The associated index within the cursor
+            int indexPseudo = cursor.getColumnIndex(COLUMN_PSEUDO);
+            // Browse the results list:
+            int count = 0;
+            do {
+                pseudo = cursor.getString(indexPseudo);
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        cursor.close();
+        return pseudo;
+    }
+
     public Date convertStringToDate(String date) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         return formatter.parse(date);

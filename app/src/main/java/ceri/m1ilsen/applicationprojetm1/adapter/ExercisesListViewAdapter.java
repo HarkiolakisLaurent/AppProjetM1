@@ -107,6 +107,9 @@ public class ExercisesListViewAdapter extends ArrayAdapter<String> {
                 Intent continueExercise = new Intent(getContext(), DoExerciseActivity.class);
                 continueExercise.putExtra("isNewExercise",false);
                 continueExercise.putExtra("exerciseName",dataSet.get(position));
+                int patientId = BD.getExercisePatientIdByTitle(dataSet.get(position));
+                String patientPseudo = BD.getPatientPseudoById(patientId);
+                continueExercise.putExtra("patientPseudo",patientPseudo);
                 switch(BD.getExerciseTaskByTitle(dataSet.get(position))) {
                     case("mots"):
                         continueExercise.putExtra("exercisePath","storage/emulated/0/App/Exercises/Words");

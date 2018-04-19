@@ -1,10 +1,9 @@
 package ceri.m1ilsen.applicationprojetm1.ui;
 
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
-import android.speech.RecognizerIntent;
+import android.media.MediaRecorder;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,13 +12,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,10 +24,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
 import java.util.Vector;
-import java.util.concurrent.TimeUnit;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
@@ -40,22 +34,29 @@ import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 public class DoExerciseActivity extends AppCompatActivity {
 
     private Button btnQuitter = null;
-    private ImageButton imageMicroButton=null;
+    private ImageButton recordingButton=null;
     private TextView txtView=null;
     List<String> lines = null;
     int position,i=0;
-    String speechword="";
-    boolean pause=true;
     private File exercisesDirectory = null;
 
-
     private static final int RECORDER_BPP = 16;
+    private static final String AUDIO_RECORDER_FILE_EXT_WAV = ".wav";
+    private static final String AUDIO_RECORDER_FOLDER = "App/Recordings";
+    private static final String AUDIO_RECORDER_TEMP_FILE = "record_temp.raw";
     private static final int RECORDER_SAMPLERATE = 44100;
     private static final int RECORDER_CHANNELS = AudioFormat.CHANNEL_IN_STEREO;
     private static final int RECORDER_AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;
     short[] audioData;
 
+    private AudioRecord recorder = null;
     private int bufferSize = 0;
+    private Thread recordingThread = null;
+    private boolean isRecording = false;
+    //Complex[] fftTempArray;
+    //Complex[] fftArray;
+    int[] bufferData;
+    int bytesRecorded;
 
 
 
@@ -73,17 +74,21 @@ public class DoExerciseActivity extends AppCompatActivity {
             continueExercise();
             storeExercise();
         }
-
         bufferSize = AudioRecord.getMinBufferSize
                 (RECORDER_SAMPLERATE,RECORDER_CHANNELS,RECORDER_AUDIO_ENCODING)*3;
 
         audioData = new short [bufferSize]; //short array that pcm data is put into.
 
-        imageMicroButton = (ImageButton) findViewById(R.id.imageBtnMicro);
-        imageMicroButton.setOnClickListener(new View.OnClickListener() {
+        recordingButton = (ImageButton) findViewById(R.id.recordingButton);
+        recordingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                promptSpeechInput();
+                if (!isRecording) {
+                    startRecording();
+                }
+                else {
+                    stopRecording();
+                }
             }
         });
         btnQuitter=(Button) findViewById(R.id.btnQuitter);
@@ -105,8 +110,9 @@ public class DoExerciseActivity extends AppCompatActivity {
         switch(getIntent().getStringExtra("task")) {
             case("mots"):
                 if (getIntent().getExtras().getBoolean("isNewExercise") == true) {
-                    exercise = new Exercise(getIntent().getStringExtra("patientPseudo")+"_LireMots_"+sdf.format(resultdate),
-                            "mots", 0);
+                    String exerciseName = getIntent().getStringExtra("patientPseudo")+"_LireMots_"+sdf.format(resultdate);
+                    exercise = new Exercise(exerciseName,"mots", 0);
+                    getIntent().putExtra("exerciseName",exerciseName);
                     BD.insertExercise(exercise,getIntent().getExtras().getInt("patientId"));
                 }
                 else {
@@ -118,8 +124,9 @@ public class DoExerciseActivity extends AppCompatActivity {
 
             case("phrases"):
                 if (getIntent().getExtras().getBoolean("isNewExercise") == true) {
-                    exercise = new Exercise(getIntent().getStringExtra("patientPseudo")+"_LirePhrases_"+sdf.format(resultdate),
-                            "phrases",0);
+                    String exerciseName = getIntent().getStringExtra("patientPseudo")+"_LirePhrases_"+sdf.format(resultdate);
+                    exercise = new Exercise(exerciseName,"phrases",0);
+                    getIntent().putExtra("exerciseName",exerciseName);
                     BD.insertExercise(exercise,getIntent().getExtras().getInt("patientId"));
                 }
                 else {
@@ -131,8 +138,9 @@ public class DoExerciseActivity extends AppCompatActivity {
 
             case("textes"):
                 if (getIntent().getExtras().getBoolean("isNewExercise") == true) {
-                    exercise = new Exercise(getIntent().getStringExtra("patientPseudo")+"_LireTextes_"+sdf.format(resultdate),
-                            "textes",0);
+                    String exerciseName = getIntent().getStringExtra("patientPseudo")+"_LireTextes_"+sdf.format(resultdate);
+                    exercise = new Exercise(exerciseName,"textes",0);
+                    getIntent().putExtra("exerciseName",exerciseName);
                     BD.insertExercise(exercise,getIntent().getExtras().getInt("patientId"));
                 }
                 else {
@@ -144,7 +152,7 @@ public class DoExerciseActivity extends AppCompatActivity {
 
             case("custom"):
                 if (getIntent().getExtras().getBoolean("isNewExercise") == true) {
-                    exercise = new Exercise(getIntent().getStringExtra("customExerciseName"),"custom",0);
+                    exercise = new Exercise(getIntent().getStringExtra("exerciseName"),"custom",0);
                 }
                 else {
                     exercise = new Exercise(getIntent().getStringExtra("exerciseName"),"custom",
@@ -301,62 +309,145 @@ public class DoExerciseActivity extends AppCompatActivity {
 
     }
 
-    public void promptSpeechInput() {
-        Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+    private String getFilename(){
+        String filepath = Environment.getExternalStorageDirectory().getPath();
+        File file = new File(filepath,AUDIO_RECORDER_FOLDER+"/"+getIntent().getStringExtra("patientPseudo"));
 
-        try{
-            startActivityForResult(i, 100);
+        if (!file.exists()) {
+            file.mkdirs();
         }
-        catch(ActivityNotFoundException a){
-            Toast.makeText(this, "Sorry! Your device doesn't speech your language ", Toast.LENGTH_LONG).show();
+        return (file.getAbsolutePath() + "/" + getIntent().getStringExtra("exerciseName") +
+                AUDIO_RECORDER_FILE_EXT_WAV);
+    }
+
+    private String getTempFilename() {
+        String filepath = Environment.getExternalStorageDirectory().getPath();
+        File file = new File(filepath,AUDIO_RECORDER_FOLDER);
+
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+        File tempFile = new File(filepath,AUDIO_RECORDER_TEMP_FILE);
+
+        if (tempFile.exists())
+            tempFile.delete();
+
+        return (file.getAbsolutePath() + "/" + AUDIO_RECORDER_TEMP_FILE);
+    }
+
+    private void startRecording() {
+        recorder = new AudioRecord(MediaRecorder.AudioSource.MIC,
+                RECORDER_SAMPLERATE,
+                RECORDER_CHANNELS,
+                RECORDER_AUDIO_ENCODING,
+                bufferSize);
+        int i = recorder.getState();
+        if (i==1)
+            recorder.startRecording();
+
+        isRecording = true;
+
+        recordingThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                writeAudioDataToFile();
+            }
+        }, "AudioRecorder Thread");
+
+        recordingThread.start();
+    }
+
+    private void writeAudioDataToFile() {
+        byte data[] = new byte[bufferSize];
+        String filename = getTempFilename();
+        FileOutputStream os = null;
+
+        try {
+            os = new FileOutputStream(filename);
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        int read = 0;
+        if (null != os) {
+            while(isRecording) {
+                read = recorder.read(data, 0, bufferSize);
+                if (read > 0){
+                }
+
+                if (AudioRecord.ERROR_INVALID_OPERATION != read) {
+                    try {
+                        os.write(data);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            try {
+                os.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void onActivityResult(int request_code, int result_code, Intent i) {
-        super.onActivityResult(request_code, result_code, i);
+    private void stopRecording() {
+        if (null != recorder){
+            isRecording = false;
 
-        switch (request_code) {
-            case 100:
-                if (result_code == RESULT_OK && i != null) {
-                    try {
-                        FileOutputStream out = new FileOutputStream("storage/emulated/0/Recordings/null/test.wav");
-                        long totalAudioLen = 0;
-                        long totalDataLen = totalAudioLen + 36;
-                        long longSampleRate = RECORDER_SAMPLERATE;
-                        int channels = 2;
-                        long byteRate = RECORDER_BPP * RECORDER_SAMPLERATE * channels/8;
-                        WriteWaveFileHeader(out, totalAudioLen, totalDataLen, longSampleRate, channels, byteRate);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    /*ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    speechword=result.get(0).toString();
+            int i = recorder.getState();
+            if (i==1)
+                recorder.stop();
+            recorder.release();
 
-                    File file = new File("storage/emulated/0/App/Speech/WORDS_Speech.wav");
-                    try {
-                        if (!file.exists()) {
-                            new File(file.getParent()).mkdirs();
-                            file.createNewFile();
-                            FileWriter fw = new FileWriter(file);
-                            fw.write (speechword);
-                            fw.close();
-                        }
-                    } catch (IOException e) {
-                        Log.e("", "Could not create file.", e);
-                        return;
-                    }*/
+            recorder = null;
+            recordingThread = null;
+        }
 
-                    try {
-                        TimeUnit.SECONDS.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+        copyWaveFile(getTempFilename(),getFilename());
+        deleteTempFile();
+    }
 
-                }
+    private void deleteTempFile() {
+        File file = new File(getTempFilename());
+        file.delete();
+    }
+
+    private void copyWaveFile(String inFilename,String outFilename){
+        FileInputStream in = null;
+        FileOutputStream out = null;
+        long totalAudioLen = 0;
+        long totalDataLen = totalAudioLen + 36;
+        long longSampleRate = RECORDER_SAMPLERATE;
+        int channels = 2;
+        long byteRate = RECORDER_BPP * RECORDER_SAMPLERATE * channels/8;
+
+        byte[] data = new byte[bufferSize];
+
+        try {
+            in = new FileInputStream(inFilename);
+            out = new FileOutputStream(outFilename);
+            totalAudioLen = in.getChannel().size();
+            totalDataLen = totalAudioLen + 36;
+
+            //AppLog.logString("File size: " + totalDataLen);
+
+            WriteWaveFileHeader(out, totalAudioLen, totalDataLen,
+                    longSampleRate, channels, byteRate);
+
+            while(in.read(data) != -1) {
+                out.write(data);
+            }
+
+            in.close();
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
