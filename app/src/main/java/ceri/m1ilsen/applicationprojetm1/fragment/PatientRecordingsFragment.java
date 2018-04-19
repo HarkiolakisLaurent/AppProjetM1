@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.RecordingsListViewAdapter;
 
@@ -28,7 +30,7 @@ public class PatientRecordingsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private ListView recordingsListView;
-    private ArrayList<String> data = new ArrayList<String>();
+    private List<String> data = new ArrayList<String>();
     private File dataPath;
     private TextView numberOfRecordings;
     private OnFragmentInteractionListener mListener;

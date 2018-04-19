@@ -131,6 +131,7 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
                 Patient patient = BD.getPatientByPseudo(dataSet.get(position));
                 int patientId = BD.getPatientIdByPseudo(patient.getPseudo());
                 configureExercise.putExtra("isNewExercise",true);
+                configureExercise.putExtra("patientPseudo",dataSet.get(position));
                 configureExercise.putExtra("patientId",patientId);
                 getContext().startActivity(configureExercise);
 

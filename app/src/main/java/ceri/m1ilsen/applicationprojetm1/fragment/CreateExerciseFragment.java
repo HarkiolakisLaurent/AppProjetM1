@@ -16,7 +16,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ceri.m1ilsen.applicationprojetm1.R;
@@ -104,12 +107,26 @@ public class CreateExerciseFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                Intent createExercise = new Intent(getContext(),DoExerciseActivity.class);
-                createExercise.putExtra("patientPseudo",getActivity().getIntent().getExtras().getString("connectedUserPseudo"));
-                createExercise.putExtra("patientId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
-                createExercise.putExtra("task","mots");
-                createExercise.putExtra("isNewExercise",true);
-                startActivityForResult(createExercise,10000);
+
+                List<String> data = new ArrayList<String>();
+                File dataPath;
+                dataPath = new File("/storage/emulated/0/App/Recordings/"+getActivity().getIntent().getStringExtra("connectedUserPseudo"));
+                data = new ArrayList(Arrays.asList(dataPath.list(new FilenameFilter() {
+                    public boolean accept(File directory, String fileName) {
+                        return fileName.endsWith(".wav") || fileName.endsWith(".mp3");
+                    }
+                })));
+                if (data.size() > 30) {
+                    Toast.makeText(getContext(),"Vous avez trop d'enregistrements. Veuillez en supprimer avant de faire un exercice",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Intent createExercise = new Intent(getContext(),DoExerciseActivity.class);
+                    createExercise.putExtra("patientPseudo",getActivity().getIntent().getExtras().getString("connectedUserPseudo"));
+                    createExercise.putExtra("patientId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
+                    createExercise.putExtra("task","mots");
+                    createExercise.putExtra("isNewExercise",true);
+                    startActivityForResult(createExercise,10000);
+                }
             }
         });
         readSentencesButton=(Button) view.findViewById(R.id.readSentences);
@@ -117,12 +134,26 @@ public class CreateExerciseFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                Intent createExercise = new Intent(getContext(),DoExerciseActivity.class);
-                createExercise.putExtra("patientPseudo",getActivity().getIntent().getExtras().getString("connectedUserPseudo"));
-                createExercise.putExtra("patientId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
-                createExercise.putExtra("task","phrases");
-                createExercise.putExtra("isNewExercise",true);
-                startActivityForResult(createExercise,10000);
+
+                List<String> data = new ArrayList<String>();
+                File dataPath;
+                dataPath = new File("/storage/emulated/0/App/Recordings/"+getActivity().getIntent().getStringExtra("connectedUserPseudo"));
+                data = new ArrayList(Arrays.asList(dataPath.list(new FilenameFilter() {
+                    public boolean accept(File directory, String fileName) {
+                        return fileName.endsWith(".wav") || fileName.endsWith(".mp3");
+                    }
+                })));
+                if (data.size() > 30) {
+                    Toast.makeText(getContext(),"Vous avez trop d'enregistrements. Veuillez en supprimer avant de faire un exercice",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Intent createExercise = new Intent(getContext(),DoExerciseActivity.class);
+                    createExercise.putExtra("patientPseudo",getActivity().getIntent().getExtras().getString("connectedUserPseudo"));
+                    createExercise.putExtra("patientId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
+                    createExercise.putExtra("task","phrases");
+                    createExercise.putExtra("isNewExercise",true);
+                    startActivityForResult(createExercise,10000);
+                }
             }
         });
         readTextButton=(Button) view.findViewById(R.id.readText);
@@ -130,12 +161,26 @@ public class CreateExerciseFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                Intent createExercise = new Intent(getContext(),DoExerciseActivity.class);
-                createExercise.putExtra("patientPseudo",getActivity().getIntent().getExtras().getString("connectedUserPseudo"));
-                createExercise.putExtra("patientId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
-                createExercise.putExtra("task","textes");
-                createExercise.putExtra("isNewExercise",true);
-                startActivityForResult(createExercise,10000);
+
+                List<String> data = new ArrayList<String>();
+                File dataPath;
+                dataPath = new File("/storage/emulated/0/App/Recordings/"+getActivity().getIntent().getStringExtra("connectedUserPseudo"));
+                data = new ArrayList(Arrays.asList(dataPath.list(new FilenameFilter() {
+                    public boolean accept(File directory, String fileName) {
+                        return fileName.endsWith(".wav") || fileName.endsWith(".mp3");
+                    }
+                })));
+                if (data.size() > 30) {
+                    Toast.makeText(getContext(),"Vous avez trop d'enregistrements. Veuillez en supprimer avant de faire un exercice",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Intent createExercise = new Intent(getContext(),DoExerciseActivity.class);
+                    createExercise.putExtra("patientPseudo",getActivity().getIntent().getExtras().getString("connectedUserPseudo"));
+                    createExercise.putExtra("patientId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
+                    createExercise.putExtra("task","textes");
+                    createExercise.putExtra("isNewExercise",true);
+                    startActivityForResult(createExercise,10000);
+                }
             }
         });
         return view;

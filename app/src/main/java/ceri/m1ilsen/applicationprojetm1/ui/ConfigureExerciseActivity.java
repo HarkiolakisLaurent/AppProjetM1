@@ -19,9 +19,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
 import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
@@ -90,14 +95,31 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
                                 Double.parseDouble(exerciseDuration.getText().toString()), null, 0);
                     }
                     BD.insertExercise(configuredExercise,getIntent().getExtras().getInt("patientId"));
+
+
+                    List<String> data = new ArrayList<String>();
+                    File dataPath;
+                    String name;
+                    dataPath = new File("/storage/emulated/0/App/Recordings/"+getIntent().getStringExtra("patientPseudo"));
+                    data = new ArrayList(Arrays.asList(dataPath.list(new FilenameFilter() {
+                        public boolean accept(File directory, String fileName) {
+                            return fileName.endsWith(".wav") || fileName.endsWith(".mp3");
+                        }
+                    })));
+                    if (data.size() > 30) {
+                        Toast.makeText(getApplicationContext(),"Vous avez trop d'enregistrements. Veuillez en supprimer avant de faire un exercice",Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Intent createExercise = new Intent(getApplicationContext(),DoExerciseActivity.class);
+                        createExercise.putExtra("customExercisePath",fileName.getText().toString());
+                        createExercise.putExtra("customExerciseName",exerciseName.getText().toString());
+                        createExercise.putExtra("customExerciseMaxDuration",exerciseDuration.getText().toString());
+                        createExercise.putExtra("task","custom");
+                        createExercise.putExtra("isNewExercise",true);
+                        startActivityForResult(createExercise,10000);
+                    }
+
                     BD.close();
-                    Intent createExercise = new Intent(getApplicationContext(),DoExerciseActivity.class);
-                    createExercise.putExtra("customExercisePath",fileName.getText().toString());
-                    createExercise.putExtra("customExerciseName",exerciseName.getText().toString());
-                    createExercise.putExtra("customExerciseMaxDuration",exerciseDuration.getText().toString());
-                    createExercise.putExtra("task","custom");
-                    createExercise.putExtra("isNewExercise",true);
-                    startActivityForResult(createExercise,10000);
                 }
             }
         });
