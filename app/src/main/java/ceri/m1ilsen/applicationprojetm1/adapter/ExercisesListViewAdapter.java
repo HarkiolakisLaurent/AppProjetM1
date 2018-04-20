@@ -92,53 +92,48 @@ public class ExercisesListViewAdapter extends ArrayAdapter<String> {
         mainViewholder.launchExerciseButtonHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(v.getContext(),"Clic",Toast.LENGTH_LONG);
                 MyApplicationDataSource BD = new MyApplicationDataSource(getContext());
                 BD.open();
-                /*if (BD.getExerciseReadWordsCountByTitle(dataSet.get(position)) == 52) {
+                if (BD.getExerciseReadWordsCountByTitle(dataSet.get(position)) >= 52) {
                     Toast.makeText(v.getContext(),"Exercice terminé",Toast.LENGTH_LONG).show();
-                    Intent launchExercise = new Intent(getContext(), DoExerciseActivity.class);
-                    launchExercise.putExtra("isNewExercise",false);
-                    mContext.startActivity(launchExercise);
                 }
                 else {
-                    Toast.makeText(v.getContext(),"Exercice non terminé",Toast.LENGTH_LONG).show();
-                }*/
-                Intent continueExercise = new Intent(getContext(), DoExerciseActivity.class);
-                continueExercise.putExtra("isNewExercise",false);
-                continueExercise.putExtra("exerciseName",dataSet.get(position));
-                int patientId = BD.getExercisePatientIdByTitle(dataSet.get(position));
-                String exerciseDuration = BD.getExerciseMaxDurationByTitle(dataSet.get(position));
-                String patientPseudo = BD.getPatientPseudoById(patientId);
-                continueExercise.putExtra("patientPseudo",patientPseudo);
-                switch(BD.getExerciseTaskByTitle(dataSet.get(position))) {
-                    case("mots"):
-                        continueExercise.putExtra("exercisePath","storage/emulated/0/App/Exercises/Words");
-                        continueExercise.putExtra("task",BD.getExerciseTaskByTitle(dataSet.get(position)));
-                        break;
+                    Intent continueExercise = new Intent(getContext(), DoExerciseActivity.class);
+                    continueExercise.putExtra("isNewExercise",false);
+                    continueExercise.putExtra("exerciseName",dataSet.get(position));
+                    int patientId = BD.getExercisePatientIdByTitle(dataSet.get(position));
+                    String exerciseDuration = BD.getExerciseMaxDurationByTitle(dataSet.get(position));
+                    String patientPseudo = BD.getPatientPseudoById(patientId);
+                    continueExercise.putExtra("patientPseudo",patientPseudo);
+                    switch(BD.getExerciseTaskByTitle(dataSet.get(position))) {
+                        case("mots"):
+                            continueExercise.putExtra("exercisePath","storage/emulated/0/App/Exercises/Words");
+                            continueExercise.putExtra("task",BD.getExerciseTaskByTitle(dataSet.get(position)));
+                            break;
 
-                    case("phrases"):
-                        continueExercise.putExtra("exercisePath","storage/emulated/0/App/Exercises/Sentences");
-                        continueExercise.putExtra("task",BD.getExerciseTaskByTitle(dataSet.get(position)));
-                        break;
+                        case("phrases"):
+                            continueExercise.putExtra("exercisePath","storage/emulated/0/App/Exercises/Sentences");
+                            continueExercise.putExtra("task",BD.getExerciseTaskByTitle(dataSet.get(position)));
+                            break;
 
-                    case("textes"):
-                        continueExercise.putExtra("exercisePath","storage/emulated/0/App/Exercises/Texts");
-                        continueExercise.putExtra("task",BD.getExerciseTaskByTitle(dataSet.get(position)));
-                        break;
+                        case("textes"):
+                            continueExercise.putExtra("exercisePath","storage/emulated/0/App/Exercises/Texts");
+                            continueExercise.putExtra("task",BD.getExerciseTaskByTitle(dataSet.get(position)));
+                            break;
 
-                    case("custom"):
-                        continueExercise.putExtra("exercisePath","storage/emulated/0/App/Exercises/Custom");
-                        continueExercise.putExtra("task",BD.getExerciseTaskByTitle(dataSet.get(position)));
-                        continueExercise.putExtra("customExerciseMaxDuration",exerciseDuration);
+                        case("custom"):
+                            continueExercise.putExtra("exercisePath","storage/emulated/0/App/Exercises/Custom");
+                            continueExercise.putExtra("task",BD.getExerciseTaskByTitle(dataSet.get(position)));
+                            continueExercise.putExtra("customExerciseMaxDuration",exerciseDuration);
 
-                        break;
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
+                    continueExercise.putExtra("exerciseReadWordsCount",BD.getExerciseReadWordsCountByTitle(dataSet.get(position)));
+                    mContext.startActivity(continueExercise);
                 }
-                continueExercise.putExtra("exerciseReadWordsCount",BD.getExerciseReadWordsCountByTitle(dataSet.get(position)));
-                mContext.startActivity(continueExercise);
                 BD.close();
 
             }

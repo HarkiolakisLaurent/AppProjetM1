@@ -66,6 +66,8 @@ public class DoExerciseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_do_exercise);
         txtView=(TextView)findViewById(R.id.textExercice);
 
+        position = getIntent().getExtras().getInt("exerciseReadWordsCount");
+
         if (getIntent().getExtras().getBoolean("isNewExercise") == true) {
             moveExerciseToExercisesDirectory();
             storeExercise();
@@ -88,6 +90,7 @@ public class DoExerciseActivity extends AppCompatActivity {
                 }
                 else {
                     stopRecording();
+                    Toast.makeText(getApplicationContext(),"Bientôt : "+lines.get(position),Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -245,8 +248,8 @@ public class DoExerciseActivity extends AppCompatActivity {
                 i--;
             }
         }
-
-        readlist(lines);
+        txtView.setText(++position + "/" + lines.size() + "\n" + lines.get(position-1));
+        //readlist(lines);
     }
 
     public void readlist(final List<String> list)  {
@@ -300,7 +303,8 @@ public class DoExerciseActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            readlist(lines);
+            txtView.setText(++position + "/" + lines.size() + "\n" + lines.get(position-1));
+            //readlist(lines);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -358,6 +362,34 @@ public class DoExerciseActivity extends AppCompatActivity {
         }, "AudioRecorder Thread");
 
         recordingThread.start();
+
+        new Thread() {
+            public void run() {
+                try {
+
+                    if (getIntent().getStringExtra("task").equals("custom")) {
+                        Thread.sleep(Long.parseLong(getIntent().getStringExtra("customExerciseMaxDuration"))*1000);
+                    }
+                    else {
+                        Thread.sleep(10000);
+                    }
+                    runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            txtView.setText(++position + "/" + lines.size() + "\n" + lines.get(position-1));
+                            MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
+                            BD.open();
+                            BD.updateExerciseReadWordsCount(getIntent().getExtras().getInt("exerciseId"),position-1);
+                            BD.close();
+                            stopRecording();
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 
     private void writeAudioDataToFile() {
