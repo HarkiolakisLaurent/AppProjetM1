@@ -52,7 +52,7 @@ tools:context="ceri.m1ilsen.applicationprojetm1.fragment.MonitorPatientsFragment
         android:layout_marginStart="24dp"
         android:background="@drawable/custom_list"
         android:text="Nouveau patient"
-        android:textColor="@android:color/background_light"
+        android:textColor="@android:color/black"
         android:textSize="24sp" />
 
 </RelativeLayout>

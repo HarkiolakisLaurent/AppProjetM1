@@ -130,11 +130,11 @@
                     <Button
                         android:id="@+id/saveChangesButton"
                         android:layout_width="wrap_content"
-                        android:layout_height="100dp"
+                        android:layout_height="wrap_content"
                         android:background="@drawable/custom_list"
                         android:text="Mettre à jour les modifications"
-                        android:textColor="@android:color/background_light"
-                        android:textSize="18sp" />
+                        android:textColor="@android:color/black"
+                        android:textSize="24sp" />
                 </TableRow>
 
             </TableLayout>

@@ -30,11 +30,11 @@
                     android:layout_column="1"
                     android:layout_span="1"
                     android:ems="10"
-                    android:fontFamily="monospace"
+                    android:fontFamily="sans-serif"
                     android:hint="Votre identifiant"
                     android:inputType="textEmailAddress"
                     android:textColor="@android:color/black"
-                    android:textSize="24sp"
+                    android:textSize="30sp"
                     tools:layout_editor_absoluteX="406dp"
                     tools:layout_editor_absoluteY="218dp" />
             </TableRow>
@@ -53,11 +53,11 @@
                     android:layout_height="wrap_content"
                     android:layout_column="1"
                     android:ems="10"
-                    android:fontFamily="monospace"
+                    android:fontFamily="sans-serif"
                     android:hint="Votre mot de passe"
                     android:inputType="textPassword"
                     android:textColor="@android:color/black"
-                    android:textSize="24sp"
+                    android:textSize="30sp"
                     tools:layout_editor_absoluteX="406dp"
                     tools:layout_editor_absoluteY="218dp" />
             </TableRow>
@@ -75,10 +75,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
-                    android:fontFamily="monospace"
+                    android:fontFamily="sans-serif"
                     android:text="Créer un nouveau compte"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="24sp"
+                    android:textSize="30sp"
                     tools:layout_editor_absoluteX="484dp"
                     tools:layout_editor_absoluteY="359dp" />
             </TableRow>
@@ -96,10 +96,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
-                    android:fontFamily="monospace"
+                    android:fontFamily="sans-serif"
                     android:text="Mot de passe oublié ?"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="24sp"
+                    android:textSize="30sp"
                     tools:layout_editor_absoluteX="485dp"
                     tools:layout_editor_absoluteY="426dp" />
             </TableRow>
@@ -114,14 +114,14 @@
 
                 <Button
                     android:id="@+id/signin"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
                     android:background="@drawable/custom_list"
-                    android:fontFamily="monospace"
+                    android:fontFamily="sans-serif"
                     android:text="Se connecter"
-                    android:textColor="@android:color/background_light"
-                    android:textSize="24sp"
+                    android:textColor="@android:color/black"
+                    android:textSize="30sp"
                     tools:layout_editor_absoluteX="475dp"
                     tools:layout_editor_absoluteY="516dp" />
 

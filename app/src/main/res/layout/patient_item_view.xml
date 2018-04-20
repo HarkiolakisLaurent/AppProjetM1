@@ -13,7 +13,7 @@
         android:layout_weight="1"
         android:background="@drawable/custom_list"
         android:text="Sélectionner"
-        android:textColor="@android:color/background_light"
+        android:textColor="@android:color/black"
         android:textSize="24sp" />
 
 </LinearLayout>

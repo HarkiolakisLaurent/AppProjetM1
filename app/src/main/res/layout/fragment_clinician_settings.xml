@@ -17,9 +17,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="78dp"
             android:background="@drawable/custom_list"
-            android:fontFamily="monospace"
+            android:fontFamily="sans-serif"
             android:text="Consulter profil"
-            android:textColor="@android:color/background_light"
+            android:textColor="@android:color/black"
             android:textSize="24sp" />
 
         <Button
@@ -31,9 +31,9 @@
             android:layout_alignStart="@+id/editProfileButton"
             android:layout_marginBottom="68dp"
             android:background="@drawable/custom_list"
-            android:fontFamily="monospace"
+            android:fontFamily="sans-serif"
             android:text="Configurer alignement"
-            android:textColor="@android:color/background_light"
+            android:textColor="@android:color/black"
             android:textSize="24sp" />
 
         <Button
@@ -45,9 +45,9 @@
             android:layout_alignStart="@+id/configureAlignmentButton"
             android:layout_marginBottom="137dp"
             android:background="@drawable/custom_list"
-            android:fontFamily="monospace"
+            android:fontFamily="sans-serif"
             android:text="Déposer des fichiers"
-            android:textColor="@android:color/background_light"
+            android:textColor="@android:color/black"
             android:textSize="24sp" />
     </RelativeLayout>
 

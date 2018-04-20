@@ -58,7 +58,7 @@
             android:background="@drawable/custom_list"
             android:text="Quitter l'exercice"
             android:textAllCaps="false"
-            android:textColor="@android:color/background_light"
+            android:textColor="@android:color/black"
             android:textSize="24sp" />
 
 

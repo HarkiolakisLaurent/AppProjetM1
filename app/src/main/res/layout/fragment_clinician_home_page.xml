@@ -14,7 +14,7 @@
             android:id="@+id/welcomeClinician"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:fontFamily="monospace"
+            android:fontFamily="sans-serif"
             android:gravity="center"
             android:paddingLeft="18dp"
             android:text="Bonjour LOGIN, c'est un plaisir de vous revoir !"

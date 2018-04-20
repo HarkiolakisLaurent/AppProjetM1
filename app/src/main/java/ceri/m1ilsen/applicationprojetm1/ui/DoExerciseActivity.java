@@ -249,41 +249,6 @@ public class DoExerciseActivity extends AppCompatActivity {
             }
         }
         txtView.setText(++position + "/" + lines.size() + "\n" + lines.get(position-1));
-        //readlist(lines);
-    }
-
-    public void readlist(final List<String> list)  {
-
-        new Thread() {
-            public void run() {
-                while (i< list.size()) {
-
-                    try {
-                        runOnUiThread(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                txtView.setText(++position + "/" + list.size() + "\n" + list.get(i));
-                                MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
-                                BD.open();
-                                BD.updateExerciseReadWordsCount(getIntent().getExtras().getInt("exerciseId"),position);
-                                BD.close();
-                                i++;
-                            }
-                        });
-
-                        if (getIntent().getStringExtra("task").equals("custom")) {
-                            Thread.sleep(Long.parseLong(getIntent().getStringExtra("customExerciseMaxDuration"))*1000);
-                        }
-                        else {
-                            Thread.sleep(10000);
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }.start();
     }
 
     private void continueExercise() {
@@ -304,7 +269,6 @@ public class DoExerciseActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             txtView.setText(++position + "/" + lines.size() + "\n" + lines.get(position-1));
-            //readlist(lines);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

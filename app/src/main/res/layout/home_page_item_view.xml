@@ -20,7 +20,7 @@
             android:layout_height="fill_parent"
             android:gravity="center"
             android:text="Le DATE à HEURE , vous avez obtenu SCORE"
-            android:textColor="@android:color/background_light"
+            android:textColor="@android:color/black"
             android:textSize="24sp" />
     </LinearLayout>
 
@@ -34,7 +34,7 @@
         android:padding="10px"
         android:text="Détails"
         android:textAllCaps="false"
-        android:textColor="@android:color/background_light"
+        android:textColor="@android:color/black"
         android:textSize="24sp" />
 
 </LinearLayout>

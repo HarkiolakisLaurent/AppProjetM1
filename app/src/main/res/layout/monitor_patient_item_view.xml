@@ -28,7 +28,7 @@
             android:layout_height="fill_parent"
             android:gravity="center"
             android:text="NOM PRENOM"
-            android:textColor="@android:color/background_light"
+            android:textColor="@android:color/black"
             android:textSize="24sp" />
 
     </LinearLayout>
@@ -40,7 +40,7 @@
         android:layout_weight="1"
         android:background="@drawable/custom_list"
         android:text="Se connecter"
-        android:textColor="@android:color/background_light"
+        android:textColor="@android:color/black"
         android:textSize="24sp" />
 
     <Button
@@ -50,7 +50,7 @@
         android:layout_weight="1"
         android:background="@drawable/custom_list"
         android:text="Exercice perso."
-        android:textColor="@android:color/background_light"
+        android:textColor="@android:color/black"
         android:textSize="24sp" />
 
     <Button
@@ -60,7 +60,7 @@
         android:layout_weight="1"
         android:background="@drawable/custom_list"
         android:text="Commenter"
-        android:textColor="@android:color/background_light"
+        android:textColor="@android:color/black"
         android:textSize="24sp" />
 
 </LinearLayout>

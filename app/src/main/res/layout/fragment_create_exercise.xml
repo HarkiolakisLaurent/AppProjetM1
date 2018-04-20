@@ -27,12 +27,12 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
-            android:fontFamily="monospace"
+            android:fontFamily="sans-serif"
             android:text="Lancer un nouvel exercice"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@color/common_google_signin_btn_text_dark_default"
-            android:textSize="24dp"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <Button
@@ -46,11 +46,11 @@
             android:layout_toLeftOf="@+id/readSentences"
             android:layout_toStartOf="@+id/readSentences"
             android:background="@drawable/custom_list"
-            android:fontFamily="monospace"
+            android:fontFamily="sans-serif"
             android:text="Lire des mots"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@color/common_google_signin_btn_text_dark_default"
-            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <Button
@@ -60,11 +60,11 @@
             android:layout_alignTop="@+id/readWords"
             android:layout_centerHorizontal="true"
             android:background="@drawable/custom_list"
-            android:fontFamily="monospace"
+            android:fontFamily="sans-serif"
             android:text="Lire des phrases"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@color/common_google_signin_btn_text_dark_default"
-            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <Button
@@ -77,11 +77,11 @@
             android:layout_toEndOf="@+id/readSentences"
             android:layout_toRightOf="@+id/readSentences"
             android:background="@drawable/custom_list"
-            android:fontFamily="monospace"
+            android:fontFamily="sans-serif"
             android:text="Lire un texte"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@color/common_google_signin_btn_text_dark_default"
-            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <TextView
@@ -91,11 +91,11 @@
             android:layout_below="@+id/readSentences"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
-            android:fontFamily="monospace"
+            android:fontFamily="sans-serif"
             android:text="Aucun exercice disponible"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@color/common_google_signin_btn_text_dark_default"
-            android:textSize="24sp"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <ListView

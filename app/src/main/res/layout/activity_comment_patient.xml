@@ -48,7 +48,7 @@
             android:layout_marginTop="52dp"
             android:background="@drawable/custom_list"
             android:text="Sauvegarder"
-            android:textColor="@android:color/background_light"
+            android:textColor="@android:color/black"
             android:textSize="30sp" />
 
         <Button
@@ -63,7 +63,7 @@
             android:layout_toRightOf="@+id/saveCommentButton"
             android:background="@drawable/custom_list"
             android:text="Envoyer par mail"
-            android:textColor="@android:color/background_light"
+            android:textColor="@android:color/black"
             android:textSize="30sp" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
