@@ -337,6 +337,8 @@ public class DoExerciseActivity extends AppCompatActivity {
     }
 
     private void startRecording() {
+        recordingButton.setImageResource(R.drawable.micro1);
+        recordingButton.setBackgroundResource(R.drawable.ic_recording_green);
         recorder = new AudioRecord(MediaRecorder.AudioSource.MIC,
                 RECORDER_SAMPLERATE,
                 RECORDER_CHANNELS,
@@ -396,6 +398,8 @@ public class DoExerciseActivity extends AppCompatActivity {
 
     private void stopRecording() {
         if (null != recorder){
+            recordingButton.setImageResource(R.drawable.micro1);
+            recordingButton.setBackgroundResource(R.drawable.ic_recording_red);
             isRecording = false;
 
             int i = recorder.getState();

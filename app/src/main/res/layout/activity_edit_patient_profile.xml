@@ -6,24 +6,9 @@
     android:layout_height="match_parent"
     tools:context="ceri.m1ilsen.applicationprojetm1.ui.EditPatientProfileActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="1231dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=" " />
-
-        </LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,8 +17,9 @@
 
             <TableLayout
                 android:id="@+id/TableLayout1"
-                android:layout_width="610dp"
-                android:layout_height="526dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
                 android:gravity="center">
 
                 <TableRow
@@ -64,6 +50,7 @@
                     android:id="@+id/row12"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -88,6 +75,7 @@
                     android:id="@+id/row13"
                     android:layout_width="match_parent"
                     android:layout_height="166dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -111,6 +99,7 @@
                     android:id="@+id/row14"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -135,6 +124,7 @@
                     android:id="@+id/row15"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -159,8 +149,9 @@
 
             <TableLayout
                 android:id="@+id/TableLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="584dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dp"
                 android:gravity="center">
 
                 <TableRow
@@ -190,6 +181,7 @@
                     android:id="@+id/row22"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -215,6 +207,7 @@
                     android:id="@+id/row23"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -239,6 +232,7 @@
                     android:id="@+id/row24"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -263,6 +257,7 @@
                     android:id="@+id/row25"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal">
 
                     <Button
@@ -277,6 +272,6 @@
 
             </TableLayout>
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

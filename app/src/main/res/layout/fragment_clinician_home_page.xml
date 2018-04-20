@@ -6,11 +6,9 @@
     android:layout_height="match_parent"
     tools:context="ceri.m1ilsen.applicationprojetm1.fragment.ClinicianHomePageFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom"
-        android:orientation="vertical">
+        android:layout_height="647dp">
 
         <TextView
             android:id="@+id/welcomeClinician"
@@ -27,12 +25,12 @@
             android:id="@+id/listResultsClinicien"
             android:layout_width="match_parent"
             android:layout_height="500dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/welcomeClinician"
             android:background="@drawable/custom_list"
             android:scrollbars="horizontal" />
-
-
-    </LinearLayout>
-
+    </RelativeLayout>
 
 
 </android.support.constraint.ConstraintLayout>

@@ -21,12 +21,11 @@
             android:id="@+id/defineExerciseExplanation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/exerciseDuration"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="46dp"
+            android:layout_above="@+id/exerciseName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="73dp"
             android:gravity="center"
-            android:text="Choisissez un nom pour votre exercice ainsi que la durée maximale (en secondes) pour prononcer un mot"
+            android:text="Choisissez un nom pour votre exercice ainsi que la durée maximale pour prononcer un mot"
             android:textSize="30sp" />
 
         <Button
@@ -103,7 +102,7 @@
             android:layout_alignLeft="@+id/browser"
             android:layout_alignStart="@+id/browser"
             android:ems="10"
-            android:hint="Durée"
+            android:hint="Durée (en secondes)"
             android:inputType="number"
             android:textSize="30sp" />
 
@@ -126,7 +125,7 @@
             android:layout_above="@+id/browser"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="28dp"
-            android:text="Sélectionnez le fichier contenant les mots/phrases que le patient devra prononcer"
+            android:text="Sélectionnez un fichier contenant plus de 52 mots/phrases que le patient devra prononcer"
             android:textSize="30sp" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

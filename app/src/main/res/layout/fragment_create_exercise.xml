@@ -8,8 +8,9 @@
     tools:context="ceri.m1ilsen.applicationprojetm1.fragment.CreateExerciseFragment">
 
     <RelativeLayout
-        android:layout_width="1191dp"
-        android:layout_height="684dp"
+        android:id="@+id/relativeLayout5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -25,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="38dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="monospace"
             android:text="Lancer un nouvel exercice"
             android:textAlignment="center"
@@ -36,8 +37,8 @@
 
         <Button
             android:id="@+id/readWords"
-            android:layout_width="150dp"
-            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/textView2"
             android:layout_marginEnd="61dp"
             android:layout_marginRight="61dp"
@@ -54,8 +55,8 @@
 
         <Button
             android:id="@+id/readSentences"
-            android:layout_width="150dp"
-            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignTop="@+id/readWords"
             android:layout_centerHorizontal="true"
             android:background="@drawable/custom_list"
@@ -68,8 +69,8 @@
 
         <Button
             android:id="@+id/readText"
-            android:layout_width="150dp"
-            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_above="@+id/numberOfExercises"
             android:layout_marginLeft="61dp"
             android:layout_marginStart="61dp"
@@ -87,9 +88,9 @@
             android:id="@+id/numberOfExercises"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/readWords"
+            android:layout_below="@+id/readSentences"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="monospace"
             android:text="Aucun exercice disponible"
             android:textAppearance="@style/TextAppearance.AppCompat"
@@ -100,10 +101,11 @@
         <ListView
             android:id="@+id/exercisesList"
             style="@style/Widget.AppCompat.ListView"
-            android:layout_width="wrap_content"
-            android:layout_height="280dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_below="@+id/numberOfExercises"
-            android:layout_marginTop="37dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/custom_list" />
 
     </RelativeLayout>

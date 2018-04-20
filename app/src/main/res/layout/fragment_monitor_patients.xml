@@ -18,11 +18,11 @@ tools:context="ceri.m1ilsen.applicationprojetm1.fragment.MonitorPatientsFragment
     <ListView
         android:id="@+id/patientsList"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_alignParentBottom="true"
+        android:layout_height="350dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="82dp"
+        android:layout_below="@+id/newPatientButton"
+        android:layout_marginTop="39dp"
         android:background="@drawable/custom_list"
         android:scrollbars="horizontal" />
 

@@ -7,118 +7,127 @@
     tools:context="ceri.m1ilsen.applicationprojetm1.ui.MainActivity">
 
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp">
 
-        <TableRow
-            android:id="@+id/row1"
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:paddingVertical="12dp">
+            android:gravity="center_vertical">
 
-            <EditText
-                android:id="@+id/mail"
+            <TableRow
+                android:id="@+id/row1"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_column="1"
-                android:layout_span="1"
-                android:ems="10"
-                android:fontFamily="monospace"
-                android:hint="Votre identifiant"
-                android:inputType="textEmailAddress"
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                tools:layout_editor_absoluteX="406dp"
-                tools:layout_editor_absoluteY="218dp" />
-        </TableRow>
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:paddingVertical="12dp">
 
-        <TableRow
-            android:id="@+id/row2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:paddingVertical="12dp">
+                <EditText
+                    android:id="@+id/mail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:layout_span="1"
+                    android:ems="10"
+                    android:fontFamily="monospace"
+                    android:hint="Votre identifiant"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    tools:layout_editor_absoluteX="406dp"
+                    tools:layout_editor_absoluteY="218dp" />
+            </TableRow>
 
-            <EditText
-                android:id="@+id/password"
+            <TableRow
+                android:id="@+id/row2"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_column="1"
-                android:ems="10"
-                android:fontFamily="monospace"
-                android:hint="Votre mot de passe"
-                android:inputType="textPassword"
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                tools:layout_editor_absoluteX="406dp"
-                tools:layout_editor_absoluteY="218dp" />
-        </TableRow>
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal"
+                android:paddingVertical="12dp">
 
-        <TableRow
-            android:id="@+id/row3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:paddingVertical="12dp">
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:ems="10"
+                    android:fontFamily="monospace"
+                    android:hint="Votre mot de passe"
+                    android:inputType="textPassword"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    tools:layout_editor_absoluteX="406dp"
+                    tools:layout_editor_absoluteY="218dp" />
+            </TableRow>
 
-            <TextView
-                android:id="@+id/signup"
+            <TableRow
+                android:id="@+id/row3"
                 android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:layout_column="1"
-                android:fontFamily="monospace"
-                android:text="Créer un nouveau compte"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="24sp"
-                tools:layout_editor_absoluteX="484dp"
-                tools:layout_editor_absoluteY="359dp" />
-        </TableRow>
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:paddingVertical="12dp">
 
-        <TableRow
-            android:id="@+id/row4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:paddingVertical="12dp">
+                <TextView
+                    android:id="@+id/signup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:fontFamily="monospace"
+                    android:text="Créer un nouveau compte"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="24sp"
+                    tools:layout_editor_absoluteX="484dp"
+                    tools:layout_editor_absoluteY="359dp" />
+            </TableRow>
 
-            <TextView
-                android:id="@+id/forgotPassword"
+            <TableRow
+                android:id="@+id/row4"
                 android:layout_width="match_parent"
-                android:layout_height="39dp"
-                android:layout_column="1"
-                android:fontFamily="monospace"
-                android:text="Mot de passe oublié ?"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="24sp"
-                tools:layout_editor_absoluteX="485dp"
-                tools:layout_editor_absoluteY="426dp" />
-        </TableRow>
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:paddingVertical="12dp">
 
-        <TableRow
-            android:id="@+id/row5"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:paddingVertical="12dp">
+                <TextView
+                    android:id="@+id/forgotPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:fontFamily="monospace"
+                    android:text="Mot de passe oublié ?"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="24sp"
+                    tools:layout_editor_absoluteX="485dp"
+                    tools:layout_editor_absoluteY="426dp" />
+            </TableRow>
 
-            <Button
-                android:id="@+id/signin"
+            <TableRow
+                android:id="@+id/row5"
                 android:layout_width="match_parent"
-                android:layout_height="77dp"
-                android:layout_column="1"
-                android:background="@drawable/custom_list"
-                android:fontFamily="monospace"
-                android:text="Se connecter"
-                android:textColor="@android:color/background_light"
-                android:textSize="24sp"
-                tools:layout_editor_absoluteX="475dp"
-                tools:layout_editor_absoluteY="516dp" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:paddingVertical="12dp">
 
-        </TableRow>
+                <Button
+                    android:id="@+id/signin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:background="@drawable/custom_list"
+                    android:fontFamily="monospace"
+                    android:text="Se connecter"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="24sp"
+                    tools:layout_editor_absoluteX="475dp"
+                    tools:layout_editor_absoluteY="516dp" />
 
-    </TableLayout>
+            </TableRow>
+
+        </TableLayout>
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

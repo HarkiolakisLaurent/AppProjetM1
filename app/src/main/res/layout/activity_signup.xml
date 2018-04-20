@@ -6,10 +6,13 @@
     android:layout_height="match_parent"
     tools:context="ceri.m1ilsen.applicationprojetm1.ui.SignUpActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/relativeLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,8 +21,9 @@
 
             <TableLayout
                 android:id="@+id/TableLayout1"
-                android:layout_width="638dp"
-                android:layout_height="576dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
                 android:gravity="center">
 
                 <TableRow
@@ -51,6 +55,7 @@
                     android:id="@+id/row12"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -76,6 +81,7 @@
                     android:id="@+id/row125"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -100,6 +106,7 @@
                     android:id="@+id/row13"
                     android:layout_width="match_parent"
                     android:layout_height="166dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -127,6 +134,7 @@
                     android:id="@+id/row14"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -151,6 +159,7 @@
                     android:id="@+id/row15"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -175,8 +184,9 @@
 
             <TableLayout
                 android:id="@+id/TableLayout2"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="50dp"
                 android:gravity="center">
 
                 <TableRow
@@ -208,6 +218,7 @@
                     android:id="@+id/row21"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -233,6 +244,7 @@
                     android:id="@+id/row22"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -258,6 +270,7 @@
                     android:id="@+id/row23"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -282,6 +295,7 @@
                     android:id="@+id/row24"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -305,7 +319,8 @@
                 <TableRow
                     android:id="@+id/row25"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:paddingVertical="12dp">
 
@@ -323,6 +338,7 @@
                     android:id="@+id/row26"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal">
 
                     <Button
@@ -338,6 +354,6 @@
 
             </TableLayout>
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
