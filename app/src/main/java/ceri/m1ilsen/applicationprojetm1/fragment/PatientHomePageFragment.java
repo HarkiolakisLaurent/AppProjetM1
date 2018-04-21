@@ -14,6 +14,8 @@ import java.util.List;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.HomePageListViewAdapter;
+import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
+import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,7 +27,7 @@ import ceri.m1ilsen.applicationprojetm1.adapter.HomePageListViewAdapter;
  */
 public class PatientHomePageFragment extends Fragment {
 
-    ListView lv;
+    ListView welcomeResultsListView;
     public HomePageListViewAdapter adapter;
     private List<String> data = new ArrayList<String>();
     private OnFragmentInteractionListener mListener;
@@ -59,13 +61,24 @@ public class PatientHomePageFragment extends Fragment {
         TextView welcomePatient = (TextView) view.findViewById(R.id.welcomePatient);
         welcomePatient.setText("Bonjour "+getActivity().getIntent().getStringExtra("connectedUserPseudo")+", c'est un plaisir de vous revoir !");
 
-        lv = (ListView) view.findViewById(R.id.listResults);
+        welcomeResultsListView = (ListView) view.findViewById(R.id.listResults);
 
-        String currentUser = getActivity().getIntent().getStringExtra("connectedUserPseudo");
+        final MyApplicationDataSource BD = new MyApplicationDataSource(getActivity());
+        BD.open();
+        int currentUserId = getActivity().getIntent().getExtras().getInt("connectedUserId");
+        List<Exercise> exercises = BD.getExerciseByPatientId(currentUserId);
+        List<String> exercisesName = new ArrayList<>();
 
-        //data.add(new String("Le DATE à HEURE, vous avez obtenu 75"));
+        for(int i=0; i<exercises.size(); i++) {
+            if (exercises.get(i).getScore() == 0)
+                exercisesName.add(exercises.get(i).getCreationDate().toString()+", vous avez commencé un exercice");
+            else
+                exercisesName.add(exercises.get(i).getCreationDate().toString()+", vous avez obtenu "+exercises.get(i).getScore());
+        }
+        data = exercisesName;
+        BD.close();
 
-        lv.setAdapter(new HomePageListViewAdapter(view.getContext(), R.layout.home_page_item_view, data, currentUser));
+        welcomeResultsListView.setAdapter(new HomePageListViewAdapter(view.getContext(), R.layout.home_page_item_view, data));
 
         return view;
     }

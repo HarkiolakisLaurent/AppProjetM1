@@ -24,17 +24,4 @@
             android:textSize="24sp" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnDetails"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/custom_list"
-        android:gravity="center"
-        android:padding="10px"
-        android:text="Détails"
-        android:textAllCaps="false"
-        android:textColor="@android:color/black"
-        android:textSize="24sp" />
-
 </LinearLayout>

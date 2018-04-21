@@ -18,14 +18,12 @@ import ceri.m1ilsen.applicationprojetm1.R;
 
 public class HomePageListViewAdapter extends ArrayAdapter<String> {
 
-    private String currentUser;
     public List<String> dataSet;
     Context mContext;
     public int layout;
 
-    public HomePageListViewAdapter(Context context, int resource, List<String> objects, String userPseudo) {
+    public HomePageListViewAdapter(Context context, int resource, List<String> objects) {
         super(context, resource, objects);
-        currentUser = userPseudo;
         dataSet = objects;
         layout = resource;
     }
@@ -39,19 +37,9 @@ public class HomePageListViewAdapter extends ArrayAdapter<String> {
             ViewHolder viewHolder = new ViewHolder();
 
             viewHolder.descriptionHolder = (TextView) convertView.findViewById(R.id.description);
-            viewHolder.buttonHolder = (Button) convertView.findViewById(R.id.btnDetails);
             convertView.setTag(viewHolder);
         }
         mainViewholder = (ViewHolder) convertView.getTag();
-        mainViewholder.buttonHolder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (currentUser != null)
-                    Toast.makeText(getContext(), "Utilisateur connecté : " + currentUser, Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(getContext(), "Button was clicked for list item " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
         mainViewholder.descriptionHolder.setText(getItem(position));
 
         return convertView;
@@ -61,6 +49,5 @@ public class HomePageListViewAdapter extends ArrayAdapter<String> {
 
     public class ViewHolder {
         TextView descriptionHolder;
-        Button buttonHolder;
     }
 }

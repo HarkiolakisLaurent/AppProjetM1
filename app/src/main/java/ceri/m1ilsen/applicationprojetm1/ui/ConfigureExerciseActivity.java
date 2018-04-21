@@ -23,8 +23,10 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import ceri.m1ilsen.applicationprojetm1.R;
@@ -95,14 +97,18 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
                         }
                     }
                     if (!exists) {
+                        SimpleDateFormat sdfDay = new SimpleDateFormat("dd/MM/yyyy");
+                        SimpleDateFormat sdfHour = new SimpleDateFormat("HH:mm");
+                        Date resultdate = new Date(System.currentTimeMillis());
+                        String creationDate = "Le "+sdfDay.format(resultdate)+" à "+sdfHour.format(resultdate);
                         Exercise configuredExercise;
                         Intent createExercise = new Intent(getApplicationContext(),DoExerciseActivity.class);
                         if (exerciseDuration.getText().toString().equals("")) {
-                            configuredExercise = new Exercise(exerciseName.getText().toString(),"custom",
+                            configuredExercise = new Exercise(exerciseName.getText().toString(),"custom", creationDate,
                                     30, null, 0);
                             createExercise.putExtra("customExerciseMaxDuration","30");
                         } else {
-                            configuredExercise = new Exercise(exerciseName.getText().toString(),"custom",
+                            configuredExercise = new Exercise(exerciseName.getText().toString(),"custom", creationDate,
                                     Double.parseDouble(exerciseDuration.getText().toString()), null, 0);
                             createExercise.putExtra("customExerciseMaxDuration",exerciseDuration.getText().toString());
                         }

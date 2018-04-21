@@ -11,34 +11,28 @@ import ceri.m1ilsen.applicationprojetm1.task.Task;
 public class Exercise {
     private String name;
     private String task;
+    private String creationDate;
     private double maxDuration;
     private int readWordsCount;
+    private double score;
     private Configuration currentConfiguration;
 
-    public Exercise(String name, String task, double maxDuration, Configuration currentConfiguration, int readWordsCount) {
+    public Exercise(String name, String task, String creationDate, double maxDuration, Configuration currentConfiguration, int readWordsCount) {
         this.name = name;
         this.task = task;
+        this.creationDate = creationDate;
         this.maxDuration = maxDuration;
         this.currentConfiguration = currentConfiguration;
         this.readWordsCount = readWordsCount;
+        this.score = 0;
     }
 
-    public Exercise(String name, String task, int readWordsCount) {
+    public Exercise(String name, String task, String creationDate, int readWordsCount) {
         this.name = name;
         this.task = task;
+        this.creationDate = creationDate;
         this.readWordsCount = readWordsCount;
-    }
-
-    public void doExercise() {
-
-    }
-
-    private double executeAlign(File speechRecordFile) {
-        return 0.0;
-    }
-
-    private void updateRecordFile(File lastSpeechFile) {
-
+        this.score = 0;
     }
 
     public String getName() {
@@ -65,6 +59,12 @@ public class Exercise {
         this.maxDuration = maxDuration;
     }
 
+    public String getCreationDate() { return creationDate; }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public int getReadWordsCount() {
         return readWordsCount;
     }
@@ -72,6 +72,12 @@ public class Exercise {
     public void setReadWordsCount(int readWordsCount) {
         this.readWordsCount = readWordsCount;
     }
+
+    public double getScore() { return score; }
+
+    public void setScore(double score) { this.score = score; }
+
+
 
     public Configuration getCurrentConfiguration() {
         return currentConfiguration;

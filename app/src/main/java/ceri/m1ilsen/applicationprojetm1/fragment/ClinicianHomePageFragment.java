@@ -16,6 +16,9 @@ import java.util.List;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.HomePageListViewAdapter;
+import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
+import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
+import ceri.m1ilsen.applicationprojetm1.user.Patient;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +29,7 @@ import ceri.m1ilsen.applicationprojetm1.adapter.HomePageListViewAdapter;
  * create an instance of this fragment.
  */
 public class ClinicianHomePageFragment extends Fragment {
-    ListView lv;
+    ListView welcomeResultsListView;
     public HomePageListViewAdapter adapter;
     public int n;
     private List<String> data = new ArrayList<String>();
@@ -62,23 +65,31 @@ public class ClinicianHomePageFragment extends Fragment {
         TextView welcomeClinician = (TextView) view.findViewById(R.id.welcomeClinician);
         welcomeClinician.setText("Bonjour "+getActivity().getIntent().getStringExtra("connectedUserPseudo")+", c'est un plaisir de vous revoir !");
 
-        lv = (ListView) view.findViewById(R.id.listResultsClinicien);
+        welcomeResultsListView = (ListView) view.findViewById(R.id.listResultsClinicien);
 
-        String currentUser = getActivity().getIntent().getStringExtra("connectedUserPseudo");
-        int currentId = getActivity().getIntent().getIntExtra("connectedUserId",0);
-
-        //data.add(new String("Le DATE à HEURE, NOM Prenom a obtenu 75"));
-
-        lv.setAdapter(new HomePageListViewAdapter(view.getContext(), R.layout.home_page_item_view, data, currentUser));
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                String dataModel= data.get(position);
-                Toast.makeText(view.getContext(), "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
-
+        final MyApplicationDataSource BD = new MyApplicationDataSource(getActivity());
+        BD.open();
+        int currentUserId = getActivity().getIntent().getExtras().getInt("connectedUserId");
+        List<Patient> patients = BD.getPatientByClinicianId(currentUserId);
+        List<Exercise> exercises;
+        List<String> exercisesName = new ArrayList<>();
+        for (int i=0; i<patients.size();i++) {
+            exercises = BD.getExerciseByPatientId(BD.getPatientIdByPseudo(patients.get(i).getPseudo()));
+            for(int j=0; j<exercises.size(); j++) {
+                if (exercises.get(j).getScore() == 0) {
+                    exercisesName.add(exercises.get(j).getCreationDate().toString() + ", "
+                            +patients.get(i).getLastName()+" "+patients.get(i).getFirstName()+" a commencé un exercice");
+                }
+                else {
+                    exercisesName.add(exercises.get(j).getCreationDate().toString() + ", "
+                            +patients.get(i).getLastName()+" "+patients.get(i).getFirstName()+" a obtenu "+exercises.get(j).getScore());
+                }
             }
-        });
+        }
+        data = exercisesName;
+        BD.close();
+
+        welcomeResultsListView.setAdapter(new HomePageListViewAdapter(view.getContext(), R.layout.home_page_item_view, data));
         return view;
     }
 

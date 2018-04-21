@@ -207,7 +207,9 @@ public class MyApplicationDataSource {
         values.put("mots_lus", exercise.getReadWordsCount());
         values.put("duree_max", exercise.getMaxDuration());
         values.put("tache", exercise.getTask());
+        values.put("date_creation", exercise.getCreationDate());
         values.put("id_patient", patientId);
+        values.put("score",exercise.getScore());
         System.out.println("insertion");
         return database.insert("exercices", null, values);
     }
@@ -720,18 +722,21 @@ public class MyApplicationDataSource {
 
         String name;
         String task;
+        String creationDate;
         int readWordsCount;
 
         int indexName = cursor.getColumnIndex(COLUMN_TITRE);
         int indexTask = cursor.getColumnIndex(COLUMN_TASK);
+        int indexCreationDate = cursor.getColumnIndex(COLUMN_DATE_CREATION);
         int indexReadWordsCount = cursor.getColumnIndex(COLUMN_MOTS_LUS);
         if (cursor.moveToFirst()) {
             int count = 0;
             do {
                 name = cursor.getString(indexName);
                 task = cursor.getString(indexTask);
+                creationDate = cursor.getString(indexCreationDate);
                 readWordsCount = cursor.getInt(indexReadWordsCount);
-                exercises.add(new Exercise(name, task, readWordsCount));
+                exercises.add(new Exercise(name, task, creationDate, readWordsCount));
                 count++;
             } while (cursor.moveToNext());
         } else {
@@ -823,23 +828,26 @@ public class MyApplicationDataSource {
 
         String title;
         String task;
+        String creationDate;
         int readWordsCount;
 
         int indexTitle = cursor.getColumnIndex(COLUMN_TITRE);
         int indexTask = cursor.getColumnIndex(COLUMN_TASK);
+        int indexCreationDate = cursor.getColumnIndex(COLUMN_DATE_CREATION);
         int indexReadWordsCount = cursor.getColumnIndex(COLUMN_MOTS_LUS);
         if (cursor.moveToFirst()) {
             int count = 0;
             do {
                 title = cursor.getString(indexTitle);
                 task = cursor.getString(indexTask);
+                creationDate = cursor.getString(indexCreationDate);
                 readWordsCount = cursor.getInt(indexReadWordsCount);
                 count++;
             } while (cursor.moveToNext());
 
             List sessions = new ArrayList();
             //sessions = getPatientByClinicianId(colId);
-            exercise = new Exercise(title, task, readWordsCount);
+            exercise = new Exercise(title, task, creationDate, readWordsCount);
         } else {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
         }
