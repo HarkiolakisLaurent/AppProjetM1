@@ -445,7 +445,7 @@ public class DoExerciseActivity extends AppCompatActivity {
 
         try {
             in = new FileInputStream(inFilename);
-            out = new FileOutputStream(outFilename);
+            out = new FileOutputStream(outFilename,true);
             totalAudioLen = in.getChannel().size();
             totalDataLen = totalAudioLen + 36;
 
