@@ -337,7 +337,7 @@ public class DoExerciseActivity extends AppCompatActivity {
                 try {
                     switch(getIntent().getStringExtra("task")) {
                         case("mots"):
-                            Thread.sleep(10000);
+                            Thread.sleep(7000);
                             break;
 
                         case("phrases"):
@@ -365,6 +365,24 @@ public class DoExerciseActivity extends AppCompatActivity {
                             BD.updateExerciseReadWordsCount(getIntent().getExtras().getInt("exerciseId"),position-1);
                             BD.close();
                             stopRecording();
+                            File destFile = new File(getFilename());
+                            if(!destFile.exists())
+                                copyWaveFile(getTempFilename(),getFilename());
+                            else {
+                                String dest = getFilename();
+                                String concatenatedFile = "storage/emulated/0/concatenatedFile.wav";
+                                copyWaveFile(getTempFilename(),concatenatedFile);
+                                combineWaveFile(getFilename(),concatenatedFile);
+                                File currentFile = new File(dest);
+                                currentFile.delete();
+                                copyWaveFile("storage/emulated/0/tmp.wav",dest);
+                                File file = new File(concatenatedFile);
+                                file.delete();
+                                file = new File("storage/emulated/0/tmp.wav");
+                                file.delete();
+
+                            }
+                            deleteTempFile();
                             nextWord.setText("");
                         }
                     });
@@ -381,7 +399,7 @@ public class DoExerciseActivity extends AppCompatActivity {
         FileOutputStream os = null;
 
         try {
-            os = new FileOutputStream(filename,true);
+            os = new FileOutputStream(filename);
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -425,9 +443,6 @@ public class DoExerciseActivity extends AppCompatActivity {
             recorder = null;
             recordingThread = null;
         }
-
-        copyWaveFile(getTempFilename(),getFilename());
-        deleteTempFile();
     }
 
     private void deleteTempFile() {
@@ -448,7 +463,7 @@ public class DoExerciseActivity extends AppCompatActivity {
 
         try {
             in = new FileInputStream(inFilename);
-            out = new FileOutputStream(outFilename,true);
+            out = new FileOutputStream(outFilename);
             totalAudioLen = in.getChannel().size();
             totalDataLen = totalAudioLen + 36;
 
@@ -523,6 +538,50 @@ public class DoExerciseActivity extends AppCompatActivity {
         header[43] = (byte) ((totalAudioLen >> 24) & 0xff);
 
         out.write(header, 0, 44);
+    }
+
+    private void combineWaveFile(String file1, String file2) {
+        FileInputStream in1 = null, in2 = null;
+        FileOutputStream out = null;
+        long totalAudioLen = 0;
+        long totalDataLen = totalAudioLen + 36;
+        long longSampleRate = RECORDER_SAMPLERATE;
+        int channels = 2;
+        long byteRate = RECORDER_BPP * RECORDER_SAMPLERATE * channels / 8;
+
+        byte[] data = new byte[bufferSize];
+
+        try {
+            in1 = new FileInputStream(file1);
+            in2 = new FileInputStream(file2);
+
+            out = new FileOutputStream("storage/emulated/0/tmp.wav");
+
+            totalAudioLen = in1.getChannel().size() + in2.getChannel().size();
+            totalDataLen = totalAudioLen + 36;
+
+            WriteWaveFileHeader(out, totalAudioLen, totalDataLen,
+                    longSampleRate, channels, byteRate);
+
+            while (in1.read(data) != -1) {
+
+                out.write(data);
+
+            }
+            while (in2.read(data) != -1) {
+
+                out.write(data);
+            }
+
+            out.close();
+            in1.close();
+            in2.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
