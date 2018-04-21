@@ -14,10 +14,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="landscape"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:screenOrientation="landscape">
-        <activity android:name=".ui.MainActivity"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.MainActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,29 +26,44 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.SignUpActivity"
+        <activity
+            android:name=".ui.SignUpActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.EditPatientProfileActivity"
+        <activity
+            android:name=".ui.EditPatientProfileActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.ConfigureExerciseActivity"
+        <activity
+            android:name=".ui.ConfigureExerciseActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.DoExerciseActivity"
+        <activity
+            android:name=".ui.DoExerciseActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.CreatePatientActivity"
+        <activity
+            android:name=".ui.CreatePatientActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.PatientActivity"
+        <activity
+            android:name=".ui.PatientActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.ClinicianActivity"
+        <activity
+            android:name=".ui.ClinicianActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.EditClinicianProfileActivity"
+        <activity
+            android:name=".ui.EditClinicianProfileActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.DropFilesActivity"
+        <activity
+            android:name=".ui.DropFilesActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.CommentPatientActivity"
+        <activity
+            android:name=".ui.CommentPatientActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.PasswordRecoveryActivity"
+        <activity
+            android:name=".ui.PasswordRecoveryActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.CommentExerciseActivity"
+        <activity
+            android:name=".ui.CommentExerciseActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.AlignActivity"
             android:screenOrientation="landscape" />
     </application>
 

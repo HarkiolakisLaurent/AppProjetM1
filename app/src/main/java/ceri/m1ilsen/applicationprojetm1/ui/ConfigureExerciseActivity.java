@@ -32,7 +32,6 @@ import java.util.List;
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
 import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
-import ceri.m1ilsen.applicationprojetm1.task.Task;
 
 public class ConfigureExerciseActivity extends AppCompatActivity {
 

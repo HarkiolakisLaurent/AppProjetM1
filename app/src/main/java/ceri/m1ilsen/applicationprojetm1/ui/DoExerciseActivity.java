@@ -1,5 +1,6 @@
 package ceri.m1ilsen.applicationprojetm1.ui;
 
+import android.content.Intent;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -33,12 +33,12 @@ import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 
 public class DoExerciseActivity extends AppCompatActivity {
 
-    private Button btnQuitter = null;
+    private Button leaveExerciseButton = null;
     private TextView nextWord = null;
     private ImageButton recordingButton=null;
     private TextView txtView=null;
     List<String> lines = null;
-    int position,i=0;
+    int position = 0;
     private File exercisesDirectory = null;
 
     private static final int RECORDER_BPP = 16;
@@ -54,10 +54,6 @@ public class DoExerciseActivity extends AppCompatActivity {
     private int bufferSize = 0;
     private Thread recordingThread = null;
     private boolean isRecording = false;
-    //Complex[] fftTempArray;
-    //Complex[] fftArray;
-    int[] bufferData;
-    int bytesRecorded;
 
 
 
@@ -92,12 +88,21 @@ public class DoExerciseActivity extends AppCompatActivity {
                 }
                 else {
                     stopRecording();
-                    nextWord.setText("Bientôt : "+lines.get(position));
+
+                    if (position == 2) {
+                        Intent alignActivity = new Intent(getApplicationContext(), AlignActivity.class);
+                        alignActivity.putExtra("alignedFile", getFilename());
+                        startActivityForResult(alignActivity, 1000);
+                    }
+                    else {
+                        leaveExerciseButton.setVisibility(View.INVISIBLE);
+                        nextWord.setText("Bientôt : "+lines.get(position));
+                    }
                 }
             }
         });
-        btnQuitter=(Button) findViewById(R.id.btnQuitter);
-        btnQuitter.setOnClickListener(new View.OnClickListener() {
+        leaveExerciseButton=(Button) findViewById(R.id.leaveExerciseButton);
+        leaveExerciseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setResult(10000);
@@ -384,6 +389,7 @@ public class DoExerciseActivity extends AppCompatActivity {
                             }
                             deleteTempFile();
                             nextWord.setText("");
+                            leaveExerciseButton.setVisibility(View.VISIBLE);
                         }
                     });
                 } catch (InterruptedException e) {
@@ -467,9 +473,7 @@ public class DoExerciseActivity extends AppCompatActivity {
             totalAudioLen = in.getChannel().size();
             totalDataLen = totalAudioLen + 36;
 
-            //AppLog.logString("File size: " + totalDataLen);
-
-            WriteWaveFileHeader(out, totalAudioLen, totalDataLen,
+            writeWaveFileHeader(out, totalAudioLen, totalDataLen,
                     longSampleRate, channels, byteRate);
 
             while(in.read(data) != -1) {
@@ -485,7 +489,7 @@ public class DoExerciseActivity extends AppCompatActivity {
         }
     }
 
-    private void WriteWaveFileHeader(
+    private void writeWaveFileHeader(
             FileOutputStream out, long totalAudioLen,
             long totalDataLen, long longSampleRate, int channels,
             long byteRate) throws IOException
@@ -560,7 +564,7 @@ public class DoExerciseActivity extends AppCompatActivity {
             totalAudioLen = in1.getChannel().size() + in2.getChannel().size();
             totalDataLen = totalAudioLen + 36;
 
-            WriteWaveFileHeader(out, totalAudioLen, totalDataLen,
+            writeWaveFileHeader(out, totalAudioLen, totalDataLen,
                     longSampleRate, channels, byteRate);
 
             while (in1.read(data) != -1) {
@@ -581,6 +585,17 @@ public class DoExerciseActivity extends AppCompatActivity {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        //Check the result and request code here and update ur activity class
+        if ((requestCode == 1000)/* && (resultCode == Activity.RESULT_OK)*/) {
+            setResult(10000);
+            finish();
         }
     }
 

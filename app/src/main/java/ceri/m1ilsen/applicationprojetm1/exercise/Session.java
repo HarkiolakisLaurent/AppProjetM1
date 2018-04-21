@@ -1,10 +1,5 @@
 package ceri.m1ilsen.applicationprojetm1.exercise;
 
-import java.util.Date;
-import java.util.List;
-
-import ceri.m1ilsen.applicationprojetm1.task.Task;
-
 /**
  * Created by Laurent on 28/01/2018.
  */

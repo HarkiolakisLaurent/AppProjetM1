@@ -19,7 +19,6 @@ import android.database.sqlite.SQLiteDatabase;
 import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
 import ceri.m1ilsen.applicationprojetm1.exercise.Session;
 import ceri.m1ilsen.applicationprojetm1.language.Language;
-import ceri.m1ilsen.applicationprojetm1.task.Task;
 import ceri.m1ilsen.applicationprojetm1.user.*;
 
 import static ceri.m1ilsen.applicationprojetm1.sqlite.MySQLiteDatabase.*;

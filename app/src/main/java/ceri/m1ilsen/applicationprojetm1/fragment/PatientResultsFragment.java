@@ -68,22 +68,6 @@ public class PatientResultsFragment extends Fragment {
 
         SessionsListViewAdapter sessionsListViewAdapter = new SessionsListViewAdapter(view.getContext(), R.layout.session_item_view, data);
         sessionsListView.setAdapter(sessionsListViewAdapter);
-
-
-        /*String[] sessions ;
-        Button btnExercice = null;
-        Button btnEnregist = null;
-        Button btnResult = null;
-        ListView liste;
-        MyApplicationDataSource BD = new MyApplicationDataSource(view.getContext());
-        BD.open();
-
-        liste = (ListView) view.findViewById(R.id.listResultsSession);
-        sessions = BD.getSessions(Contexte.patient);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext() ,
-                android.R.layout.simple_list_item_1, sessions);
-        liste.setAdapter(adapter);
-        adapter.notifyDataSetChanged();*/
         return view;
     }
 

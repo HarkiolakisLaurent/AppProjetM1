@@ -90,9 +90,6 @@ public class MainActivity extends AppCompatActivity {
         if (BD.verificationPatientByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString()) ){
             Patient patient = BD.getPatientByPseudoAndPassword(mail.getText().toString(), mdp.getText().toString());
             int patientId = BD.getPatientIdByPseudo(patient.getPseudo());
-                    /*Session session  = new Session(new Date(System.currentTimeMillis()), null , null , p);
-                    BD.insertSession(session);
-                    Contexte.patient=p;*/
             patientActivity.putExtra("connectedUserMail",patient.getMail());
             patientActivity.putExtra("connectedUserPseudo",patient.getPseudo());
             patientActivity.putExtra("connectedUserLastName",patient.getLastName());
@@ -108,9 +105,6 @@ public class MainActivity extends AppCompatActivity {
         } else if (BD.verificationPatientByMailAndPassword(mail.getText().toString(), mdp.getText().toString())) {
             Patient patient = BD.getPatientByMailAndPassword(mail.getText().toString(), mdp.getText().toString());
             int patientId = BD.getPatientIdByPseudo(patient.getPseudo());
-                    /*Session session  = new Session(new Date(System.currentTimeMillis()), null , null , p);
-                    BD.insertSession(session);
-                    Contexte.patient=p;*/
             patientActivity.putExtra("connectedUserMail",patient.getMail());
             patientActivity.putExtra("connectedUserPseudo",patient.getPseudo());
             patientActivity.putExtra("connectedUserLastName",patient.getLastName());
@@ -202,13 +196,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
-        //datasource.open();
         super.onResume();
     }
 
     @Override
     public void onPause() {
-        //datasource.close();
         super.onPause();
     }
 
