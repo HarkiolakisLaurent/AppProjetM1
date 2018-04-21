@@ -34,6 +34,7 @@ import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 public class DoExerciseActivity extends AppCompatActivity {
 
     private Button btnQuitter = null;
+    private TextView nextWord = null;
     private ImageButton recordingButton=null;
     private TextView txtView=null;
     List<String> lines = null;
@@ -64,7 +65,8 @@ public class DoExerciseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_do_exercise);
-        txtView=(TextView)findViewById(R.id.textExercice);
+        txtView = (TextView)findViewById(R.id.textExercice);
+        nextWord = (TextView) findViewById(R.id.nextWord);
 
         position = getIntent().getExtras().getInt("exerciseReadWordsCount");
 
@@ -90,7 +92,7 @@ public class DoExerciseActivity extends AppCompatActivity {
                 }
                 else {
                     stopRecording();
-                    Toast.makeText(getApplicationContext(),"Bientôt : "+lines.get(position),Toast.LENGTH_LONG).show();
+                    nextWord.setText("Bientôt : "+lines.get(position));
                 }
             }
         });
@@ -330,12 +332,25 @@ public class DoExerciseActivity extends AppCompatActivity {
         new Thread() {
             public void run() {
                 try {
+                    switch(getIntent().getStringExtra("task")) {
+                        case("mots"):
+                            Thread.sleep(10000);
+                            break;
 
-                    if (getIntent().getStringExtra("task").equals("custom")) {
-                        Thread.sleep(Long.parseLong(getIntent().getStringExtra("customExerciseMaxDuration"))*1000);
-                    }
-                    else {
-                        Thread.sleep(10000);
+                        case("phrases"):
+                            Thread.sleep(20000);
+                            break;
+
+                        case("textes"):
+                            Thread.sleep(40000);
+                            break;
+
+                        case("custom"):
+                            Thread.sleep(Long.parseLong(getIntent().getStringExtra("customExerciseMaxDuration"))*1000);
+                            break;
+
+                        default:
+                            break;
                     }
                     runOnUiThread(new Runnable() {
 
@@ -347,6 +362,7 @@ public class DoExerciseActivity extends AppCompatActivity {
                             BD.updateExerciseReadWordsCount(getIntent().getExtras().getInt("exerciseId"),position-1);
                             BD.close();
                             stopRecording();
+                            nextWord.setText("");
                         }
                     });
                 } catch (InterruptedException e) {
