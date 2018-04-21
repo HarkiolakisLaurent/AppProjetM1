@@ -4,11 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ceri.m1ilsen.applicationprojetm1.ui.CommentExerciseActivity">
+    tools:context="ceri.m1ilsen.applicationprojetm1.ui.CommentSessionActivity">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/relativeLayout8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/commentExplanation"
@@ -18,7 +23,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="60dp"
             android:fontFamily="sans-serif"
-            android:text="Laisser un commentaire pour EXERCICE"
+            android:text="Laisser un commentaire pour SESSION"
             android:textSize="36sp" />
 
         <EditText

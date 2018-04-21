@@ -10,11 +10,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.PatientsListViewAdapter;
 import ceri.m1ilsen.applicationprojetm1.adapter.SessionsListViewAdapter;
+import ceri.m1ilsen.applicationprojetm1.exercise.Session;
 import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 import ceri.m1ilsen.applicationprojetm1.user.Patient;
 
@@ -73,12 +76,19 @@ public class ClinicianResultsFragment extends Fragment {
         for(int i=0; i<patients.size(); i++)
             patientsPseudo.add(patients.get(i).getPseudo().toString());
         patientsData = patientsPseudo;
-        BD.close();
 
         PatientsListViewAdapter patientsListViewAdapter = new PatientsListViewAdapter(view.getContext(), R.layout.patient_item_view, patientsData);
 
         patientsListViewAdapter.setListener(new PatientsListViewAdapter.AdapterListener() {
             public void onClick(String name) {
+                int currentUserId = BD.getPatientIdByPseudo(name);
+                List<Session> sessions = BD.getSessionByPatientId(currentUserId);
+                ArrayList<String> sessionNames = new ArrayList<>();
+
+                for(int i=0; i<sessions.size(); i++) {
+                    sessionNames.add(sessions.get(i).getName().toString());
+                }
+                sessionsData = sessionNames;
 
                 numberOfSessions = (TextView) view.findViewById(R.id.numberOfSessions);
                 if (sessionsData.size() == 0)

@@ -20,9 +20,9 @@
             android:layout_marginLeft="271dp"
             android:layout_marginStart="271dp"
             android:layout_marginTop="74dp"
-            android:fontFamily="monospace"
+            android:fontFamily="sans-serif"
             android:text="Laisser un commentaire pour NOM PRENOM"
-            android:textSize="30sp" />
+            android:textSize="36sp" />
 
         <EditText
             android:id="@+id/commentField"

@@ -65,6 +65,9 @@
         <activity
             android:name=".ui.AlignActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.CommentSessionActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

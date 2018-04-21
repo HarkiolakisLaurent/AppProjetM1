@@ -977,6 +977,43 @@ public class MyApplicationDataSource {
         return sessions;
     }
 
+    public String getSessionCommentById(int id) {
+        Cursor cursor = database.rawQuery("select comment from sessions where _id = ?", new String[]{String.valueOf(id)});
+
+        String comment = null;
+        int indexComment = cursor.getColumnIndex(COLUMN_COMMENT);
+        if (cursor.moveToFirst()) {
+            int count = 0;
+            do {
+                comment = cursor.getString(indexComment);
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        cursor.close();
+        return comment;
+    }
+
+    public double getSessionScoreByTitle(String name) {
+        Cursor cursor = database.rawQuery("select score from sessions where titre = ?", new String[] {name});
+
+        double score = 0;
+
+        int indexScore = cursor.getColumnIndex(COLUMN_SCORE);
+        if (cursor.moveToFirst()) {
+            int count = 0;
+            do {
+                score = cursor.getDouble(indexScore);
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        cursor.close();
+        return score;
+    }
+
     //Meryem
     public String getName() {
 

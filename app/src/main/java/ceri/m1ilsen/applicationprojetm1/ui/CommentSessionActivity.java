@@ -15,7 +15,7 @@ import android.widget.Toast;
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 
-public class CommentExerciseActivity extends AppCompatActivity {
+public class CommentSessionActivity extends AppCompatActivity {
 
     private TextView commentExplanation;
     private EditText commentField;
@@ -25,16 +25,16 @@ public class CommentExerciseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comment_exercise);
+        setContentView(R.layout.activity_comment_session);
         commentExplanation = (TextView) findViewById(R.id.commentExplanation);
         commentField = (EditText) findViewById(R.id.commentField);
-        commentExplanation.setText("Laisser un commentaire pour "+getIntent().getStringExtra("exerciseName"));
+        commentExplanation.setText("Laisser un commentaire pour "+getIntent().getStringExtra("sessionName"));
         saveCommentButton = (Button) findViewById(R.id.saveCommentButton);
         sendCommentButton = (Button) findViewById(R.id.sendCommentButton);
 
         MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
         BD.open();
-        commentField.setText(BD.getExerciseCommentById(getIntent().getExtras().getInt("exerciseId")));
+        commentField.setText(BD.getSessionCommentById(getIntent().getExtras().getInt("sessionId")));
         BD.close();
 
         saveCommentButton.setOnClickListener(new View.OnClickListener() {
@@ -42,8 +42,8 @@ public class CommentExerciseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
                 BD.open();
-                int exerciseId = getIntent().getExtras().getInt("exerciseId");
-                BD.updateExerciseComment(exerciseId,commentField.getText().toString());
+                int sessionId = getIntent().getExtras().getInt("sessionId");
+                BD.updateSessionComment(sessionId,commentField.getText().toString());
                 BD.close();
                 Toast.makeText(getApplicationContext(), "Commentaire sauvegardé", Toast.LENGTH_LONG).show();
             }
@@ -59,7 +59,7 @@ public class CommentExerciseActivity extends AppCompatActivity {
                     Intent email = new Intent(Intent.ACTION_SEND);
                     email.setType("message/rfc822");
                     email.putExtra(android.content.Intent.EXTRA_EMAIL,getIntent().getStringExtra("connectedUserMail"));
-                    email.putExtra(Intent.EXTRA_SUBJECT, "Commentaire pour "+getIntent().getStringExtra("exerciseName"));
+                    email.putExtra(Intent.EXTRA_SUBJECT, "Commentaire pour "+getIntent().getStringExtra("sessionName"));
                     email.putExtra(Intent.EXTRA_TEXT, commentField.getText().toString());
                     email.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(Intent.createChooser(email, "Choisir le logiciel"));
@@ -78,7 +78,7 @@ public class CommentExerciseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_return:
-                Activity activity = CommentExerciseActivity.this;
+                Activity activity = CommentSessionActivity.this;
                 activity.setResult(1);
                 activity.finish();
                 return true;

@@ -145,9 +145,9 @@ public class ExercisesListViewAdapter extends ArrayAdapter<String> {
                 MyApplicationDataSource BD = new MyApplicationDataSource(getContext());
                 BD.open();
                 Exercise exercise = BD.getExerciseByTitle(dataSet.get(position));
-                int commentId = BD.getExerciseIdByTitle(exercise.getName());
+                int exerciseId = BD.getExerciseIdByTitle(exercise.getName());
                 comment.putExtra("exerciseName",exercise.getName());
-                comment.putExtra("commentId",commentId);
+                comment.putExtra("exerciseId",exerciseId);
                 BD.close();
                 getContext().startActivity(comment);
 
