@@ -104,11 +104,11 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
                         Intent createExercise = new Intent(getApplicationContext(),DoExerciseActivity.class);
                         if (exerciseDuration.getText().toString().equals("")) {
                             configuredExercise = new Exercise(exerciseName.getText().toString(),"custom", creationDate,
-                                    30, null, 0);
+                                    30, null, 0, getIntent().getExtras().getInt("sessionId"));
                             createExercise.putExtra("customExerciseMaxDuration","30");
                         } else {
                             configuredExercise = new Exercise(exerciseName.getText().toString(),"custom", creationDate,
-                                    Double.parseDouble(exerciseDuration.getText().toString()), null, 0);
+                                    Double.parseDouble(exerciseDuration.getText().toString()), null, 0, getIntent().getExtras().getInt("sessionId"));
                             createExercise.putExtra("customExerciseMaxDuration",exerciseDuration.getText().toString());
                         }
                         BD.insertExercise(configuredExercise,getIntent().getExtras().getInt("patientId"));

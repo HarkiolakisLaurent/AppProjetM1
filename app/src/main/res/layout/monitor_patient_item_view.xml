@@ -44,16 +44,6 @@
         android:textSize="24sp" />
 
     <Button
-        android:id="@+id/configureExerciseButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@drawable/custom_list"
-        android:text="Exercice perso."
-        android:textColor="@android:color/black"
-        android:textSize="24sp" />
-
-    <Button
         android:id="@+id/commentButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

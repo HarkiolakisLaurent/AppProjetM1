@@ -72,21 +72,21 @@ public class ClinicianHomePageFragment extends Fragment {
         int currentUserId = getActivity().getIntent().getExtras().getInt("connectedUserId");
         List<Patient> patients = BD.getPatientByClinicianId(currentUserId);
         List<Exercise> exercises;
-        List<String> exercisesName = new ArrayList<>();
+        List<String> exerciseNames = new ArrayList<>();
         for (int i=0; i<patients.size();i++) {
             exercises = BD.getExerciseByPatientId(BD.getPatientIdByPseudo(patients.get(i).getPseudo()));
             for(int j=0; j<exercises.size(); j++) {
                 if (exercises.get(j).getScore() == 0) {
-                    exercisesName.add(exercises.get(j).getCreationDate().toString() + ", "
+                    exerciseNames.add(exercises.get(j).getCreationDate().toString() + ", "
                             +patients.get(i).getLastName()+" "+patients.get(i).getFirstName()+" a commencé un exercice");
                 }
                 else {
-                    exercisesName.add(exercises.get(j).getCreationDate().toString() + ", "
+                    exerciseNames.add(exercises.get(j).getCreationDate().toString() + ", "
                             +patients.get(i).getLastName()+" "+patients.get(i).getFirstName()+" a obtenu "+exercises.get(j).getScore());
                 }
             }
         }
-        data = exercisesName;
+        data = exerciseNames;
         BD.close();
 
         welcomeResultsListView.setAdapter(new HomePageListViewAdapter(view.getContext(), R.layout.home_page_item_view, data));

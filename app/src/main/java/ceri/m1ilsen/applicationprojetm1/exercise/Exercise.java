@@ -11,23 +11,26 @@ public class Exercise {
     private double maxDuration;
     private int readWordsCount;
     private double score;
+    private int session;
     private Configuration currentConfiguration;
 
-    public Exercise(String name, String task, String creationDate, double maxDuration, Configuration currentConfiguration, int readWordsCount) {
+    public Exercise(String name, String task, String creationDate, double maxDuration, Configuration currentConfiguration, int readWordsCount, int session) {
         this.name = name;
         this.task = task;
         this.creationDate = creationDate;
         this.maxDuration = maxDuration;
         this.currentConfiguration = currentConfiguration;
         this.readWordsCount = readWordsCount;
+        this.session = session;
         this.score = 0;
     }
 
-    public Exercise(String name, String task, String creationDate, int readWordsCount) {
+    public Exercise(String name, String task, String creationDate, int readWordsCount, int session) {
         this.name = name;
         this.task = task;
         this.creationDate = creationDate;
         this.readWordsCount = readWordsCount;
+        this.session = session;
         this.score = 0;
     }
 
@@ -73,7 +76,9 @@ public class Exercise {
 
     public void setScore(double score) { this.score = score; }
 
+    public int getSession() { return session; }
 
+    public void setSession(int session) { this.session = session; }
 
     public Configuration getCurrentConfiguration() {
         return currentConfiguration;

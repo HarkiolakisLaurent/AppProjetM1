@@ -55,7 +55,6 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
             viewHolder.patientDescriptionHolder = (TextView) convertView.findViewById(R.id.patientDescription);
             viewHolder.deletePatientHolder = (ImageButton) convertView.findViewById(R.id.deletePatientButton);
             viewHolder.loginAsPatientButtonHolder = (Button) convertView.findViewById(R.id.loginAsPatientButton);
-            viewHolder.configureExerciseButtonHolder = (Button) convertView.findViewById(R.id.configureExerciseButton);
             viewHolder.commentButtonHolder = (Button) convertView.findViewById(R.id.commentButton);
             convertView.setTag(viewHolder);
         }
@@ -122,21 +121,6 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
                 ((Activity) mContext).startActivityForResult(loginAsPatient,101);
             }
         });
-        mainViewholder.configureExerciseButtonHolder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent configureExercise = new Intent(getContext(), ConfigureExerciseActivity.class);
-                MyApplicationDataSource BD = new MyApplicationDataSource(getContext());
-                BD.open();
-                Patient patient = BD.getPatientByPseudo(dataSet.get(position));
-                int patientId = BD.getPatientIdByPseudo(patient.getPseudo());
-                configureExercise.putExtra("isNewExercise",true);
-                configureExercise.putExtra("patientPseudo",dataSet.get(position));
-                configureExercise.putExtra("patientId",patientId);
-                getContext().startActivity(configureExercise);
-
-            }
-        });
         mainViewholder.commentButtonHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,7 +147,6 @@ public class MonitorPatientsListViewAdapter extends ArrayAdapter<String> {
         TextView patientDescriptionHolder;
         ImageButton deletePatientHolder;
         Button loginAsPatientButtonHolder;
-        Button configureExerciseButtonHolder;
         Button commentButtonHolder;
     }
 }

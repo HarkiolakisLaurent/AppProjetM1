@@ -5,22 +5,22 @@ package ceri.m1ilsen.applicationprojetm1.exercise;
  */
 
 public class Session {
-    private String title;
+    private String name;
     private double results;
     private String comment;
 
-    public Session(String title, double results, String comment) {
-        this.title = title;
+    public Session(String name, double results, String comment) {
+        this.name = name;
         this.results = results;
         this.comment = comment;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getResults() {

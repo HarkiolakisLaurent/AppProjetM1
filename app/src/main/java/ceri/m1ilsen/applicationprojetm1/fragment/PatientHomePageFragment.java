@@ -67,15 +67,15 @@ public class PatientHomePageFragment extends Fragment {
         BD.open();
         int currentUserId = getActivity().getIntent().getExtras().getInt("connectedUserId");
         List<Exercise> exercises = BD.getExerciseByPatientId(currentUserId);
-        List<String> exercisesName = new ArrayList<>();
+        List<String> exerciseNames = new ArrayList<>();
 
         for(int i=0; i<exercises.size(); i++) {
             if (exercises.get(i).getScore() == 0)
-                exercisesName.add(exercises.get(i).getCreationDate().toString()+", vous avez commencé un exercice");
+                exerciseNames.add(exercises.get(i).getCreationDate().toString()+", vous avez commencé un exercice");
             else
-                exercisesName.add(exercises.get(i).getCreationDate().toString()+", vous avez obtenu "+exercises.get(i).getScore());
+                exerciseNames.add(exercises.get(i).getCreationDate().toString()+", vous avez obtenu "+exercises.get(i).getScore());
         }
-        data = exercisesName;
+        data = exerciseNames;
         BD.close();
 
         welcomeResultsListView.setAdapter(new HomePageListViewAdapter(view.getContext(), R.layout.home_page_item_view, data));

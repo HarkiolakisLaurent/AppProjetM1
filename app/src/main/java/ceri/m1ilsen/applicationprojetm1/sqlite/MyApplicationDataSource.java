@@ -179,7 +179,7 @@ public class MyApplicationDataSource {
 
     public long insertSession(Session session, int patientId) {
         ContentValues values = new ContentValues();
-        values.put("titre", session.getTitle());
+        values.put("titre", session.getName());
         values.put("id_patient",patientId);
         return database.insert("sessions", null, values);
     }
@@ -723,11 +723,13 @@ public class MyApplicationDataSource {
         String task;
         String creationDate;
         int readWordsCount;
+        int session;
 
         int indexName = cursor.getColumnIndex(COLUMN_TITRE);
         int indexTask = cursor.getColumnIndex(COLUMN_TASK);
         int indexCreationDate = cursor.getColumnIndex(COLUMN_DATE_CREATION);
         int indexReadWordsCount = cursor.getColumnIndex(COLUMN_MOTS_LUS);
+        int indexSession = cursor.getColumnIndex(COLUMN_ID_SESSION);
         if (cursor.moveToFirst()) {
             int count = 0;
             do {
@@ -735,7 +737,8 @@ public class MyApplicationDataSource {
                 task = cursor.getString(indexTask);
                 creationDate = cursor.getString(indexCreationDate);
                 readWordsCount = cursor.getInt(indexReadWordsCount);
-                exercises.add(new Exercise(name, task, creationDate, readWordsCount));
+                session = cursor.getInt(indexSession);
+                exercises.add(new Exercise(name, task, creationDate, readWordsCount,session));
                 count++;
             } while (cursor.moveToNext());
         } else {
@@ -829,11 +832,13 @@ public class MyApplicationDataSource {
         String task;
         String creationDate;
         int readWordsCount;
+        int session;
 
         int indexTitle = cursor.getColumnIndex(COLUMN_TITRE);
         int indexTask = cursor.getColumnIndex(COLUMN_TASK);
         int indexCreationDate = cursor.getColumnIndex(COLUMN_DATE_CREATION);
         int indexReadWordsCount = cursor.getColumnIndex(COLUMN_MOTS_LUS);
+        int indexSession = cursor.getColumnIndex(COLUMN_ID_SESSION);
         if (cursor.moveToFirst()) {
             int count = 0;
             do {
@@ -841,12 +846,11 @@ public class MyApplicationDataSource {
                 task = cursor.getString(indexTask);
                 creationDate = cursor.getString(indexCreationDate);
                 readWordsCount = cursor.getInt(indexReadWordsCount);
+                session = cursor.getInt(indexSession);
                 count++;
             } while (cursor.moveToNext());
 
-            List sessions = new ArrayList();
-            //sessions = getPatientByClinicianId(colId);
-            exercise = new Exercise(title, task, creationDate, readWordsCount);
+            exercise = new Exercise(title, task, creationDate, readWordsCount, session);
         } else {
             //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
         }
@@ -920,20 +924,56 @@ public class MyApplicationDataSource {
         return pseudo;
     }
 
+    public int getSessionIdFromTitle(String name) {
+        Cursor cursor = database.rawQuery("select _id from sessions where titre = ?",new String[] {name});
+        Integer colId = null;
+        if (cursor.moveToFirst()) {
+            // The elements to retrieve
+
+            // The associated index within the cursor
+            int indexId = cursor.getColumnIndex(COLUMN_ID);
+            // Browse the results list:
+            int count = 0;
+            do {
+                colId = cursor.getInt(indexId);
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
+        }
+        cursor.close();
+        return colId;
+    }
+
     public Date convertStringToDate(String date) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         return formatter.parse(date);
     }
 
-    public String[] getSessions (int id){
-        Cursor c = database.rawQuery("Select _id , date_creation from sessions where id_patient="+id,null);
-        c.moveToFirst();
-        String[] sessions = new String[c.getCount()+1];
-        sessions[0]="sessions";
-        for(int i=1; i<=c.getCount() ; i++) {
-            sessions[i]="Session n° "+c.getInt(0)+" du "+c.getString(1);
-            c.moveToNext();
+    public List<Session> getSessionByPatientId(int id) {
+        List sessions = new ArrayList();
+        Cursor cursor = database.rawQuery("select * from sessions where id_patient = ?", new String[] {Integer.toString(id)});
+
+        String name;
+        double score;
+        String comment;
+
+        int indexName = cursor.getColumnIndex(COLUMN_TITRE);
+        int indexScore = cursor.getColumnIndex(COLUMN_SCORE);
+        int indexComment = cursor.getColumnIndex(COLUMN_COMMENT);
+        if (cursor.moveToFirst()) {
+            int count = 0;
+            do {
+                name = cursor.getString(indexName);
+                score = cursor.getDouble(indexScore);
+                comment = cursor.getString(indexComment);
+                sessions.add(new Session(name, score, comment));
+                count++;
+            } while (cursor.moveToNext());
+        } else {
+            //Toast.makeText(this, "No element found : ", Toast.LENGTH_LONG).show();
         }
+        cursor.close();
         return sessions;
     }
 

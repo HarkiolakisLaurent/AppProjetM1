@@ -20,13 +20,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.exercise.Session;
 import ceri.m1ilsen.applicationprojetm1.fragment.CreateExerciseFragment;
 import ceri.m1ilsen.applicationprojetm1.fragment.PatientHomePageFragment;
 import ceri.m1ilsen.applicationprojetm1.fragment.PatientRecordingsFragment;
 import ceri.m1ilsen.applicationprojetm1.fragment.PatientResultsFragment;
 import ceri.m1ilsen.applicationprojetm1.fragment.PatientSettingsFragment;
+import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 
 public class PatientActivity extends AppCompatActivity {
 
@@ -58,6 +62,18 @@ public class PatientActivity extends AppCompatActivity {
             exercisesDirectory.mkdirs();
         }
 
+
+
+        final MyApplicationDataSource BD = new MyApplicationDataSource(this);
+        BD.open();
+        SimpleDateFormat sdfDay = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdfHour = new SimpleDateFormat("HH:mm");
+        Date resultdate = new Date(System.currentTimeMillis());
+        String sessionName = "Session du "+sdfDay.format(resultdate)+" à "+sdfHour.format(resultdate);
+        Session session = new Session(sessionName,0,null);
+        BD.insertSession(session,getIntent().getExtras().getInt("connectedUserId"));
+        getIntent().putExtra("sessionId",BD.getSessionIdFromTitle(sessionName));
+        BD.close();
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer, homePageFragment);
         fragmentTransaction.commit();

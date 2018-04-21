@@ -10,9 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.List;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.SessionsListViewAdapter;
+import ceri.m1ilsen.applicationprojetm1.exercise.Session;
+import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,7 +59,16 @@ public class PatientResultsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_patient_results, container, false);
         sessionsListView = (ListView) view.findViewById(R.id.sessionsList);
 
-        //data.add("Session 1");
+        final MyApplicationDataSource BD = new MyApplicationDataSource(getActivity());
+        BD.open();
+        int currentUserId = getActivity().getIntent().getExtras().getInt("connectedUserId");
+        List<Session> sessions = BD.getSessionByPatientId(currentUserId);
+        ArrayList<String> sessionNames = new ArrayList<>();
+
+        for(int i=0; i<sessions.size(); i++) {
+            sessionNames.add(sessions.get(i).getName().toString());
+        }
+        data = sessionNames;
 
         numberOfSessions = (TextView) view.findViewById(R.id.numberOfSessions);
         if (data.size() == 0)

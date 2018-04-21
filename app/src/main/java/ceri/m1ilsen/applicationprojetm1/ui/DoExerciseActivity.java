@@ -89,7 +89,7 @@ public class DoExerciseActivity extends AppCompatActivity {
                 else {
                     stopRecording();
 
-                    if (position == 2) {
+                    if (position == 52) {
                         Intent alignActivity = new Intent(getApplicationContext(), AlignActivity.class);
                         alignActivity.putExtra("alignedFile", getFilename());
                         startActivityForResult(alignActivity, 1000);
@@ -124,13 +124,13 @@ public class DoExerciseActivity extends AppCompatActivity {
             case("mots"):
                 if (getIntent().getExtras().getBoolean("isNewExercise") == true) {
                     String exerciseName = getIntent().getStringExtra("patientPseudo")+"_LireMots_"+sdf.format(resultdate);
-                    exercise = new Exercise(exerciseName,"mots", creationDate, 0);
+                    exercise = new Exercise(exerciseName,"mots", creationDate, 0, getIntent().getExtras().getInt("sessionId"));
                     getIntent().putExtra("exerciseName",exerciseName);
                     BD.insertExercise(exercise,getIntent().getExtras().getInt("patientId"));
                 }
                 else {
                     exercise = new Exercise(getIntent().getStringExtra("exerciseName"), "mots", creationDate,
-                            getIntent().getExtras().getInt("exerciseReadWordsCount"));
+                            getIntent().getExtras().getInt("exerciseReadWordsCount"), getIntent().getExtras().getInt("sessionId"));
                 }
                 getIntent().putExtra("exerciseId",BD.getExerciseIdByTitle(exercise.getName()));
                 break;
@@ -138,13 +138,13 @@ public class DoExerciseActivity extends AppCompatActivity {
             case("phrases"):
                 if (getIntent().getExtras().getBoolean("isNewExercise") == true) {
                     String exerciseName = getIntent().getStringExtra("patientPseudo")+"_LirePhrases_"+sdf.format(resultdate);
-                    exercise = new Exercise(exerciseName,"phrases", creationDate,0);
+                    exercise = new Exercise(exerciseName,"phrases", creationDate,0, getIntent().getExtras().getInt("sessionId"));
                     getIntent().putExtra("exerciseName",exerciseName);
                     BD.insertExercise(exercise,getIntent().getExtras().getInt("patientId"));
                 }
                 else {
                     exercise = new Exercise(getIntent().getStringExtra("exerciseName"),"phrases", creationDate,
-                            getIntent().getExtras().getInt("exerciseReadWordsCount"));
+                            getIntent().getExtras().getInt("exerciseReadWordsCount"), getIntent().getExtras().getInt("sessionId"));
                 }
                 getIntent().putExtra("exerciseId",BD.getExerciseIdByTitle(exercise.getName()));
                 break;
@@ -152,24 +152,24 @@ public class DoExerciseActivity extends AppCompatActivity {
             case("textes"):
                 if (getIntent().getExtras().getBoolean("isNewExercise") == true) {
                     String exerciseName = getIntent().getStringExtra("patientPseudo")+"_LireTextes_"+sdf.format(resultdate);
-                    exercise = new Exercise(exerciseName,"textes", creationDate,0);
+                    exercise = new Exercise(exerciseName,"textes", creationDate,0, getIntent().getExtras().getInt("sessionId"));
                     getIntent().putExtra("exerciseName",exerciseName);
                     BD.insertExercise(exercise,getIntent().getExtras().getInt("patientId"));
                 }
                 else {
                     exercise = new Exercise(getIntent().getStringExtra("exerciseName"),"textes", creationDate,
-                            getIntent().getExtras().getInt("exerciseReadWordsCount"));
+                            getIntent().getExtras().getInt("exerciseReadWordsCount"), getIntent().getExtras().getInt("sessionId"));
                 }
                 getIntent().putExtra("exerciseId",BD.getExerciseIdByTitle(exercise.getName()));
                 break;
 
             case("custom"):
                 if (getIntent().getExtras().getBoolean("isNewExercise") == true) {
-                    exercise = new Exercise(getIntent().getStringExtra("exerciseName"),"custom", creationDate,0);
+                    exercise = new Exercise(getIntent().getStringExtra("exerciseName"),"custom", creationDate,0, getIntent().getExtras().getInt("sessionId"));
                 }
                 else {
                     exercise = new Exercise(getIntent().getStringExtra("exerciseName"),"custom", creationDate,
-                            getIntent().getExtras().getInt("exerciseReadWordsCount"));
+                            getIntent().getExtras().getInt("exerciseReadWordsCount"), getIntent().getExtras().getInt("sessionId"));
                 }
                 getIntent().putExtra("exerciseId",BD.getExerciseIdByTitle(exercise.getName()));
                 break;

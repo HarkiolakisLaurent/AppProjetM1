@@ -26,6 +26,7 @@ import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.adapter.ExercisesListViewAdapter;
 import ceri.m1ilsen.applicationprojetm1.exercise.Exercise;
 import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
+import ceri.m1ilsen.applicationprojetm1.ui.ConfigureExerciseActivity;
 import ceri.m1ilsen.applicationprojetm1.ui.DoExerciseActivity;
 
 /**
@@ -46,6 +47,7 @@ public class CreateExerciseFragment extends Fragment {
     private Button readWordsButton;
     private Button readSentencesButton;
     private Button readTextButton;
+    private Button customExerciseButton;
     static int i=0;
     private View view;
     private OnFragmentInteractionListener mListener;
@@ -125,6 +127,7 @@ public class CreateExerciseFragment extends Fragment {
                     createExercise.putExtra("patientId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
                     createExercise.putExtra("task","mots");
                     createExercise.putExtra("isNewExercise",true);
+                    createExercise.putExtra("sessionId",getActivity().getIntent().getExtras().getInt("sessionId"));
                     startActivityForResult(createExercise,10000);
                 }
             }
@@ -152,6 +155,7 @@ public class CreateExerciseFragment extends Fragment {
                     createExercise.putExtra("patientId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
                     createExercise.putExtra("task","phrases");
                     createExercise.putExtra("isNewExercise",true);
+                    createExercise.putExtra("sessionId",getActivity().getIntent().getExtras().getInt("sessionId"));
                     startActivityForResult(createExercise,10000);
                 }
             }
@@ -179,7 +183,36 @@ public class CreateExerciseFragment extends Fragment {
                     createExercise.putExtra("patientId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
                     createExercise.putExtra("task","textes");
                     createExercise.putExtra("isNewExercise",true);
+                    createExercise.putExtra("sessionId",getActivity().getIntent().getExtras().getInt("sessionId"));
                     startActivityForResult(createExercise,10000);
+                }
+            }
+        });
+        customExerciseButton=(Button) view.findViewById(R.id.customExercise);
+        customExerciseButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View view) {
+
+                List<String> data = new ArrayList<String>();
+                File dataPath;
+                dataPath = new File("/storage/emulated/0/App/Recordings/"+getActivity().getIntent().getStringExtra("connectedUserPseudo"));
+                data = new ArrayList(Arrays.asList(dataPath.list(new FilenameFilter() {
+                    public boolean accept(File directory, String fileName) {
+                        return fileName.endsWith(".wav") || fileName.endsWith(".mp3");
+                    }
+                })));
+                if (data.size() > 30) {
+                    Toast.makeText(getContext(),"Vous avez trop d'enregistrements. Veuillez en supprimer avant de faire un exercice",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Intent configureExercise = new Intent(getContext(), ConfigureExerciseActivity.class);
+                    configureExercise.putExtra("patientPseudo",getActivity().getIntent().getExtras().getString("connectedUserPseudo"));
+                    configureExercise.putExtra("patientId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
+                    configureExercise.putExtra("task","custom");
+                    configureExercise.putExtra("isNewExercise",true);
+                    configureExercise.putExtra("sessionId",getActivity().getIntent().getExtras().getInt("sessionId"));
+                    startActivityForResult(configureExercise, 10000);
                 }
             }
         });
