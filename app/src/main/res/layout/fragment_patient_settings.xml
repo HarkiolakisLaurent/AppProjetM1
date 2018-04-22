@@ -13,9 +13,9 @@
             android:id="@+id/editProfileButton"
             android:layout_width="1000dp"
             android:layout_height="100dp"
-            android:layout_above="@+id/configureAlignmentButton"
+            android:layout_above="@+id/dropFilesButton"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="120dp"
+            android:layout_marginBottom="142dp"
             android:background="@drawable/custom_list"
             android:fontFamily="sans-serif"
             android:text="Consulter profil"
@@ -23,16 +23,16 @@
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/configureAlignmentButton"
+            android:id="@+id/dropFilesButton"
             android:layout_width="1000dp"
             android:layout_height="100dp"
             android:layout_alignLeft="@+id/editProfileButton"
             android:layout_alignParentBottom="true"
             android:layout_alignStart="@+id/editProfileButton"
-            android:layout_marginBottom="225dp"
+            android:layout_marginBottom="183dp"
             android:background="@drawable/custom_list"
             android:fontFamily="sans-serif"
-            android:text="Configurer alignement"
+            android:text="Déposer des fichiers"
             android:textColor="@android:color/black"
             android:textSize="24sp" />
     </RelativeLayout>

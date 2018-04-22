@@ -9,12 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.ui.DropFilesActivity;
 import ceri.m1ilsen.applicationprojetm1.ui.EditPatientProfileActivity;
 
 /**
@@ -28,6 +25,7 @@ import ceri.m1ilsen.applicationprojetm1.ui.EditPatientProfileActivity;
 public class PatientSettingsFragment extends Fragment {
 
     private Button editProfileButton;
+    private Button dropFilesButton;
     private OnFragmentInteractionListener mListener;
 
     public PatientSettingsFragment() {
@@ -69,7 +67,14 @@ public class PatientSettingsFragment extends Fragment {
                 editProfile.putExtra("connectedUserLanguage",getActivity().getIntent().getStringExtra("connectedUserLanguage"));
                 editProfile.putExtra("connectedUserId",getActivity().getIntent().getExtras().getInt("connectedUserId"));
                 startActivityForResult(editProfile,10001);
-
+            }
+        });
+        dropFilesButton = (Button) view.findViewById(R.id.dropFilesButton);
+        dropFilesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dropFiles = new Intent(view.getContext(), DropFilesActivity.class);
+                startActivity(dropFiles);
             }
         });
         return view;

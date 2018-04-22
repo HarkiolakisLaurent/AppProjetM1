@@ -44,7 +44,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="54dp"
             android:fontFamily="sans-serif"
-            android:text="Sélectionnez un patient ayant déjà réalisé des exercices"
+            android:text="Sélectionnez un patient ayant réalisé des exercices"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@android:color/black"

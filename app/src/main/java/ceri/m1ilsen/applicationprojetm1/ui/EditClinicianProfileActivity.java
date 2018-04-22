@@ -12,10 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ceri.m1ilsen.applicationprojetm1.R;
-import ceri.m1ilsen.applicationprojetm1.language.Language;
 import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 import ceri.m1ilsen.applicationprojetm1.user.Clinician;
-import ceri.m1ilsen.applicationprojetm1.user.Patient;
 
 public class EditClinicianProfileActivity extends AppCompatActivity {
 

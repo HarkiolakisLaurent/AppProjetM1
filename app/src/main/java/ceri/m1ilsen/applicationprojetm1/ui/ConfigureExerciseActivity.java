@@ -21,8 +21,11 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -87,57 +90,81 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
                 MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
                 BD.open();
                 if (!exerciseName.getText().toString().equals("") && !fileName.getText().toString().equals("")) {
-
-                    List<Exercise> exercises = BD.getExerciseByPatientId(getIntent().getExtras().getInt("patientId"));
-                    boolean exists = false;
-                    for(int i=0; i<exercises.size(); i++) {
-                        if (exerciseName.getText().toString().equals(exercises.get(i).getName().toString())) {
-                            exists = true;
-                        }
-                    }
-                    if (!exists) {
-                        SimpleDateFormat sdfDay = new SimpleDateFormat("dd/MM/yyyy");
-                        SimpleDateFormat sdfHour = new SimpleDateFormat("HH:mm");
-                        Date resultdate = new Date(System.currentTimeMillis());
-                        String creationDate = "Le "+sdfDay.format(resultdate)+" à "+sdfHour.format(resultdate);
-                        Exercise configuredExercise;
-                        Intent createExercise = new Intent(getApplicationContext(),DoExerciseActivity.class);
-                        if (exerciseDuration.getText().toString().equals("")) {
-                            configuredExercise = new Exercise(exerciseName.getText().toString(),"custom", creationDate,
-                                    30, null, 0, getIntent().getExtras().getInt("sessionId"));
-                            createExercise.putExtra("customExerciseMaxDuration","30");
-                        } else {
-                            configuredExercise = new Exercise(exerciseName.getText().toString(),"custom", creationDate,
-                                    Double.parseDouble(exerciseDuration.getText().toString()), null, 0, getIntent().getExtras().getInt("sessionId"));
-                            createExercise.putExtra("customExerciseMaxDuration",exerciseDuration.getText().toString());
-                        }
-                        BD.insertExercise(configuredExercise,getIntent().getExtras().getInt("patientId"));
-
-
-                        List<String> data = new ArrayList<String>();
-                        File dataPath;
-                        String name;
-                        dataPath = new File("/storage/emulated/0/App/Recordings/"+getIntent().getStringExtra("patientPseudo"));
-                        data = new ArrayList(Arrays.asList(dataPath.list(new FilenameFilter() {
-                            public boolean accept(File directory, String fileName) {
-                                return fileName.endsWith(".wav") || fileName.endsWith(".mp3");
+                    try {
+                        int nbLigne = 0;
+                        String ligne = null;
+                        File file = new File("chemin_vers_mon_fichier");
+                        BufferedReader reader = new BufferedReader(new FileReader(fileName.getText().toString()));
+                        // si on arrive ici le reader est instancié donc il faudra fermer les flux
+                        try {
+                            // tant qu'il il a au moins une ligne à lire
+                            while((ligne = reader.readLine()) != null) {
+                                // on incrémente le compteur
+                                nbLigne++;
                             }
-                        })));
-                        if (data.size() > 30) {
-                            Toast.makeText(getApplicationContext(),"Vous avez trop d'enregistrements. Veuillez en supprimer avant de faire un exercice",Toast.LENGTH_LONG).show();
+                        } finally {
+                            reader.close();
+                        }
+                        // enfin on affiche le résultat sur la console
+                        if (nbLigne >= 52) {
+                            List<Exercise> exercises = BD.getExerciseByPatientId(getIntent().getExtras().getInt("patientId"));
+                            boolean exists = false;
+                            for(int i=0; i<exercises.size(); i++) {
+                                if (exerciseName.getText().toString().equals(exercises.get(i).getName().toString())) {
+                                    exists = true;
+                                }
+                            }
+                            if (!exists) {
+                                SimpleDateFormat sdfDay = new SimpleDateFormat("dd/MM/yyyy");
+                                SimpleDateFormat sdfHour = new SimpleDateFormat("HH:mm");
+                                Date resultdate = new Date(System.currentTimeMillis());
+                                String creationDate = "Le "+sdfDay.format(resultdate)+" à "+sdfHour.format(resultdate);
+                                Exercise configuredExercise;
+                                Intent createExercise = new Intent(getApplicationContext(),DoExerciseActivity.class);
+                                if (exerciseDuration.getText().toString().equals("")) {
+                                    configuredExercise = new Exercise(exerciseName.getText().toString(),"custom", creationDate,
+                                            30, null, 0, getIntent().getExtras().getInt("sessionId"));
+                                    createExercise.putExtra("customExerciseMaxDuration","30");
+                                } else {
+                                    configuredExercise = new Exercise(exerciseName.getText().toString(),"custom", creationDate,
+                                            Double.parseDouble(exerciseDuration.getText().toString()), null, 0, getIntent().getExtras().getInt("sessionId"));
+                                    createExercise.putExtra("customExerciseMaxDuration",exerciseDuration.getText().toString());
+                                }
+                                BD.insertExercise(configuredExercise,getIntent().getExtras().getInt("patientId"));
+
+
+                                List<String> data = new ArrayList<String>();
+                                File dataPath;
+                                String name;
+                                dataPath = new File("/storage/emulated/0/App/Recordings/"+getIntent().getStringExtra("patientPseudo"));
+                                data = new ArrayList(Arrays.asList(dataPath.list(new FilenameFilter() {
+                                    public boolean accept(File directory, String fileName) {
+                                        return fileName.endsWith(".wav") || fileName.endsWith(".mp3");
+                                    }
+                                })));
+                                if (data.size() > 30) {
+                                    Toast.makeText(getApplicationContext(),"Vous avez trop d'enregistrements. Veuillez en supprimer avant de faire un exercice",Toast.LENGTH_LONG).show();
+                                }
+                                else {
+                                    createExercise.putExtra("customExercisePath",fileName.getText().toString());
+                                    createExercise.putExtra("exerciseName",exerciseName.getText().toString());
+                                    createExercise.putExtra("task","custom");
+                                    createExercise.putExtra("isNewExercise",true);
+                                    startActivityForResult(createExercise,10000);
+                                }
+
+                                BD.close();
+                            }
+                            else {
+                                Toast.makeText(getApplicationContext(),"Un exercice porte déjà ce nom",Toast.LENGTH_LONG).show();
+                            }
                         }
                         else {
-                            createExercise.putExtra("customExercisePath",fileName.getText().toString());
-                            createExercise.putExtra("exerciseName",exerciseName.getText().toString());
-                            createExercise.putExtra("task","custom");
-                            createExercise.putExtra("isNewExercise",true);
-                            startActivityForResult(createExercise,10000);
+                            Toast.makeText(getApplicationContext(),"Le fichier doit contenir au moins 52 lignes",Toast.LENGTH_LONG).show();
                         }
-
-                        BD.close();
-                    }
-                    else {
-                        Toast.makeText(getApplicationContext(),"Un exercice porte déjà ce nom",Toast.LENGTH_LONG).show();
+                    } catch (IOException ex) {
+                        // erreur d'entrée/sortie ou fichier non trouvé
+                        ex.printStackTrace();
                     }
                 }
             }

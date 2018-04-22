@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.CheckBox;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -26,7 +25,6 @@ import ceri.m1ilsen.applicationprojetm1.language.Language;
 import ceri.m1ilsen.applicationprojetm1.user.*;
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
-
 
 public class SignUpActivity extends AppCompatActivity {
     private EditText pseudo;
