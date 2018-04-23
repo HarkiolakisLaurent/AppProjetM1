@@ -96,11 +96,15 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
                         File file = new File("chemin_vers_mon_fichier");
                         BufferedReader reader = new BufferedReader(new FileReader(fileName.getText().toString()));
                         // si on arrive ici le reader est instancié donc il faudra fermer les flux
+                        List lines=new ArrayList<String>();
                         try {
                             // tant qu'il il a au moins une ligne à lire
                             while((ligne = reader.readLine()) != null) {
                                 // on incrémente le compteur
-                                nbLigne++;
+                                if (!lines.contains(ligne)) {
+                                    lines.add(ligne);
+                                    nbLigne++;
+                                }
                             }
                         } finally {
                             reader.close();
@@ -160,7 +164,7 @@ public class ConfigureExerciseActivity extends AppCompatActivity {
                             }
                         }
                         else {
-                            Toast.makeText(getApplicationContext(),"Le fichier doit contenir au moins 52 lignes",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"Le fichier doit contenir au moins 52 lignes différentes",Toast.LENGTH_LONG).show();
                         }
                     } catch (IOException ex) {
                         // erreur d'entrée/sortie ou fichier non trouvé
