@@ -364,6 +364,7 @@ public class DoExerciseActivity extends AppCompatActivity {
 
                         @Override
                         public void run() {
+                            recordingButton.setClickable(true);
                             txtView.setText(++position + "/" + lines.size() + "\n" + lines.get(position-1));
                             MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
                             BD.open();
@@ -437,6 +438,7 @@ public class DoExerciseActivity extends AppCompatActivity {
 
     private void stopRecording() {
         if (null != recorder){
+            recordingButton.setClickable(false);
             recordingButton.setImageResource(R.drawable.micro1);
             recordingButton.setBackgroundResource(R.drawable.ic_recording_red);
             isRecording = false;
