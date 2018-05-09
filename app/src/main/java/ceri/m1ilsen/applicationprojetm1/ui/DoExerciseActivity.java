@@ -378,6 +378,9 @@ public class DoExerciseActivity extends AppCompatActivity {
                                 String dest = getFilename();
                                 String concatenatedFile = "storage/emulated/0/concatenatedFile.wav";
                                 copyWaveFile(getTempFilename(),concatenatedFile);
+                                // final F0Estimator lEstimator = new F0Estimator(dest);
+                                // lEstimator.processFile();
+                                // truc.setText(___);
                                 combineWaveFile(getFilename(),concatenatedFile);
                                 File currentFile = new File(dest);
                                 currentFile.delete();

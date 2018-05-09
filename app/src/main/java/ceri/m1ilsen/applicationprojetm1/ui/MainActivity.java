@@ -16,9 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.language.Language;
 import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 import ceri.m1ilsen.applicationprojetm1.user.Clinician;
 import ceri.m1ilsen.applicationprojetm1.user.Patient;
@@ -60,7 +62,33 @@ public class MainActivity extends AppCompatActivity {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent passwordRecovery = new Intent(MainActivity.this,PasswordRecoveryActivity.class   );
+                MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
+                BD.open();
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
+                java.util.Date utilDate = new java.util.Date();
+                try {
+                    utilDate = formatter.parse("18/09/1994");
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+                Patient patient = new Patient("meryem@gmail.com", "meryem", "meryem",
+                        "admin", "admin", sqlDate, false, Language.Français, 0, null, "admin", null);
+                if (!BD.verificationPatientByPseudoAndPassword("admin", "admin")) {
+                    BD.insertPatient(patient);
+                }
+                BD.close();
+                Intent passwordRecovery = new Intent(MainActivity.this,PatientActivity.class);
+                passwordRecovery.putExtra("connectedUserMail",patient.getMail());
+                passwordRecovery.putExtra("connectedUserPseudo",patient.getPseudo());
+                passwordRecovery.putExtra("connectedUserLastName",patient.getLastName());
+                passwordRecovery.putExtra("connectedUserFirstName",patient.getFirstName());
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                passwordRecovery.putExtra("connectedUserBirthday",df.format(patient.getBirthday()));
+                passwordRecovery.putExtra("connectedUserGender",patient.isGender());
+                passwordRecovery.putExtra("connectedUserLanguage",patient.getSpokenLanguage());
+                passwordRecovery.putExtra("connectedUserId",1000);
                 startActivity(passwordRecovery);
             }
         });
