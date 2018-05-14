@@ -3,6 +3,7 @@ package ceri.m1ilsen.applicationprojetm1.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import java.io.File;
 import java.util.List;
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.ui.DisplaySignalActivity;
 
 /**
  * Created by Laurent on 01/03/2018.
@@ -46,12 +48,22 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
             RecordingsListViewAdapter.ViewHolder viewHolder = new RecordingsListViewAdapter.ViewHolder();
 
             viewHolder.recordingDescriptionHolder = (TextView) convertView.findViewById(R.id.recordingDescription);
+            viewHolder.displaySignalButtonHolder = (ImageButton) convertView.findViewById(R.id.displaySignalButton);
             viewHolder.playRecordingButtonHolder = (ImageButton) convertView.findViewById(R.id.playRecordingButton);
             viewHolder.stopRecordingButtonHolder = (ImageButton) convertView.findViewById(R.id.stopRecordingButton);
             viewHolder.deleteRecordingButtonHolder = (ImageButton) convertView.findViewById(R.id.deleteRecordingButton);
             convertView.setTag(viewHolder);
         }
         final RecordingsListViewAdapter.ViewHolder mainViewholder = (RecordingsListViewAdapter.ViewHolder) convertView.getTag();
+        mainViewholder.displaySignalButtonHolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final File file = new File(stringPath);
+                Intent displaySignal = new Intent(getContext(),DisplaySignalActivity.class);
+                displaySignal.putExtra("fileName",stringPath);
+                getContext().startActivity(displaySignal);
+            }
+        });
         mainViewholder.playRecordingButtonHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,6 +126,7 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
 
     public class ViewHolder {
         TextView recordingDescriptionHolder;
+        ImageButton displaySignalButtonHolder;
         ImageButton playRecordingButtonHolder;
         ImageButton stopRecordingButtonHolder;
         ImageButton deleteRecordingButtonHolder;

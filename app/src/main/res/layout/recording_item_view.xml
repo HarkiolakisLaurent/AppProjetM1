@@ -27,6 +27,14 @@
     </LinearLayout>
 
     <ImageButton
+        android:id="@+id/displaySignalButton"
+        android:layout_width="88dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/custom_list"
+        app:srcCompat="@drawable/ic_details" />
+
+    <ImageButton
         android:id="@+id/playRecordingButton"
         android:layout_width="88dp"
         android:layout_height="match_parent"
