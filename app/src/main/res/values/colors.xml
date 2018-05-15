@@ -4,4 +4,18 @@
     <color name="colorPrimaryDark">#4a9bf8</color>
     <color name="colorAccent">#4a9bf8</color>
     <color name="background_material_light">#abe2fd</color>
+    <color name="waveform_selected">#6FA9C8</color>
+    
+    <color name="waveform_unselected">#535353</color>
+
+    <color name="waveform_unselected_bkgnd_overlay">#ffd6d7d7</color>
+
+    <color name="selection_border">#ffffff</color>
+
+    <color name="playback_indicator">#E53935</color>
+
+    <color name="grid_line">#6d6d6d</color>
+    
+    <color name="timecode">#000000</color>
+
 </resources>
