@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.io.File;
 import java.util.List;
 import ceri.m1ilsen.applicationprojetm1.R;
+import ceri.m1ilsen.applicationprojetm1.sqlite.MyApplicationDataSource;
 import ceri.m1ilsen.applicationprojetm1.ui.DisplaySignalActivity;
 
 /**
@@ -111,6 +112,23 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
                                 }else{
                                     System.out.println("Delete operation is failed.");
                                 }
+
+                                String fileName = dataSet.get(position);
+                                String wav = ".wav";
+                                fileName = fileName.replace(wav, "");
+                                MyApplicationDataSource BD = new MyApplicationDataSource(getContext());
+                                BD.open();
+                                File file = new File("/storage/emulated/0/App/Exercises/Words/"+fileName+".txt");
+                                file.delete();
+                                file = new File("/storage/emulated/0/App/Exercises/Sentences/"+fileName+".txt");
+                                file.delete();
+                                file = new File("/storage/emulated/0/App/Exercises/Texts/"+fileName+".txt");
+                                file.delete();
+                                file = new File("/storage/emulated/0/App/Exercises/Custom/"+fileName+".txt");
+                                file.delete();
+                                BD.deleteExercise(fileName);
+                                BD.close();
+
                                 dataSet.remove(position);
                                 notifyDataSetChanged();
                             }
