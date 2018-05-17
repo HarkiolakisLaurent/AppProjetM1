@@ -62,6 +62,7 @@ public class RecordingsListViewAdapter extends ArrayAdapter<String> {
                 final File file = new File(stringPath);
                 Intent displaySignal = new Intent(getContext(),DisplaySignalActivity.class);
                 displaySignal.putExtra("fileName",stringPath);
+                displaySignal.putExtra("exoName",dataSet.get(position));
                 getContext().startActivity(displaySignal);
             }
         });

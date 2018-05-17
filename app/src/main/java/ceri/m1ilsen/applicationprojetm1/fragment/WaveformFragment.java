@@ -3,6 +3,7 @@ package ceri.m1ilsen.applicationprojetm1.fragment;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -15,12 +16,16 @@ import android.view.ViewGroup;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import ceri.m1ilsen.applicationprojetm1.R;
 import ceri.m1ilsen.applicationprojetm1.soundfile.CheapSoundFile;
 import ceri.m1ilsen.applicationprojetm1.soundfile.MediaPlayerFactory;
 import ceri.m1ilsen.applicationprojetm1.soundfile.Segment;
+import ceri.m1ilsen.applicationprojetm1.soundfile.WavFile;
+import ceri.m1ilsen.applicationprojetm1.soundfile.WavFileException;
 import ceri.m1ilsen.applicationprojetm1.ui.WaveformView;
 
 /*
@@ -104,6 +109,7 @@ public abstract class WaveformFragment extends Fragment implements WaveformView.
                     finishOpeningSoundFile();
                 }
             });
+
         return view;
     }
 
@@ -138,6 +144,7 @@ public abstract class WaveformFragment extends Fragment implements WaveformView.
     public void setFileName(String path)
     {
         _fileName = path;
+
     }
 
     //

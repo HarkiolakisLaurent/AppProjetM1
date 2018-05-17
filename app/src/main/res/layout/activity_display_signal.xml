@@ -5,13 +5,54 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context="ceri.m1ilsen.applicationprojetm1.ui.DisplaySignalActivity">
+<GridLayout
+    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:rowCount="5"
+    android:columnCount="2">
+
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:id="@+id/waveform"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_row="0"
+        android:layout_rowSpan="3"
+        android:background="?attr/colorButtonNormal"
         android:orientation="vertical"
-        android:id="@+id/waveform">
+         />
 
-    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="80sp"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_row="3"
+        android:background="@android:drawable/bottom_bar"
+        android:orientation="horizontal"/>
 
+    <ImageButton
+        android:id="@+id/playb"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_row="4"
+        android:layout_weight="1"
+        android:background="@drawable/custom_list"
+        app:srcCompat="@android:drawable/ic_media_play" />
+
+    <ImageButton
+        android:id="@+id/stopb"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_column="1"
+        android:layout_row="4"
+        android:background="@drawable/custom_list"
+        app:srcCompat="@drawable/ic_stop" />
+
+
+</GridLayout>
 </android.support.constraint.ConstraintLayout>
