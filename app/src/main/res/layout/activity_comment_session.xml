@@ -35,7 +35,7 @@
             android:background="@drawable/custom_comment"
             android:gravity="top"
             android:inputType="text|textMultiLine"
-            android:textColor="@android:color/background_light"
+            android:textColor="@android:color/background_dark"
             android:textSize="24sp" />
 
         <Button

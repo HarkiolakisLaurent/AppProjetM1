@@ -97,6 +97,69 @@ public class DoExerciseActivity extends AppCompatActivity {
                     else {
                         leaveExerciseButton.setVisibility(View.INVISIBLE);
                         nextWord.setText("Bientôt : "+lines.get(position));
+
+                        new Thread() {
+                            public void run() {
+                                try {
+                                    switch(getIntent().getStringExtra("task")) {
+                                        case("mots"):
+                                            Thread.sleep(5000);
+                                            break;
+
+                                        case("phrases"):
+                                            Thread.sleep(15000);
+                                            break;
+
+                                        case("textes"):
+                                            Thread.sleep(30000);
+                                            break;
+
+                                        case("custom"):
+                                            Thread.sleep(Long.parseLong(getIntent().getStringExtra("customExerciseMaxDuration"))*1000);
+                                            break;
+
+                                        default:
+                                            break;
+                                    }
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            recordingButton.setClickable(true);
+                                            txtView.setText(++position + "/" + lines.size() + "\n" + lines.get(position-1));
+                                            MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
+                                            BD.open();
+                                            BD.updateExerciseReadWordsCount(getIntent().getExtras().getInt("exerciseId"),position-1);
+                                            BD.close();
+                                            stopRecording();
+                                            File destFile = new File(getFilename());
+                                            if(!destFile.exists())
+                                                copyWaveFile(getTempFilename(),getFilename());
+                                            else {
+                                                String dest = getFilename();
+                                                String concatenatedFile = "storage/emulated/0/concatenatedFile.wav";
+                                                copyWaveFile(getTempFilename(),concatenatedFile);
+                                                combineWaveFile(getFilename(),concatenatedFile);
+                                                File currentFile = new File(dest);
+                                                currentFile.delete();
+                                                copyWaveFile("storage/emulated/0/tmp.wav",dest);
+                                                File file = new File(concatenatedFile);
+                                                file.delete();
+                                                file = new File("storage/emulated/0/tmp.wav");
+                                                file.delete();
+
+                                            }
+                                            deleteTempFile();
+                                            nextWord.setText("");
+                                            leaveExerciseButton.setVisibility(View.VISIBLE);
+                                        }
+                                    });
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }.start();
+
+
                     }
                 }
             }
@@ -342,15 +405,15 @@ public class DoExerciseActivity extends AppCompatActivity {
                 try {
                     switch(getIntent().getStringExtra("task")) {
                         case("mots"):
-                            Thread.sleep(7000);
+                            Thread.sleep(5000);
                             break;
 
                         case("phrases"):
-                            Thread.sleep(20000);
+                            Thread.sleep(15000);
                             break;
 
                         case("textes"):
-                            Thread.sleep(40000);
+                            Thread.sleep(30000);
                             break;
 
                         case("custom"):
@@ -364,36 +427,7 @@ public class DoExerciseActivity extends AppCompatActivity {
 
                         @Override
                         public void run() {
-                            recordingButton.setClickable(true);
-                            txtView.setText(++position + "/" + lines.size() + "\n" + lines.get(position-1));
-                            MyApplicationDataSource BD = new MyApplicationDataSource(getApplicationContext());
-                            BD.open();
-                            BD.updateExerciseReadWordsCount(getIntent().getExtras().getInt("exerciseId"),position-1);
-                            BD.close();
                             stopRecording();
-                            File destFile = new File(getFilename());
-                            if(!destFile.exists())
-                                copyWaveFile(getTempFilename(),getFilename());
-                            else {
-                                String dest = getFilename();
-                                String concatenatedFile = "storage/emulated/0/concatenatedFile.wav";
-                                copyWaveFile(getTempFilename(),concatenatedFile);
-                                // final F0Estimator lEstimator = new F0Estimator(dest);
-                                // lEstimator.processFile();
-                                // truc.setText(___);
-                                combineWaveFile(getFilename(),concatenatedFile);
-                                File currentFile = new File(dest);
-                                currentFile.delete();
-                                copyWaveFile("storage/emulated/0/tmp.wav",dest);
-                                File file = new File(concatenatedFile);
-                                file.delete();
-                                file = new File("storage/emulated/0/tmp.wav");
-                                file.delete();
-
-                            }
-                            deleteTempFile();
-                            nextWord.setText("");
-                            leaveExerciseButton.setVisibility(View.VISIBLE);
                         }
                     });
                 } catch (InterruptedException e) {
